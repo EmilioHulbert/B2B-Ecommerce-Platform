@@ -303,7 +303,7 @@ def paypal_webhooks(request):
             subscription = PaymentModels.PaypalSubscription.objects.filter(order_key=billing_agreement_id).first()
             user = AuthModels.Supplier.objects.filter(id=subscription.membership.client.id).first()
 
-            subject = _("Foroden Subscription")
+            subject = _("NashTech Subscription")
             message = _("Your payment as been initialized. Please wait for confirmation email.")
 
             ManagerTasks.send_mail.delay(
@@ -319,7 +319,7 @@ def paypal_webhooks(request):
             subscription = PaymentModels.PaypalSubscription.objects.filter(order_key=billing_agreement_id).first()
             user = AuthModels.Supplier.objects.filter(id=subscription.membership.client.id).first()
 
-            subject = _("Foroden Subscription")
+            subject = _("NashTech Subscription")
             message = _("Your payment was successfull.")
 
             ManagerTasks.send_mail.delay(
@@ -340,7 +340,7 @@ def paypal_webhooks(request):
             
             if not ret.get("error"):
                 user = AuthModels.Supplier.objects.filter(id=subscription.membership.client.id).first() 
-                subject = _("Foroden Subscription")
+                subject = _("NashTech Subscription")
                 message = _("Your subscription was deactivated successfully.")
 
                 ManagerTasks.send_mail.delay(
@@ -360,7 +360,7 @@ def paypal_webhooks(request):
             
             if not ret.get("error"):
                 user = AuthModels.Supplier.objects.filter(id=subscription.membership.client.id).first()
-                subject = _("Foroden Subscription")
+                subject = _("NashTech Subscription")
                 message = _("Your subscription was deactivated successfully.")
 
                 ManagerTasks.send_mail.delay(

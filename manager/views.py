@@ -88,6 +88,8 @@ class HomeView(View):
                     {
                         "product": product,
                         "supplier": product.store.all().first().supplier,
+                        # "supplier": product.store.all().first().supplier if product.store.all().first() else None,
+
                         "images": ProductImage.objects.filter(product=product).first(),
                     }
                     for product in (
@@ -206,6 +208,8 @@ class ShowRoomDetailView(DetailView):
                 {
                     "product": product,
                     "supplier": product.store.all().first().supplier,
+                    # "supplier": product.store.all().first().supplier if product.store.all().first() else None,
+
                     "images": product.productimage_set.all().first(),
                 }
                 for product in (

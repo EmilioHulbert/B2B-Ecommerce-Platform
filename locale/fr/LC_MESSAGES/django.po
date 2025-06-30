@@ -20,20 +20,20 @@ msgstr ""
 "X-Translated-Using: django-rosetta 0.9.8\n"
 
 #: admin_api/views.py:86
-msgid "Suspension of Product On Foroden"
-msgstr "Suspension du produit sur Foroden"
+msgid "Suspension of Product On NashTech"
+msgstr "Suspension du produit sur NashTech"
 
 #: admin_api/views.py:124
-msgid "Verification of Product On Foroden"
-msgstr "Vérification du produit sur Foroden"
+msgid "Verification of Product On NashTech"
+msgstr "Vérification du produit sur NashTech"
 
 #: admin_api/views.py:282 admin_api/views.py:371
-msgid "Suspension of Store On Foroden"
-msgstr "Suspension de Store On Foroden"
+msgid "Suspension of Store On NashTech"
+msgstr "Suspension de Store On NashTech"
 
 #: admin_api/views.py:319
-msgid "Verification of Store On Foroden"
-msgstr "Vérification du magasin sur Foroden"
+msgid "Verification of Store On NashTech"
+msgstr "Vérification du magasin sur NashTech"
 
 #: app_admin/views.py:61 app_admin/views.py:136
 #: templates/app_admin/utils/layout.html:111
@@ -182,8 +182,8 @@ msgid "Password mismatch."
 msgstr "Non concordance des mots de passe."
 
 #: app_admin/views.py:690
-msgid "Foroden Support Team invite."
-msgstr "Invitation de l'équipe d'assistance de Foroden."
+msgid "NashTech Support Team invite."
+msgstr "Invitation de l'équipe d'assistance de NashTech."
 
 #: app_admin/views.py:691
 msgid "Hello"
@@ -191,10 +191,10 @@ msgstr "Bonjour"
 
 #: app_admin/views.py:691
 msgid ""
-"Your have been added a Foroden Support Team Member, Please edit your account"
+"Your have been added a NashTech Support Team Member, Please edit your account"
 " details and set a desired password after activating your account."
 msgstr ""
-"Vous avez été ajouté en tant que membre de l'équipe d'assistance Foroden. "
+"Vous avez été ajouté en tant que membre de l'équipe d'assistance NashTech. "
 "Veuillez modifier les détails de votre compte et définir le mot de passe "
 "souhaité après avoir activé votre compte."
 
@@ -374,8 +374,8 @@ msgid "Email not available."
 msgstr "L'e-mail n'est pas disponible."
 
 #: auth_app/views.py:143
-msgid "Activate Foroden Activation"
-msgstr "Activer l'activation Foroden"
+msgid "Activate NashTech Activation"
+msgstr "Activer l'activation NashTech"
 
 #: auth_app/views.py:144
 msgid "Follow this link to activate you foroden account."
@@ -665,8 +665,8 @@ msgid "reply_to"
 msgstr "répondre à"
 
 #: manager/templates/email_message.html:8
-msgid "Foroden Email"
-msgstr "Foroden E-mail"
+msgid "NashTech Email"
+msgstr "NashTech E-mail"
 
 #: manager/views.py:44 templates/app_admin/utils/layout.html:57
 #: templates/app_admin/utils/layout.html:113
@@ -929,8 +929,8 @@ msgstr "Impossible de mettre à jour votre abonnement."
 
 #: payment/views.py:306 payment/views.py:322 payment/views.py:343
 #: payment/views.py:363
-msgid "Foroden Subscription"
-msgstr "Foroden Abonnement"
+msgid "NashTech Subscription"
+msgstr "NashTech Abonnement"
 
 #: payment/views.py:307
 msgid "Your payment as been initialized. Please wait for confirmation email."
@@ -987,8 +987,8 @@ msgid "Please create a buyer account to create a contract."
 msgstr "Veuillez créer un compte acheteur pour créer un contrat."
 
 #: supplier/views.py:195
-msgid "Foroden Contract Created"
-msgstr "Foroden contrat créé"
+msgid "NashTech Contract Created"
+msgstr "NashTech contrat créé"
 
 #: supplier/views.py:196
 #, python-brace-format
@@ -1067,8 +1067,8 @@ msgid "Contract has been rejected."
 msgstr "Le contrat a été rejeté."
 
 #: supplier/views.py:1498
-msgid "Foroden Contract Rejected."
-msgstr "Foroden contrat rejeté."
+msgid "NashTech Contract Rejected."
+msgstr "NashTech contrat rejeté."
 
 #: supplier/views.py:1499
 #, python-brace-format
@@ -1088,8 +1088,8 @@ msgid "Contract has been accepted."
 msgstr "Le contrat a été accepté."
 
 #: supplier/views.py:1522
-msgid "Foroden Contract Accepted"
-msgstr "Foroden Contrat Accepté"
+msgid "NashTech Contract Accepted"
+msgstr "NashTech Contrat Accepté"
 
 #: supplier/views.py:1523
 #, python-brace-format
@@ -1333,8 +1333,8 @@ msgid "Continue With Facebook"
 msgstr "Continuer avec LinkedIn"
 
 #: templates/auth_app/signin.html:60 templates/auth_app/signup.html:10
-msgid "Welcome To Foroden"
-msgstr "Bienvenue à Foroden"
+msgid "Welcome To NashTech"
+msgstr "Bienvenue à NashTech"
 
 #: templates/auth_app/signin.html:61 templates/auth_app/signup.html:11
 msgid "Join the biggest community of over 70,000 Business People."
@@ -1666,8 +1666,8 @@ msgid "stores"
 msgstr "magasins"
 
 #: templates/manager/about.html:156
-msgid "About Foroden"
-msgstr "À propos de Foroden"
+msgid "About NashTech"
+msgstr "À propos de NashTech"
 
 #: templates/manager/about.html:160
 msgid ""
@@ -1786,8 +1786,8 @@ msgid "Countries"
 msgstr "Des pays"
 
 #: templates/manager/about.html:228
-msgid "Using Foroden."
-msgstr "Utilisation de Foroden."
+msgid "Using NashTech."
+msgstr "Utilisation de NashTech."
 
 #: templates/manager/about.html:232
 msgid "Buyers"
@@ -1822,12 +1822,12 @@ msgid "Discussions"
 msgstr "Discussions"
 
 #: templates/manager/guides/accounts.html:13
-msgid "Foroden Account Creation"
-msgstr "Création de compte Foroden"
+msgid "NashTech Account Creation"
+msgstr "Création de compte NashTech"
 
 #: templates/manager/guides/accounts.html:14
-msgid "Foroden offers 2 types of client accounts, that is:"
-msgstr "Foroden propose 2 types de comptes clients, à savoir :"
+msgid "NashTech offers 2 types of client accounts, that is:"
+msgstr "NashTech propose 2 types de comptes clients, à savoir :"
 
 #: templates/manager/guides/accounts.html:17
 #: templates/manager/guides/accounts.html:50
@@ -1846,10 +1846,10 @@ msgstr "Compte fournisseur"
 
 #: templates/manager/guides/accounts.html:21
 msgid ""
-"Foroden Suppliers are users who indent to promote their businesses and "
+"NashTech Suppliers are users who indent to promote their businesses and "
 "products. These have access to the following features:"
 msgstr ""
-"Les fournisseurs de Foroden sont des utilisateurs qui indentent pour "
+"Les fournisseurs de NashTech sont des utilisateurs qui indentent pour "
 "promouvoir leurs entreprises et leurs produits. Ceux-ci ont accès aux "
 "fonctionnalités suivantes :"
 
@@ -1885,11 +1885,11 @@ msgstr "Compte acheteur"
 
 #: templates/manager/guides/accounts.html:36
 msgid ""
-"Foroden Buyers are users who seek different services or products from "
-"Foroden Suppliers: These have access to the following features:"
+"NashTech Buyers are users who seek different services or products from "
+"NashTech Suppliers: These have access to the following features:"
 msgstr ""
-"Les Acheteurs Foroden sont des utilisateurs qui recherchent différents "
-"services ou produits auprès des Fournisseurs Foroden : Ceux-ci ont accès aux"
+"Les Acheteurs NashTech sont des utilisateurs qui recherchent différents "
+"services ou produits auprès des Fournisseurs NashTech : Ceux-ci ont accès aux"
 " fonctionnalités suivantes :"
 
 #: templates/manager/guides/accounts.html:46
@@ -1902,10 +1902,10 @@ msgstr "Choisissez la méthode de création de compte de votre choix"
 
 #: templates/manager/guides/accounts.html:54
 msgid ""
-"Foroden offers both custom account creation and social account creation "
+"NashTech offers both custom account creation and social account creation "
 "using Google and LinkedIn "
 msgstr ""
-"Foroden propose à la fois la création de compte personnalisé et la création "
+"NashTech propose à la fois la création de compte personnalisé et la création "
 "de compte social en utilisant Google et LinkedIn"
 
 #: templates/manager/guides/accounts.html:65
@@ -1971,8 +1971,8 @@ msgid "Accounts Creation"
 msgstr "Création de comptes"
 
 #: templates/manager/guides/memberships.html:11
-msgid "Foroden Membership Plans"
-msgstr "Plans d'adhésion Foroden"
+msgid "NashTech Membership Plans"
+msgstr "Plans d'adhésion NashTech"
 
 #: templates/manager/guides/memberships.html:12
 msgid ""
@@ -1984,8 +1984,8 @@ msgstr ""
 "d'atteindre les différents objectifs."
 
 #: templates/manager/guides/memberships.html:13
-msgid "Foroden offers the following three membership plans"
-msgstr "Foroden propose les trois plans d'adhésion suivants"
+msgid "NashTech offers the following three membership plans"
+msgstr "NashTech propose les trois plans d'adhésion suivants"
 
 #: templates/manager/guides/memberships.html:15
 #: templates/manager/guides/memberships.html:22
@@ -2056,18 +2056,18 @@ msgstr ""
 "l'étranger. Le forfait bronze est gratuit."
 
 #: templates/manager/guides/products.html:13
-msgid "Foroden Supplier Products"
-msgstr "Produits du fournisseur Foroden"
+msgid "NashTech Supplier Products"
+msgstr "Produits du fournisseur NashTech"
 
 #: templates/manager/guides/products.html:14
 msgid ""
-"Foroden Suppliers able able to advertise their product using our different "
-"advertising method based on the supplier's membership plan. Foroden doesnot "
+"NashTech Suppliers able able to advertise their product using our different "
+"advertising method based on the supplier's membership plan. NashTech doesnot "
 "handle selling of products, this is handled by the suppliers."
 msgstr ""
-"Foroden Fournisseurs capables de faire la publicité de leur produit en "
+"NashTech Fournisseurs capables de faire la publicité de leur produit en "
 "utilisant nos différentes méthodes de publicité basées sur le plan "
-"d'adhésion du fournisseur. Foroden ne s'occupe pas de la vente des produits,"
+"d'adhésion du fournisseur. NashTech ne s'occupe pas de la vente des produits,"
 " celle-ci est gérée par les fournisseurs."
 
 #: templates/manager/guides/products.html:19
@@ -2092,18 +2092,18 @@ msgstr ""
 "nouveau produit."
 
 #: templates/manager/guides/services.html:13
-msgid "Foroden Supplier Services"
-msgstr "Services aux fournisseurs de Foroden"
+msgid "NashTech Supplier Services"
+msgstr "Services aux fournisseurs de NashTech"
 
 #: templates/manager/guides/services.html:14
 msgid ""
-"Foroden Supplier Services make it easy for suppliers to sell their business "
-"as a service to different Foroden buyers. A verified Foroden Buyer is able "
+"NashTech Supplier Services make it easy for suppliers to sell their business "
+"as a service to different NashTech buyers. A verified NashTech Buyer is able "
 "to create a contract inorder to buy one or more supplier services."
 msgstr ""
-"Foroden Supplier Services permet aux fournisseurs de vendre facilement leur "
-"entreprise en tant que service à différents acheteurs de Foroden. Un "
-"acheteur Foroden vérifié est en mesure de créer un contrat afin d'acheter un"
+"NashTech Supplier Services permet aux fournisseurs de vendre facilement leur "
+"entreprise en tant que service à différents acheteurs de NashTech. Un "
+"acheteur NashTech vérifié est en mesure de créer un contrat afin d'acheter un"
 " ou plusieurs services de fournisseur."
 
 #: templates/manager/guides/services.html:19
@@ -2121,15 +2121,15 @@ msgstr ""
 "nouveau service."
 
 #: templates/manager/guides/showrooms.html:12
-msgid "Foroden Showrooms"
-msgstr "Salles d'exposition Foroden"
+msgid "NashTech Showrooms"
+msgstr "Salles d'exposition NashTech"
 
 #: templates/manager/guides/showrooms.html:13
 msgid ""
-"Foroden provides a showrooms feature where stores from different locations "
+"NashTech provides a showrooms feature where stores from different locations "
 "are displayed and made accessible to the buyers."
 msgstr ""
-"Foroden fournit une fonctionnalité de salle d'exposition où les magasins de "
+"NashTech fournit une fonctionnalité de salle d'exposition où les magasins de "
 "différents endroits sont affichés et rendus accessibles aux acheteurs."
 
 #: templates/manager/guides/showrooms.html:14
@@ -2154,9 +2154,9 @@ msgstr ""
 "virtuels."
 
 #: templates/manager/guides/showrooms.html:16
-#| msgid "Foroden offers the following three membership plans"
-msgid "Foroden offers the following showrooms:"
-msgstr "Foroden propose les showrooms suivants :"
+#| msgid "NashTech offers the following three membership plans"
+msgid "NashTech offers the following showrooms:"
+msgstr "NashTech propose les showrooms suivants :"
 
 #: templates/manager/guides/showrooms.html:28
 msgid "How to add a store to a showroom."
@@ -2189,29 +2189,29 @@ msgstr ""
 
 #: templates/manager/guides/stores.html:13
 #: templates/manager/showroom_list.html:77
-msgid "Foroden Stores"
-msgstr "Magasins Foroden"
+msgid "NashTech Stores"
+msgstr "Magasins NashTech"
 
 #: templates/manager/guides/stores.html:14
 msgid ""
-"This is an online (virtual) shop that sell different products. Foroden also "
+"This is an online (virtual) shop that sell different products. NashTech also "
 "has stores that provide services such as online virtual assistance for "
 "people looking for teams to help manage their businesses remotely."
 msgstr ""
 "Il s'agit d'une boutique en ligne (virtuelle) qui vend différents produits. "
-"Foroden possède également des magasins qui fournissent des services tels que"
+"NashTech possède également des magasins qui fournissent des services tels que"
 " l'assistance virtuelle en ligne pour les personnes à la recherche d'équipes"
 " pour aider à gérer leurs entreprises à distance."
 
 #: templates/manager/guides/stores.html:15
 msgid ""
 "Well, think of a store as a shop you visit to purchase some products you "
-"need. However, this store has all products listed on Foroden but not "
+"need. However, this store has all products listed on NashTech but not "
 "physically present with them."
 msgstr ""
 "Eh bien, considérez un magasin comme un magasin que vous visitez pour "
 "acheter certains produits dont vous avez besoin. Cependant, ce magasin a "
-"tous les produits répertoriés sur Foroden mais pas physiquement présents "
+"tous les produits répertoriés sur NashTech mais pas physiquement présents "
 "avec eux."
 
 #: templates/manager/guides/stores.html:20
@@ -2280,8 +2280,8 @@ msgid "All Showrooms"
 msgstr "Voir tout"
 
 #: templates/manager/service_list.html:17
-msgid "Foroden Services"
-msgstr "Prestations de service de Foroden"
+msgid "NashTech Services"
+msgstr "Prestations de service de NashTech"
 
 #: templates/manager/showroom_detail.html:56
 msgid "Top"
@@ -2401,8 +2401,8 @@ msgid "End Date"
 msgstr "Date de fin"
 
 #: templates/payments/contract_receipt.html:34
-msgid "Foroden Contract Payment Receipt"
-msgstr "Reçu de paiement du contrat Foroden"
+msgid "NashTech Contract Payment Receipt"
+msgstr "Reçu de paiement du contrat NashTech"
 
 #: templates/payments/contract_receipt.html:35
 msgid "Ref No:"
@@ -3062,8 +3062,8 @@ msgid "Return Home"
 msgstr "Rentrer à la maison"
 
 #: templates/utils/category_cards.html:6
-msgid "Foroden Marketplace"
-msgstr "Foroden Marché"
+msgid "NashTech Marketplace"
+msgstr "NashTech Marché"
 
 #: templates/utils/category_group.html:11
 msgid "Shopping guide for trending"
@@ -3130,12 +3130,12 @@ msgid "My Account"
 msgstr "Mon compte"
 
 #: templates/utils/header.html:132
-msgid "Sell On Foroden"
-msgstr "Vendre sur Foroden"
+msgid "Sell On NashTech"
+msgstr "Vendre sur NashTech"
 
 #: templates/utils/header.html:187
-msgid "Sell on Foroden"
-msgstr "Vendre sur Foroden"
+msgid "Sell on NashTech"
+msgstr "Vendre sur NashTech"
 
 #: templates/utils/header.html:312
 msgid "Languages"
@@ -3146,8 +3146,8 @@ msgid "Popular Products"
 msgstr "Produits populaires"
 
 #: templates/utils/product_list.html:15
-msgid "Foroden Products"
-msgstr "Produits Foroden"
+msgid "NashTech Products"
+msgstr "Produits NashTech"
 
 #: templates/utils/profile404.html:39
 msgid "Business Profile Not Found"
@@ -3161,14 +3161,14 @@ msgstr "Créer un profil"
 #~ msgstr "Abonnement Or<"
 
 #~ msgid ""
-#~ "Your Foroden Account has been suspended. Contact Foroden Support for more "
+#~ "Your NashTech Account has been suspended. Contact NashTech Support for more "
 #~ "information"
 #~ msgstr ""
-#~ "Votre compte Foroden a été suspendu. Contactez l'assistance Foroden pour "
+#~ "Votre compte NashTech a été suspendu. Contactez l'assistance NashTech pour "
 #~ "plus d'informations"
 
-#~ msgid "Foroden Account Suspended"
-#~ msgstr "Compte Foroden suspendu"
+#~ msgid "NashTech Account Suspended"
+#~ msgstr "Compte NashTech suspendu"
 
 #~ msgid "Total Contracts"
 #~ msgstr "Contrats totaux"

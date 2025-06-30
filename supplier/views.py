@@ -203,7 +203,7 @@ class SupplierContractView(View):
         # send email to supplier
 
         ManagerTasks.send_mail.delay(
-            subject = _("Foroden Contract Created"),
+            subject = _("NashTech Contract Created"),
             content = _(f"Hello, {supplier.username}.\nA Contract application has been sumbited by {buyer.profile.business_name} on service {service.name}.\nPlease visit the dashboard to respond to the application.\nThank you."),
             _to = [f"{supplier.email}"],
             _reply_to = [f"{settings.SUPPORT_EMAIL}"]
@@ -1956,7 +1956,7 @@ class DashboardContractRejectDetailsView(SupplierOnlyAccessMixin, View):
         messages.add_message(request, messages.ERROR, _("Contract has been rejected."))
 
         ManagerTasks.send_mail.delay(
-            subject = _("Foroden Contract Rejected."),
+            subject = _("NashTech Contract Rejected."),
             content = _(f"Hello, {contract.buyer.username}.\nYour contract application on service {contract.service.name} has been rejected.\nPlease contact the supplier for more information.\nThank you."),
             _to = [f"{contract.buyer.email}"],
             _reply_to = [f"{settings.SUPPORT_EMAIL}"]
@@ -1980,7 +1980,7 @@ class DashboardContractAcceptDetailsView(SupplierOnlyAccessMixin, View):
         payment_link = f"http://{domain}{link}"
 
         ManagerTasks.send_mail.delay(
-            subject = _("Foroden Contract Accepted"),
+            subject = _("NashTech Contract Accepted"),
             content = _(f"Hello, {contract.buyer.username}.\nYour contract application on service") + "{contract.service.name}" + _("has been accepted.\nPlease visit the") + "{payment_link}" + _("to complete the application process.\nThank you."),
             _to = [f"{contract.buyer.email}"],
             _reply_to = [f"{settings.SUPPORT_EMAIL}"]

@@ -19,19 +19,19 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin_api/views.py:86
-msgid "Suspension of Product On Foroden"
+msgid "Suspension of Product On NashTech"
 msgstr ""
 
 #: admin_api/views.py:124
-msgid "Verification of Product On Foroden"
+msgid "Verification of Product On NashTech"
 msgstr ""
 
 #: admin_api/views.py:282 admin_api/views.py:371
-msgid "Suspension of Store On Foroden"
+msgid "Suspension of Store On NashTech"
 msgstr ""
 
 #: admin_api/views.py:319
-msgid "Verification of Store On Foroden"
+msgid "Verification of Store On NashTech"
 msgstr ""
 
 #: app_admin/views.py:61 app_admin/views.py:136
@@ -181,7 +181,7 @@ msgid "Password mismatch."
 msgstr ""
 
 #: app_admin/views.py:690
-msgid "Foroden Support Team invite."
+msgid "NashTech Support Team invite."
 msgstr ""
 
 #: app_admin/views.py:691
@@ -190,7 +190,7 @@ msgstr ""
 
 #: app_admin/views.py:691
 msgid ""
-"Your have been added a Foroden Support Team Member, Please edit your account "
+"Your have been added a NashTech Support Team Member, Please edit your account "
 "details and set a desired password after activating your account."
 msgstr ""
 
@@ -368,7 +368,7 @@ msgid "Email not available."
 msgstr ""
 
 #: auth_app/views.py:143
-msgid "Activate Foroden Activation"
+msgid "Activate NashTech Activation"
 msgstr ""
 
 #: auth_app/views.py:144
@@ -656,7 +656,7 @@ msgid "reply_to"
 msgstr ""
 
 #: manager/templates/email_message.html:8
-msgid "Foroden Email"
+msgid "NashTech Email"
 msgstr ""
 
 #: manager/views.py:44 templates/app_admin/utils/layout.html:57
@@ -920,7 +920,7 @@ msgstr ""
 
 #: payment/views.py:306 payment/views.py:322 payment/views.py:343
 #: payment/views.py:363
-msgid "Foroden Subscription"
+msgid "NashTech Subscription"
 msgstr ""
 
 #: payment/views.py:307
@@ -977,7 +977,7 @@ msgid "Please create a buyer account to create a contract."
 msgstr ""
 
 #: supplier/views.py:195
-msgid "Foroden Contract Created"
+msgid "NashTech Contract Created"
 msgstr ""
 
 #: supplier/views.py:196
@@ -1054,7 +1054,7 @@ msgid "Contract has been rejected."
 msgstr ""
 
 #: supplier/views.py:1498
-msgid "Foroden Contract Rejected."
+msgid "NashTech Contract Rejected."
 msgstr ""
 
 #: supplier/views.py:1499
@@ -1072,7 +1072,7 @@ msgid "Contract has been accepted."
 msgstr ""
 
 #: supplier/views.py:1522
-msgid "Foroden Contract Accepted"
+msgid "NashTech Contract Accepted"
 msgstr ""
 
 #: supplier/views.py:1523
@@ -1309,7 +1309,7 @@ msgid "Continue With Facebook"
 msgstr ""
 
 #: templates/auth_app/signin.html:60 templates/auth_app/signup.html:10
-msgid "Welcome To Foroden"
+msgid "Welcome To NashTech"
 msgstr ""
 
 #: templates/auth_app/signin.html:61 templates/auth_app/signup.html:11
@@ -1640,7 +1640,7 @@ msgid "stores"
 msgstr ""
 
 #: templates/manager/about.html:156
-msgid "About Foroden"
+msgid "About NashTech"
 msgstr ""
 
 #: templates/manager/about.html:160
@@ -1745,7 +1745,7 @@ msgid "Countries"
 msgstr ""
 
 #: templates/manager/about.html:228
-msgid "Using Foroden."
+msgid "Using NashTech."
 msgstr ""
 
 #: templates/manager/about.html:232
@@ -1781,11 +1781,11 @@ msgid "Discussions"
 msgstr ""
 
 #: templates/manager/guides/accounts.html:13
-msgid "Foroden Account Creation"
+msgid "NashTech Account Creation"
 msgstr ""
 
 #: templates/manager/guides/accounts.html:14
-msgid "Foroden offers 2 types of client accounts, that is:"
+msgid "NashTech offers 2 types of client accounts, that is:"
 msgstr ""
 
 #: templates/manager/guides/accounts.html:17
@@ -1805,7 +1805,7 @@ msgstr ""
 
 #: templates/manager/guides/accounts.html:21
 msgid ""
-"Foroden Suppliers are users who indent to promote their businesses and "
+"NashTech Suppliers are users who indent to promote their businesses and "
 "products. These have access to the following features:"
 msgstr ""
 
@@ -1841,8 +1841,8 @@ msgstr ""
 
 #: templates/manager/guides/accounts.html:36
 msgid ""
-"Foroden Buyers are users who seek different services or products from "
-"Foroden Suppliers: These have access to the following features:"
+"NashTech Buyers are users who seek different services or products from "
+"NashTech Suppliers: These have access to the following features:"
 msgstr ""
 
 #: templates/manager/guides/accounts.html:46
@@ -1855,7 +1855,7 @@ msgstr ""
 
 #: templates/manager/guides/accounts.html:54
 msgid ""
-"Foroden offers both custom account creation and social account creation "
+"NashTech offers both custom account creation and social account creation "
 "using Google and LinkedIn "
 msgstr ""
 
@@ -1922,7 +1922,7 @@ msgid "Accounts Creation"
 msgstr ""
 
 #: templates/manager/guides/memberships.html:11
-msgid "Foroden Membership Plans"
+msgid "NashTech Membership Plans"
 msgstr ""
 
 #: templates/manager/guides/memberships.html:12
@@ -1932,7 +1932,7 @@ msgid ""
 msgstr ""
 
 #: templates/manager/guides/memberships.html:13
-msgid "Foroden offers the following three membership plans"
+msgid "NashTech offers the following three membership plans"
 msgstr ""
 
 #: templates/manager/guides/memberships.html:15
@@ -1988,13 +1988,13 @@ msgid ""
 msgstr ""
 
 #: templates/manager/guides/products.html:13
-msgid "Foroden Supplier Products"
+msgid "NashTech Supplier Products"
 msgstr ""
 
 #: templates/manager/guides/products.html:14
 msgid ""
-"Foroden Suppliers able able to advertise their product using our different "
-"advertising method based on the supplier's membership plan. Foroden doesnot "
+"NashTech Suppliers able able to advertise their product using our different "
+"advertising method based on the supplier's membership plan. NashTech doesnot "
 "handle selling of products, this is handled by the suppliers."
 msgstr ""
 
@@ -2018,13 +2018,13 @@ msgid "This Redirects you to a form, with which you can create a new product."
 msgstr ""
 
 #: templates/manager/guides/services.html:13
-msgid "Foroden Supplier Services"
+msgid "NashTech Supplier Services"
 msgstr ""
 
 #: templates/manager/guides/services.html:14
 msgid ""
-"Foroden Supplier Services make it easy for suppliers to sell their business "
-"as a service to different Foroden buyers. A verified Foroden Buyer is able "
+"NashTech Supplier Services make it easy for suppliers to sell their business "
+"as a service to different NashTech buyers. A verified NashTech Buyer is able "
 "to create a contract inorder to buy one or more supplier services."
 msgstr ""
 
@@ -2041,12 +2041,12 @@ msgid "This Redirects you to a form, with which you can create a new service."
 msgstr ""
 
 #: templates/manager/guides/showrooms.html:12
-msgid "Foroden Showrooms"
+msgid "NashTech Showrooms"
 msgstr ""
 
 #: templates/manager/guides/showrooms.html:13
 msgid ""
-"Foroden provides a showrooms feature where stores from different locations "
+"NashTech provides a showrooms feature where stores from different locations "
 "are displayed and made accessible to the buyers."
 msgstr ""
 
@@ -2065,7 +2065,7 @@ msgid ""
 msgstr ""
 
 #: templates/manager/guides/showrooms.html:16
-msgid "Foroden offers the following showrooms:"
+msgid "NashTech offers the following showrooms:"
 msgstr ""
 
 #: templates/manager/guides/showrooms.html:28
@@ -2095,12 +2095,12 @@ msgstr ""
 
 #: templates/manager/guides/stores.html:13
 #: templates/manager/showroom_list.html:77
-msgid "Foroden Stores"
+msgid "NashTech Stores"
 msgstr ""
 
 #: templates/manager/guides/stores.html:14
 msgid ""
-"This is an online (virtual) shop that sell different products. Foroden also "
+"This is an online (virtual) shop that sell different products. NashTech also "
 "has stores that provide services such as online virtual assistance for "
 "people looking for teams to help manage their businesses remotely."
 msgstr ""
@@ -2108,7 +2108,7 @@ msgstr ""
 #: templates/manager/guides/stores.html:15
 msgid ""
 "Well, think of a store as a shop you visit to purchase some products you "
-"need. However, this store has all products listed on Foroden but not "
+"need. However, this store has all products listed on NashTech but not "
 "physically present with them."
 msgstr ""
 
@@ -2165,7 +2165,7 @@ msgid "All Showrooms"
 msgstr ""
 
 #: templates/manager/service_list.html:17
-msgid "Foroden Services"
+msgid "NashTech Services"
 msgstr ""
 
 #: templates/manager/showroom_detail.html:56
@@ -2284,7 +2284,7 @@ msgid "End Date"
 msgstr ""
 
 #: templates/payments/contract_receipt.html:34
-msgid "Foroden Contract Payment Receipt"
+msgid "NashTech Contract Payment Receipt"
 msgstr ""
 
 #: templates/payments/contract_receipt.html:35
@@ -2915,7 +2915,7 @@ msgid "Return Home"
 msgstr ""
 
 #: templates/utils/category_cards.html:6
-msgid "Foroden Marketplace"
+msgid "NashTech Marketplace"
 msgstr ""
 
 #: templates/utils/category_group.html:11
@@ -2983,11 +2983,11 @@ msgid "My Account"
 msgstr ""
 
 #: templates/utils/header.html:132
-msgid "Sell On Foroden"
+msgid "Sell On NashTech"
 msgstr ""
 
 #: templates/utils/header.html:187
-msgid "Sell on Foroden"
+msgid "Sell on NashTech"
 msgstr ""
 
 #: templates/utils/header.html:312
@@ -2999,7 +2999,7 @@ msgid "Popular Products"
 msgstr ""
 
 #: templates/utils/product_list.html:15
-msgid "Foroden Products"
+msgid "NashTech Products"
 msgstr ""
 
 #: templates/utils/profile404.html:39

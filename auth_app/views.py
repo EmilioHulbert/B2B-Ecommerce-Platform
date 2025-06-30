@@ -147,7 +147,7 @@ class SignUpView(View):
 
         activate_url = f"{domain}{link}"
 
-        subject = _("Activate Foroden Activation")
+        subject = _("Activate NashTech Activation")
         description = "{}\n{}\n{}".format(_("Follow this link to activate you foroden account."), _("Your activation link is"), activate_url)
 
         AuthTask.send_account_activation_email_task.delay(user.username, user.email, subject, description)

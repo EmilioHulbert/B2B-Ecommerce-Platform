@@ -688,8 +688,8 @@ class CreateSupportView(SupportOnlyAccessMixin, View):
         activate_url = f"http://{domain}{link}"
 
         ManagerTasks.send_mail.delay(
-            subject = _("Foroden Support Team invite."),
-            content = '{0} \n{1} \n{2} \n{3} \n{4}'.format(_("Hello"), user.username, _("Your have been added a Foroden Support Team Member, Please edit your account details and set a desired password after activating your account."), _("Your activation link is"), activate_url),
+            subject = _("NashTech Support Team invite."),
+            content = '{0} \n{1} \n{2} \n{3} \n{4}'.format(_("Hello"), user.username, _("Your have been added a NashTech Support Team Member, Please edit your account details and set a desired password after activating your account."), _("Your activation link is"), activate_url),
             _to = [f"{user.email}"],
             _reply_to = [f"{settings.SUPPORT_EMAIL}"]
         )

@@ -83,7 +83,7 @@ class ProductDeleteView(APIView):
 
             # send mail
             ManagerTasks.send_mail.delay(
-                subject = _("Suspension of Product On Foroden"),
+                subject = _("Suspension of Product On NashTech"),
                 content = f"""
                     Dear {supplier.profile},
 
@@ -99,7 +99,7 @@ class ProductDeleteView(APIView):
 
                     Sincerely,
 
-                    Foroden.
+                    NashTech.
                 """,
                 _to = [f"{supplier.email}"],
                 _reply_to = [f"{settings.SUPPORT_EMAIL}"]
@@ -121,7 +121,7 @@ class ProductVerifyView(APIView):
 
             # send mail
             ManagerTasks.send_mail.delay(
-                subject = _("Verification of Product On Foroden"),
+                subject = _("Verification of Product On NashTech"),
                 content = f"""
                     Dear {supplier.profile},
 
@@ -137,7 +137,7 @@ class ProductVerifyView(APIView):
 
                     Sincerely,
 
-                    Foroden.
+                    NashTech.
                 """,
                 _to = [f"{supplier.email}"],
                 _reply_to = [f"{settings.SUPPORT_EMAIL}"]
@@ -279,7 +279,7 @@ class StoreDeleteView(APIView):
 
             # send mail
             ManagerTasks.send_mail.delay(
-                subject = _("Suspension of Store On Foroden"),
+                subject = _("Suspension of Store On NashTech"),
                 content = f"""
                     Dear {supplier.profile},
 
@@ -295,7 +295,7 @@ class StoreDeleteView(APIView):
 
                     Sincerely,
 
-                    Foroden.
+                    NashTech.
                 """,
                 _to = [f"{supplier.email}"],
                 _reply_to = [f"{settings.SUPPORT_EMAIL}"]
@@ -316,7 +316,7 @@ class StoreVerifyView(APIView):
 
             # send mail
             ManagerTasks.send_mail.delay(
-                subject = _("Verification of Store On Foroden"),
+                subject = _("Verification of Store On NashTech"),
                 content = f"""
                     Dear {supplier.profile},
 
@@ -332,7 +332,7 @@ class StoreVerifyView(APIView):
 
                     Sincerely,
 
-                    Foroden.
+                    NashTech.
                 """,
                 _to = [f"{supplier.email}"],
                 _reply_to = [f"{settings.SUPPORT_EMAIL}"]
@@ -368,7 +368,7 @@ class SuspendAccountView(APIView):
 
             # send mail
             ManagerTasks.send_mail.delay(
-                subject = _("Suspension of Store On Foroden"),
+                subject = _("Suspension of Store On NashTech"),
                 content = f"""
                     Dear {supplier.profile},
 
@@ -384,7 +384,7 @@ class SuspendAccountView(APIView):
 
                     Sincerely,
 
-                    Foroden.
+                    NashTech.
                 """,
                 _to = [f"{supplier.email}"],
                 _reply_to = [f"{settings.SUPPORT_EMAIL}"]

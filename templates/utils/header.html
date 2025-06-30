@@ -17,7 +17,7 @@
     <link href="{% static 'icons/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet"  type='text/css'>
     <link href="{% static 'css/tailwcss.css' %}" rel="stylesheet">
 
-    <title>Golden - {% trans view_name %}</title>
+    <title>NashTech-Global - {% trans view_name %}</title>
 
     
 
@@ -37,7 +37,7 @@
     <!-- desktop -->
     <header class="hidden md:grid desktop top-nav">
         <div class="w-12/12 bg-backgroundColor">
-            <div class="w-full mx-auto">
+        <div class="w-full mx-auto">
                 <!-- The temporary navbar -->
                 <div class="temp-nav py-2 grid content-center w-12/12 gap-1">
                     <div class="header-left grid items-center">
@@ -45,7 +45,7 @@
                             <img src="{% static '/assets/imgs/resources/logo_trans.png' %}" alt="Logo" class="logo"
                                 style="object-fit: cover;">
                         </a>
-                    </div>
+                    </div> 
                     <form action="{% url 'supplier:products' %}" method="GET" class="search-form grid w-12/12 gap-0 justify-items-stretch">
                         <input type="search" name="search" id="search-bar"
                             class="py-1 px-4 focus:outline-none text-lghterBackgroundColor"
@@ -134,7 +134,7 @@
             {% if not request.user.is_authenticated %}
             <ul class="flex text-base text-white">
                 <li>
-                    <a class="grid py-3 px-4 bg-yellowColor hover:bg-yellowColorHover font-semibold transition-colors transition-200 ease-in" href="{% url 'auth_app:signup' %}?Supplier=1">{% trans "Sell On Foroden" %}</a>
+                    <a class="grid py-3 px-4 bg-yellowColor hover:bg-yellowColorHover font-semibold transition-colors transition-200 ease-in" href="{% url 'auth_app:signup' %}?Supplier=1">{% trans "Sell On NashTech" %}</a>
                 </li>
             </ul>
             {% endif %}
@@ -189,7 +189,7 @@
                     </a>
                     {% if not request.user.is_authenticated %}
                     <a href="{% url 'auth_app:signup' %}?Supplier=1" class="flex place-items-center px-6 py-2 text-base bg-yellowColor focus:bg-yellowColorHover duration-200 transition-all ease-in text-white font-semibold">
-                        {% trans "Sell on Foroden" %}
+                        {% trans "Sell on NashTech" %}
                     </a>
                     {% endif %}
                 {% else %}
