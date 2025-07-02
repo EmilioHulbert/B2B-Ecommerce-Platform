@@ -1,0 +1,55 @@
+{% extends 'utils/layout.html' %}
+{% load static %}
+{% block content %}
+  
+<!-- Services Section -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6">
+<section id="services" class="py-16 bg-gray-100">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl font-bold text-center mb-12">Our Services</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <img src="{% static 'icons/software.svg' %}" class="mx-auto mb-4" alt="">
+        <h3 class="text-xl font-semibold mb-2">Software Development</h3>
+        <p>Custom apps built to grow with you.</p>
+      </div>
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <img src="{% static 'icons/consulting.svg' %}" class="mx-auto mb-4" alt="">
+        <h3 class="text-xl font-semibold mb-2">IT Consulting</h3>
+        <p>Advice and guidance for digital transformation.</p>
+      </div>
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <img src="{% static 'icons/cloud.svg' %}" class="mx-auto mb-4" alt="">
+        <h3 class="text-xl font-semibold mb-2">Cloud & Integration</h3>
+        <p>Secure and scalable infrastructure solutions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- Branding Carousel Section -->
+<section class="py-16 bg-gray-50">
+  <div class="container mx-auto">
+    <div class="owl-carousel owl-theme">
+      <div class="item bg-white rounded-lg shadow p-6 text-center">
+        <img src="{% static 'icons/software.svg' %}" class="mx-auto mb-4" alt="Savanna POS"/>
+        <h3 class="text-xl font-bold">Savanna POS</h3>
+        <p class="text-sm text-gray-700">A powerful point-of-sale system for streamlining sales.</p>
+        <a href="/solution/savanna-pos/" class="text-blue-500 hover:underline">Read More</a>
+      </div>
+
+      <div class="item bg-white rounded-lg shadow p-6 text-center">
+        <img src="{% static 'icons/consulting.svg' %}" class="mx-auto mb-4" alt="Savanna BPO"/>
+        <h3 class="text-xl font-bold">Savanna BPO</h3>
+        <p class="text-sm text-gray-700">Outsourced business process management tailored to your needs.</p>
+        <a href="/solution/savanna-bpo/" class="text-blue-500 hover:underline">Read More</a>
+      </div>
+
+      <!-- Add more cards here -->
+    </div>
+  </div>
+</section>
+
+
+{% endblock %}
