@@ -396,3 +396,4 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 SITE_ID = 2
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # or any dir you prefer

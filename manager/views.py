@@ -34,12 +34,74 @@ from django.conf import settings
 
 translator = Translator()
 
-class BrandingView(View):
-    # template_name = "manager/branding_home.html"
-    template_name = "manager/branding_home.html"
+# class BrandingView(View):
+#     # template_name = "manager/branding_home.html"
+#     template_name = "manager/branding_home.html"
 
+#     def get(self, request):
+#         return render(request, self.template_name)
+
+from manager.models import Service
+
+# class BrandingView(View):
+#     def get(self, request):
+#         services = Service.objects.prefetch_related('serviceimage_set').all()
+#         service_data = []
+
+#         for s in services:
+#             service_data.append({
+#                 'id': s.id,
+#                 'name': s.name,
+#                 'description': s.description,
+#                 'images': [img.image.url for img in s.serviceimage_set.all()]
+#             })
+
+#         return render(request, 'manager/branding_home.html', {
+#             'services': services,
+#             'service_data': service_data,
+#         })
+from django.core.serializers.json import DjangoJSONEncoder
+import json
+#worked below
+# class BrandingView(View):
+#     def get(self, request):
+#         services = Service.objects.prefetch_related('serviceimage_set').all()
+        
+#         service_data = [
+#             {
+#                 'id': s.id,
+#                 'name': s.name,
+#                 'description': s.description,
+#                 'images': [img.image.url for img in s.serviceimage_set.all()]
+#             }
+#             for s in services
+#         ]
+
+#         # Convert to valid JSON string
+#         service_data_json = json.dumps(service_data, cls=DjangoJSONEncoder)
+
+#         return render(request, 'manager/branding_home.html', {
+#             'services': services,
+#             'service_data': service_data_json,  # Pass the JSON string to the template
+#         })
+
+
+class BrandingView(View):
     def get(self, request):
-        return render(request, self.template_name)
+        services = Service.objects.prefetch_related('serviceimage_set').all()
+        service_data = json.dumps([
+            {
+                'id': s.id,
+                'name': s.name,
+                'description': s.description,
+                'images': [img.image.url for img in s.serviceimage_set.all()]
+            }
+            for s in services
+        ])
+        return render(request, 'manager/branding_home.html', {
+            'service_data': service_data,
+        })
+
 
 class CareersView(View):
     template_name = "manager/careers.html"
