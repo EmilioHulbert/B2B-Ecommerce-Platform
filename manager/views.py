@@ -124,12 +124,8 @@ class BrandingView(View):
 
 from django.core.mail import send_mail
 from .forms import ContactMessageForm
+#start contact view with repetition
 class ContactView(View):
-    def get(self, request):
-        form = ContactMessageForm()
-        submitted = request.GET.get('submitted') == '1' #message success
-        return render(request, 'manager/branding_home.html', {'form': form, 'show_success_modal': submitted})
-
     def post(self, request):
         form = ContactMessageForm(request.POST)
         if form.is_valid():
@@ -141,8 +137,11 @@ class ContactView(View):
             return redirect(url)  
 
         return render(request, 'manager/branding_home.html', {'form': form})
-
-    
+    def get(self, request):
+        form = ContactMessageForm()
+        submitted = request.GET.get('submitted') == '1' #message success
+        return render(request, 'manager/branding_home.html', {'form': form, 'show_success_modal': submitted})    
+#end contact view with repetition 
 
 class CareersView(View):
     template_name = "manager/careers.html"
@@ -150,8 +149,25 @@ class CareersView(View):
     def get(self, request):
         return render(request, self.template_name)
 
+#remac start
+from .forms import CareerApplicationForm
+class CareerApplicationView(View):
+    def post(self, request):
+        form = CareerApplicationForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('manager:apply-job') + '?submitted=1')  # 🟢 Repetition-safe URL
+        return render(request, 'manager/careers.html', {'career_form': form})
+
+    def get(self, request):
+        form = CareerApplicationForm()
+        submitted = request.GET.get('submitted') == '1'  # ✅ used in JS
+        return render(request, 'manager/careers.html', {
+            'career_form': form,
+        })
 
 
+#remac end
 
 
 class HomeView(View):

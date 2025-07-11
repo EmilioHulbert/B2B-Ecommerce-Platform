@@ -48,7 +48,8 @@
     </section>
     <div class="career">
         <div class="career-form">
-            <form action="{% url 'manager:branding-home' %}" method="POST" enctype="multipart/form-data"> <!--post was careers.php -->
+            <form action="{% url 'manager:apply-job' %}" method="POST" enctype="multipart/form-data"> <!--post was careers.php -->
+                {% csrf_token %}
                 <input type="text" name="name" placeholder="Name" class="career-form-txt" required>
                 <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required placeholder="Contact number" maxlength="10" class="career-form-phone">
                 <input type="email" name="email" placeholder="Email" class="career-form-email" required>
@@ -84,7 +85,7 @@
                 <textarea placeholder="Other Details" name="details" class="career-form-txtarea" required></textarea>
                 <div class="file">
                     <h2 class="name">Upload Your Resume</h2>
-                    <input class="upload" type="file" name="fileToUpload" accept=".doc,.docx,.pdf"><br><br><br>
+                    <input class="upload" type="file" name="resume" accept=".doc,.docx,.pdf" required><br><br><br>
                 </div>
                 <input type="submit" value="Submit" name="submit" class="career-form-btn">
             </form>
@@ -167,6 +168,26 @@
     <script src="{% static 'brand/lib/counterup/counterup.min.js' %}"></script>
     <script src="{% static 'brand/lib/owlcarousel/owl.carousel.min.js' %}"></script>
     <script src="{% static 'brand/lib/lightbox/js/lightbox.min.js' %}"></script>
-
+<!-- Success Modal -->
+<!-- <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true"> -->
+    <div class="modal fade" id="successModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-center">
+        <div class="modal-header border-0">
+          <h5 class="modal-title w-100" id="successModalLabel">✅ Application Sent Successfully!</h5>
+        </div>
+        <div class="modal-body">
+          We’ve received your Application. Our Team Will Review Your Application within 7 days.<br>
+          click <b>OK</b> To Go Back To Home Page
+        </div>
+        <div class="modal-footer border-0 justify-content-center">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- Success Modal End -->
+  
+  <script src="{% static 'brand/js/msgsucc4jobs.js' %}"></script>
 </body>
 </html>

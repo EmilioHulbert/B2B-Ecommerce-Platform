@@ -1045,6 +1045,47 @@ ALTER SEQUENCE public.manager_calenderevent_id_seq OWNED BY public.manager_calen
 
 
 --
+-- Name: manager_careerapplication; Type: TABLE; Schema: public; Owner: b2b_user
+--
+
+CREATE TABLE public.manager_careerapplication (
+    id bigint NOT NULL,
+    name character varying(100) NOT NULL,
+    phone character varying(15) NOT NULL,
+    email character varying(254) NOT NULL,
+    status character varying(50) NOT NULL,
+    experience integer NOT NULL,
+    details text NOT NULL,
+    resume character varying(100) NOT NULL,
+    submitted_at timestamp with time zone NOT NULL,
+    CONSTRAINT manager_careerapplication_experience_check CHECK ((experience >= 0))
+);
+
+
+ALTER TABLE public.manager_careerapplication OWNER TO b2b_user;
+
+--
+-- Name: manager_careerapplication_id_seq; Type: SEQUENCE; Schema: public; Owner: b2b_user
+--
+
+CREATE SEQUENCE public.manager_careerapplication_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.manager_careerapplication_id_seq OWNER TO b2b_user;
+
+--
+-- Name: manager_careerapplication_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: b2b_user
+--
+
+ALTER SEQUENCE public.manager_careerapplication_id_seq OWNED BY public.manager_careerapplication.id;
+
+
+--
 -- Name: manager_contactmessage; Type: TABLE; Schema: public; Owner: b2b_user
 --
 
@@ -3334,6 +3375,13 @@ ALTER TABLE ONLY public.manager_calenderevent ALTER COLUMN id SET DEFAULT nextva
 
 
 --
+-- Name: manager_careerapplication id; Type: DEFAULT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.manager_careerapplication ALTER COLUMN id SET DEFAULT nextval('public.manager_careerapplication_id_seq'::regclass);
+
+
+--
 -- Name: manager_contactmessage id; Type: DEFAULT; Schema: public; Owner: b2b_user
 --
 
@@ -3746,7 +3794,7 @@ COPY public.auth_app_supportprofile (id, responses, user_id) FROM stdin;
 
 COPY public.auth_app_user (id, password, last_login, is_superuser, username, first_name, first_name_ar, first_name_fr, first_name_de, first_name_en, last_name, last_name_ar, last_name_fr, last_name_de, last_name_en, email, is_staff, is_active, date_joined, account_type, image, is_email_activated) FROM stdin;
 3	melody254	2025-06-24 19:19:20+03	t	Betwan	Betwan	\N	\N	\N	Betwan	Suppliers	\N	\N	\N	Suppliers	info@betwancomputers.co.ke	t	t	2025-06-24 19:19:08+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
-4	pbkdf2_sha256$320000$GuJQnnqDBoqelHJn31jS3h$C0qzsjEPgZezFEHYvhMr/J5ByXIWfO3F3Kyhj/b9I+8=	2025-07-11 15:03:30.313987+03	t	Admin		\N	\N	\N	\N		\N	\N	\N	\N	emiliohulbert2017@gmail.com	t	t	2025-06-30 20:15:14.535421+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
+4	pbkdf2_sha256$320000$GuJQnnqDBoqelHJn31jS3h$C0qzsjEPgZezFEHYvhMr/J5ByXIWfO3F3Kyhj/b9I+8=	2025-07-11 17:35:50.403033+03	t	Admin		\N	\N	\N	\N		\N	\N	\N	\N	emiliohulbert2017@gmail.com	t	t	2025-06-30 20:15:14.535421+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
 \.
 
 
@@ -4349,6 +4397,10 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 282	Can change contact message	71	change_contactmessage
 283	Can delete contact message	71	delete_contactmessage
 284	Can view contact message	71	view_contactmessage
+285	Can add career application	72	add_careerapplication
+286	Can change career application	72	change_careerapplication
+287	Can delete career application	72	delete_careerapplication
+288	Can view career application	72	view_careerapplication
 \.
 
 
@@ -4542,6 +4594,7 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 69	socialaccount	socialtoken
 70	manager	servicecategory
 71	manager	contactmessage
+72	manager	careerapplication
 \.
 
 
@@ -4595,6 +4648,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 43	supplier	0002_alter_order_is_complete_alter_product_is_verified_and_more	2025-06-19 20:15:28.769454+03
 44	manager	0002_servicecategory_service_category	2025-07-10 19:45:20.849806+03
 45	manager	0003_contactmessage	2025-07-11 13:47:23.881692+03
+46	manager	0004_careerapplication	2025-07-11 16:38:04.120911+03
 \.
 
 
@@ -4626,6 +4680,14 @@ mwljekyfdxg3314sovm28lc7133j4g60	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apA
 2b2elgjixvqo8t117ych4qbnd7lnjaq7	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1uaC4q:F0dApA8YMTtPcF7qzgZuasOGeYKQZm8pZ-0M0mZpMz8	2025-07-25 14:38:04.868053+03
 i5nvt71nhvrgxrxidwweobgvaqgcypaj	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1uaCKK:Gdyov3prvFsgUYpVKsSph6UmBi6hI1aFWO765T8gdAc	2025-07-25 14:54:04.441689+03
 h43md707d4c0vjmhf5m6ddz7eyad93li	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1uaCTS:FuJZ9OnDw2j0_bpub9nQsf0Os6gwQ1aE1PTPv6n53a4	2025-07-25 15:03:30.319314+03
+2ktjhyn7lqmuskqc14dir8wl2kzxljm2	.eJxVjDsOwyAQBe-ydYQIxsTrMn3OgHZhCc7HSMYoRZS7R5bcuH0z875Qc_n42kKQWv27RHrBuC5NTuCprdm3KoufIoxg4bAxhafMG4gPmu9FhTKvy8RqU9ROq7qVKK_r7h4OMtW81cLWuUS2x8Fh0shWDJ6tJhmYE16SEY0ohF004nTsqefOmU4CYgoIvz8ifkJJ:1uaCyG:v9h2DjcgLhX6mO07yPPnzb15dIx9pJFZCZPWuUUN4KA	2025-07-25 15:35:20.113879+03
+fdxl8drjvkkk29cr7mqxm4pi680ksc5p	eyJzaG93X3N1Y2Nlc3NfbW9kYWwiOnRydWV9:1uaD67:njfydwBX89swGCy81gMvim5xwTWrEAb0wrOLfyYG24Y	2025-07-25 15:43:27.25908+03
+7zx145engqb8ln9nauf5dh8crbsnyycs	eyJzaG93X3N1Y2Nlc3NfbW9kYWwiOnRydWV9:1uaD9l:jCvQVd2YoZd6Ee5Y6NM0O0YRV7EhDzJ1w-6eWb74wCE	2025-07-25 15:47:13.452558+03
+rrq4lkzsrk49i5p1vzd4tc55v2pg2ede	eyJzaG93X3N1Y2Nlc3NfbW9kYWwiOnRydWV9:1uaDCR:EqUJIfeZSM1b7qkL-6DCcq9XWG4sip8AoENNvGayDb8	2025-07-25 15:49:59.059922+03
+5pxihy5wlufq91mshm0zokmxeu1ald72	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1uaDxZ:mBbGpiP-C_DfvTzlrFKasUfwVjelqRc6MfpI6J-Q8N8	2025-07-25 16:38:41.636167+03
+1e77vy0kac9yc67ik2tlmbaphfy2t9p9	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1uaERk:EirYHbYzqYkrQ4shNI6RRhYJ6XedhdOhALgsGyWQsfU	2025-07-25 17:09:52.447452+03
+v446l3s8rpxih3l4stxnwctwj59msh4z	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1uaEZS:O8S8oT-gpwmN8zQPcNT9MLNL1RasKbzpw2Rl68Hb1og	2025-07-25 17:17:50.847111+03
+wsokkl9nheoawqj4jn3ap3gqnu7512al	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1uaEqs:PqUIiHPRX_n8-IkIth0_B27g4Ac4uu5smti3oj1iZqs	2025-07-25 17:35:50.410429+03
 \.
 
 
@@ -4663,6 +4725,19 @@ COPY public.manager_calenderevent (id, title, description, start, "end", created
 
 
 --
+-- Data for Name: manager_careerapplication; Type: TABLE DATA; Schema: public; Owner: b2b_user
+--
+
+COPY public.manager_careerapplication (id, name, phone, email, status, experience, details, resume, submitted_at) FROM stdin;
+1	emhal	0795800861	emhal@gmail.com	Web Developer	4	ewr	resumes/Amnesty_Certificate.pdf	2025-07-11 17:35:43.800045+03
+2	emhal	0795800861	emhal@gmail.com	Web Developer	34	saf	resumes/receipt.pdf	2025-07-11 17:41:21.252424+03
+3	emhal	0795800861	emhal@gmail.com	Mobile App Designer	45	gwet	resumes/Amnesty_Certificate_1.pdf	2025-07-11 17:42:12.410709+03
+4	emhal	0795800861	emhal@gmail.com	Mobile App Developer	3	asf	resumes/18th_Graduation_Booklet_as_at__14-05-2025.pdf	2025-07-11 17:42:52.984076+03
+5	emhal	0795800861	emhal@gmail.com	Web Developer	34	werwe	resumes/certificate-android-application-security-free-course-661be95c60428f9d100f6ef2.pdf	2025-07-11 17:45:44.792888+03
+\.
+
+
+--
 -- Data for Name: manager_contactmessage; Type: TABLE DATA; Schema: public; Owner: b2b_user
 --
 
@@ -4674,6 +4749,29 @@ COPY public.manager_contactmessage (id, name, phone, email, message, submitted_a
 5	test	0795800861	test@gmail.com	test 123	2025-07-11 14:51:39.10102+03
 6	test	0795800861	emiliohulbert2017@gmail.com	ksfnlmwer	2025-07-11 14:59:47.931925+03
 7	emilio	0784960420	emiliobckp@gmail.com	melody	2025-07-11 15:03:22.650138+03
+8	emilio	0248294798	emilio@gmail.com	test123	2025-07-11 15:18:56.453779+03
+9	hasfih	0795800861	sfkwherih@mail.com	sjowjqr	2025-07-11 15:30:26.870511+03
+10	hasfih	0248294798	emilio@gmail.com	sdf	2025-07-11 15:35:20.097068+03
+11	emilio	0795800861	emilio@gmail.com	asd	2025-07-11 15:37:59.263246+03
+12	emhal	0795800861	emhal@gmail.com	sasjrojw	2025-07-11 15:40:32.43911+03
+13	emhal	0795800861	emhal@gmail.com	sd	2025-07-11 15:43:27.236088+03
+14	emhal	0789235795	emhal@gmail.com	asjklfw	2025-07-11 15:43:58.380534+03
+15	emhal	0789235795	emhal@gmail.com	awd	2025-07-11 15:47:13.44546+03
+16	jkaw@mail	3894092380	sdgfuigwe@mail.com	krwqjrojqw	2025-07-11 15:49:59.042005+03
+17	emhal	7342890237	emhal@gmail.com	owjrojw	2025-07-11 15:56:00.219138+03
+18	emhal	8672478236	jhkewg@gmail.com	wqhrjioqw	2025-07-11 15:58:21.252595+03
+19	emhal	7842372379	emhal@gmail.com	sjajapjw	2025-07-11 15:59:45.332506+03
+20	emhal	7842372379	emhal@gmail.com	s	2025-07-11 16:01:23.557497+03
+21	emhal	7842372379	emhal@gmail.com	asd	2025-07-11 16:07:42.730904+03
+22	emhal	7842372379	emhal@gmail.com	sa	2025-07-11 16:09:33.304285+03
+23	emhal	7842372379	emhal@gmail.com	adas	2025-07-11 16:11:54.688229+03
+24	emhal	7842372379	emhal@gmail.com	s	2025-07-11 16:13:46.420959+03
+25	jkl	8378533523	jkl@gmail.com	jkl	2025-07-11 16:16:49.65548+03
+26	jkl	2353534634	jkl@gmail.com	jkl	2025-07-11 16:18:01.105126+03
+27	test	4589333333	test@jhdfd.com	oiwurwoer	2025-07-11 16:20:51.437822+03
+28	hey	3847222222	hey@mail.com	werhkwe	2025-07-11 16:24:09.287278+03
+29	hello	3625896935	hello@mail.com	sfjakgfakf	2025-07-11 16:24:37.415405+03
+30	jksfsdl	9362982365	dgksdhh@mail.com	ljaifwq	2025-07-11 16:24:59.392349+03
 \.
 
 
@@ -5379,7 +5477,7 @@ SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 276, true);
 -- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.auth_permission_id_seq', 284, true);
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 288, true);
 
 
 --
@@ -5449,14 +5547,14 @@ SELECT pg_catalog.setval('public.django_admin_log_id_seq', 272, true);
 -- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.django_content_type_id_seq', 71, true);
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 72, true);
 
 
 --
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 45, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 46, true);
 
 
 --
@@ -5488,10 +5586,17 @@ SELECT pg_catalog.setval('public.manager_calenderevent_id_seq', 1, false);
 
 
 --
+-- Name: manager_careerapplication_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
+--
+
+SELECT pg_catalog.setval('public.manager_careerapplication_id_seq', 5, true);
+
+
+--
 -- Name: manager_contactmessage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.manager_contactmessage_id_seq', 7, true);
+SELECT pg_catalog.setval('public.manager_contactmessage_id_seq', 30, true);
 
 
 --
@@ -6289,6 +6394,14 @@ ALTER TABLE ONLY public.manager_advertisinglocation
 
 ALTER TABLE ONLY public.manager_calenderevent
     ADD CONSTRAINT manager_calenderevent_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: manager_careerapplication manager_careerapplication_pkey; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.manager_careerapplication
+    ADD CONSTRAINT manager_careerapplication_pkey PRIMARY KEY (id);
 
 
 --

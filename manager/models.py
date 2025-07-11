@@ -19,6 +19,30 @@ from auth_app import models as Authmodels
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 
+#remac start
+class CareerApplication(models.Model):
+    ROLE_CHOICES = [
+        ("Web Designer", "Web Designer"),
+        ("Web Developer", "Web Developer"),
+        ("Mobile App Designer", "Mobile App Designer"),
+        ("Mobile App Developer", "Mobile App Developer"),
+        ("Digital Marketer", "Digital Marketer"),
+    ]
+
+    name = models.CharField(max_length=100)
+    phone = models.CharField(max_length=15)
+    email = models.EmailField()
+    status = models.CharField(max_length=50, choices=ROLE_CHOICES)
+    experience = models.PositiveIntegerField()
+    details = models.TextField()
+    resume = models.FileField(upload_to="resumes/")
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.status}"
+
+#remacend
+
 class VerifiedManager(models.Manager):
     def get_queryset(self):
         # Override the default queryset to exclude inactive items

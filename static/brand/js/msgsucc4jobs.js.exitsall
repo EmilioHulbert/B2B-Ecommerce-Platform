@@ -1,0 +1,24 @@
+document.addEventListener("DOMContentLoaded", function () {
+  const url = new URL(window.location);
+
+  if (url.pathname.includes("apply") && url.search.includes("submitted=1")) {
+    const modalElement = document.getElementById("successModal");
+    const modal = new bootstrap.Modal(modalElement);
+
+    // Show the modal
+    modal.show();
+
+    // When user clicks "OK", close modal and redirect
+    const okButton = modalElement.querySelector("button.btn-primary");
+
+    okButton.addEventListener("click", () => {
+      modal.hide(); // Close modal
+
+      // After short delay, change URL
+      setTimeout(() => {
+        window.location.href = "/#home";  // 🔁 Change this if your homepage has a different path
+      }, 200);
+    });
+  }
+});
+
