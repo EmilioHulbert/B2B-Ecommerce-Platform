@@ -1,0 +1,52 @@
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("✅ JS loaded");
+
+  const services = JSON.parse(document.getElementById("service-json").textContent);
+
+  document.querySelectorAll(".service-card").forEach(card => {
+    card.addEventListener("click", () => {
+      const category = card.getAttribute("data-category");
+
+      if (!category) return;
+
+      // Find all services under this category
+      const matchingServices = services.filter(s => s.category === category);
+
+      if (!matchingServices.length) {
+        alert("No services found in this category.");
+        return;
+      }
+
+      // Set modal title
+      document.getElementById("serviceTitle").textContent = category;
+
+      // Clear previous content
+      const container = document.getElementById("categoryServicesContainer");
+      container.innerHTML = "";
+
+      // Populate modal with matching services
+      matchingServices.forEach(service => {
+        const col = document.createElement("div");
+        col.className = "col-md-6 mb-4";
+
+        col.innerHTML = `
+          <div class="card shadow-sm h-100">
+            ${service.images[0] ? `<img src="${service.images[0]}" class="card-img-top rounded-top" alt="${service.name}">` : ''}
+            <div class="card-body">
+              <h5 class="card-title">${service.name}</h5>
+              <p class="card-text">${service.description.substring(0, 100)}...</p>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(col);
+      });
+
+      // Show modal
+      const modalEl = document.getElementById("serviceModal");
+      const modal = new bootstrap.Modal(modalEl);
+      modal.show();
+    });
+  });
+});
+

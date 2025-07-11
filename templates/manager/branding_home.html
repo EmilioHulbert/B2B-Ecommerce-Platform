@@ -64,6 +64,7 @@
 
   <!-- Hidden Full About Popup -->
   <div id="about-popup" class="about-popup hidden">
+    <!-- <div class="about-popup-overlay"> added for external close functionality -->
     <div class="about-popup-content">
       <span class="close-btn" onclick="toggleAboutPopup()">&times;</span>
       <p>
@@ -76,6 +77,7 @@
         growth across all sectors — bridging business goals with innovative tech.
       </p>
     </div>
+    <!-- </div> -->
   </div>
 </section>
 <script src="{% static 'brand/js/about-section.js' %}"></script>
@@ -92,38 +94,44 @@
       </div>
   
       <!-- Start Grid -->
-      <div class="row">
+      <div class="row" style="background-image: url('/static/images/ims-bg.jpeg'); background-size: cover; background-position: center; color: white;">
         <!-- First column: 2 cards -->
         <div class="col-md-4">
           <!-- <div class="item mb-4"> -->
             <!-- <div class="item mb-4 service-card" data-id="{{ service.id }}"> -->
-                <div class="item mb-4 service-card" data-id="1">
-            <span class="icon feature_box_col_one"><i class="fa fa-laptop"></i></span>
-            <h6>Web App Development</h6>
-            <p>Dynamic, scalable web solutions for startups and enterprises alike.</p>
-                <h6>{{ service.name }}</h6>
-                <p>{{ service.description|truncatewords:12 }}</p>
-          </div> 
-          <!-- <div class="item mb-4"> -->
-            <div class="item mb-4 service-card" data-id="3">
-            <span class="icon feature_box_col_two"><i class="fa fa-android"></i></span>
-            <h6>Mobile App Development</h6>
-            <p>Native and hybrid apps that run smoothly on Android and iOS devices.</p>
+                <div class="item mb-4 service-card" data-category="Information Management Systems">
+                    <span class="icon"><i class="fa fa-server"></i></span>
+                    <h6>Information Management Systems</h6>
+                    <p>Centralized data management for enterprise operations.</p>
+                  </div>
+                  
+                   <!-- <div class="item mb-4 service-card" data-category="Information Management Systems" style="background-image: url('/static/images/ims-bg.jpeg'); background-size: cover; background-position: center; color: white;">
+                    <div class="p-4" style="background: rgba(0, 0, 0, 0.5); border-radius: 10px;">
+                      <h6 style="color: #fff;">Information Management Systems</h6>
+                      <p>Centralized data management for enterprise operations.</p>
+                    </div>
+                  </div> -->
+
+<!-- <div class="item mb-4"> -->
+            <div class="item mb-4 service-card" data-category="Digital Marketing & Branding">
+            <span class="icon feature_box_col_two"><i class="fa fa-bullhorn"></i></span>
+            <h6>Digital Marketing & Branding</h6>
+            <p>Promoting products and building brand presence across online channels.</p>
           </div>
         </div>
         <!-- Second column: 2 cards -->
         <div class="col-md-4">
           <!-- <div class="item mb-4"> -->
-            <div class="item mb-4 service-card" data-id="2">
+            <div class="item mb-4 service-card" data-category="Hardware & IT Infrastructure">
             <span class="icon feature_box_col_three"><i class="fa fa-magic"></i></span>
-            <h6>Digital Marketing</h6>
-            <p>Boost your reach with targeted, measurable digital marketing strategies.</p>
+            <h6>Hardware & IT Infrastructure</h6>
+            <p>The foundational physical and digital backbone supporting an organization's technology.</p>
           </div>
           <!-- <div class="item mb-4"> -->
-            <div class="item mb-4 service-card" data-id="4">
+            <div class="item mb-4 service-card" data-category="Creative Media">
             <span class="icon feature_box_col_one"><i class="fa fa-code"></i></span>
-            <h6>Software & AI Solutions</h6>
-            <p>Custom software and AI tools built to streamline your operations.</p>
+            <h6>Creative Media</h6>
+            <p>Crafting compelling visual and audio content for diverse platforms and storytelling.</p>
           </div>
         </div>
   
@@ -151,18 +159,18 @@
         <!-- Last row: remaining 2 cards full-width below -->
         <div class="col-md-6 mt-4">
           <!-- <div class="item"> -->
-            <div class="item mb-4 service-card" data-id="5">
-            <span class="icon feature_box_col_one"><i class="fa fa-bullhorn"></i></span>
-            <h6>Marketing & Branding</h6>
-            <p>Crafting compelling brand narratives and increasing digital presence across platforms.</p>
+            <div class="item mb-4 service-card" data-category="Bootcamp & Skills Training">
+                <span class="icon feature_box_col_one"><i class="fa fa-laptop-code"></i></span>
+            <h6>Bootcamp & Skills Training</h6>
+            <p>Intensive, practical programs for rapid acquisition of in-demand career skills.</p>
           </div>
         </div>
   
         <div class="col-md-6 mt-4">
           <!-- <div class="item"> -->
-            <div class="item mb-4 service-card" data-id="6">
-            <span class="icon feature_box_col_one"><i class="fa fa-server"></i></span>
-            <h6>IT Infrastructure</h6>
+            <div class="item mb-4 service-card" data-category="Information Management Systems">
+            <span class="icon feature_box_col_one"><i class="fa fa-th-large"></i></span>
+            <h6>All Tech categories</h6>
             <p>End-to-end IT hardware, cloud, and networking solutions for scalable growth.</p>
           </div>
         </div>
@@ -171,23 +179,38 @@
   </div>
   
 
-
-  <!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" id="serviceModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="serviceTitle"></h5>
+          <h5 class="modal-title" id="serviceTitle">Category Title</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
-          <p id="serviceDesc" class="mb-4"></p>
-          <div id="serviceCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner" id="carouselInner"></div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#serviceCarousel" data-bs-slide="prev">
+          <div class="row" id="categoryServicesContainer">
+            <!-- Service cards will be injected here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--second modal-->
+  <div class="modal fade" id="serviceDetailModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="serviceDetailTitle"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p id="serviceDetailDesc" class="mb-4"></p>
+          <div id="serviceDetailCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner" id="serviceDetailCarouselInner"></div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#serviceDetailCarousel" data-bs-slide="prev">
               <span class="carousel-control-prev-icon"></span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#serviceCarousel" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#serviceDetailCarousel" data-bs-slide="next">
               <span class="carousel-control-next-icon"></span>
             </button>
           </div>
@@ -195,6 +218,7 @@
       </div>
     </div>
   </div>
+  
   
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

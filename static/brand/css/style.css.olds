@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;1,100;1,300;1,400;1,500&display=swap');
+
+/* brand/static/brand/css/cards.css */
+.service-card {
+  cursor: pointer;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #e2e2e2;
+  padding: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.service-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+

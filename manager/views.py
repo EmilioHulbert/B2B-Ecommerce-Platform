@@ -85,19 +85,39 @@ import json
 #             'service_data': service_data_json,  # Pass the JSON string to the template
 #         })
 
+#10-07-2025
+
+# class BrandingView(View):
+#     def get(self, request):
+#         services = Service.objects.prefetch_related('serviceimage_set').all()
+#         service_data = json.dumps([
+#             {
+#                 'id': s.id,
+#                 'name': s.name,
+#                 'description': s.description,
+#                 'images': [img.image.url for img in s.serviceimage_set.all()]
+#             }
+#             for s in services
+#         ])
+#         return render(request, 'manager/branding_home.html', {
+#             'service_data': service_data,
+#         })
 
 class BrandingView(View):
     def get(self, request):
-        services = Service.objects.prefetch_related('serviceimage_set').all()
+        services = Service.objects.select_related('category').prefetch_related('serviceimage_set')
+
         service_data = json.dumps([
             {
                 'id': s.id,
                 'name': s.name,
                 'description': s.description,
+                'category': s.category.name if s.category else None,
                 'images': [img.image.url for img in s.serviceimage_set.all()]
             }
             for s in services
         ])
+
         return render(request, 'manager/branding_home.html', {
             'service_data': service_data,
         })
