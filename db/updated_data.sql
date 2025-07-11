@@ -16,6 +16,15 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+--
+-- Name: public; Type: SCHEMA; Schema: -; Owner: b2b_user
+--
+
+-- *not* creating schema, since initdb creates it
+
+
+ALTER SCHEMA public OWNER TO b2b_user;
+
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
@@ -1345,7 +1354,8 @@ CREATE TABLE public.manager_service (
     description_de text,
     description_en text,
     slug character varying(50),
-    created_on date NOT NULL
+    created_on date NOT NULL,
+    category_id bigint
 );
 
 
@@ -1370,6 +1380,41 @@ ALTER TABLE public.manager_service_id_seq OWNER TO b2b_user;
 --
 
 ALTER SEQUENCE public.manager_service_id_seq OWNED BY public.manager_service.id;
+
+
+--
+-- Name: manager_servicecategory; Type: TABLE; Schema: public; Owner: b2b_user
+--
+
+CREATE TABLE public.manager_servicecategory (
+    id bigint NOT NULL,
+    name character varying(100) NOT NULL,
+    description text,
+    slug character varying(50)
+);
+
+
+ALTER TABLE public.manager_servicecategory OWNER TO b2b_user;
+
+--
+-- Name: manager_servicecategory_id_seq; Type: SEQUENCE; Schema: public; Owner: b2b_user
+--
+
+CREATE SEQUENCE public.manager_servicecategory_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.manager_servicecategory_id_seq OWNER TO b2b_user;
+
+--
+-- Name: manager_servicecategory_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: b2b_user
+--
+
+ALTER SEQUENCE public.manager_servicecategory_id_seq OWNED BY public.manager_servicecategory.id;
 
 
 --
@@ -3308,6 +3353,13 @@ ALTER TABLE ONLY public.manager_service ALTER COLUMN id SET DEFAULT nextval('pub
 
 
 --
+-- Name: manager_servicecategory id; Type: DEFAULT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.manager_servicecategory ALTER COLUMN id SET DEFAULT nextval('public.manager_servicecategory_id_seq'::regclass);
+
+
+--
 -- Name: manager_serviceimage id; Type: DEFAULT; Schema: public; Owner: b2b_user
 --
 
@@ -3650,8 +3702,7 @@ COPY public.auth_app_supportprofile (id, responses, user_id) FROM stdin;
 
 COPY public.auth_app_user (id, password, last_login, is_superuser, username, first_name, first_name_ar, first_name_fr, first_name_de, first_name_en, last_name, last_name_ar, last_name_fr, last_name_de, last_name_en, email, is_staff, is_active, date_joined, account_type, image, is_email_activated) FROM stdin;
 3	melody254	2025-06-24 19:19:20+03	t	Betwan	Betwan	\N	\N	\N	Betwan	Suppliers	\N	\N	\N	Suppliers	info@betwancomputers.co.ke	t	t	2025-06-24 19:19:08+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
-1	pbkdf2_sha256$320000$54Jne3k7QuOtOPwJOILXpe$XZsR8EXKU8PDulV2c97sKNA9FEy565uJ5M4PPYRtrQk=	2025-06-30 14:06:57.216702+03	t	admin		\N	\N	\N	\N		\N	\N	\N	\N	emiliohulbert2017@gmail.com	t	t	2025-06-19 20:26:58.900149+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
-4	pbkdf2_sha256$320000$GuJQnnqDBoqelHJn31jS3h$C0qzsjEPgZezFEHYvhMr/J5ByXIWfO3F3Kyhj/b9I+8=	2025-07-01 13:32:49.240347+03	t	Admin		\N	\N	\N	\N		\N	\N	\N	\N	emiliohulbert2017@gmail.com	t	t	2025-06-30 20:15:14.535421+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
+4	pbkdf2_sha256$320000$GuJQnnqDBoqelHJn31jS3h$C0qzsjEPgZezFEHYvhMr/J5ByXIWfO3F3Kyhj/b9I+8=	2025-07-10 22:32:22.670865+03	t	Admin		\N	\N	\N	\N		\N	\N	\N	\N	emiliohulbert2017@gmail.com	t	t	2025-06-30 20:15:14.535421+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
 \.
 
 
@@ -4246,6 +4297,10 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 274	Can change social application token	69	change_socialtoken
 275	Can delete social application token	69	delete_socialtoken
 276	Can view social application token	69	view_socialtoken
+277	Can add service category	70	add_servicecategory
+278	Can change service category	70	change_servicecategory
+279	Can delete service category	70	delete_servicecategory
+280	Can view service category	70	view_servicecategory
 \.
 
 
@@ -4318,234 +4373,48 @@ COPY public.coms_supportclientchat (id, roomname, chatfilepath, is_closed, is_ha
 --
 
 COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
-1	2025-06-20 09:51:06.124024+03	1	admin	1	[{"added": {}}]	67	1
-2	2025-06-20 09:53:04.609657+03	1	admin	2	[{"changed": {"fields": ["Provider"]}}]	67	1
-3	2025-06-20 10:02:56.173805+03	1	HybridNairobiSkates	1	[{"added": {}}]	68	1
-4	2025-06-20 10:03:55.485441+03	2	hybrid.nairobiskates.com	1	[{"added": {}}]	6	1
-5	2025-06-20 10:04:14.342736+03	1	HybridNairobiSkates	2	[{"changed": {"fields": ["Sites"]}}]	68	1
-6	2025-06-20 10:06:33.625774+03	1	social application token (1)	1	[{"added": {}}]	69	1
-7	2025-06-20 10:07:07.07184+03	1	admin	2	[{"changed": {"fields": ["Provider"]}}]	67	1
-8	2025-06-20 10:10:08.949499+03	1	google	2	[{"changed": {"fields": ["Name"]}}]	68	1
-9	2025-06-20 10:11:00.621328+03	3	https://hybrid.nairobiskates.com/en/auth/login/	1	[{"added": {}}]	6	1
-10	2025-06-20 10:11:06.068984+03	1	google	2	[{"changed": {"fields": ["Sites"]}}]	68	1
-11	2025-06-20 10:13:03.026544+03	1	admin	2	[{"changed": {"fields": ["Provider"]}}]	67	1
-12	2025-06-20 11:04:42.847511+03	1	admin	3		67	1
-13	2025-06-20 11:05:21.105017+03	1	google	3		68	1
-14	2025-06-20 11:07:48.762615+03	2	Google Login	1	[{"added": {}}]	68	1
-15	2025-06-20 11:12:02.288354+03	2	admin	1	[{"added": {}}]	67	1
-16	2025-06-20 11:14:22.3721+03	2	social application token (2)	1	[{"added": {}}]	69	1
-17	2025-06-20 11:20:03.105876+03	2	Google Login	2	[]	68	1
-18	2025-06-20 11:20:44.828598+03	3	https://hybrid.nairobiskates.com/en/auth/login/	3		6	1
-19	2025-06-24 16:38:09.621434+03	2	Betwan Suppliers	1	[{"added": {}}]	27	1
-20	2025-06-24 17:49:41.508506+03	4	Laptop Bags	2	[{"changed": {"fields": ["Image"]}}]	24	1
-21	2025-06-24 17:49:56.019315+03	3	Phones	2	[{"changed": {"fields": ["Image"]}}]	24	1
-22	2025-06-24 17:50:06.759219+03	2	Printers	2	[{"changed": {"fields": ["Image"]}}]	24	1
-23	2025-06-24 17:50:19.090809+03	1	Laptops	2	[{"changed": {"fields": ["Image"]}}]	24	1
-24	2025-06-24 17:51:32.358383+03	6	Inkjet	2	[{"changed": {"fields": ["Image"]}}]	32	1
-25	2025-06-24 17:52:27.873522+03	4	iOS	2	[{"changed": {"fields": ["Image"]}}]	32	1
-26	2025-06-24 17:53:22.297533+03	3	Android	2	[{"changed": {"fields": ["Image"]}}]	32	1
-27	2025-06-24 17:53:56.892602+03	2	Business	2	[{"changed": {"fields": ["Image"]}}]	32	1
-28	2025-06-24 17:55:11.391044+03	1	Gaming	2	[{"changed": {"fields": ["Image"]}}]	32	1
-29	2025-06-24 17:58:16.411788+03	3	Main Store	3		27	1
-30	2025-06-24 17:58:16.417169+03	2	Betwan Suppliers	3		27	1
-31	2025-06-24 17:58:59.839817+03	4	Betwan Suppliers	1	[{"added": {}}]	27	1
-32	2025-06-24 17:59:11.205459+03	2	betwan_supplier	3		54	1
-33	2025-06-24 18:00:30.562183+03	5	Wireless	2	[{"changed": {"fields": ["Image"]}}]	32	1
-34	2025-06-24 18:02:55.039553+03	4	Betwan Suppliers	2	[{"changed": {"fields": ["Service Image"]}}]	27	1
-35	2025-06-24 18:04:01.365213+03	4	Betwan Suppliers	2	[{"changed": {"fields": ["Service Image"]}}]	27	1
-36	2025-06-24 18:07:13.917298+03	7	Apple	1	[{"added": {}}]	32	1
-37	2025-06-24 18:08:20.126443+03	4	iOS	2	[{"changed": {"fields": ["Image"]}}]	32	1
-38	2025-06-24 18:43:52.885552+03	5	Designer Mugs	1	[{"added": {}}]	24	1
-39	2025-06-24 18:55:59.151135+03	4	Epison L3210 None	1	[{"added": {}}]	23	1
-40	2025-06-24 18:57:27.225782+03	5	Hp Omen 16 None	1	[{"added": {}}]	23	1
-41	2025-06-24 19:00:26.278922+03	6	i7 11th 3.0ghz (8VPUS) 32GB RAM 512ssd touch None	1	[{"added": {}}]	23	1
-42	2025-06-24 19:01:49.541069+03	7	Hp Mini None	1	[{"added": {}}]	23	1
-43	2025-06-24 19:03:37.915798+03	8	Hp G3 None	1	[{"added": {}}]	23	1
-44	2025-06-24 19:20:37.407395+03	3	Betwan	1	[{"added": {}}]	58	1
-45	2025-06-24 19:21:33.156247+03	4	Betwan Suppliers	2	[{"changed": {"fields": ["Supplier"]}}]	27	1
-46	2025-06-24 19:23:54.30265+03	1	Betwan Suppliers	1	[{"added": {}}]	56	1
-47	2025-06-24 19:26:50.310566+03	8	Hp G3 Betwan Suppliers	2	[{"changed": {"fields": ["Business"]}}]	23	1
-48	2025-06-24 19:27:05.354608+03	7	Hp Mini Betwan Suppliers	2	[{"changed": {"fields": ["Business"]}}]	23	1
-49	2025-06-24 19:27:15.423757+03	6	i7 11th 3.0ghz (8VPUS) 32GB RAM 512ssd touch Betwan Suppliers	2	[{"changed": {"fields": ["Business"]}}]	23	1
-50	2025-06-24 19:27:24.163741+03	5	Hp Omen 16 Betwan Suppliers	2	[{"changed": {"fields": ["Business"]}}]	23	1
-51	2025-06-24 19:27:34.970844+03	4	Epison L3210 Betwan Suppliers	2	[{"changed": {"fields": ["Business"]}}]	23	1
-52	2025-06-24 19:31:43.921501+03	4	Betwan Suppliers	2	[]	27	1
-53	2025-06-24 19:32:11.704417+03	3	Betwan	2	[]	58	1
-54	2025-06-24 19:33:14.52356+03	1	1	1	[{"added": {}}]	2	1
-55	2025-06-24 19:33:24.935815+03	3	Betwan	2	[{"changed": {"fields": ["Groups"]}}]	58	1
-56	2025-06-24 19:33:44.833469+03	1	Betwan	1	[{"added": {}}]	55	1
-57	2025-06-24 19:36:59.161436+03	1	example.com	3		6	1
-58	2025-06-24 19:38:20.177028+03	8	Hp G3 Betwan Suppliers	2	[{"changed": {"fields": ["Store", "Stock"]}}]	23	1
-59	2025-06-24 19:41:16.565662+03	8	Hp G3 Betwan Suppliers	2	[]	23	1
-60	2025-06-24 19:41:29.934636+03	7	Hp Mini Betwan Suppliers	2	[{"changed": {"fields": ["Store"]}}]	23	1
-61	2025-06-24 19:41:46.232384+03	6	i7 11th 3.0ghz (8VPUS) 32GB RAM 512ssd touch Betwan Suppliers	2	[{"changed": {"fields": ["Store"]}}]	23	1
-62	2025-06-24 19:41:57.042584+03	6	i7 11th 3.0ghz (8VPUS) 32GB RAM 512ssd touch Betwan Suppliers	2	[]	23	1
-63	2025-06-24 19:42:08.346135+03	5	Hp Omen 16 Betwan Suppliers	2	[{"changed": {"fields": ["Store"]}}]	23	1
-64	2025-06-24 19:42:19.685583+03	4	Epison L3210 Betwan Suppliers	2	[{"changed": {"fields": ["Store"]}}]	23	1
-65	2025-06-24 19:45:31.502535+03	9	HP Victus 16 Gaming Betwan Suppliers	1	[{"added": {}}]	23	1
-66	2025-06-24 19:47:55.390447+03	6	Mouse	1	[{"added": {}}]	24	1
-67	2025-06-24 19:48:50.987312+03	10	Rechargable wireless mouse Betwan Suppliers	1	[{"added": {}}]	23	1
-68	2025-06-24 19:50:45.610841+03	8	Hp G3 Betwan Suppliers	2	[]	23	1
-69	2025-06-24 19:51:19.716766+03	9	HP Victus 16 Gaming Betwan Suppliers	2	[]	23	1
-70	2025-06-24 19:51:57.018669+03	9	HP Victus 16 Gaming Betwan Suppliers	2	[]	23	1
-71	2025-06-24 19:52:14.591753+03	9	HP Victus 16 Gaming Betwan Suppliers	2	[{"changed": {"fields": ["Price"]}}]	23	1
-72	2025-06-24 19:53:18.946974+03	8	Hp G3 Betwan Suppliers	2	[{"changed": {"fields": ["Price"]}}]	23	1
-73	2025-06-24 19:53:32.220033+03	7	Hp Mini Betwan Suppliers	2	[{"changed": {"fields": ["Price"]}}]	23	1
-74	2025-06-24 19:54:02.83101+03	6	i7 11th 3.0ghz (8VPUS) 32GB RAM 512ssd touch Betwan Suppliers	2	[{"changed": {"fields": ["Price"]}}]	23	1
-75	2025-06-24 19:54:27.610545+03	5	Hp Omen 16 Betwan Suppliers	2	[{"changed": {"fields": ["Price"]}}]	23	1
-76	2025-06-24 19:54:47.341187+03	4	Epison L3210 Betwan Suppliers	2	[{"changed": {"fields": ["Price"]}}]	23	1
-77	2025-06-24 20:06:12.272073+03	3	Rechargable wireless mouse	1	[{"added": {}}]	36	1
-78	2025-06-24 20:07:55.628113+03	4	HP Victus 16 Gaming	1	[{"added": {}}]	36	1
-79	2025-06-24 20:08:49.430724+03	5	Hp Omen 16	1	[{"added": {}}]	36	1
-80	2025-06-24 20:09:24.758884+03	6	i7 11th 3.0ghz (8VPUS) 32GB RAM 512ssd touch	1	[{"added": {}}]	36	1
-81	2025-06-24 20:10:48.252924+03	7	Hp Omen 16	1	[{"added": {}}]	36	1
-82	2025-06-24 20:11:08.811204+03	8	Epison L3210	1	[{"added": {}}]	36	1
-83	2025-06-24 20:14:23.665876+03	8	Designer Mugs	1	[{"added": {}}]	32	1
-84	2025-06-24 20:15:09.836971+03	11	Beauty Mug Betwan Suppliers	1	[{"added": {}}]	23	1
-85	2025-06-24 20:15:54.005803+03	9	Beauty Mug	1	[{"added": {}}]	36	1
-86	2025-06-24 20:18:20.454133+03	10	Hp G3	1	[{"added": {}}]	36	1
-87	2025-06-24 20:19:09.951717+03	11	Hp Mini	1	[{"added": {}}]	36	1
-88	2025-06-24 20:20:35.137847+03	9	Normal Laptop Bag	1	[{"added": {}}]	32	1
-89	2025-06-24 20:21:38.799139+03	12	Laptop Bag Betwan Suppliers	1	[{"added": {}}]	23	1
-90	2025-06-24 20:21:57.188496+03	12	Laptop Bag	1	[{"added": {}}]	36	1
-91	2025-06-24 20:23:13.371257+03	10	wired	1	[{"added": {}}]	32	1
-92	2025-06-24 20:49:26.43272+03	3	Betwan	2	[{"changed": {"fields": ["Image"]}}]	58	1
-93	2025-06-24 20:50:59.133398+03	1	Showroom 1	1	[{"added": {}}]	12	1
-94	2025-06-24 20:51:03.969874+03	1	Showroom 1 - 100000	1	[{"added": {}}]	19	1
-95	2025-06-24 20:51:16.32209+03	1	Product: HP Victus 16 Gaming Betwan Suppliers, Active: True	1	[{"added": {}}]	20	1
-96	2025-06-24 21:32:23.986616+03	1	Betwan Suppliers	2	[{"changed": {"fields": ["Team"]}}]	56	1
-97	2025-06-24 21:34:32.570256+03	1	IT Consultancy	1	[{"added": {}}]	10	1
-98	2025-06-24 21:34:44.343503+03	1	IT Consultancy	1	[{"added": {}}]	13	1
-99	2025-06-24 21:35:43.832182+03	1	Epison L3210 - black	1	[{"added": {}}]	37	1
-100	2025-06-24 21:35:57.821899+03	2	Epison L3210 - White	1	[{"added": {}}]	37	1
-101	2025-06-24 21:37:00.230101+03	1	Imegeries	1	[{"added": {}}]	25	1
-102	2025-06-24 21:37:07.77873+03	1	Imegeries	1	[{"added": {}}]	29	1
-103	2025-06-24 21:52:40.350918+03	1	Promotion object (1)	2	[{"changed": {"fields": ["Type"]}}]	14	1
-104	2025-06-24 21:53:12.263093+03	1	Promotion object (1)	2	[{"changed": {"fields": ["Image", "Showroom"]}}]	14	1
-105	2025-06-24 21:53:49.86105+03	1	Promotion object (1)	3		14	1
-106	2025-06-24 21:55:20.852682+03	2	Betwan ShowRoom	1	[{"added": {}}]	12	1
-107	2025-06-24 21:55:50.664993+03	2	Promotion object (2)	1	[{"added": {}}]	14	1
-108	2025-06-24 21:56:31.05487+03	3	Promotion object (3)	1	[{"added": {}}]	14	1
-109	2025-06-24 21:57:08.507363+03	4	Promotion object (4)	1	[{"added": {}}]	14	1
-110	2025-06-25 16:32:50.55375+03	13	HP Elitebook 840 g9 Betwan Suppliers	1	[{"added": {}}]	23	1
-111	2025-06-25 16:34:11.387034+03	14	HP Z Book 14 G7 Firefly Betwan Suppliers	1	[{"added": {}}]	23	1
-112	2025-06-25 16:36:30.028844+03	15	Hp 840G8 Betwan Suppliers	1	[{"added": {}}]	23	1
-113	2025-06-25 16:37:42.119186+03	16	MICROSOFT PRO 5 Betwan Suppliers	1	[{"added": {}}]	23	1
-114	2025-06-25 16:38:55.338973+03	17	DELL LATITUDE 7280 Betwan Suppliers	1	[{"added": {}}]	23	1
-115	2025-06-25 16:39:53.488342+03	18	DELL LATITUDE 7390 Betwan Suppliers	1	[{"added": {}}]	23	1
-116	2025-06-25 16:40:57.546419+03	19	Dell Precision 5520 Betwan Suppliers	1	[{"added": {}}]	23	1
-117	2025-06-25 16:42:33.515187+03	20	Samsung Galaxy A56 Betwan Suppliers	1	[{"added": {}}]	23	1
-118	2025-06-25 16:43:44.077091+03	21	NEW ARRIVALS  MACBOOK PRO M1 Betwan Suppliers	1	[{"added": {}}]	23	1
-119	2025-06-25 16:44:39.274634+03	22	MACBOOK PRO M1 (2338) Betwan Suppliers	1	[{"added": {}}]	23	1
-120	2025-06-25 16:45:38.055114+03	23	Lenovo x1 carbon G7 Betwan Suppliers	1	[{"added": {}}]	23	1
-121	2025-06-25 16:46:49.45168+03	24	LENOVO X1 YOGA Betwan Suppliers	1	[{"added": {}}]	23	1
-122	2025-06-25 16:47:37.11082+03	25	🔥LENOVO THINKPAD X380 YOGA Betwan Suppliers	1	[{"added": {}}]	23	1
-123	2025-06-25 16:48:26.933137+03	26	🔥🔥🔥 Lenovo T490s Betwan Suppliers	1	[{"added": {}}]	23	1
-124	2025-06-25 16:49:31.219559+03	27	HP 1040 Betwan Suppliers	1	[{"added": {}}]	23	1
-125	2025-06-25 16:50:58.700873+03	28	Lenovo thinkpad yoga 11e Betwan Suppliers	1	[{"added": {}}]	23	1
-126	2025-06-25 16:51:48.193502+03	29	LENOVO 460P Betwan Suppliers	1	[{"added": {}}]	23	1
-127	2025-06-25 16:52:58.743952+03	30	🔥 LENOVO X1 YOGA G7 – Premium Convertible Laptop 🔥 Betwan Suppliers	1	[{"added": {}}]	23	1
-128	2025-06-25 16:53:48.933415+03	31	Dell XPS 15 9500 Betwan Suppliers	1	[{"added": {}}]	23	1
-129	2025-06-25 16:54:33.732568+03	32	DELL LATITUDE 7280 Betwan Suppliers	1	[{"added": {}}]	23	1
-130	2025-06-25 16:55:31.543784+03	33	🔥HP Z Book 14 G7 Firefly Betwan Suppliers	1	[{"added": {}}]	23	1
-131	2025-06-25 16:56:25.315077+03	34	HP PAVILION AERO Betwan Suppliers	1	[{"added": {}}]	23	1
-132	2025-06-25 16:57:12.734667+03	35	HP VICTUS 16 GAMING Betwan Suppliers	1	[{"added": {}}]	23	1
-133	2025-06-25 16:58:07.140917+03	36	💻 Dell Precision 5550 Betwan Suppliers	1	[{"added": {}}]	23	1
-134	2025-06-25 16:58:52.838718+03	37	🔥🔥🔥Lenovo ThinkPad X1 Yoga Betwan Suppliers	1	[{"added": {}}]	23	1
-135	2025-06-25 16:59:42.795884+03	38	LENOVO X1 YOGA G7 Betwan Suppliers	1	[{"added": {}}]	23	1
-136	2025-06-25 17:00:18.135641+03	39	🔥LENOVO THINKPAD X380 YOGA Betwan Suppliers	1	[{"added": {}}]	23	1
-137	2025-06-25 17:01:02.865265+03	40	Lenovo x1 carbon G7 Betwan Suppliers	1	[{"added": {}}]	23	1
-138	2025-06-25 17:01:48.684887+03	41	DELL PRECISION 5530 Betwan Suppliers	1	[{"added": {}}]	23	1
-139	2025-06-25 17:02:29.731489+03	42	MACBOOK PRO M1 Betwan Suppliers	1	[{"added": {}}]	23	1
-140	2025-06-25 17:03:15.366342+03	43	MACBOOK PRO M1 2021 (A2442) Betwan Suppliers	1	[{"added": {}}]	23	1
-141	2025-06-25 17:04:19.215877+03	44	DELL PRECISION 5530 Betwan Suppliers	1	[{"added": {}}]	23	1
-142	2025-06-25 17:05:17.995525+03	45	[11:32 AM, 6/24/2025] Nash: @60k [11:34 AM, 6/24/2025] Nash: Mini @30k [11:34 AM, 6/24/2025] Nash: G3 @50k [11:35 AM, 6/24/2025] Nash: HP Victus 16 Gaming 11th Gen Core i5 16gb Ram 1TB SSD 4gb Nvidia 	1	[{"added": {}}]	23	1
-143	2025-06-25 17:06:21.926884+03	45	[11:32 AM, 6/24/2025] Nash: @60k [11:34 AM, 6/24/2025] Nash: Mini @30k [11:34 AM, 6/24/2025] Nash: G3 @50k [11:35 AM, 6/24/2025] Nash: HP Victus 16 Gaming 11th Gen Core i5 16gb Ram 1TB SSD 4gb Nvidia 	2	[{"changed": {"fields": ["Name"]}}]	23	1
-144	2025-06-25 17:06:45.279686+03	45	HP Elitebook 830 G6/8th Betwan Suppliers	2	[{"changed": {"fields": ["Name", "Name [en]"]}}]	23	1
-145	2025-06-25 17:08:04.179269+03	46	HP ELITEBOOK 840 G6 Betwan Suppliers	1	[{"added": {}}]	23	1
-146	2025-06-25 17:08:49.788495+03	47	*DEll XPS 13 9365 Betwan Suppliers	1	[{"added": {}}]	23	1
-147	2025-06-25 17:09:22.431948+03	48	HP ELITEBOOK 1040 G8 Betwan Suppliers	1	[{"added": {}}]	23	1
-148	2025-06-25 17:10:05.038391+03	49	HP ELITEBOOK 830 G5 Betwan Suppliers	1	[{"added": {}}]	23	1
-149	2025-06-25 17:10:42.408023+03	50	DELL 3310 Betwan Suppliers	1	[{"added": {}}]	23	1
-150	2025-06-25 17:11:28.02491+03	51	DELL LATITUDE 7280 Betwan Suppliers	1	[{"added": {}}]	23	1
-151	2025-06-25 17:12:21.986289+03	52	HP 840 G5 core i5 8th gen Betwan Suppliers	1	[{"added": {}}]	23	1
-152	2025-06-25 17:16:34.637559+03	13	HP Z Book 14 G7 Firefly	1	[{"added": {}}]	36	1
-153	2025-06-25 17:18:37.616893+03	14	Hp 840G8	1	[{"added": {}}]	36	1
-154	2025-06-25 17:19:27.088827+03	15	MICROSOFT PRO 5	1	[{"added": {}}]	36	1
-155	2025-06-25 17:20:01.598676+03	16	DELL LATITUDE 7280	1	[{"added": {}}]	36	1
-156	2025-06-25 17:20:52.130971+03	17	Dell Precision 5520	1	[{"added": {}}]	36	1
-157	2025-06-25 17:21:33.628983+03	17	Dell Precision 5520	2	[{"changed": {"fields": ["Image"]}}]	36	1
-158	2025-06-25 17:21:56.476924+03	18	Samsung Galaxy A56	1	[{"added": {}}]	36	1
-159	2025-06-25 17:25:04.474522+03	19	MACBOOK PRO M1	1	[{"added": {}}]	36	1
-160	2025-06-25 17:31:58.202944+03	20	MACBOOK PRO M1 (2338)	1	[{"added": {}}]	36	1
-161	2025-06-25 17:32:56.035828+03	21	LENOVO X1 YOGA	1	[{"added": {}}]	36	1
-162	2025-06-25 17:33:40.468529+03	22	🔥LENOVO THINKPAD X380 YOGA	1	[{"added": {}}]	36	1
-163	2025-06-25 17:34:51.033025+03	23	🔥🔥🔥 Lenovo T490s	1	[{"added": {}}]	36	1
-164	2025-06-25 17:35:47.343261+03	24	HP 1040	1	[{"added": {}}]	36	1
-165	2025-06-25 17:37:32.393828+03	25	LENOVO 460P	1	[{"added": {}}]	36	1
-166	2025-06-25 17:38:26.716151+03	26	🔥 LENOVO X1 YOGA G7 – Premium Convertible Laptop 🔥	1	[{"added": {}}]	36	1
-167	2025-06-25 17:38:55.603273+03	27	Dell XPS 15 9500	1	[{"added": {}}]	36	1
-168	2025-06-25 17:39:17.230459+03	28	DELL LATITUDE 7280	1	[{"added": {}}]	36	1
-169	2025-06-25 17:39:59.835123+03	29	HP Z Book 14 G7 Firefly	1	[{"added": {}}]	36	1
-170	2025-06-25 17:41:09.576753+03	30	HP Z Book 14 G7 Firefly	1	[{"added": {}}]	36	1
-171	2025-06-25 17:42:18.911168+03	31	HP PAVILION AERO	1	[{"added": {}}]	36	1
-172	2025-06-25 17:42:47.651184+03	32	HP VICTUS 16 GAMING	1	[{"added": {}}]	36	1
-173	2025-06-25 17:45:08.608647+03	33	💻 Dell Precision 5550	1	[{"added": {}}]	36	1
-174	2025-06-25 17:45:34.129012+03	34	🔥🔥🔥Lenovo ThinkPad X1 Yoga	1	[{"added": {}}]	36	1
-175	2025-06-25 17:46:04.50097+03	35	🔥LENOVO THINKPAD X380 YOGA	1	[{"added": {}}]	36	1
-176	2025-06-25 17:47:17.627242+03	36	Lenovo x1 carbon G7	1	[{"added": {}}]	36	1
-177	2025-06-25 17:47:57.548802+03	36	Lenovo x1 carbon G7	2	[{"changed": {"fields": ["Image"]}}]	36	1
-178	2025-06-25 17:48:19.204777+03	37	DELL PRECISION 5530	1	[{"added": {}}]	36	1
-179	2025-06-25 17:49:12.02215+03	38	MACBOOK PRO M1 2021 (A2442)	1	[{"added": {}}]	36	1
-180	2025-06-25 17:49:38.741124+03	38	MACBOOK PRO M1 2021 (A2442)	2	[{"changed": {"fields": ["Image"]}}]	36	1
-181	2025-06-25 17:50:02.485135+03	39	DELL PRECISION 5530	1	[{"added": {}}]	36	1
-182	2025-06-25 17:50:27.288447+03	40	HP Elitebook 830 G6/8th	1	[{"added": {}}]	36	1
-183	2025-06-25 17:51:04.739175+03	41	Laptop Bag	1	[{"added": {}}]	36	1
-184	2025-06-25 17:54:51.101898+03	42	HP PAVILION AERO	1	[{"added": {}}]	36	1
-185	2025-06-25 17:55:39.769191+03	43	HP ELITEBOOK 840 G6	1	[{"added": {}}]	36	1
-186	2025-06-25 17:56:10.211812+03	44	*DEll XPS 13 9365	1	[{"added": {}}]	36	1
-187	2025-06-25 17:56:29.973044+03	45	HP ELITEBOOK 830 G5	1	[{"added": {}}]	36	1
-188	2025-06-25 17:57:36.784628+03	46	DELL LATITUDE 7280	1	[{"added": {}}]	36	1
-189	2025-06-25 17:58:36.861108+03	46	DELL LATITUDE 7280	2	[{"changed": {"fields": ["Image"]}}]	36	1
-190	2025-06-25 17:59:32.946986+03	47	DELL 3310	1	[{"added": {}}]	36	1
-191	2025-06-25 18:00:02.10021+03	48	HP 840 G5 core i5 8th gen	1	[{"added": {}}]	36	1
-192	2025-06-25 18:03:00.85133+03	11	Samsung	1	[{"added": {}}]	32	1
-193	2025-06-25 18:05:09.353826+03	12	NOKIA	1	[{"added": {}}]	32	1
-194	2025-06-25 18:05:23.340372+03	13	VIVO	1	[{"added": {}}]	32	1
-195	2025-06-25 18:05:40.829344+03	14	REDMI	1	[{"added": {}}]	32	1
-196	2025-06-25 18:07:18.545833+03	15	OPPO	1	[{"added": {}}]	32	1
-197	2025-06-25 18:07:29.125849+03	16	ITEL	1	[{"added": {}}]	32	1
-198	2025-06-25 18:07:42.336148+03	17	TECNO	1	[{"added": {}}]	32	1
-199	2025-06-25 18:09:34.519728+03	11	Samsung	2	[{"changed": {"fields": ["Image"]}}]	32	1
-200	2025-06-25 18:09:50.348146+03	14	REDMI	2	[{"changed": {"fields": ["Image"]}}]	32	1
-201	2025-06-25 18:12:55.624172+03	49	HP ELITEBOOK 1040 G8	1	[{"added": {}}]	36	1
-202	2025-06-25 18:13:51.781548+03	50	LENOVO X1 YOGA G7	1	[{"added": {}}]	36	1
-203	2025-06-25 18:15:09.625234+03	51	🔥HP Z Book 14 G7 Firefly	1	[{"added": {}}]	36	1
-204	2025-06-25 18:16:19.331865+03	52	Lenovo thinkpad yoga 11e	1	[{"added": {}}]	36	1
-205	2025-06-25 18:17:33.02019+03	53	🔥LENOVO THINKPAD X380 YOGA	1	[{"added": {}}]	36	1
-206	2025-06-25 18:18:40.720572+03	54	Lenovo x1 carbon G7	1	[{"added": {}}]	36	1
-207	2025-06-25 18:21:02.87419+03	55	NEW ARRIVALS  MACBOOK PRO M1	1	[{"added": {}}]	36	1
-208	2025-06-25 18:22:23.386886+03	56	DELL LATITUDE 7390	1	[{"added": {}}]	36	1
-209	2025-06-25 18:22:55.93126+03	57	DELL LATITUDE 7280	1	[{"added": {}}]	36	1
-210	2025-06-25 18:23:57.635215+03	58	HP Elitebook 840 g9	1	[{"added": {}}]	36	1
-211	2025-06-25 18:25:31.725315+03	59	🔥LENOVO THINKPAD X380 YOGA	1	[{"added": {}}]	36	1
-212	2025-06-25 18:26:30.448183+03	60	🔥LENOVO THINKPAD X380 YOGA	1	[{"added": {}}]	36	1
-213	2025-06-25 18:27:41.971402+03	61	DELL LATITUDE 7280	1	[{"added": {}}]	36	1
-214	2025-06-25 18:37:06.672224+03	1	Showroom 1	3		12	1
-215	2025-06-27 13:07:31.741788+03	53	HP RAZOR BLADE 14 Betwan Suppliers	1	[{"added": {}}]	23	1
-216	2025-06-27 13:08:53.872527+03	54	HP DRAGON FLY G3 Betwan Suppliers	1	[{"added": {}}]	23	1
-217	2025-06-27 13:10:36.784148+03	55	🔥🔥 HP Dragonfly G2 Betwan Suppliers	1	[{"added": {}}]	23	1
-218	2025-06-27 13:11:38.586588+03	56	🔥🔥🔥HP  Eliteboook 830 G8 Betwan Suppliers	1	[{"added": {}}]	23	1
-219	2025-06-27 13:12:38.362421+03	57	Hp Elite book 840 G9 Betwan Suppliers	1	[{"added": {}}]	23	1
-220	2025-06-27 13:14:27.353517+03	62	HP RAZOR BLADE 14	1	[{"added": {}}]	36	1
-221	2025-06-27 13:16:45.887458+03	63	HP DRAGON FLY G3	1	[{"added": {}}]	36	1
-222	2025-06-27 13:17:12.276354+03	64	🔥🔥 HP Dragonfly G2	1	[{"added": {}}]	36	1
-223	2025-06-27 13:17:52.715632+03	65	🔥🔥🔥HP  Eliteboook 830 G8	1	[{"added": {}}]	36	1
-224	2025-06-27 13:18:09.00596+03	66	Hp Elite book 840 G9	1	[{"added": {}}]	36	1
-225	2025-06-27 13:20:08.271482+03	57	Hp Elite book 840 G9 Betwan Suppliers	2	[{"changed": {"fields": ["Price"]}}]	23	1
-226	2025-06-27 15:19:37.25085+03	18	Wireless Mouse	1	[{"added": {}}]	32	1
-227	2025-06-27 15:20:36.224231+03	67	Rechargable wireless mouse	1	[{"added": {}}]	36	1
-228	2025-06-27 15:22:16.902141+03	10	Rechargable wireless mouse Betwan Suppliers	2	[{"changed": {"fields": ["Category", "Sub category"]}}]	23	1
+231	2025-07-07 13:52:44.908672+03	1	Web App Development	2	[{"changed": {"fields": ["Name", "Name [en]", "Description", "Description [en]", "Safe Url"]}}]	10	4
+232	2025-07-07 13:53:18.918925+03	2	Digital Marketing	1	[{"added": {}}]	10	4
+233	2025-07-07 13:53:43.016689+03	3	Mobile App Development	1	[{"added": {}}]	10	4
+234	2025-07-07 13:54:02.656887+03	4	Software & AI Solutions	1	[{"added": {}}]	10	4
+235	2025-07-07 13:54:33.832843+03	5	Marketing & Branding	1	[{"added": {}}]	10	4
+236	2025-07-07 13:54:58.5792+03	6	IT Infrastructure	1	[{"added": {}}]	10	4
+237	2025-07-07 14:00:22.5912+03	2	Web App Development	1	[{"added": {}}]	13	4
+238	2025-07-07 14:00:33.713223+03	3	Digital Marketing	1	[{"added": {}}]	13	4
+239	2025-07-07 14:01:28.659668+03	4	Mobile App Development	1	[{"added": {}}]	13	4
+240	2025-07-07 14:01:41.596752+03	5	Software & AI Solutions	1	[{"added": {}}]	13	4
+241	2025-07-07 14:02:13.393949+03	6	Marketing & Branding	1	[{"added": {}}]	13	4
+242	2025-07-07 14:03:23.835087+03	7	IT Infrastructure	1	[{"added": {}}]	13	4
+243	2025-07-07 14:24:01.753364+03	1	Web App Development	3		13	4
+244	2025-07-07 18:54:22.989656+03	1	Web App Development	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+245	2025-07-07 18:56:15.861636+03	1	Web App Development	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+246	2025-07-07 18:57:14.578119+03	3	Mobile App Development	2	[{"changed": {"fields": ["Description"]}}]	10	4
+247	2025-07-07 18:57:25.371217+03	3	Mobile App Development	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+248	2025-07-07 18:57:42.811279+03	3	Mobile App Development	2	[]	10	4
+249	2025-07-07 18:57:49.859309+03	2	Digital Marketing	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+250	2025-07-07 18:58:09.966343+03	4	Software & AI Solutions	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+251	2025-07-07 18:58:26.469047+03	5	Marketing & Branding	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+252	2025-07-07 18:58:43.762536+03	6	IT Infrastructure	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+253	2025-07-10 19:50:55.672173+03	1	Information Management Systems	1	[{"added": {}}]	70	4
+254	2025-07-10 19:51:17.388778+03	2	2. Digital Marketing & Branding	1	[{"added": {}}]	70	4
+255	2025-07-10 19:51:53.118404+03	3	3. Hardware & IT Infrastructure	1	[{"added": {}}]	70	4
+256	2025-07-10 19:52:13.800074+03	4	4. Creative Media	1	[{"added": {}}]	70	4
+257	2025-07-10 19:52:32.480655+03	5	5. Bootcamp & Skills Training	1	[{"added": {}}]	70	4
+258	2025-07-10 20:21:41.66681+03	7	ERP Systems (Custom-built)	1	[{"added": {}}]	10	4
+259	2025-07-10 20:36:41.018109+03	6	IT Infrastructure	3		10	4
+260	2025-07-10 20:36:41.022977+03	5	Marketing & Branding	3		10	4
+261	2025-07-10 20:36:41.027312+03	4	Software & AI Solutions	3		10	4
+262	2025-07-10 20:36:41.032918+03	3	Mobile App Development	3		10	4
+263	2025-07-10 20:36:41.039138+03	2	Digital Marketing	3		10	4
+264	2025-07-10 20:36:41.045904+03	1	Web App Development	3		10	4
+265	2025-07-10 20:49:28.320745+03	8	ERP Systems (Custom-built)	1	[{"added": {}}]	13	4
+266	2025-07-10 20:57:25.206876+03	2	Digital Marketing & Branding	2	[{"changed": {"fields": ["Name"]}}]	70	4
+267	2025-07-10 20:57:34.106825+03	3	Hardware & IT Infrastructure	2	[{"changed": {"fields": ["Name"]}}]	70	4
+268	2025-07-10 20:57:41.873326+03	4	Creative Media	2	[{"changed": {"fields": ["Name"]}}]	70	4
+269	2025-07-10 20:57:50.727725+03	5	Bootcamp & Skills Training	2	[{"changed": {"fields": ["Name"]}}]	70	4
+270	2025-07-10 22:33:36.699526+03	8	Web & Mobile App Development (Android & iOS)	1	[{"added": {}}]	10	4
+271	2025-07-10 22:33:57.582366+03	9	Web & Mobile App Development (Android & iOS)	1	[{"added": {}}]	13	4
+272	2025-07-10 22:35:02.653355+03	7	ERP Systems (Custom-built)	2	[{"changed": {"fields": ["Description", "Description [en]"]}}]	10	4
 \.
 
 
@@ -4623,6 +4492,7 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 67	socialaccount	socialaccount
 68	socialaccount	socialapp
 69	socialaccount	socialtoken
+70	manager	servicecategory
 \.
 
 
@@ -4674,6 +4544,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 41	socialaccount	0005_socialtoken_nullable_app	2025-06-19 20:15:28.669842+03
 42	socialaccount	0006_alter_socialaccount_extra_data	2025-06-19 20:15:28.694805+03
 43	supplier	0002_alter_order_is_complete_alter_product_is_verified_and_more	2025-06-19 20:15:28.769454+03
+44	manager	0002_servicecategory_service_category	2025-07-10 19:45:20.849806+03
 \.
 
 
@@ -4696,6 +4567,10 @@ x3slf5ipzzyom8enrt9xfp2nekyg06e8	.eJxVjEEOwiAQRe_C2hAKFMGl-56BDDODVA0kpV0Z765Nut
 d9n7flha01u267s17y5av9mu7vn6z3k0	.eJxVjEEOwiAQRe_C2hAKFMGl-56BDDODVA0kpV0Z765NutDtf-_9l4iwrSVunZc4k7iIQZx-twT44LoDukO9NYmtrsuc5K7Ig3Y5NeLn9XD_Dgr08q3dWVPWQ_BJhZxRG7IZTDacSDlI3mhHHtGOHJQaM3KwTqXgMXiy1ijx_gD0sDgQ:1uV5xv:PFNnhYVQ8XuuF0qu-yqk4zjspO5mFOdTq4aR_ZU8gvo	2025-07-11 13:05:51.727345+03
 zly3twnnmxo4hkoy2h0pobc0o1d4qidt	.eJxVjDsOwjAQBe_iGlleR7bXlPScIdofJIASKZ8q4u4QKQW0b2be5lpal65dZ5vaXt3ZgTv9bkzytGEH-qDhPnoZh2Xq2e-KP-jsr6Pa63K4fwcdzd23xhxLg7kyxspFBbBBw6rMKZYEcpPEUqlkUg0hlKzRkAJYEYBk4N4f0i03rQ:1uWCLh:COkh1TxAWi8Qv8hwnEWMHmvqvk0RspuOKAnmUI_tsIw	2025-07-14 14:06:57.224069+03
 ula8jracylu30gdfucs9evtypksk0mkg	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIqrDj9boTxyXWA9MB6bzK2uq0LyaHIg3Y5t8Sv2-H-HRTsZdRM1vuM1sHkISsgyxrOViFPRBkuWbMCYASTNHuVHDoyXhuOADmC-HwB87A4Wg:1uWYID:FxM0efwKssxpsAVOpqJRxaWPHnPzv9V4_ZFhHqMrng4	2025-07-15 13:32:49.246665+03
+y5ig2xn335ky73vv163ukzsnsy5iinq0	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIqrDj9boTxyXWA9MB6bzK2uq0LyaHIg3Y5t8Sv2-H-HRTsZdRM1vuM1sHkISsgyxrOViFPRBkuWbMCYASTNHuVHDoyXhuOADmC-HwB87A4Wg:1uYjQe:j4V-s9vmo9HulXt8rVhHWCXc_hFnIxtSSCCHDWx0Rpk	2025-07-21 13:50:32.848283+03
+fbjlzqdm7ear6qw2gh9otuze5r102zqu	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1uZuPc:0OvX34AChATQ3zN53Me1dbeJV0XDSDx-ipl9XMxobOk	2025-07-24 19:46:20.721659+03
+lpfz46uzmcz99fpy4dro1wi3bb0q0qub	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1uZvW8:mv3Gp7HQRMSHusw3zfQ0kcHftzNoTREkr7Cj-uMoQO0	2025-07-24 20:57:08.889832+03
+bbcd0x8cjqu6zd8i2j6pj7f1hwd4pei9	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1uZx0I:q7HelD1lLEdf1Z9kyoQINomSn2r9dvkyU6uQiJUndww	2025-07-24 22:32:22.678645+03
 \.
 
 
@@ -4795,8 +4670,22 @@ COPY public.manager_sentemail (id, recipient, subject, sending_email, content, r
 -- Data for Name: manager_service; Type: TABLE DATA; Schema: public; Owner: b2b_user
 --
 
-COPY public.manager_service (id, name, name_ar, name_fr, name_de, name_en, description, description_ar, description_fr, description_de, description_en, slug, created_on) FROM stdin;
-1	IT Consultancy	\N	\N	\N	IT Consultancy	Consult Us On any matters regarding software				Consult Us On any matters regarding software	it-consultancy-a36ccf73-77d4-479f-a872-9907f6731b4	2025-06-24
+COPY public.manager_service (id, name, name_ar, name_fr, name_de, name_en, description, description_ar, description_fr, description_de, description_en, slug, created_on, category_id) FROM stdin;
+8	Web & Mobile App Development (Android & iOS)	\N	\N	\N	Web & Mobile App Development (Android & iOS)	Build modern, responsive web platforms and native or cross-platform mobile apps tailored for both Android and iOS. We specialize in creating seamless, high-performance applications with intuitive interfaces, robust backend integration, and optimized user experiences. Whether you're launching a startup MVP or scaling an enterprise solution, our development team ensures your digital product is fast, secure, and ready for growth.				Build modern, responsive web platforms and native or cross-platform mobile apps tailored for both Android and iOS. We specialize in creating seamless, high-performance applications with intuitive interfaces, robust backend integration, and optimized user experiences. Whether you're launching a startup MVP or scaling an enterprise solution, our development team ensures your digital product is fast, secure, and ready for growth.	web-mobile-app-development-android-ios-818fb584-08	2025-07-10	1
+7	ERP Systems (Custom-built)	\N	\N	\N	ERP Systems (Custom-built)	ERP Systems (Custom-built)\r\nStreamline your operations with tailored Enterprise Resource Planning (ERP) systems designed to fit your unique business workflows. Our custom-built ERP solutions integrate core functions—such as finance, HR, inventory, and sales—into a centralized platform, improving efficiency, visibility, and decision-making across your organization.				ERP Systems (Custom-built)\r\nStreamline your operations with tailored Enterprise Resource Planning (ERP) systems designed to fit your unique business workflows. Our custom-built ERP solutions integrate core functions—such as finance, HR, inventory, and sales—into a centralized platform, improving efficiency, visibility, and decision-making across your organization.	erp-systems-custom-built-2754a812-02ce-4124-890f-7	2025-07-10	1
+\.
+
+
+--
+-- Data for Name: manager_servicecategory; Type: TABLE DATA; Schema: public; Owner: b2b_user
+--
+
+COPY public.manager_servicecategory (id, name, description, slug) FROM stdin;
+1	Information Management Systems	Information Management Systems refer to the tools, processes, and methodologies used by organizations to collect, process, store, and distribute data to support decision-making and operational efficiency. It's the intersection of business and technology, enabling companies to manage their digital assets effectively. IMS professionals focus on areas like data analytics, database management, software development, and project management to help organizations leverage information for strategic advantage. Examples include Enterprise Resource Planning (ERP) systems for managing core business processes, Customer Relationship Management (CRM) systems for customer interactions, and Decision Support Systems (DSS) for analytical insights. The goal of IMS is to provide timely, accurate, and relevant information to various stakeholders, from operational staff to senior executives, to improve productivity, gain competitive advantage,	information-management-systems
+2	Digital Marketing & Branding	Digital Marketing & Branding encompasses the strategies and tactics used to promote products, services, and brands through digital channels and technologies. This includes a wide array of online platforms such such as websites, social media (Facebook, Instagram, LinkedIn, TikTok), email, mobile applications, search engines (Google, Bing), and various forms of digital advertising (PPC, banner ads). The core aim is to reach, engage, and convert target audiences online, build brand awareness, and foster customer loyalty. Key components often include Search Engine Optimization (SEO) to improve visibility in search results, content marketing (blogs, videos, infographics) to provide value, social media marketing for direct engagement, email marketing for targeted communication, and influencer marketing for leveraging established audiences. Digital marketing emphasizes measurability, agility, and precise targeting to maximize impact and ROI.	2-digital-marketing-branding
+3	Hardware & IT Infrastructure	Hardware & IT Infrastructure refers to the foundational physical and software components that support an organization's entire information technology environment. It's the backbone upon which all IT services and applications operate.\r\n\r\nHardware includes physical devices like servers, desktop and laptop computers, networking equipment (routers, switches, firewalls), storage devices (hard drives, solid-state drives), and peripheral devices (printers, scanners).\r\n\r\nIT Infrastructure broadly encompasses not just hardware, but also:\r\n\r\nSoftware: Operating systems (Windows Server, Linux), databases, virtualization software, and enterprise applications (ERP, CRM).\r\n\r\nNetworking: The systems and devices that connect computers and other components to share data and resources, including cables, wireless access points, and network protocols.\r\n\r\nData Centers: Physical facilities housing critical IT equipment, with specialized power, cooling, and security systems.\r\n\r\nCloud Services: Virtualized IT resources delivered over the internet by third-party providers (e.g., AWS, Azure, Google Cloud), offering scalable compute power, storage, and managed databases.\r\n\r\nSecurity Infrastructure: Measures like firewalls, antivirus software, intrusion detection systems, and encryption protocols to protect data and systems from cyber threats.\r\nA robust IT infrastructure is crucial for efficient operations, business agility, data security, and supporting innovation within an organization.	3-hardware-it-infrastructure
+4	Creative Media	Creative Media is a broad field focused on the development, planning, and execution of visual and audio content for various platforms to tell stories, communicate messages, and create engaging experiences. It combines artistry, technology, and storytelling. This domain encompasses:\r\n\r\nMoving Image Production: Film, television, and online video content (YouTube), involving skills in camera operation, lighting, editing, and directing.\r\n\r\nAudio Production: Sound recording, editing, and mixing techniques for podcasts, music, and enhancing visual media.\r\n\r\nGraphic Design: Creating visually appealing designs for branding, marketing materials, websites, and digital content using industry-standard software (e.g., Adobe Creative Suite).\r\n\r\nDigital Photography: Capturing and manipulating images for various purposes, including photojournalism, commercial use, and social media.\r\n\r\nInteractive Media: Development of content for video games, virtual reality, and other interactive digital experiences.\r\nProfessionals in creative media use their skills to produce compelling narratives and visuals that resonate with audiences across traditional and digital platforms, often working as content creators, editors, producers, or designers.	4-creative-media
+5	Bootcamp & Skills Training	Bootcamps and Skills Training refer to intensive, short-term educational programs designed to rapidly equip individuals with specific, in-demand skills for immediate career application or advancement. Unlike traditional academic courses, they are highly practical, hands-on, and often industry-aligned.\r\n\r\nKey Characteristics:\r\n\r\nFocused Learning: Concentrates on a narrow set of skills directly relevant to current job market needs (e.g., coding, digital marketing, data analysis, specific technical trades).\r\n\r\nIntensive Format: Typically run for a few weeks to several months, with a high commitment of time from participants.\r\n\r\nPractical Experience: Emphasizes hands-on projects, real-world scenarios, and often includes industry placements or guaranteed job interviews upon completion.\r\n\r\nEmployability-Oriented: Designed to make participants job-ready quickly, often with career development support, CV writing workshops, and networking opportunities.\r\n\r\nBenefits: Offers a fast track to acquiring new skills, facilitates career transitions, improves employability, and provides valuable connections with industry professionals. Many bootcamps are developed in collaboration with employers to ensure the curriculum meets industry demands.	5-bootcamp-skills-training
 \.
 
 
@@ -4805,7 +4694,8 @@ COPY public.manager_service (id, name, name_ar, name_fr, name_de, name_en, descr
 --
 
 COPY public.manager_serviceimage (id, image, slug, created_on, service_id) FROM stdin;
-1	ServiceImage/images/it-consultancy-0de25ba7-dec0-46c6-a416-ba67c08cf7d-901f718a-164b-4d_86Hb3V6.jpeg	it-consultancy-0de25ba7-dec0-46c6-a416-ba67c08cf7d	2025-06-24	1
+8	ServiceImage/images/erp-systems-custom-built-81bf8f80-8598-41bf-a7b9-1-215b3b2e-5ed4-4e_wBHE2kn.jpeg	erp-systems-custom-built-81bf8f80-8598-41bf-a7b9-1	2025-07-10	7
+9	ServiceImage/images/web-mobile-app-development-android-ios-de016752-a9-3fa508e9-efe2-41_OdoiIgG.jpeg	web-mobile-app-development-android-ios-de016752-a9	2025-07-10	8
 \.
 
 
@@ -4944,7 +4834,7 @@ COPY public.payment_paypalsubscription (id, order_key, created_on, membership_id
 --
 
 COPY public.socialaccount_socialaccount (id, provider, uid, last_login, date_joined, extra_data, user_id) FROM stdin;
-2	Google	575828224879-asfhisfn1o96sqperclrm2lv6n54ttfo.apps.googleusercontent.com	2025-06-20 11:12:02.287229+03	2025-06-20 11:12:02.287248+03	{"web": {"auth_uri": "https://accounts.google.com/o/oauth2/auth", "client_id": "575828224879-asfhisfn1o96sqperclrm2lv6n54ttfo.apps.googleusercontent.com", "token_uri": "https://oauth2.googleapis.com/token", "project_id": "hybridnairobiskates", "client_secret": "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", "redirect_uris": ["https://hybrid.nairobiskates.com/accounts/google/login/callback/"], "javascript_origins": ["https://hybrid.nairobiskates.com"], "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"}}	1
+2	Google	575828224879-asfhisfn1o96sqperclrm2lv6n54ttfo.apps.googleusercontent.com	2025-07-07 13:49:29.193896+03	2025-06-20 11:12:02.287248+03	{"web": {"auth_uri": "https://accounts.google.com/o/oauth2/auth", "client_id": "575828224879-asfhisfn1o96sqperclrm2lv6n54ttfo.apps.googleusercontent.com", "token_uri": "https://oauth2.googleapis.com/token", "project_id": "hybridnairobiskates", "client_secret": "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", "redirect_uris": ["https://hybrid.nairobiskates.com/accounts/google/login/callback/"], "javascript_origins": ["https://hybrid.nairobiskates.com"], "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"}}	4
 \.
 
 
@@ -5419,7 +5309,7 @@ SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 276, true);
 -- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.auth_permission_id_seq', 276, true);
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 280, true);
 
 
 --
@@ -5482,21 +5372,21 @@ SELECT pg_catalog.setval('public.coms_supportclientchat_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 228, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 272, true);
 
 
 --
 -- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.django_content_type_id_seq', 69, true);
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 70, true);
 
 
 --
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 43, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 44, true);
 
 
 --
@@ -5580,14 +5470,21 @@ SELECT pg_catalog.setval('public.manager_sentemail_id_seq', 1, false);
 -- Name: manager_service_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.manager_service_id_seq', 1, true);
+SELECT pg_catalog.setval('public.manager_service_id_seq', 8, true);
+
+
+--
+-- Name: manager_servicecategory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
+--
+
+SELECT pg_catalog.setval('public.manager_servicecategory_id_seq', 5, true);
 
 
 --
 -- Name: manager_serviceimage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.manager_serviceimage_id_seq', 1, true);
+SELECT pg_catalog.setval('public.manager_serviceimage_id_seq', 9, true);
 
 
 --
@@ -6419,6 +6316,22 @@ ALTER TABLE ONLY public.manager_service
 
 ALTER TABLE ONLY public.manager_service
     ADD CONSTRAINT manager_service_slug_key UNIQUE (slug);
+
+
+--
+-- Name: manager_servicecategory manager_servicecategory_pkey; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.manager_servicecategory
+    ADD CONSTRAINT manager_servicecategory_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: manager_servicecategory manager_servicecategory_slug_key; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.manager_servicecategory
+    ADD CONSTRAINT manager_servicecategory_slug_key UNIQUE (slug);
 
 
 --
@@ -7388,10 +7301,24 @@ CREATE INDEX manager_promotion_slug_fe67d636_like ON public.manager_promotion US
 
 
 --
+-- Name: manager_service_category_id_98c1f9ce; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX manager_service_category_id_98c1f9ce ON public.manager_service USING btree (category_id);
+
+
+--
 -- Name: manager_service_slug_059ac103_like; Type: INDEX; Schema: public; Owner: b2b_user
 --
 
 CREATE INDEX manager_service_slug_059ac103_like ON public.manager_service USING btree (slug varchar_pattern_ops);
+
+
+--
+-- Name: manager_servicecategory_slug_30610745_like; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX manager_servicecategory_slug_30610745_like ON public.manager_servicecategory USING btree (slug varchar_pattern_ops);
 
 
 --
@@ -8174,6 +8101,14 @@ ALTER TABLE ONLY public.manager_promotion
 
 
 --
+-- Name: manager_service manager_service_category_id_98c1f9ce_fk_manager_s; Type: FK CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.manager_service
+    ADD CONSTRAINT manager_service_category_id_98c1f9ce_fk_manager_s FOREIGN KEY (category_id) REFERENCES public.manager_servicecategory(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
 -- Name: manager_serviceimage manager_serviceimage_service_id_b329cf1b_fk_manager_service_id; Type: FK CONSTRAINT; Schema: public; Owner: b2b_user
 --
 
@@ -8627,6 +8562,13 @@ ALTER TABLE ONLY public.supplier_wishlistproduct
 
 ALTER TABLE ONLY public.supplier_wishlistproduct
     ADD CONSTRAINT supplier_wishlistpro_product_id_811c4e6a_fk_supplier_ FOREIGN KEY (product_id) REFERENCES public.supplier_product(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: public; Owner: postgres
+--
+
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON TABLES  TO b2b_user;
 
 
 --
