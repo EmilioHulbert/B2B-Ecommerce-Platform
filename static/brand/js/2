@@ -1,0 +1,7 @@
+document.addEventListener("DOMContentLoaded", function () {
+    const shouldShowModal = {{ show_success_modal|yesno:"true,false" }};
+    if (shouldShowModal) {
+      const modal = new bootstrap.Modal(document.getElementById("successModal"));
+      modal.show();
+    }
+  });

@@ -50,5 +50,6 @@ urlpatterns = [
     path("guides/accounts", views.accounts, name="guides-accounts"),
     path("about.html", views.AboutUsView.as_view(), name="about-us"),
     path("careers/", views.CareersView.as_view(), name="careers"),
+    path('contact/', views.ContactView.as_view(), name='contact'),
 
 ]

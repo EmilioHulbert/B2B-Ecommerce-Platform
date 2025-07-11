@@ -1045,6 +1045,43 @@ ALTER SEQUENCE public.manager_calenderevent_id_seq OWNED BY public.manager_calen
 
 
 --
+-- Name: manager_contactmessage; Type: TABLE; Schema: public; Owner: b2b_user
+--
+
+CREATE TABLE public.manager_contactmessage (
+    id bigint NOT NULL,
+    name character varying(100) NOT NULL,
+    phone character varying(15) NOT NULL,
+    email character varying(254) NOT NULL,
+    message text NOT NULL,
+    submitted_at timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.manager_contactmessage OWNER TO b2b_user;
+
+--
+-- Name: manager_contactmessage_id_seq; Type: SEQUENCE; Schema: public; Owner: b2b_user
+--
+
+CREATE SEQUENCE public.manager_contactmessage_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.manager_contactmessage_id_seq OWNER TO b2b_user;
+
+--
+-- Name: manager_contactmessage_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: b2b_user
+--
+
+ALTER SEQUENCE public.manager_contactmessage_id_seq OWNED BY public.manager_contactmessage.id;
+
+
+--
 -- Name: manager_discussion; Type: TABLE; Schema: public; Owner: b2b_user
 --
 
@@ -3297,6 +3334,13 @@ ALTER TABLE ONLY public.manager_calenderevent ALTER COLUMN id SET DEFAULT nextva
 
 
 --
+-- Name: manager_contactmessage id; Type: DEFAULT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.manager_contactmessage ALTER COLUMN id SET DEFAULT nextval('public.manager_contactmessage_id_seq'::regclass);
+
+
+--
 -- Name: manager_discussion id; Type: DEFAULT; Schema: public; Owner: b2b_user
 --
 
@@ -3702,7 +3746,7 @@ COPY public.auth_app_supportprofile (id, responses, user_id) FROM stdin;
 
 COPY public.auth_app_user (id, password, last_login, is_superuser, username, first_name, first_name_ar, first_name_fr, first_name_de, first_name_en, last_name, last_name_ar, last_name_fr, last_name_de, last_name_en, email, is_staff, is_active, date_joined, account_type, image, is_email_activated) FROM stdin;
 3	melody254	2025-06-24 19:19:20+03	t	Betwan	Betwan	\N	\N	\N	Betwan	Suppliers	\N	\N	\N	Suppliers	info@betwancomputers.co.ke	t	t	2025-06-24 19:19:08+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
-4	pbkdf2_sha256$320000$GuJQnnqDBoqelHJn31jS3h$C0qzsjEPgZezFEHYvhMr/J5ByXIWfO3F3Kyhj/b9I+8=	2025-07-10 22:32:22.670865+03	t	Admin		\N	\N	\N	\N		\N	\N	\N	\N	emiliohulbert2017@gmail.com	t	t	2025-06-30 20:15:14.535421+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
+4	pbkdf2_sha256$320000$GuJQnnqDBoqelHJn31jS3h$C0qzsjEPgZezFEHYvhMr/J5ByXIWfO3F3Kyhj/b9I+8=	2025-07-11 15:03:30.313987+03	t	Admin		\N	\N	\N	\N		\N	\N	\N	\N	emiliohulbert2017@gmail.com	t	t	2025-06-30 20:15:14.535421+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
 \.
 
 
@@ -4301,6 +4345,10 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 278	Can change service category	70	change_servicecategory
 279	Can delete service category	70	delete_servicecategory
 280	Can view service category	70	view_servicecategory
+281	Can add contact message	71	add_contactmessage
+282	Can change contact message	71	change_contactmessage
+283	Can delete contact message	71	delete_contactmessage
+284	Can view contact message	71	view_contactmessage
 \.
 
 
@@ -4493,6 +4541,7 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 68	socialaccount	socialapp
 69	socialaccount	socialtoken
 70	manager	servicecategory
+71	manager	contactmessage
 \.
 
 
@@ -4545,6 +4594,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 42	socialaccount	0006_alter_socialaccount_extra_data	2025-06-19 20:15:28.694805+03
 43	supplier	0002_alter_order_is_complete_alter_product_is_verified_and_more	2025-06-19 20:15:28.769454+03
 44	manager	0002_servicecategory_service_category	2025-07-10 19:45:20.849806+03
+45	manager	0003_contactmessage	2025-07-11 13:47:23.881692+03
 \.
 
 
@@ -4571,6 +4621,11 @@ y5ig2xn335ky73vv163ukzsnsy5iinq0	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdK
 fbjlzqdm7ear6qw2gh9otuze5r102zqu	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1uZuPc:0OvX34AChATQ3zN53Me1dbeJV0XDSDx-ipl9XMxobOk	2025-07-24 19:46:20.721659+03
 lpfz46uzmcz99fpy4dro1wi3bb0q0qub	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1uZvW8:mv3Gp7HQRMSHusw3zfQ0kcHftzNoTREkr7Cj-uMoQO0	2025-07-24 20:57:08.889832+03
 bbcd0x8cjqu6zd8i2j6pj7f1hwd4pei9	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1uZx0I:q7HelD1lLEdf1Z9kyoQINomSn2r9dvkyU6uQiJUndww	2025-07-24 22:32:22.678645+03
+vum27h3yzrbuzubciqljm94juxmb0c7l	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1uaBH5:FqWwdatZX6Gf6RtErqCkWzL8vNjDdvrNGwoIwoVKQZ8	2025-07-25 13:46:39.901354+03
+mwljekyfdxg3314sovm28lc7133j4g60	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1uaBTV:bhWgiHwrJzGFOGTvxlsHL6YIPRA8_WTNJsdxrbvpDUU	2025-07-25 13:59:29.615624+03
+2b2elgjixvqo8t117ych4qbnd7lnjaq7	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1uaC4q:F0dApA8YMTtPcF7qzgZuasOGeYKQZm8pZ-0M0mZpMz8	2025-07-25 14:38:04.868053+03
+i5nvt71nhvrgxrxidwweobgvaqgcypaj	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1uaCKK:Gdyov3prvFsgUYpVKsSph6UmBi6hI1aFWO765T8gdAc	2025-07-25 14:54:04.441689+03
+h43md707d4c0vjmhf5m6ddz7eyad93li	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1uaCTS:FuJZ9OnDw2j0_bpub9nQsf0Os6gwQ1aE1PTPv6n53a4	2025-07-25 15:03:30.319314+03
 \.
 
 
@@ -4604,6 +4659,21 @@ COPY public.manager_advertisinglocation (id, name, name_ar, name_fr, name_de, na
 --
 
 COPY public.manager_calenderevent (id, title, description, start, "end", created_on, business_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: manager_contactmessage; Type: TABLE DATA; Schema: public; Owner: b2b_user
+--
+
+COPY public.manager_contactmessage (id, name, phone, email, message, submitted_at) FROM stdin;
+1	emilio	0795800861	emiliohulbert2017@gmail.com	hello world	2025-07-11 14:10:30.375706+03
+2	emilio	0795800861	emiliohulbert2017@gmail.com	kshfiasrfo	2025-07-11 14:33:59.549156+03
+3	emilio	0795800861	emiliohulbert2017@gmail.co	awdaQW	2025-07-11 14:35:05.940649+03
+4	emilio	0795800861	emiliohulbert2017@gmail.com	hello here	2025-07-11 14:37:36.207775+03
+5	test	0795800861	test@gmail.com	test 123	2025-07-11 14:51:39.10102+03
+6	test	0795800861	emiliohulbert2017@gmail.com	ksfnlmwer	2025-07-11 14:59:47.931925+03
+7	emilio	0784960420	emiliobckp@gmail.com	melody	2025-07-11 15:03:22.650138+03
 \.
 
 
@@ -5309,7 +5379,7 @@ SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 276, true);
 -- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.auth_permission_id_seq', 280, true);
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 284, true);
 
 
 --
@@ -5379,14 +5449,14 @@ SELECT pg_catalog.setval('public.django_admin_log_id_seq', 272, true);
 -- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.django_content_type_id_seq', 70, true);
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 71, true);
 
 
 --
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 44, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 45, true);
 
 
 --
@@ -5415,6 +5485,13 @@ SELECT pg_catalog.setval('public.manager_advertisinglocation_id_seq', 1, true);
 --
 
 SELECT pg_catalog.setval('public.manager_calenderevent_id_seq', 1, false);
+
+
+--
+-- Name: manager_contactmessage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
+--
+
+SELECT pg_catalog.setval('public.manager_contactmessage_id_seq', 7, true);
 
 
 --
@@ -6212,6 +6289,14 @@ ALTER TABLE ONLY public.manager_advertisinglocation
 
 ALTER TABLE ONLY public.manager_calenderevent
     ADD CONSTRAINT manager_calenderevent_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: manager_contactmessage manager_contactmessage_pkey; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.manager_contactmessage
+    ADD CONSTRAINT manager_contactmessage_pkey PRIMARY KEY (id);
 
 
 --

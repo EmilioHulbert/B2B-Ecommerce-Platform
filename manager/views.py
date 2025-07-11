@@ -122,6 +122,27 @@ class BrandingView(View):
             'service_data': service_data,
         })
 
+from django.core.mail import send_mail
+from .forms import ContactMessageForm
+class ContactView(View):
+    def get(self, request):
+        form = ContactMessageForm()
+        submitted = request.GET.get('submitted') == '1' #message success
+        return render(request, 'manager/branding_home.html', {'form': form, 'show_success_modal': submitted})
+
+    def post(self, request):
+        form = ContactMessageForm(request.POST)
+        if form.is_valid():
+            form.save()  # 💾 Save to DB
+
+            # You can add a message or redirect if needed
+            url = reverse('manager:branding-home') + '?submitted=1#contact' #msg success
+            # return redirect('/#contact')  # or use messages framework
+            return redirect(url)  
+
+        return render(request, 'manager/branding_home.html', {'form': form})
+
+    
 
 class CareersView(View):
     template_name = "manager/careers.html"
