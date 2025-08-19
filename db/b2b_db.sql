@@ -614,6 +614,42 @@ ALTER SEQUENCE public.coms_interclientchat_id_seq OWNED BY public.coms_interclie
 
 
 --
+-- Name: coms_interclientmessage; Type: TABLE; Schema: public; Owner: b2b_user
+--
+
+CREATE TABLE public.coms_interclientmessage (
+    id bigint NOT NULL,
+    message text NOT NULL,
+    "timestamp" timestamp with time zone NOT NULL,
+    chat_id bigint NOT NULL,
+    sender_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.coms_interclientmessage OWNER TO b2b_user;
+
+--
+-- Name: coms_interclientmessage_id_seq; Type: SEQUENCE; Schema: public; Owner: b2b_user
+--
+
+CREATE SEQUENCE public.coms_interclientmessage_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.coms_interclientmessage_id_seq OWNER TO b2b_user;
+
+--
+-- Name: coms_interclientmessage_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: b2b_user
+--
+
+ALTER SEQUENCE public.coms_interclientmessage_id_seq OWNED BY public.coms_interclientmessage.id;
+
+
+--
 -- Name: coms_interuserchat; Type: TABLE; Schema: public; Owner: b2b_user
 --
 
@@ -2170,6 +2206,44 @@ ALTER SEQUENCE public.payment_paypalsubscription_id_seq OWNED BY public.payment_
 
 
 --
+-- Name: payment_transaction; Type: TABLE; Schema: public; Owner: b2b_user
+--
+
+CREATE TABLE public.payment_transaction (
+    id bigint NOT NULL,
+    amount numeric(10,2) NOT NULL,
+    checkout_id character varying(100) NOT NULL,
+    mpesa_code character varying(100),
+    phone_number character varying(15) NOT NULL,
+    status character varying(20) NOT NULL,
+    "timestamp" timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.payment_transaction OWNER TO b2b_user;
+
+--
+-- Name: payment_transaction_id_seq; Type: SEQUENCE; Schema: public; Owner: b2b_user
+--
+
+CREATE SEQUENCE public.payment_transaction_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.payment_transaction_id_seq OWNER TO b2b_user;
+
+--
+-- Name: payment_transaction_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: b2b_user
+--
+
+ALTER SEQUENCE public.payment_transaction_id_seq OWNED BY public.payment_transaction.id;
+
+
+--
 -- Name: socialaccount_socialaccount; Type: TABLE; Schema: public; Owner: b2b_user
 --
 
@@ -2403,7 +2477,8 @@ CREATE TABLE public.supplier_order (
     created_on date NOT NULL,
     updated_on timestamp with time zone,
     buyer_id bigint NOT NULL,
-    supplier_id bigint NOT NULL
+    supplier_id bigint NOT NULL,
+    payment_id bigint
 );
 
 
@@ -2485,8 +2560,6 @@ CREATE TABLE public.supplier_orderproductvariation (
     min_total_price numeric(12,2),
     max_total_price numeric(12,2),
     cart_id bigint,
-    color_id bigint,
-    material_id bigint,
     order_id bigint,
     price_id bigint,
     product_id bigint NOT NULL
@@ -2494,6 +2567,40 @@ CREATE TABLE public.supplier_orderproductvariation (
 
 
 ALTER TABLE public.supplier_orderproductvariation OWNER TO b2b_user;
+
+--
+-- Name: supplier_orderproductvariation_color; Type: TABLE; Schema: public; Owner: b2b_user
+--
+
+CREATE TABLE public.supplier_orderproductvariation_color (
+    id bigint NOT NULL,
+    orderproductvariation_id bigint NOT NULL,
+    productcolor_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.supplier_orderproductvariation_color OWNER TO b2b_user;
+
+--
+-- Name: supplier_orderproductvariation_color_id_seq; Type: SEQUENCE; Schema: public; Owner: b2b_user
+--
+
+CREATE SEQUENCE public.supplier_orderproductvariation_color_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.supplier_orderproductvariation_color_id_seq OWNER TO b2b_user;
+
+--
+-- Name: supplier_orderproductvariation_color_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: b2b_user
+--
+
+ALTER SEQUENCE public.supplier_orderproductvariation_color_id_seq OWNED BY public.supplier_orderproductvariation_color.id;
+
 
 --
 -- Name: supplier_orderproductvariation_id_seq; Type: SEQUENCE; Schema: public; Owner: b2b_user
@@ -2514,6 +2621,40 @@ ALTER TABLE public.supplier_orderproductvariation_id_seq OWNER TO b2b_user;
 --
 
 ALTER SEQUENCE public.supplier_orderproductvariation_id_seq OWNED BY public.supplier_orderproductvariation.id;
+
+
+--
+-- Name: supplier_orderproductvariation_material; Type: TABLE; Schema: public; Owner: b2b_user
+--
+
+CREATE TABLE public.supplier_orderproductvariation_material (
+    id bigint NOT NULL,
+    orderproductvariation_id bigint NOT NULL,
+    productmaterial_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.supplier_orderproductvariation_material OWNER TO b2b_user;
+
+--
+-- Name: supplier_orderproductvariation_material_id_seq; Type: SEQUENCE; Schema: public; Owner: b2b_user
+--
+
+CREATE SEQUENCE public.supplier_orderproductvariation_material_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.supplier_orderproductvariation_material_id_seq OWNER TO b2b_user;
+
+--
+-- Name: supplier_orderproductvariation_material_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: b2b_user
+--
+
+ALTER SEQUENCE public.supplier_orderproductvariation_material_id_seq OWNED BY public.supplier_orderproductvariation_material.id;
 
 
 --
@@ -2592,6 +2733,40 @@ CREATE TABLE public.supplier_product (
 ALTER TABLE public.supplier_product OWNER TO b2b_user;
 
 --
+-- Name: supplier_product_colors; Type: TABLE; Schema: public; Owner: b2b_user
+--
+
+CREATE TABLE public.supplier_product_colors (
+    id bigint NOT NULL,
+    product_id bigint NOT NULL,
+    productcolor_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.supplier_product_colors OWNER TO b2b_user;
+
+--
+-- Name: supplier_product_colors_id_seq; Type: SEQUENCE; Schema: public; Owner: b2b_user
+--
+
+CREATE SEQUENCE public.supplier_product_colors_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.supplier_product_colors_id_seq OWNER TO b2b_user;
+
+--
+-- Name: supplier_product_colors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: b2b_user
+--
+
+ALTER SEQUENCE public.supplier_product_colors_id_seq OWNED BY public.supplier_product_colors.id;
+
+
+--
 -- Name: supplier_product_id_seq; Type: SEQUENCE; Schema: public; Owner: b2b_user
 --
 
@@ -2610,6 +2785,40 @@ ALTER TABLE public.supplier_product_id_seq OWNER TO b2b_user;
 --
 
 ALTER SEQUENCE public.supplier_product_id_seq OWNED BY public.supplier_product.id;
+
+
+--
+-- Name: supplier_product_materials; Type: TABLE; Schema: public; Owner: b2b_user
+--
+
+CREATE TABLE public.supplier_product_materials (
+    id bigint NOT NULL,
+    product_id bigint NOT NULL,
+    productmaterial_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.supplier_product_materials OWNER TO b2b_user;
+
+--
+-- Name: supplier_product_materials_id_seq; Type: SEQUENCE; Schema: public; Owner: b2b_user
+--
+
+CREATE SEQUENCE public.supplier_product_materials_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.supplier_product_materials_id_seq OWNER TO b2b_user;
+
+--
+-- Name: supplier_product_materials_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: b2b_user
+--
+
+ALTER SEQUENCE public.supplier_product_materials_id_seq OWNED BY public.supplier_product_materials.id;
 
 
 --
@@ -2697,8 +2906,7 @@ CREATE TABLE public.supplier_productcolor (
     name_ar character varying(256),
     name_fr character varying(256),
     name_de character varying(256),
-    name_en character varying(256),
-    product_id bigint NOT NULL
+    name_en character varying(256)
 );
 
 
@@ -2771,8 +2979,7 @@ CREATE TABLE public.supplier_productmaterial (
     name_ar character varying(256),
     name_fr character varying(256),
     name_de character varying(256),
-    name_en character varying(256),
-    product_id bigint NOT NULL
+    name_en character varying(256)
 );
 
 
@@ -3298,6 +3505,13 @@ ALTER TABLE ONLY public.coms_interclientchat ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: coms_interclientmessage id; Type: DEFAULT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.coms_interclientmessage ALTER COLUMN id SET DEFAULT nextval('public.coms_interclientmessage_id_seq'::regclass);
+
+
+--
 -- Name: coms_interuserchat id; Type: DEFAULT; Schema: public; Owner: b2b_user
 --
 
@@ -3571,6 +3785,13 @@ ALTER TABLE ONLY public.payment_paypalsubscription ALTER COLUMN id SET DEFAULT n
 
 
 --
+-- Name: payment_transaction id; Type: DEFAULT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.payment_transaction ALTER COLUMN id SET DEFAULT nextval('public.payment_transaction_id_seq'::regclass);
+
+
+--
 -- Name: socialaccount_socialaccount id; Type: DEFAULT; Schema: public; Owner: b2b_user
 --
 
@@ -3627,6 +3848,20 @@ ALTER TABLE ONLY public.supplier_orderproductvariation ALTER COLUMN id SET DEFAU
 
 
 --
+-- Name: supplier_orderproductvariation_color id; Type: DEFAULT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_orderproductvariation_color ALTER COLUMN id SET DEFAULT nextval('public.supplier_orderproductvariation_color_id_seq'::regclass);
+
+
+--
+-- Name: supplier_orderproductvariation_material id; Type: DEFAULT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_orderproductvariation_material ALTER COLUMN id SET DEFAULT nextval('public.supplier_orderproductvariation_material_id_seq'::regclass);
+
+
+--
 -- Name: supplier_ordershippingdetail id; Type: DEFAULT; Schema: public; Owner: b2b_user
 --
 
@@ -3638,6 +3873,20 @@ ALTER TABLE ONLY public.supplier_ordershippingdetail ALTER COLUMN id SET DEFAULT
 --
 
 ALTER TABLE ONLY public.supplier_product ALTER COLUMN id SET DEFAULT nextval('public.supplier_product_id_seq'::regclass);
+
+
+--
+-- Name: supplier_product_colors id; Type: DEFAULT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_product_colors ALTER COLUMN id SET DEFAULT nextval('public.supplier_product_colors_id_seq'::regclass);
+
+
+--
+-- Name: supplier_product_materials id; Type: DEFAULT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_product_materials ALTER COLUMN id SET DEFAULT nextval('public.supplier_product_materials_id_seq'::regclass);
 
 
 --
@@ -3767,7 +4016,9 @@ COPY public.account_emailconfirmation (id, created, sent, key, email_address_id)
 
 COPY public.auth_app_clientprofile (id, business_name, business_name_ar, business_name_fr, business_name_de, business_name_en, slug, business_description, business_description_ar, business_description_fr, business_description_de, business_description_en, country, country_ar, country_fr, country_de, country_en, country_code, country_code_ar, country_code_fr, country_code_de, country_code_en, city, city_ar, city_fr, city_de, city_en, mobile_user, mobile_user_ar, mobile_user_fr, mobile_user_de, mobile_user_en, vat_number, legal_etity_identifier, website, customer_id, image, user_id) FROM stdin;
 1	Betwan Suppliers	\N	\N	\N	Betwan Suppliers	betwan-suppliers	Betwan Suppliers				Betwan Suppliers	Kenya	\N	\N	\N	Kenya	+254	\N	\N	\N	+254	Nairobi	\N	\N	\N	Nairobi	+254 727 074610	\N	\N	\N	+254 727 074610	\N	\N	\N	\N	test/django.png	3
-2	vegetables	\N	\N	\N	vegetables	vegetables	i sell vegetables	\N	\N	\N	i sell vegetables	Kenya	\N	\N	\N	Kenya	254	\N	\N	\N	254	nairobi	\N	\N	\N	nairobi	795800861	\N	\N	\N	795800861	7249	49721khafiwieurh09	https://nairobiskates.com	\N	test/django.png	13
+10	buyer	\N	\N	\N	buyer	buyer	buyer description	\N	\N	\N	buyer description	Kenya	\N	\N	\N	Kenya	254	\N	\N	\N	254	Nairobi	\N	\N	\N	Nairobi	8483278978	\N	\N	\N	8483278978	8483278978	8483278978	https://nairobiskates.com	16035845264	test/django.png	14
+11	seller	\N	\N	\N	seller	seller	seller description	\N	\N	\N	seller description	Kenya	\N	\N	\N	Kenya	254	\N	\N	\N	254	Nairobi	\N	\N	\N	Nairobi	778234783	\N	\N	\N	778234783	778234783	778234783	https://nairobiskates.com	58820850816	test/django.png	15
+9	admin	\N	\N	\N	admin	admin	shakfiw	\N	\N	\N	shakfiw	Kenya	\N	\N	\N	Kenya	254	\N	\N	\N	254	ajhkfieh	\N	\N	\N	ajhkfieh	3892423479	\N	\N	\N	3892423479	3892423479	3892423479	https://nairobiskates.com	57473125601	test/django.png	4
 \.
 
 
@@ -3777,7 +4028,9 @@ COPY public.auth_app_clientprofile (id, business_name, business_name_ar, busines
 
 COPY public.auth_app_clientprofile_team (id, clientprofile_id, user_id) FROM stdin;
 2	1	3
-3	2	13
+28	9	4
+48	10	14
+68	11	15
 \.
 
 
@@ -3795,9 +4048,10 @@ COPY public.auth_app_supportprofile (id, responses, user_id) FROM stdin;
 --
 
 COPY public.auth_app_user (id, password, last_login, is_superuser, username, first_name, first_name_ar, first_name_fr, first_name_de, first_name_en, last_name, last_name_ar, last_name_fr, last_name_de, last_name_en, email, is_staff, is_active, date_joined, account_type, image, is_email_activated) FROM stdin;
-13	pbkdf2_sha256$320000$rLPIUsHM23awacbWUoHtQR$w91FvU4RGLrBAKjQJqT1i6UqXnDnj2xw9yDQw3NQzM0=	2025-07-21 20:24:51.455573+03	f	user	user	\N	\N	\N	user		\N	\N	\N	\N		f	t	2025-07-21 14:19:28+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
-4	pbkdf2_sha256$320000$GuJQnnqDBoqelHJn31jS3h$C0qzsjEPgZezFEHYvhMr/J5ByXIWfO3F3Kyhj/b9I+8=	2025-07-31 12:37:51.979595+03	t	Admin		\N	\N	\N	\N		\N	\N	\N	\N	emiliohulbert2017@gmail.com	t	t	2025-06-30 20:15:14.535421+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
+15	pbkdf2_sha256$320000$xKLWUyS8ovcy2YTbp44W66$8kfaNkkESffKu2DhQaQMfp2jYhnzKd5nvwJSTleTiUs=	2025-08-05 17:00:59.72333+03	f	seller	seller	\N	\N	\N	seller	seller	\N	\N	\N	seller	seller@gmail.com	f	t	2025-08-05 11:55:34+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
 3	pbkdf2_sha256$320000$GuJQnnqDBoqelHJn31jS3h$C0qzsjEPgZezFEHYvhMr/J5ByXIWfO3F3Kyhj/b9I+8=	2025-06-24 19:19:20+03	t	Betwan	Betwan	\N	\N	\N	Betwan	Suppliers	\N	\N	\N	Suppliers	info@betwancomputers.co.ke	t	t	2025-06-24 19:19:08+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
+14	pbkdf2_sha256$320000$N8XZv7icB5kXQ5SXuPOttu$ZiqqMiQC7JkKmx0cO1Uwh4Vl2mzdKlfa+BkbpykR4rs=	2025-08-06 06:34:07.200433+03	f	buyer	buyer	\N	\N	\N	buyer	buyer	\N	\N	\N	buyer	buyer@gmail.com	f	t	2025-08-05 11:54:58+03	BUYER	assets/imgs/resources/profiledefault.png	t
+4	pbkdf2_sha256$320000$GuJQnnqDBoqelHJn31jS3h$C0qzsjEPgZezFEHYvhMr/J5ByXIWfO3F3Kyhj/b9I+8=	2025-08-09 08:03:48.999182+03	t	Admin		\N	\N	\N	\N		\N	\N	\N	\N	emiliohulbert2017@gmail.com	t	t	2025-06-30 20:15:14+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
 \.
 
 
@@ -3807,7 +4061,9 @@ COPY public.auth_app_user (id, password, last_login, is_superuser, username, fir
 
 COPY public.auth_app_user_groups (id, user_id, group_id) FROM stdin;
 1	3	1
-2	13	1
+3	4	1
+4	14	1
+5	15	1
 \.
 
 
@@ -4405,6 +4661,14 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 286	Can change career application	72	change_careerapplication
 287	Can delete career application	72	delete_careerapplication
 288	Can view career application	72	view_careerapplication
+289	Can add transaction	73	add_transaction
+290	Can change transaction	73	change_transaction
+291	Can delete transaction	73	delete_transaction
+292	Can view transaction	73	view_transaction
+293	Can add inter client message	74	add_interclientmessage
+294	Can change inter client message	74	change_interclientmessage
+295	Can delete inter client message	74	delete_interclientmessage
+296	Can view inter client message	74	view_interclientmessage
 \.
 
 
@@ -4413,6 +4677,8 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 --
 
 COPY public.buyer_cart (id, created_on, buyer_id) FROM stdin;
+1	2025-08-05	10
+2	2025-08-05	11
 \.
 
 
@@ -4437,6 +4703,14 @@ COPY public.coms_groupchat_participants (id, groupchat_id, user_id) FROM stdin;
 --
 
 COPY public.coms_interclientchat (id, roomname, chatfilepath, is_closed, is_handled, created_on, updated_on, initiator_id, participant_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: coms_interclientmessage; Type: TABLE DATA; Schema: public; Owner: b2b_user
+--
+
+COPY public.coms_interclientmessage (id, message, "timestamp", chat_id, sender_id) FROM stdin;
 \.
 
 
@@ -4669,6 +4943,55 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 423	2025-07-31 13:19:28.098676+03	36	All Tech categories	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
 424	2025-07-31 13:27:34.074782+03	26	Phones, Computers, Laptops, Cameras, Projectors, TV’s & Accessories etc.	2	[{"changed": {"fields": ["Category"]}}]	10	4
 425	2025-07-31 13:28:52.381149+03	27	CCTV & Surveillance Systems	2	[{"changed": {"fields": ["Category"]}}]	10	4
+426	2025-08-05 10:32:16.459761+03	3	Facebook Login	2	[]	68	4
+427	2025-08-05 10:32:54.052006+03	4	nashtech.nairobiskates.com	1	[{"added": {}}]	6	4
+428	2025-08-05 10:33:10.422084+03	3	Facebook Login	2	[{"changed": {"fields": ["Sites"]}}]	68	4
+429	2025-08-05 10:34:59.127545+03	4	Admin	2	[{"changed": {"fields": ["Groups"]}}]	54	4
+430	2025-08-05 10:35:20.278639+03	2	social application token (2)	2	[{"changed": {"fields": ["Expires at"]}}]	69	4
+431	2025-08-05 10:35:34.547556+03	3	Facebook Login	2	[]	68	4
+432	2025-08-05 10:38:29.123201+03	3	Admin	3		67	4
+433	2025-08-05 10:38:38.25732+03	3	social application token (3)	3		69	4
+434	2025-08-05 10:38:51.896149+03	3	Facebook Login	3		68	4
+435	2025-08-05 11:04:13.864771+03	13	user	2	[{"changed": {"fields": ["Account Type"]}}]	54	4
+436	2025-08-05 11:04:22.314433+03	13	user	2	[{"changed": {"fields": ["Password"]}}]	54	4
+437	2025-08-05 11:12:26.084369+03	3	user	3		56	4
+438	2025-08-05 11:13:12.181681+03	2	vegetables	3		56	4
+439	2025-08-05 11:20:20.95113+03	4	user	3		56	4
+440	2025-08-05 11:22:31.055263+03	5	user	3		56	4
+441	2025-08-05 11:35:25.699227+03	7	user	3		56	4
+442	2025-08-05 11:54:43.695953+03	13	user	3		54	4
+443	2025-08-05 11:55:32.154059+03	14	buyer	1	[{"added": {}}]	54	4
+444	2025-08-05 11:56:07.605843+03	15	seller	1	[{"added": {}}]	54	4
+445	2025-08-05 11:57:30.69776+03	3	Hp Elite book 840 G9 - Ksh	1	[{"added": {}}]	34	4
+446	2025-08-05 14:00:21.808008+03	58	test Betwan Suppliers	1	[{"added": {}}]	23	4
+447	2025-08-05 14:12:17.302113+03	58	test Betwan Suppliers	3		23	4
+448	2025-08-05 14:12:57.30028+03	59	test Betwan Suppliers	1	[{"added": {}}]	23	4
+449	2025-08-05 14:24:48.606942+03	59	test Betwan Suppliers	3		23	4
+450	2025-08-05 14:40:23.594322+03	61	test Betwan Suppliers	1	[{"added": {}}]	23	4
+451	2025-08-05 14:55:29.258521+03	1	Aluminium	1	[{"added": {}}]	35	4
+452	2025-08-05 15:15:14.058609+03	2	White	3		37	4
+453	2025-08-05 15:15:14.072316+03	1	black	3		37	4
+454	2025-08-05 15:15:22.104869+03	3	white	1	[{"added": {}}]	37	4
+455	2025-08-05 15:40:45.871893+03	4	black	1	[{"added": {}}]	37	4
+456	2025-08-05 15:42:13.27676+03	4	black	3		37	4
+457	2025-08-05 15:42:13.295825+03	3	white	3		37	4
+458	2025-08-05 15:43:29.564886+03	1	Aluminium	3		35	4
+459	2025-08-05 15:43:48.8129+03	5	purple	1	[{"added": {}}]	37	4
+460	2025-08-05 15:43:53.680539+03	6	black	1	[{"added": {}}]	37	4
+461	2025-08-05 15:44:10.052487+03	2	aluminium	1	[{"added": {}}]	35	4
+462	2025-08-05 15:47:16.037825+03	3	plastic	1	[{"added": {}}]	35	4
+463	2025-08-05 15:47:53.89911+03	6	black	3		37	4
+464	2025-08-05 15:47:53.913259+03	5	purple	3		37	4
+465	2025-08-05 15:48:00.826118+03	7	black	1	[{"added": {}}]	37	4
+466	2025-08-05 15:48:09.437405+03	8	purple	1	[{"added": {}}]	37	4
+467	2025-08-05 15:48:26.70371+03	2	aluminium	2	[]	35	4
+468	2025-08-05 21:11:02.349077+03	4	Admin	1	[{"added": {}}]	67	4
+469	2025-08-05 21:12:12.001233+03	4	Facebook Login	1	[{"added": {}}]	68	4
+470	2025-08-05 21:12:49.992672+03	4	social application token (4)	1	[{"added": {}}]	69	4
+471	2025-08-05 21:15:22.206323+03	4	Facebook Login	2	[{"changed": {"fields": ["Sites"]}}]	68	4
+472	2025-08-05 21:19:56.005925+03	61	test Betwan Suppliers	3		23	4
+473	2025-08-09 08:06:06.866761+03	1	FODR-TEST - Betwan Suppliers - buyer - PAID	1	[{"added": {}}]	22	4
+474	2025-08-09 08:06:31.169173+03	1	FODR-TEST - Betwan Suppliers - buyer - VIEWED BY SUPPLER	2	[{"changed": {"fields": ["Order Status [en]"]}}]	22	4
 \.
 
 
@@ -4749,6 +5072,8 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 70	manager	servicecategory
 71	manager	contactmessage
 72	manager	careerapplication
+73	payment	transaction
+74	coms	interclientmessage
 \.
 
 
@@ -4803,6 +5128,14 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 44	manager	0002_servicecategory_service_category	2025-07-10 19:45:20.849806+03
 45	manager	0003_contactmessage	2025-07-11 13:47:23.881692+03
 46	manager	0004_careerapplication	2025-07-11 16:38:04.120911+03
+47	payment	0002_transaction	2025-08-05 11:53:53.316634+03
+48	payment	0003_alter_transaction_checkout_id_and_more	2025-08-05 11:53:53.344117+03
+49	supplier	0003_remove_productcolor_product_and_more	2025-08-05 14:55:12.530537+03
+50	supplier	0004_product_colors_product_materials	2025-08-05 15:14:03.890661+03
+51	supplier	0005_order_payment_alter_order_is_complete	2025-08-05 23:01:42.924671+03
+52	coms	0003_interclientmessage	2025-08-06 00:08:40.302842+03
+53	supplier	0006_alter_order_status_alter_order_status_ar_and_more	2025-08-06 08:20:13.724486+03
+54	supplier	0007_alter_orderproductvariation_order	2025-08-06 08:39:54.08763+03
 \.
 
 
@@ -4846,9 +5179,25 @@ wsokkl9nheoawqj4jn3ap3gqnu7512al	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apA
 fbv0iuksftsmj6i2ex5ggss3fu2ibm8d	.eJxVjM0OwiAQhN-Fs2mQP7ve9EXIsiyB2NBE4GR8d1vTgx7nm5nvJTyOnv1o_PQliqsw4vTLAtKD617gsux4QqJ11D59N0fdptuWuPZC2Mta78frT5Wx5c0TORjnEhoLs4MkIRhWcDYSeQ4hwSUplgCMoKNiJ6NFG7RTmgkgEYj3B8vKPM4:1udZQ2:gR_79n-spUOcNJ9Mm5ejIRkr9WrCAhL_yOt4TQPBVow	2025-08-03 22:09:54.925547+03
 efdwa83p0w46kby59g4x9vn0fn1tnmw0	.eJxVjDsOwyAQRO9CHSEwH0PK9D4D2l0gOImwZOwqyt2DJRdJNdK8N_NmAfathL2lNcyRXZlU7PJbItAz1YPEB9T7wmmp2zojPxR-0sanJabX7XT_Dgq00tc5jZTJDcIrBckM4NA7IO-UAe2kxCyABLlRIvZUmK0WOSltvbHdY58vIFE4kw:1uduFv:r8qCUYs50oq4eezg3aTSHV7U8AA0CcBjJRBUhWaA6b8	2025-08-04 20:24:51.460762+03
 ldhssaq33tlj1a5k7sfphv2senfvipxl	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIqrDj9boTxyXWA9MB6bzK2uq0LyaHIg3Y5t8Sv2-H-HRTsZdRM1vuM1sHkISsgyxrOViFPRBkuWbMCYASTNHuVHDoyXhuOADmC-HwB87A4Wg:1uhPjT:lyI28ihTBIIamZxWzIFDFcYznotBtzrS6rq7wPeZwI4	2025-08-14 12:37:51.989058+03
+euhuonf9mcealrtsc9lm3r90jgdycpdh	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIqrDj9boTxyXWA9MB6bzK2uq0LyaHIg3Y5t8Sv2-H-HRTsZdRM1vuM1sHkISsgyxrOViFPRBkuWbMCYASTNHuVHDoyXhuOADmC-HwB87A4Wg:1ujC5X:AaEHAWe3fQqcTNWljDKEk3F8huGzVDR319gtudU_XJo	2025-08-19 10:27:59.211401+03
 5eeci208dhku29jtba7hiv3teol6q75e	.eJxVjEEOwiAQRe_C2hAYSgdcuvcMDcMMUjVtUtqV8e7apAvd_vfef6khbWsdtibLMLI6q16dfjdK-SHTDvieptus8zyty0h6V_RBm77OLM_L4f4d1NTqt6YSPThL6IRKCd4Bo0SJLmCXLED2XQY0hYDJeg-CCJZN6DGwGFfU-wPgTTeA:1udZpM:kS7-CAud38LFu_KiY17L7RbcV58KpXubCixMl7Dyh8Y	2025-08-03 22:36:04.913418+03
 fxtyoun77bz6xy4qxuigjmx5kk02ssb2	.eJxVjMsOwiAQRf-FtSHIqx2X7v0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIiJnH63Qjjk-sA6YH13mRsdVsXkkORB-3y1hK_rof7d1Cwl1EzWe8zWgezh6yALGs4W4U8E2WYsmYFwAgmafYqOXRkvDYcAXIE8fkC9Xs4XQ:1udlH3:Y0xBSkXDjZwKWCzxd6MDVWz_6vb3S4S33uhVmuytDIk	2025-08-04 10:49:25.331101+03
 irtdbjduzvqipxpxakruhcpoxdb33v9u	.eJxVjDsOwyAQBe9CHSEwH7Mp0_sMaIElOIlAMnYV5e6xJRdJ-2bmvZnHbS1-67T4ObErk4pdfseA8Un1IOmB9d54bHVd5sAPhZ-086klet1O9--gYC97jVkYqaIll0UEpYGSgVE60iiMy0hCwzhkS-jkEIUMkLRVcrc1CGuAfb4ArDdV:1udoZK:YA56XiDKPwdZjDIIlRqM7lH7ejjq1n0RMeg3YbPmcH8	2025-08-04 14:20:30.410942+03
+w00950jbrkv69fo06rgz7iyfbdt8gtca	.eJxVjEEOwiAQRe_C2hBgKLQu3fcMzQwMUjWQlHZlvLsh6UK3_73332LBY8_L0Xhb1iiuQoO4_I6E4cmlk_jAcq8y1LJvK8muyJM2OdfIr9vp_h1kbLnXTjMQKkOcErChUUFKBgP6ISFNWnnrteUEdmIfiHQMYRitcQ7AOhKfLzKLOLU:1ujCwV:aE4B4emdondSi-vwctApTrX8PGWKO-8mshQ7OrpvQXc	2025-08-19 11:22:43.739721+03
+y5i4naird6oa8vzsukz5m4gn6ezdw5ao	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1ujD8f:SskTrY3rpjS8RI1pa5UIWszliAZwZfoYJ7pGUC-25JE	2025-08-19 11:35:17.312869+03
+h7z1dbr2zhhi75q4onwzbft55qguj0vf	.eJxVjDsOwjAQBe_iGlnetVl7KelzBsu_4ABypDipEHeHSCmgfTPzXsKHba1-62XxUxYXAUacfscY0qO0neR7aLdZprmtyxTlrsiDdjnMuTyvh_t3UEOv3_rsECgTKDUSE1nWGC1DCjEDOkV5NEpbRI3GMhfnrEFwxWmDmgNH8f4Av9U2DQ:1ujDTG:naJjnWiw7LhuKUzcKV-mmy3sudpGth-cASrRiLiQ6tc	2025-08-19 11:56:34.400605+03
+z35o00rjppoxa3j2nc25fksf1o38f9ln	.eJxVjDsOwjAQBe_iGlnetVl7KelzBsu_4ABypDipEHeHSCmgfTPzXsKHba1-62XxUxYXAUacfscY0qO0neR7aLdZprmtyxTlrsiDdjnMuTyvh_t3UEOv3_rsECgTKDUSE1nWGC1DCjEDOkV5NEpbRI3GMhfnrEFwxWmDmgNH8f4Av9U2DQ:1ujDcm:kKPq-omv23FosOMJufBHcXp1gFjjIvVOp6vbaE9liyk	2025-08-19 12:06:24.535475+03
+3ak4ejlrdl6qsho2qlvt9g0l9q68v9as	.eJxVjDsOwjAQBe_iGlnetVl7KelzBsu_4ABypDipEHeHSCmgfTPzXsKHba1-62XxUxYXAUacfscY0qO0neR7aLdZprmtyxTlrsiDdjnMuTyvh_t3UEOv3_rsECgTKDUSE1nWGC1DCjEDOkV5NEpbRI3GMhfnrEFwxWmDmgNH8f4Av9U2DQ:1ujGx5:mu7K_beyp1m1E41U11n78ipMTwYUhmkreu50cx6jjLI	2025-08-19 15:39:35.124496+03
+gkj69y737ee7hhhirah1mthc0nmiy72y	.eJxVjDsOwjAQBe_iGlnetVl7KelzBsu_4ABypDipEHeHSCmgfTPzXsKHba1-62XxUxYXAUacfscY0qO0neR7aLdZprmtyxTlrsiDdjnMuTyvh_t3UEOv3_rsECgTKDUSE1nWGC1DCjEDOkV5NEpbRI3GMhfnrEFwxWmDmgNH8f4Av9U2DQ:1ujHS2:QXPpVlSucJoidSVUvy0lei07RNw5G6df26Xz5VPqIyw	2025-08-19 16:11:34.526645+03
+gl8760o0w8qkz6fas0luafzm1mj5hnv3	.eJxVjDsOwjAQBe_iGlnetVl7KelzBsu_4ABypDipEHeHSCmgfTPzXsKHba1-62XxUxYXAUacfscY0qO0neR7aLdZprmtyxTlrsiDdjnMuTyvh_t3UEOv3_rsECgTKDUSE1nWGC1DCjEDOkV5NEpbRI3GMhfnrEFwxWmDmgNH8f4Av9U2DQ:1ujHa6:CiGkfOf5jlgwpBoXUJCKjZ3oObDbUlJpx213jOqhMJY	2025-08-19 16:19:54.53405+03
+79674t791xxzjhlp0xmnq0190zk3jggo	.eJxVjDsOwjAQBe_iGlnetVl7KelzBsu_4ABypDipEHeHSCmgfTPzXsKHba1-62XxUxYXAUacfscY0qO0neR7aLdZprmtyxTlrsiDdjnMuTyvh_t3UEOv3_rsECgTKDUSE1nWGC1DCjEDOkV5NEpbRI3GMhfnrEFwxWmDmgNH8f4Av9U2DQ:1ujHhF:Hs4IlR4uce34p-tB0p9o4Ro0DFfOmcv_2h34kHXJZbA	2025-08-19 16:27:17.535175+03
+vs7prxsl6x8316qpu1wfcnrr2ierjgiy	.eJxVjDsOwjAQBe_iGlnetVl7KelzBsu_4ABypDipEHeHSCmgfTPzXsKHba1-62XxUxYXAUacfscY0qO0neR7aLdZprmtyxTlrsiDdjnMuTyvh_t3UEOv3_rsECgTKDUSE1nWGC1DCjEDOkV5NEpbRI3GMhfnrEFwxWmDmgNH8f4Av9U2DQ:1ujHig:q_-j6QVxoTmnsbqjarqxnm8LqF482d9wIIya0uWfuRM	2025-08-19 16:28:46.157866+03
+1mtq4oxuoh9gblaidfxvx8ghjha8z60k	.eJxVjMsOwiAQRf-FtSE8ygy4dO83EAYGWzUlKe3K-O_apAvd3nPOfYmYtnWMW-clTkWchXbi9DtSyg-ed1Luab41mdu8LhPJXZEH7fLaCj8vh_t3MKY-fmskBA1eGeMGbzNaowMiBDUYpQFzpUDAAQiVB0fW5so2c61MqLUN4v0BwXY2_g:1ujIDr:xc27ekPdCx2z54xXXTHKAkofcyoPvJn0yG9U3DxKYMk	2025-08-19 17:00:59.732424+03
+9nqhkx00g4p1xis8kqa52jjo0e0d9jm9	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIqrDj9boTxyXWA9MB6bzK2uq0LyaHIg3Y5t8Sv2-H-HRTsZdRM1vuM1sHkISsgyxrOViFPRBkuWbMCYASTNHuVHDoyXhuOADmC-HwB87A4Wg:1ujMAN:KUMPz-YfL1tj4yP4dnPjntPcD8qJ19o5hZaJuhB6R_0	2025-08-19 21:13:39.706859+03
+y94sawmb95hubipxxx8qxw7fesk9hgt0	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIqrDj9boTxyXWA9MB6bzK2uq0LyaHIg3Y5t8Sv2-H-HRTsZdRM1vuM1sHkISsgyxrOViFPRBkuWbMCYASTNHuVHDoyXhuOADmC-HwB87A4Wg:1ujMGA:2syjSlNplKZoqr7Wi6zrieWfGBwOTD07EvpRdSNc8aw	2025-08-19 21:19:38.985999+03
+74zz4an9zz5gtk4r3w99kbdloq7dquk2	.eJxVjDsOwyAQBe9CHSEwyy9lep8BLV4ITiKQjF1FuXuE5CJp38y8Nwt47CUcPW1hJXZlEtjld4y4PFMdhB5Y740vre7bGvlQ-Ek7nxul1-10_w4K9jJqL20GctohKdAWjJPaJDlpCUDRArqJtBJOeFJZi5x8NJCVskhRJcs-X-HgN1k:1ujUul:ftOPfHK_s10U0pCF9DxKTND72O74RsLmbU9a_XV22zg	2025-08-20 06:34:07.209656+03
+60sdk82lsnerx26d4enly8f9l9rmpvub	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIqrDj9boTxyXWA9MB6bzK2uq0LyaHIg3Y5t8Sv2-H-HRTsZdRM1vuM1sHkISsgyxrOViFPRBkuWbMCYASTNHuVHDoyXhuOADmC-HwB87A4Wg:1ujehg:XQp_IsSj28zIBGis7P6btiRL9x-NdYxPXyLIEldba4E	2025-08-20 17:01:16.864888+03
+7hdvs3rfh4qa7rgve0g7cognwm1ebn45	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIqrDj9boTxyXWA9MB6bzK2uq0LyaHIg3Y5t8Sv2-H-HRTsZdRM1vuM1sHkISsgyxrOViFPRBkuWbMCYASTNHuVHDoyXhuOADmC-HwB87A4Wg:1ukbmp:4Nxy4SF-RoJlXfUE1Th_KX-vJAa6ho0Za9mUFAGJdbw	2025-08-09 09:06:31.648635+03
 \.
 
 
@@ -4857,7 +5206,8 @@ irtdbjduzvqipxpxakruhcpoxdb33v9u	.eJxVjDsOwyAQBe9CHSEwH7Mp0_sMaIElOIlAMnYV5e6xJR
 --
 
 COPY public.django_site (id, domain, name) FROM stdin;
-2	hybrid.nairobiskates.com	HybridNairobiSkates
+2	nashtech.nairobiskates.com	HybridNairobiSkates
+4	nashtech.nairobiskates.com	nashtech solutions
 \.
 
 
@@ -5208,12 +5558,20 @@ COPY public.payment_paypalsubscription (id, order_key, created_on, membership_id
 
 
 --
+-- Data for Name: payment_transaction; Type: TABLE DATA; Schema: public; Owner: b2b_user
+--
+
+COPY public.payment_transaction (id, amount, checkout_id, mpesa_code, phone_number, status, "timestamp") FROM stdin;
+\.
+
+
+--
 -- Data for Name: socialaccount_socialaccount; Type: TABLE DATA; Schema: public; Owner: b2b_user
 --
 
 COPY public.socialaccount_socialaccount (id, provider, uid, last_login, date_joined, extra_data, user_id) FROM stdin;
-2	Google	575828224879-asfhisfn1o96sqperclrm2lv6n54ttfo.apps.googleusercontent.com	2025-07-07 13:49:29.193896+03	2025-06-20 11:12:02.287248+03	{"web": {"auth_uri": "https://accounts.google.com/o/oauth2/auth", "client_id": "575828224879-asfhisfn1o96sqperclrm2lv6n54ttfo.apps.googleusercontent.com", "token_uri": "https://oauth2.googleapis.com/token", "project_id": "hybridnairobiskates", "client_secret": "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", "redirect_uris": ["https://hybrid.nairobiskates.com/accounts/google/login/callback/"], "javascript_origins": ["https://hybrid.nairobiskates.com"], "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"}}	4
-3	Facebook	70c46868dd81f1442fd07cce29e3940b	2025-07-21 15:21:59.308241+03	2025-07-21 15:21:32.241425+03	{"web": {"auth_uri": "https://accounts.google.com/o/oauth2/auth", "client_id": "575828224879-asfhisfn1o96sqperclrm2lv6n54ttfo.apps.googleusercontent.com", "token_uri": "https://oauth2.googleapis.com/token", "project_id": "hybridnairobiskates", "client_secret": "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", "redirect_uris": ["https://hybrid.nairobiskates.com/accounts/google/login/callback/"], "javascript_origins": ["https://hybrid.nairobiskates.com"], "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"}}	4
+2	Google	575828224879-asfhisfn1o96sqperclrm2lv6n54ttfo.apps.googleusercontent.com	2025-07-07 13:49:29.193896+03	2025-06-20 11:12:02.287248+03	{"web": {"auth_uri": "https://accounts.google.com/o/oauth2/auth", "client_id": "575828224879-asfhisfn1o96sqperclrm2lv6n54ttfo.apps.googleusercontent.com", "token_uri": "https://oauth2.googleapis.com/token", "project_id": "hybridnairobiskates", "client_secret": "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", "redirect_uris": ["https://nashtech.nairobiskates.com/accounts/google/login/callback/"], "javascript_origins": ["https://nashtech.nairobiskates.com"], "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"}}	4
+4	Facebook	1141600924485019	2025-08-05 21:11:02.34488+03	2025-08-05 21:11:02.344908+03	{"web": {"auth_uri": "https://accounts.google.com/o/oauth2/auth", "client_id": "575828224879-asfhisfn1o96sqperclrm2lv6n54ttfo.apps.googleusercontent.com", "token_uri": "https://oauth2.googleapis.com/token", "project_id": "hybridnairobiskates", "client_secret": "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", "redirect_uris": ["https://demo.nairobiskates.com/accounts/google/login/callback/"], "javascript_origins": ["https://demo.nairobiskates.com"], "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"}}	4
 \.
 
 
@@ -5223,7 +5581,7 @@ COPY public.socialaccount_socialaccount (id, provider, uid, last_login, date_joi
 
 COPY public.socialaccount_socialapp (id, provider, name, client_id, secret, key, provider_id, settings) FROM stdin;
 2	google	Google Login	575828224879-asfhisfn1o96sqperclrm2lv6n54ttfo.apps.googleusercontent.com	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			{}
-3	facebook	Facebook Login	1141600924485019	70c46868dd81f1442fd07cce29e3940b		1141600924485019	{}
+4	facebook	Facebook Login	1141600924485019	70c46868dd81f1442fd07cce29e3940b	1141600924485019	1141600924485019	{}
 \.
 
 
@@ -5233,6 +5591,8 @@ COPY public.socialaccount_socialapp (id, provider, name, client_id, secret, key,
 
 COPY public.socialaccount_socialapp_sites (id, socialapp_id, site_id) FROM stdin;
 3	2	2
+5	4	4
+6	4	2
 \.
 
 
@@ -5241,8 +5601,8 @@ COPY public.socialaccount_socialapp_sites (id, socialapp_id, site_id) FROM stdin
 --
 
 COPY public.socialaccount_socialtoken (id, token, token_secret, expires_at, account_id, app_id) FROM stdin;
-2	{"web":{"client_id":"575828224879-asfhisfn1o96sqperclrm2lv6n54ttfo.apps.googleusercontent.com","project_id":"hybridnairobiskates","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"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","redirect_uris":["https://hybrid.nairobiskates.com/accounts/google/login/callback/"],"javascript_origins":["https://hybrid.nairobiskates.com"]}}	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	\N	2	2
-3	1141600924485019	70c46868dd81f1442fd07cce29e3940b	2025-07-31 15:18:48+03	2	3
+2	{"web":{"client_id":"575828224879-asfhisfn1o96sqperclrm2lv6n54ttfo.apps.googleusercontent.com","project_id":"hybridnairobiskates","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"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","redirect_uris":["https://nashtech.nairobiskates.com/accounts/google/login/callback/"],"javascript_origins":["https://nashtech.nairobiskates.com"]}}	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	2025-08-30 10:35:11+03	2	2
+4	1141600924485019	70c46868dd81f1442fd07cce29e3940b	2025-08-29 21:12:47+03	4	4
 \.
 
 
@@ -5258,7 +5618,8 @@ COPY public.supplier_deliverycarrier (id, name, tax, tax_ar, tax_fr, tax_de, tax
 -- Data for Name: supplier_order; Type: TABLE DATA; Schema: public; Owner: b2b_user
 --
 
-COPY public.supplier_order (id, order_id, status, status_ar, status_fr, status_de, status_en, currency, total_price, total_price_ar, total_price_fr, total_price_de, total_price_en, agreed_price, agreed_price_ar, agreed_price_fr, agreed_price_de, agreed_price_en, paid_price, paid_price_ar, paid_price_fr, paid_price_de, paid_price_en, discount, discount_ar, discount_fr, discount_de, discount_en, is_complete, accepted_on, delivery_date, created_on, updated_on, buyer_id, supplier_id) FROM stdin;
+COPY public.supplier_order (id, order_id, status, status_ar, status_fr, status_de, status_en, currency, total_price, total_price_ar, total_price_fr, total_price_de, total_price_en, agreed_price, agreed_price_ar, agreed_price_fr, agreed_price_de, agreed_price_en, paid_price, paid_price_ar, paid_price_fr, paid_price_de, paid_price_en, discount, discount_ar, discount_fr, discount_de, discount_en, is_complete, accepted_on, delivery_date, created_on, updated_on, buyer_id, supplier_id, payment_id) FROM stdin;
+1	FODR-TEST	VIEWED BY SUPPLER	PAID	PAID	PAID	VIEWED BY SUPPLER	Ksh	200.00	\N	\N	\N	200.00	200.00	\N	\N	\N	200.00	200.00	\N	\N	\N	200.00	0.00	0.00	0.00	0.00	0.00	f	2025-08-09	2025-08-09	2025-08-09	2025-08-09 08:06:31.154846+03	10	1	\N
 \.
 
 
@@ -5274,7 +5635,32 @@ COPY public.supplier_ordernote (id, notes, notes_ar, notes_fr, notes_de, notes_e
 -- Data for Name: supplier_orderproductvariation; Type: TABLE DATA; Schema: public; Owner: b2b_user
 --
 
-COPY public.supplier_orderproductvariation (id, quantity, quantity_ar, quantity_fr, quantity_de, quantity_en, min_total_price, max_total_price, cart_id, color_id, material_id, order_id, price_id, product_id) FROM stdin;
+COPY public.supplier_orderproductvariation (id, quantity, quantity_ar, quantity_fr, quantity_de, quantity_en, min_total_price, max_total_price, cart_id, order_id, price_id, product_id) FROM stdin;
+12	1	\N	\N	\N	1	23000.00	23000.00	2	\N	9	51
+13	1	\N	\N	\N	1	23000.00	23000.00	2	\N	9	51
+15	1	\N	\N	\N	1	84000.00	84000.00	1	\N	7	53
+\.
+
+
+--
+-- Data for Name: supplier_orderproductvariation_color; Type: TABLE DATA; Schema: public; Owner: b2b_user
+--
+
+COPY public.supplier_orderproductvariation_color (id, orderproductvariation_id, productcolor_id) FROM stdin;
+5	12	7
+6	13	7
+8	15	8
+\.
+
+
+--
+-- Data for Name: supplier_orderproductvariation_material; Type: TABLE DATA; Schema: public; Owner: b2b_user
+--
+
+COPY public.supplier_orderproductvariation_material (id, orderproductvariation_id, productmaterial_id) FROM stdin;
+5	12	3
+6	13	3
+8	15	2
 \.
 
 
@@ -5291,60 +5677,292 @@ COPY public.supplier_ordershippingdetail (id, address_1, address_2, carrier_id, 
 --
 
 COPY public.supplier_product (id, name, name_ar, name_fr, name_de, name_en, description, description_ar, description_fr, description_de, description_en, slug, currency, currency_ar, currency_fr, currency_de, currency_en, price, price_ar, price_fr, price_de, price_en, discount, stock, is_verified, created_on, business_id, category_id, sub_category_id) FROM stdin;
-21	NEW ARRIVALS  MACBOOK PRO M1	\N	\N	\N	NEW ARRIVALS  MACBOOK PRO M1	16 INCH \r\n32 GB RAM : APPLE 512 GB SSD \r\n10 CORE (8 Performing 2 Efficiency) \r\n16 INCH LIQUID RETINA  3456 by 2234\r\nFACETIME :  USB THUNDER BOLT 4 40gb/s :USB 3.1 .				16 INCH \r\n32 GB RAM : APPLE 512 GB SSD \r\n10 CORE (8 Performing 2 Efficiency) \r\n16 INCH LIQUID RETINA  3456 by 2234\r\nFACETIME :  USB THUNDER BOLT 4 40gb/s :USB 3.1 .	new-arrivals-macbook-pro-m1ebac3367-e896-49b9-aec6-b01fb6646382	Ksh	\N	\N	\N	Ksh	168999.00	\N	\N	\N	168999.00	\N	\N	t	2025-06-25	1	1	7
-22	MACBOOK PRO M1 (2338)	\N	\N	\N	MACBOOK PRO M1 (2338)	APPLE M1 8 (4 Performance : 4 Efficiency) 16 GB RAM : 1 TB SSD \r\n13.3 INCH 2560 by 1600 RETINA				APPLE M1 8 (4 Performance : 4 Efficiency) 16 GB RAM : 1 TB SSD \r\n13.3 INCH 2560 by 1600 RETINA	macbook-pro-m1-2338f0624ec2-80c8-4308-952a-742e85359f66	Ksh	\N	\N	\N	Ksh	104999.00	\N	\N	\N	104999.00	\N	\N	t	2025-06-25	1	1	7
-23	Lenovo x1 carbon G7	\N	\N	\N	Lenovo x1 carbon G7	CORE  i5 8 TH GEB \r\n16gb RAM 512 GB SSD STORAGE \r\n1.8 GHz BASE CLOCK SPEED \r\nBACKLIT KEYBOARD/ YPE C THUNDERBOLT				CORE  i5 8 TH GEB \r\n16gb RAM 512 GB SSD STORAGE \r\n1.8 GHz BASE CLOCK SPEED \r\nBACKLIT KEYBOARD/ YPE C THUNDERBOLT	lenovo-x1-carbon-g7399c9a59-237e-48e3-95cd-3c0a7745ba6f	Ksh	\N	\N	\N	Ksh	40000.00	\N	\N	\N	40000.00	\N	\N	t	2025-06-25	1	1	2
-9	HP Victus 16 Gaming	\N	\N	\N	HP Victus 16 Gaming	11th Gen Core i5 16gb Ram 1TB SSD 4gb Nvidia GTX 1650				11th Gen Core i5 16gb Ram 1TB SSD 4gb Nvidia GTX 1650	hp-victus-16-gamingaf34be7d-2009-4969-a9a2-1bfb1592f982	Ksh	\N	\N	\N	Ksh	90000.00	\N	\N	\N	90000.00	\N	\N	t	2025-06-24	1	1	1
-8	Hp G3	\N	\N	\N	Hp G3	Portable Business Laptop				Portable Business Laptop	hp-g3e8ab8f28-1f7b-488e-80ef-c5f67bc586e4	Ksh	\N	\N	\N	Ksh	50000.00	\N	\N	\N	50000.00	\N	1	t	2025-06-24	1	1	2
 7	Hp Mini	\N	\N	\N	Hp Mini	Hp Mini Portable Laptop				Hp Mini Portable Laptop	hp-minia7353e8c-df50-4e9e-bd76-1a5de5630207	Ksh	\N	\N	\N	Ksh	30000.00	\N	\N	\N	30000.00	\N	\N	t	2025-06-24	1	1	2
 6	i7 11th 3.0ghz (8VPUS) 32GB RAM 512ssd touch	\N	\N	\N	i7 11th 3.0ghz (8VPUS) 32GB RAM 512ssd touch	i7 11th 3.0ghz (8VPUS) 32GB RAM 512ssd touch				i7 11th 3.0ghz (8VPUS) 32GB RAM 512ssd touch	i7-11th-30ghz-8vpus-32gb-ram-512ssd-touchd07f133a-330e-4fab-9e82-c848a1dc099d	Ksh	\N	\N	\N	Ksh	60000.00	\N	\N	\N	60000.00	\N	\N	t	2025-06-24	1	1	2
 5	Hp Omen 16	\N	\N	\N	Hp Omen 16	Core i9 13th gen 16Gb 1TB ssd 8GB 4060 RTX				Core i9 13th gen 16Gb 1TB ssd 8GB 4060 RTX	hp-omen-169e43aff5-5696-4898-b2f7-6c456842f474	Ksh	\N	\N	\N	Ksh	139999.00	\N	\N	\N	139999.00	\N	\N	t	2025-06-24	1	1	1
 4	Epison L3210	\N	\N	\N	Epison L3210	Epison L3210 Printer				Epison L3210 Printer	epison-l321074c93608-cb57-4913-8e25-5dce73eef3ca	Ksh	\N	\N	\N	Ksh	23500.00	\N	\N	\N	23500.00	\N	\N	t	2025-06-24	1	2	6
-11	Beauty Mug	\N	\N	\N	Beauty Mug	Colored Beauty Mug				Colored Beauty Mug	beauty-muge51c6ff1-82ad-4ffa-ac80-ea41810b40cf	Ksh	\N	\N	\N	Ksh	2000.00	\N	\N	\N	2000.00	\N	\N	t	2025-06-24	1	5	8
-12	Laptop Bag	\N	\N	\N	Laptop Bag	Normal Laptop Bag				Normal Laptop Bag	laptop-bag3546d10f-c8e2-43f1-bb27-7c3e967c511a	Ksh	\N	\N	\N	Ksh	950.00	\N	\N	\N	950.00	\N	\N	t	2025-06-24	1	4	9
-13	HP Elitebook 840 g9	\N	\N	\N	HP Elitebook 840 g9	core i7 12th gen 32gb RWM 512gb SSD				core i7 12th gen 32gb RWM 512gb SSD	hp-elitebook-840-g97f2a4aca-b8d8-4a81-aa82-3b85ea03e05b	Ksh	\N	\N	\N	Ksh	76500.00	\N	\N	\N	76500.00	\N	\N	t	2025-06-25	1	1	2
-24	LENOVO X1 YOGA	\N	\N	\N	LENOVO X1 YOGA	i7 10510U 8CPUS, 2.3GHz 16GB RAM 512 SSD TOUCHSCREEN with stylus pen 🖊️🖊️🖊️ available in stock				i7 10510U 8CPUS, 2.3GHz 16GB RAM 512 SSD TOUCHSCREEN with stylus pen 🖊️🖊️🖊️ available in stock	lenovo-x1-yogaeb38afef-4b10-44e1-a0be-6b7c252099d2	Ksh	\N	\N	\N	Ksh	50500.00	\N	\N	\N	50500.00	\N	\N	t	2025-06-25	1	1	2
-25	🔥LENOVO THINKPAD X380 YOGA	\N	\N	\N	🔥LENOVO THINKPAD X380 YOGA	INTEL CORE I5  8TH GEN, 8GB RAM, 256GB SSD ,1.70GHZ (8CPUS)~1.9GHZ,TOUCHSCREEN, WITH STYLUS PEN, WINDOWS 10PRO 64BITS,MICROSOFT OFFICE				INTEL CORE I5  8TH GEN, 8GB RAM, 256GB SSD ,1.70GHZ (8CPUS)~1.9GHZ,TOUCHSCREEN, WITH STYLUS PEN, WINDOWS 10PRO 64BITS,MICROSOFT OFFICE	lenovo-thinkpad-x380-yogad1b7ac9f-cc8b-46cb-9190-55838c14fa4f	Ksh	\N	\N	\N	Ksh	28000.00	\N	\N	\N	28000.00	\N	\N	t	2025-06-25	1	1	2
-14	HP Z Book 14 G7 Firefly	\N	\N	\N	HP Z Book 14 G7 Firefly	10rg gen i7 32gb 1tb ssd Touch with 4gb Nvidia graphics				10rg gen i7 32gb 1tb ssd Touch with 4gb Nvidia graphics	hp-z-book-14-g7-fireflyc02d2770-1011-466b-821f-e6a0d483164f	Ksh	\N	\N	\N	Ksh	78999.00	\N	\N	\N	78999.00	\N	\N	t	2025-06-25	1	1	2
-26	🔥🔥🔥 Lenovo T490s	\N	\N	\N	🔥🔥🔥 Lenovo T490s	i7 8th 2.1aGHz 8CPUS 32GB RAM 512SSD touchscreen				i7 8th 2.1aGHz 8CPUS 32GB RAM 512SSD touchscreen	lenovo-t490sb2bca716-b8a8-43bc-a0df-897a60619205	Ksh	\N	\N	\N	Ksh	45999.00	\N	\N	\N	45999.00	\N	\N	t	2025-06-25	1	1	2
-27	HP 1040	\N	\N	\N	HP 1040	core i5 4gb 256gb SSD.				core i5 4gb 256gb SSD.	hp-1040063d3e98-0d95-4c73-b7eb-0405dc5edfd7	Ksh	\N	\N	\N	Ksh	17000.00	\N	\N	\N	17000.00	\N	\N	t	2025-06-25	1	1	2
 28	Lenovo thinkpad yoga 11e	\N	\N	\N	Lenovo thinkpad yoga 11e	8gb ram 128gb ssd				8gb ram 128gb ssd	lenovo-thinkpad-yoga-11e9701d8c8-452e-4111-90d1-a86f5db95ec6	Ksh	\N	\N	\N	Ksh	14000.00	\N	\N	\N	14000.00	\N	\N	t	2025-06-25	1	1	2
-15	Hp 840G8	\N	\N	\N	Hp 840G8	i7 11Th Gen 16gb /512gb SSD				i7 11Th Gen 16gb /512gb SSD	hp-840g8361732de-e3fb-4da4-ad43-fe526c335957	Ksh	\N	\N	\N	Ksh	55000.00	\N	\N	\N	55000.00	\N	\N	t	2025-06-25	1	1	2
-16	MICROSOFT PRO 5	\N	\N	\N	MICROSOFT PRO 5	CORE I5 8 GB RAM 256 GB SSD \r\n1.5 GHz BASE CLOCK 12.3 INCH 2K DISPLAY  / USB A /  DETOUCHABLE BACKLIT KEYBOARD.				CORE I5 8 GB RAM 256 GB SSD \r\n1.5 GHz BASE CLOCK 12.3 INCH 2K DISPLAY  / USB A /  DETOUCHABLE BACKLIT KEYBOARD.	microsoft-pro-55bff5920-3b3e-4252-b926-f4f15d8c143f	Ksh	\N	\N	\N	Ksh	36000.00	\N	\N	\N	36000.00	\N	\N	t	2025-06-25	1	1	2
-17	DELL LATITUDE 7280	\N	\N	\N	DELL LATITUDE 7280	CORE i7 7th GEN 8gb Ram 256gb ssd  NON TOUCH WITH BACKLIGHT KEYBOARD  2.4 GHZ (4CPUS) 2.9 GHZ  WINDOWS 10 PRO 64BITS MICROSOFT OFFICE AVAILABLE				CORE i7 7th GEN 8gb Ram 256gb ssd  NON TOUCH WITH BACKLIGHT KEYBOARD  2.4 GHZ (4CPUS) 2.9 GHZ  WINDOWS 10 PRO 64BITS MICROSOFT OFFICE AVAILABLE	dell-latitude-72800d4c589c-2668-4292-b656-b89ef4724447	Ksh	\N	\N	\N	Ksh	23000.00	\N	\N	\N	23000.00	\N	\N	t	2025-06-25	1	1	2
-18	DELL LATITUDE 7390	\N	\N	\N	DELL LATITUDE 7390	INTEL CORE I5 8TH 8GB RAM 256GB SSD, 1.7GHZ, (8CPUS),1.9GHZ, TOUCHSCREEN Window 11 pro ,64BITS MICROSOFT OFFICE AVAILABLE				INTEL CORE I5 8TH 8GB RAM 256GB SSD, 1.7GHZ, (8CPUS),1.9GHZ, TOUCHSCREEN Window 11 pro ,64BITS MICROSOFT OFFICE AVAILABLE	dell-latitude-7390d3fb46c8-34fc-4694-8fb4-de53da926791	Ksh	\N	\N	\N	Ksh	28000.00	\N	\N	\N	28000.00	\N	\N	t	2025-06-25	1	1	2
-19	Dell Precision 5520	\N	\N	\N	Dell Precision 5520	Corei7-7700HQ I7 16GB 512SSD with M1200 Nvidia  4 GB				Corei7-7700HQ I7 16GB 512SSD with M1200 Nvidia  4 GB	dell-precision-5520baac7e5d-8645-4945-b3a3-c4ec42eb5b5f	Ksh	\N	\N	\N	Ksh	56000.00	\N	\N	\N	56000.00	\N	\N	t	2025-06-25	1	1	2
+27	HP 1040	\N	\N	\N	HP 1040	core i5 4gb 256gb SSD.				core i5 4gb 256gb SSD.	hp-1040063d3e98-0d95-4c73-b7eb-0405dc5edfd7	Ksh	\N	\N	\N	Ksh	17000.00	\N	\N	\N	17000.00	\N	\N	t	2025-06-25	1	1	2
+26	🔥🔥🔥 Lenovo T490s	\N	\N	\N	🔥🔥🔥 Lenovo T490s	i7 8th 2.1aGHz 8CPUS 32GB RAM 512SSD touchscreen				i7 8th 2.1aGHz 8CPUS 32GB RAM 512SSD touchscreen	lenovo-t490sb2bca716-b8a8-43bc-a0df-897a60619205	Ksh	\N	\N	\N	Ksh	45999.00	\N	\N	\N	45999.00	\N	\N	t	2025-06-25	1	1	2
+24	LENOVO X1 YOGA	\N	\N	\N	LENOVO X1 YOGA	i7 10510U 8CPUS, 2.3GHz 16GB RAM 512 SSD TOUCHSCREEN with stylus pen 🖊️🖊️🖊️ available in stock				i7 10510U 8CPUS, 2.3GHz 16GB RAM 512 SSD TOUCHSCREEN with stylus pen 🖊️🖊️🖊️ available in stock	lenovo-x1-yogaeb38afef-4b10-44e1-a0be-6b7c252099d2	Ksh	\N	\N	\N	Ksh	50500.00	\N	\N	\N	50500.00	\N	\N	t	2025-06-25	1	1	2
+23	Lenovo x1 carbon G7	\N	\N	\N	Lenovo x1 carbon G7	CORE  i5 8 TH GEB \r\n16gb RAM 512 GB SSD STORAGE \r\n1.8 GHz BASE CLOCK SPEED \r\nBACKLIT KEYBOARD/ YPE C THUNDERBOLT				CORE  i5 8 TH GEB \r\n16gb RAM 512 GB SSD STORAGE \r\n1.8 GHz BASE CLOCK SPEED \r\nBACKLIT KEYBOARD/ YPE C THUNDERBOLT	lenovo-x1-carbon-g7399c9a59-237e-48e3-95cd-3c0a7745ba6f	Ksh	\N	\N	\N	Ksh	40000.00	\N	\N	\N	40000.00	\N	\N	t	2025-06-25	1	1	2
+22	MACBOOK PRO M1 (2338)	\N	\N	\N	MACBOOK PRO M1 (2338)	APPLE M1 8 (4 Performance : 4 Efficiency) 16 GB RAM : 1 TB SSD \r\n13.3 INCH 2560 by 1600 RETINA				APPLE M1 8 (4 Performance : 4 Efficiency) 16 GB RAM : 1 TB SSD \r\n13.3 INCH 2560 by 1600 RETINA	macbook-pro-m1-2338f0624ec2-80c8-4308-952a-742e85359f66	Ksh	\N	\N	\N	Ksh	104999.00	\N	\N	\N	104999.00	\N	\N	t	2025-06-25	1	1	7
+21	NEW ARRIVALS  MACBOOK PRO M1	\N	\N	\N	NEW ARRIVALS  MACBOOK PRO M1	16 INCH \r\n32 GB RAM : APPLE 512 GB SSD \r\n10 CORE (8 Performing 2 Efficiency) \r\n16 INCH LIQUID RETINA  3456 by 2234\r\nFACETIME :  USB THUNDER BOLT 4 40gb/s :USB 3.1 .				16 INCH \r\n32 GB RAM : APPLE 512 GB SSD \r\n10 CORE (8 Performing 2 Efficiency) \r\n16 INCH LIQUID RETINA  3456 by 2234\r\nFACETIME :  USB THUNDER BOLT 4 40gb/s :USB 3.1 .	new-arrivals-macbook-pro-m1ebac3367-e896-49b9-aec6-b01fb6646382	Ksh	\N	\N	\N	Ksh	168999.00	\N	\N	\N	168999.00	\N	\N	t	2025-06-25	1	1	7
 20	Samsung Galaxy A56	\N	\N	\N	Samsung Galaxy A56	256gb ROM & 8GB RAM				256gb ROM & 8GB RAM	samsung-galaxy-a562fe9f400-a2ff-4f4d-ba36-40f81dd9457d	Ksh	\N	\N	\N	Ksh	50500.00	\N	\N	\N	50500.00	\N	\N	t	2025-06-25	1	3	3
-29	LENOVO 460P	\N	\N	\N	LENOVO 460P	CORE I7 6TH GEN (6700HQ)\r\n8 GB RAM 256 GB SSD STORAGE \r\n2.6 GHZ BASE CLOCK PROCESSOR SPEED \r\n4.2 GHZ TURBO BOOST PROCESSOR SPEED \r\n2 GB NVIDIA GRAPHICS DEDICATED \r\nBACKLIT KEYBOARD / WIFI / BLUETOOTH /				CORE I7 6TH GEN (6700HQ)\r\n8 GB RAM 256 GB SSD STORAGE \r\n2.6 GHZ BASE CLOCK PROCESSOR SPEED \r\n4.2 GHZ TURBO BOOST PROCESSOR SPEED \r\n2 GB NVIDIA GRAPHICS DEDICATED \r\nBACKLIT KEYBOARD / WIFI / BLUETOOTH /	lenovo-460pd2890aba-9292-4192-83fc-f84fb9a8f925	Ksh	\N	\N	\N	Ksh	26000.00	\N	\N	\N	26000.00	\N	\N	t	2025-06-25	1	1	2
-30	🔥 LENOVO X1 YOGA G7 – Premium Convertible Laptop 🔥	\N	\N	\N	🔥 LENOVO X1 YOGA G7 – Premium Convertible Laptop 🔥	✅ Intel Core i7 (12th Gen)\r\n✅ 32GB RAM | 512GB SSD\r\n✅ 14" FHD Infinity Touchscreen\r\n✅ 360° Flip Design (X360)\r\n✅ Stylus Pen 🖊️ Included\r\n✅ Ultra-slim & Lightweight\r\n✅ Backlit Keyboard\r\n✅ Fingerprint Reader & Webcam\r\n✅ 12 Months Manufacturer Warranty				✅ Intel Core i7 (12th Gen)\r\n✅ 32GB RAM | 512GB SSD\r\n✅ 14" FHD Infinity Touchscreen\r\n✅ 360° Flip Design (X360)\r\n✅ Stylus Pen 🖊️ Included\r\n✅ Ultra-slim & Lightweight\r\n✅ Backlit Keyboard\r\n✅ Fingerprint Reader & Webcam\r\n✅ 12 Months Manufacturer Warranty	lenovo-x1-yoga-g7-premium-convertible-laptop-0e21a7ff-e063-466d-9c81-8ec5465a105a	Ksh	\N	\N	\N	Ksh	75000.00	\N	\N	\N	75000.00	\N	\N	t	2025-06-25	1	1	2
-31	Dell XPS 15 9500	\N	\N	\N	Dell XPS 15 9500	Corei7-10750H 32GB RAM 512SSD with NVIDIA 1650TI 4GB				Corei7-10750H 32GB RAM 512SSD with NVIDIA 1650TI 4GB	dell-xps-15-9500da6e9e34-c05a-44fa-8937-08e90976d11a	Ksh	\N	\N	\N	Ksh	79999.00	\N	\N	\N	79999.00	\N	\N	t	2025-06-25	1	1	2
-32	DELL LATITUDE 7280	\N	\N	\N	DELL LATITUDE 7280	CORE i7 7th GEN 8gb Ram 256gb ssd  NON TOUCH WITH BACKLIGHT KEYBOARD  2.4 GHZ (4CPUS) 2.9 GHZ  WINDOWS 10 PRO 64BITS MICROSOFT OFFICE AVAILABLE				CORE i7 7th GEN 8gb Ram 256gb ssd  NON TOUCH WITH BACKLIGHT KEYBOARD  2.4 GHZ (4CPUS) 2.9 GHZ  WINDOWS 10 PRO 64BITS MICROSOFT OFFICE AVAILABLE	dell-latitude-728027e20e7e-a71a-4207-a344-22d3d3fae637	Ksh	\N	\N	\N	Ksh	23000.00	\N	\N	\N	23000.00	\N	\N	t	2025-06-25	1	1	2
-33	🔥HP Z Book 14 G7 Firefly	\N	\N	\N	🔥HP Z Book 14 G7 Firefly	10th i7 32gb 1tbssd Touch with 4gb NVidia				10th i7 32gb 1tbssd Touch with 4gb NVidia	hp-z-book-14-g7-fireflye1a49fa1-dadb-4110-a58a-ab3b089c68a6	Ksh	\N	\N	\N	Ksh	74500.00	\N	\N	\N	74500.00	\N	\N	t	2025-06-25	1	1	2
-34	HP PAVILION AERO	\N	\N	\N	HP PAVILION AERO	RYZEN 5 5600U 8 GB RAM 512 SSD GOLD				RYZEN 5 5600U 8 GB RAM 512 SSD GOLD	hp-pavilion-aero49a01b4e-c231-4e02-be19-757ba7b8eb55	Ksh	\N	\N	\N	Ksh	62000.00	\N	\N	\N	62000.00	\N	\N	t	2025-06-25	1	1	1
-35	HP VICTUS 16 GAMING	\N	\N	\N	HP VICTUS 16 GAMING	1th gen core i5 16gb RAM 1TB SSD 4gb Nvidia GTX 1650				1th gen core i5 16gb RAM 1TB SSD 4gb Nvidia GTX 1650	hp-victus-16-gaming5f76a364-7c8c-444f-a340-57ece25abcb5	Ksh	\N	\N	\N	Ksh	95000.00	\N	\N	\N	95000.00	\N	\N	t	2025-06-25	1	1	1
-36	💻 Dell Precision 5550	\N	\N	\N	💻 Dell Precision 5550	Mobile Workstation Beast!\r\n🔥 Intel Core i9 10th Gen (8 Cores, 16 Threads\r\n⚡ 32GB RAM | 512GB SSD (NVMe)\r\n🎮 4GB NVIDIA Quadro T2000 – Perfect for CAD, 3D, Video Editing\r\n🌟 Ultra-premium 15.6” Display (InfinityEdge)\r\n💼 Sleek & powerful – Ideal for pros and creators				Mobile Workstation Beast!\r\n🔥 Intel Core i9 10th Gen (8 Cores, 16 Threads\r\n⚡ 32GB RAM | 512GB SSD (NVMe)\r\n🎮 4GB NVIDIA Quadro T2000 – Perfect for CAD, 3D, Video Editing\r\n🌟 Ultra-premium 15.6” Display (InfinityEdge)\r\n💼 Sleek & powerful – Ideal for pros and creators	dell-precision-5550b168b292-8d46-49de-b542-e1f5094ceefe	Ksh	\N	\N	\N	Ksh	92000.00	\N	\N	\N	92000.00	\N	\N	t	2025-06-25	1	1	1
-37	🔥🔥🔥Lenovo ThinkPad X1 Yoga	\N	\N	\N	🔥🔥🔥Lenovo ThinkPad X1 Yoga	Core i7 8th Gen 16GB RAM 512GB SSD With stylus pen , *1.9GHZ,(8CPUS) 2.1GHZ, windows 10 PRO Microsoft office available				Core i7 8th Gen 16GB RAM 512GB SSD With stylus pen , *1.9GHZ,(8CPUS) 2.1GHZ, windows 10 PRO Microsoft office available	lenovo-thinkpad-x1-yogaf61d2f40-5f41-4208-b6cd-f3dfa9d93f01	Ksh	\N	\N	\N	Ksh	46000.00	\N	\N	\N	46000.00	\N	\N	t	2025-06-25	1	1	2
-38	LENOVO X1 YOGA G7	\N	\N	\N	LENOVO X1 YOGA G7	CORE I7 12 TH GEN \r\n32 GB RAM 512 GB SSD \r\nX360 TOUCH SCREEN \r\nSTYLUS PEN 🖊️ \r\nFHD INFINITY DISPLAY				CORE I7 12 TH GEN \r\n32 GB RAM 512 GB SSD \r\nX360 TOUCH SCREEN \r\nSTYLUS PEN 🖊️ \r\nFHD INFINITY DISPLAY	lenovo-x1-yoga-g7182609ab-05b9-4b63-a504-81344bac8ecb	Ksh	\N	\N	\N	Ksh	78999.00	\N	\N	\N	78999.00	\N	\N	t	2025-06-25	1	1	2
-39	🔥LENOVO THINKPAD X380 YOGA	\N	\N	\N	🔥LENOVO THINKPAD X380 YOGA	INTEL CORE I5  8TH GEN, 8GB RAM, 256GB SSD ,1.70GHZ (8CPUS)~1.9GHZ,TOUCHSCREEN, WITH STYLUS PEN, WINDOWS 10PRO 64BITS,MICROSOFT OFFICE 🔥				INTEL CORE I5  8TH GEN, 8GB RAM, 256GB SSD ,1.70GHZ (8CPUS)~1.9GHZ,TOUCHSCREEN, WITH STYLUS PEN, WINDOWS 10PRO 64BITS,MICROSOFT OFFICE 🔥	lenovo-thinkpad-x380-yoga3e089aed-d638-4aa6-a73c-5de3147103d5	Ksh	\N	\N	\N	Ksh	28000.00	\N	\N	\N	28000.00	\N	\N	t	2025-06-25	1	1	2
-40	Lenovo x1 carbon G7	\N	\N	\N	Lenovo x1 carbon G7	CORE  i5 8 TH GEB \r\n16gb RAM 512 GB SSD STORAGE \r\n1.8 GHz BASE CLOCK SPEED \r\nBACKLIT KEYBOARD/ YPE C THUNDERBOLT				CORE  i5 8 TH GEB \r\n16gb RAM 512 GB SSD STORAGE \r\n1.8 GHz BASE CLOCK SPEED \r\nBACKLIT KEYBOARD/ YPE C THUNDERBOLT	lenovo-x1-carbon-g7a5a474b2-d696-478a-9bcc-ca86f0ce6da1	Ksh	\N	\N	\N	Ksh	43999.00	\N	\N	\N	43999.00	\N	\N	t	2025-06-25	1	1	2
-41	DELL PRECISION 5530	\N	\N	\N	DELL PRECISION 5530	CORE I9  8 TH GEN \r\n32 GB RAM 512 GB SSD \r\n4 GB NVIDIA QUADRO T1000\r\nBACKLIT KEYBOARD / FHD DISPLAY				CORE I9  8 TH GEN \r\n32 GB RAM 512 GB SSD \r\n4 GB NVIDIA QUADRO T1000\r\nBACKLIT KEYBOARD / FHD DISPLAY	dell-precision-55309e62270a-f6c9-467b-b014-5dc31a1dcac6	Ksh	\N	\N	\N	Ksh	74999.00	\N	\N	\N	74999.00	\N	\N	t	2025-06-25	1	1	2
-42	MACBOOK PRO M1	\N	\N	\N	MACBOOK PRO M1	16 INCH  A2485 32 GB RAM  512 GB SSD 4K RETINA DISPLAY				16 INCH  A2485 32 GB RAM  512 GB SSD 4K RETINA DISPLAY	macbook-pro-m165e342bc-e773-46bc-9ac0-8193f2eab008	Ksh	\N	\N	\N	Ksh	169000.00	\N	\N	\N	169000.00	\N	\N	t	2025-06-25	1	1	7
+19	Dell Precision 5520	\N	\N	\N	Dell Precision 5520	Corei7-7700HQ I7 16GB 512SSD with M1200 Nvidia  4 GB				Corei7-7700HQ I7 16GB 512SSD with M1200 Nvidia  4 GB	dell-precision-5520baac7e5d-8645-4945-b3a3-c4ec42eb5b5f	Ksh	\N	\N	\N	Ksh	56000.00	\N	\N	\N	56000.00	\N	\N	t	2025-06-25	1	1	2
+18	DELL LATITUDE 7390	\N	\N	\N	DELL LATITUDE 7390	INTEL CORE I5 8TH 8GB RAM 256GB SSD, 1.7GHZ, (8CPUS),1.9GHZ, TOUCHSCREEN Window 11 pro ,64BITS MICROSOFT OFFICE AVAILABLE				INTEL CORE I5 8TH 8GB RAM 256GB SSD, 1.7GHZ, (8CPUS),1.9GHZ, TOUCHSCREEN Window 11 pro ,64BITS MICROSOFT OFFICE AVAILABLE	dell-latitude-7390d3fb46c8-34fc-4694-8fb4-de53da926791	Ksh	\N	\N	\N	Ksh	28000.00	\N	\N	\N	28000.00	\N	\N	t	2025-06-25	1	1	2
+17	DELL LATITUDE 7280	\N	\N	\N	DELL LATITUDE 7280	CORE i7 7th GEN 8gb Ram 256gb ssd  NON TOUCH WITH BACKLIGHT KEYBOARD  2.4 GHZ (4CPUS) 2.9 GHZ  WINDOWS 10 PRO 64BITS MICROSOFT OFFICE AVAILABLE				CORE i7 7th GEN 8gb Ram 256gb ssd  NON TOUCH WITH BACKLIGHT KEYBOARD  2.4 GHZ (4CPUS) 2.9 GHZ  WINDOWS 10 PRO 64BITS MICROSOFT OFFICE AVAILABLE	dell-latitude-72800d4c589c-2668-4292-b656-b89ef4724447	Ksh	\N	\N	\N	Ksh	23000.00	\N	\N	\N	23000.00	\N	\N	t	2025-06-25	1	1	2
+16	MICROSOFT PRO 5	\N	\N	\N	MICROSOFT PRO 5	CORE I5 8 GB RAM 256 GB SSD \r\n1.5 GHz BASE CLOCK 12.3 INCH 2K DISPLAY  / USB A /  DETOUCHABLE BACKLIT KEYBOARD.				CORE I5 8 GB RAM 256 GB SSD \r\n1.5 GHz BASE CLOCK 12.3 INCH 2K DISPLAY  / USB A /  DETOUCHABLE BACKLIT KEYBOARD.	microsoft-pro-55bff5920-3b3e-4252-b926-f4f15d8c143f	Ksh	\N	\N	\N	Ksh	36000.00	\N	\N	\N	36000.00	\N	\N	t	2025-06-25	1	1	2
+15	Hp 840G8	\N	\N	\N	Hp 840G8	i7 11Th Gen 16gb /512gb SSD				i7 11Th Gen 16gb /512gb SSD	hp-840g8361732de-e3fb-4da4-ad43-fe526c335957	Ksh	\N	\N	\N	Ksh	55000.00	\N	\N	\N	55000.00	\N	\N	t	2025-06-25	1	1	2
+14	HP Z Book 14 G7 Firefly	\N	\N	\N	HP Z Book 14 G7 Firefly	10rg gen i7 32gb 1tb ssd Touch with 4gb Nvidia graphics				10rg gen i7 32gb 1tb ssd Touch with 4gb Nvidia graphics	hp-z-book-14-g7-fireflyc02d2770-1011-466b-821f-e6a0d483164f	Ksh	\N	\N	\N	Ksh	78999.00	\N	\N	\N	78999.00	\N	\N	t	2025-06-25	1	1	2
+13	HP Elitebook 840 g9	\N	\N	\N	HP Elitebook 840 g9	core i7 12th gen 32gb RWM 512gb SSD				core i7 12th gen 32gb RWM 512gb SSD	hp-elitebook-840-g97f2a4aca-b8d8-4a81-aa82-3b85ea03e05b	Ksh	\N	\N	\N	Ksh	76500.00	\N	\N	\N	76500.00	\N	\N	t	2025-06-25	1	1	2
+12	Laptop Bag	\N	\N	\N	Laptop Bag	Normal Laptop Bag				Normal Laptop Bag	laptop-bag3546d10f-c8e2-43f1-bb27-7c3e967c511a	Ksh	\N	\N	\N	Ksh	950.00	\N	\N	\N	950.00	\N	\N	t	2025-06-24	1	4	9
+11	Beauty Mug	\N	\N	\N	Beauty Mug	Colored Beauty Mug				Colored Beauty Mug	beauty-muge51c6ff1-82ad-4ffa-ac80-ea41810b40cf	Ksh	\N	\N	\N	Ksh	2000.00	\N	\N	\N	2000.00	\N	\N	t	2025-06-24	1	5	8
+9	HP Victus 16 Gaming	\N	\N	\N	HP Victus 16 Gaming	11th Gen Core i5 16gb Ram 1TB SSD 4gb Nvidia GTX 1650				11th Gen Core i5 16gb Ram 1TB SSD 4gb Nvidia GTX 1650	hp-victus-16-gamingaf34be7d-2009-4969-a9a2-1bfb1592f982	Ksh	\N	\N	\N	Ksh	90000.00	\N	\N	\N	90000.00	\N	\N	t	2025-06-24	1	1	1
+8	Hp G3	\N	\N	\N	Hp G3	Portable Business Laptop				Portable Business Laptop	hp-g3e8ab8f28-1f7b-488e-80ef-c5f67bc586e4	Ksh	\N	\N	\N	Ksh	50000.00	\N	\N	\N	50000.00	\N	1	t	2025-06-24	1	1	2
 43	MACBOOK PRO M1 2021 (A2442)	\N	\N	\N	MACBOOK PRO M1 2021 (A2442)	16GB RAM 512 GB SSD STORAGE \r\n14 INCHS RETINA DISPLAY   BACKLIT KEYBOARD / TYPE C THUNDER BOLT / HDMI /				16GB RAM 512 GB SSD STORAGE \r\n14 INCHS RETINA DISPLAY   BACKLIT KEYBOARD / TYPE C THUNDER BOLT / HDMI /	macbook-pro-m1-2021-a2442f133e04a-7b8f-49f3-b683-cdfb16a0ec5f	Ksh	\N	\N	\N	Ksh	148000.00	\N	\N	\N	148000.00	\N	\N	t	2025-06-25	1	1	7
+42	MACBOOK PRO M1	\N	\N	\N	MACBOOK PRO M1	16 INCH  A2485 32 GB RAM  512 GB SSD 4K RETINA DISPLAY				16 INCH  A2485 32 GB RAM  512 GB SSD 4K RETINA DISPLAY	macbook-pro-m165e342bc-e773-46bc-9ac0-8193f2eab008	Ksh	\N	\N	\N	Ksh	169000.00	\N	\N	\N	169000.00	\N	\N	t	2025-06-25	1	1	7
+41	DELL PRECISION 5530	\N	\N	\N	DELL PRECISION 5530	CORE I9  8 TH GEN \r\n32 GB RAM 512 GB SSD \r\n4 GB NVIDIA QUADRO T1000\r\nBACKLIT KEYBOARD / FHD DISPLAY				CORE I9  8 TH GEN \r\n32 GB RAM 512 GB SSD \r\n4 GB NVIDIA QUADRO T1000\r\nBACKLIT KEYBOARD / FHD DISPLAY	dell-precision-55309e62270a-f6c9-467b-b014-5dc31a1dcac6	Ksh	\N	\N	\N	Ksh	74999.00	\N	\N	\N	74999.00	\N	\N	t	2025-06-25	1	1	2
+40	Lenovo x1 carbon G7	\N	\N	\N	Lenovo x1 carbon G7	CORE  i5 8 TH GEB \r\n16gb RAM 512 GB SSD STORAGE \r\n1.8 GHz BASE CLOCK SPEED \r\nBACKLIT KEYBOARD/ YPE C THUNDERBOLT				CORE  i5 8 TH GEB \r\n16gb RAM 512 GB SSD STORAGE \r\n1.8 GHz BASE CLOCK SPEED \r\nBACKLIT KEYBOARD/ YPE C THUNDERBOLT	lenovo-x1-carbon-g7a5a474b2-d696-478a-9bcc-ca86f0ce6da1	Ksh	\N	\N	\N	Ksh	43999.00	\N	\N	\N	43999.00	\N	\N	t	2025-06-25	1	1	2
+39	🔥LENOVO THINKPAD X380 YOGA	\N	\N	\N	🔥LENOVO THINKPAD X380 YOGA	INTEL CORE I5  8TH GEN, 8GB RAM, 256GB SSD ,1.70GHZ (8CPUS)~1.9GHZ,TOUCHSCREEN, WITH STYLUS PEN, WINDOWS 10PRO 64BITS,MICROSOFT OFFICE 🔥				INTEL CORE I5  8TH GEN, 8GB RAM, 256GB SSD ,1.70GHZ (8CPUS)~1.9GHZ,TOUCHSCREEN, WITH STYLUS PEN, WINDOWS 10PRO 64BITS,MICROSOFT OFFICE 🔥	lenovo-thinkpad-x380-yoga3e089aed-d638-4aa6-a73c-5de3147103d5	Ksh	\N	\N	\N	Ksh	28000.00	\N	\N	\N	28000.00	\N	\N	t	2025-06-25	1	1	2
+38	LENOVO X1 YOGA G7	\N	\N	\N	LENOVO X1 YOGA G7	CORE I7 12 TH GEN \r\n32 GB RAM 512 GB SSD \r\nX360 TOUCH SCREEN \r\nSTYLUS PEN 🖊️ \r\nFHD INFINITY DISPLAY				CORE I7 12 TH GEN \r\n32 GB RAM 512 GB SSD \r\nX360 TOUCH SCREEN \r\nSTYLUS PEN 🖊️ \r\nFHD INFINITY DISPLAY	lenovo-x1-yoga-g7182609ab-05b9-4b63-a504-81344bac8ecb	Ksh	\N	\N	\N	Ksh	78999.00	\N	\N	\N	78999.00	\N	\N	t	2025-06-25	1	1	2
+37	🔥🔥🔥Lenovo ThinkPad X1 Yoga	\N	\N	\N	🔥🔥🔥Lenovo ThinkPad X1 Yoga	Core i7 8th Gen 16GB RAM 512GB SSD With stylus pen , *1.9GHZ,(8CPUS) 2.1GHZ, windows 10 PRO Microsoft office available				Core i7 8th Gen 16GB RAM 512GB SSD With stylus pen , *1.9GHZ,(8CPUS) 2.1GHZ, windows 10 PRO Microsoft office available	lenovo-thinkpad-x1-yogaf61d2f40-5f41-4208-b6cd-f3dfa9d93f01	Ksh	\N	\N	\N	Ksh	46000.00	\N	\N	\N	46000.00	\N	\N	t	2025-06-25	1	1	2
+36	💻 Dell Precision 5550	\N	\N	\N	💻 Dell Precision 5550	Mobile Workstation Beast!\r\n🔥 Intel Core i9 10th Gen (8 Cores, 16 Threads\r\n⚡ 32GB RAM | 512GB SSD (NVMe)\r\n🎮 4GB NVIDIA Quadro T2000 – Perfect for CAD, 3D, Video Editing\r\n🌟 Ultra-premium 15.6” Display (InfinityEdge)\r\n💼 Sleek & powerful – Ideal for pros and creators				Mobile Workstation Beast!\r\n🔥 Intel Core i9 10th Gen (8 Cores, 16 Threads\r\n⚡ 32GB RAM | 512GB SSD (NVMe)\r\n🎮 4GB NVIDIA Quadro T2000 – Perfect for CAD, 3D, Video Editing\r\n🌟 Ultra-premium 15.6” Display (InfinityEdge)\r\n💼 Sleek & powerful – Ideal for pros and creators	dell-precision-5550b168b292-8d46-49de-b542-e1f5094ceefe	Ksh	\N	\N	\N	Ksh	92000.00	\N	\N	\N	92000.00	\N	\N	t	2025-06-25	1	1	1
+35	HP VICTUS 16 GAMING	\N	\N	\N	HP VICTUS 16 GAMING	1th gen core i5 16gb RAM 1TB SSD 4gb Nvidia GTX 1650				1th gen core i5 16gb RAM 1TB SSD 4gb Nvidia GTX 1650	hp-victus-16-gaming5f76a364-7c8c-444f-a340-57ece25abcb5	Ksh	\N	\N	\N	Ksh	95000.00	\N	\N	\N	95000.00	\N	\N	t	2025-06-25	1	1	1
+34	HP PAVILION AERO	\N	\N	\N	HP PAVILION AERO	RYZEN 5 5600U 8 GB RAM 512 SSD GOLD				RYZEN 5 5600U 8 GB RAM 512 SSD GOLD	hp-pavilion-aero49a01b4e-c231-4e02-be19-757ba7b8eb55	Ksh	\N	\N	\N	Ksh	62000.00	\N	\N	\N	62000.00	\N	\N	t	2025-06-25	1	1	1
+33	🔥HP Z Book 14 G7 Firefly	\N	\N	\N	🔥HP Z Book 14 G7 Firefly	10th i7 32gb 1tbssd Touch with 4gb NVidia				10th i7 32gb 1tbssd Touch with 4gb NVidia	hp-z-book-14-g7-fireflye1a49fa1-dadb-4110-a58a-ab3b089c68a6	Ksh	\N	\N	\N	Ksh	74500.00	\N	\N	\N	74500.00	\N	\N	t	2025-06-25	1	1	2
+32	DELL LATITUDE 7280	\N	\N	\N	DELL LATITUDE 7280	CORE i7 7th GEN 8gb Ram 256gb ssd  NON TOUCH WITH BACKLIGHT KEYBOARD  2.4 GHZ (4CPUS) 2.9 GHZ  WINDOWS 10 PRO 64BITS MICROSOFT OFFICE AVAILABLE				CORE i7 7th GEN 8gb Ram 256gb ssd  NON TOUCH WITH BACKLIGHT KEYBOARD  2.4 GHZ (4CPUS) 2.9 GHZ  WINDOWS 10 PRO 64BITS MICROSOFT OFFICE AVAILABLE	dell-latitude-728027e20e7e-a71a-4207-a344-22d3d3fae637	Ksh	\N	\N	\N	Ksh	23000.00	\N	\N	\N	23000.00	\N	\N	t	2025-06-25	1	1	2
+31	Dell XPS 15 9500	\N	\N	\N	Dell XPS 15 9500	Corei7-10750H 32GB RAM 512SSD with NVIDIA 1650TI 4GB				Corei7-10750H 32GB RAM 512SSD with NVIDIA 1650TI 4GB	dell-xps-15-9500da6e9e34-c05a-44fa-8937-08e90976d11a	Ksh	\N	\N	\N	Ksh	79999.00	\N	\N	\N	79999.00	\N	\N	t	2025-06-25	1	1	2
+30	🔥 LENOVO X1 YOGA G7 – Premium Convertible Laptop 🔥	\N	\N	\N	🔥 LENOVO X1 YOGA G7 – Premium Convertible Laptop 🔥	✅ Intel Core i7 (12th Gen)\r\n✅ 32GB RAM | 512GB SSD\r\n✅ 14" FHD Infinity Touchscreen\r\n✅ 360° Flip Design (X360)\r\n✅ Stylus Pen 🖊️ Included\r\n✅ Ultra-slim & Lightweight\r\n✅ Backlit Keyboard\r\n✅ Fingerprint Reader & Webcam\r\n✅ 12 Months Manufacturer Warranty				✅ Intel Core i7 (12th Gen)\r\n✅ 32GB RAM | 512GB SSD\r\n✅ 14" FHD Infinity Touchscreen\r\n✅ 360° Flip Design (X360)\r\n✅ Stylus Pen 🖊️ Included\r\n✅ Ultra-slim & Lightweight\r\n✅ Backlit Keyboard\r\n✅ Fingerprint Reader & Webcam\r\n✅ 12 Months Manufacturer Warranty	lenovo-x1-yoga-g7-premium-convertible-laptop-0e21a7ff-e063-466d-9c81-8ec5465a105a	Ksh	\N	\N	\N	Ksh	75000.00	\N	\N	\N	75000.00	\N	\N	t	2025-06-25	1	1	2
+29	LENOVO 460P	\N	\N	\N	LENOVO 460P	CORE I7 6TH GEN (6700HQ)\r\n8 GB RAM 256 GB SSD STORAGE \r\n2.6 GHZ BASE CLOCK PROCESSOR SPEED \r\n4.2 GHZ TURBO BOOST PROCESSOR SPEED \r\n2 GB NVIDIA GRAPHICS DEDICATED \r\nBACKLIT KEYBOARD / WIFI / BLUETOOTH /				CORE I7 6TH GEN (6700HQ)\r\n8 GB RAM 256 GB SSD STORAGE \r\n2.6 GHZ BASE CLOCK PROCESSOR SPEED \r\n4.2 GHZ TURBO BOOST PROCESSOR SPEED \r\n2 GB NVIDIA GRAPHICS DEDICATED \r\nBACKLIT KEYBOARD / WIFI / BLUETOOTH /	lenovo-460pd2890aba-9292-4192-83fc-f84fb9a8f925	Ksh	\N	\N	\N	Ksh	26000.00	\N	\N	\N	26000.00	\N	\N	t	2025-06-25	1	1	2
 44	DELL PRECISION 5530	\N	\N	\N	DELL PRECISION 5530	CORE I9  9 TH GEN \r\n32 GB RAM 512 GB SSD \r\n4 GB NVIDIA QUADRO T1000\r\nBACKLIT KEYBOARD / FHD DISPLAY				CORE I9  9 TH GEN \r\n32 GB RAM 512 GB SSD \r\n4 GB NVIDIA QUADRO T1000\r\nBACKLIT KEYBOARD / FHD DISPLAY	dell-precision-5530515f0fdb-1530-49b2-9b66-234b90a2f623	Ksh	\N	\N	\N	Ksh	82000.00	\N	\N	\N	82000.00	\N	\N	t	2025-06-25	1	1	2
-45	HP Elitebook 830 G6/8th	\N	\N	\N	HP Elitebook 830 G6/8th	gen/Core i5/16gb Ram/512gb SSD/x360 touch				gen/Core i5/16gb Ram/512gb SSD/x360 touch	hp-elitebook-830-g68th07b8f677-8858-4edc-bcc0-9fddff2e186b	Ksh	\N	\N	\N	Ksh	37500.00	\N	\N	\N	37500.00	\N	\N	t	2025-06-25	1	1	2
-46	HP ELITEBOOK 840 G6	\N	\N	\N	HP ELITEBOOK 840 G6	CORE I5 8 TH GEN \r\n8 GB RAM : 256 GB SSD \r\n14 INCH FHD TOUCH SCREEN \r\nBACKLIT KEYBAORD				CORE I5 8 TH GEN \r\n8 GB RAM : 256 GB SSD \r\n14 INCH FHD TOUCH SCREEN \r\nBACKLIT KEYBAORD	hp-elitebook-840-g6cddcddec-ef5b-49f6-b861-8550b46f663f	Ksh	\N	\N	\N	Ksh	31000.00	\N	\N	\N	31000.00	\N	\N	t	2025-06-25	1	1	2
-47	*DEll XPS 13 9365	\N	\N	\N	*DEll XPS 13 9365	CORE i7 7TH GEN 16 GB RAM,  512 GB SSD STORAGE TOUCH SCREEN WITH BACKLIGHT KEYBOARD WINDOWS 10   PRO 64BITS MICROSOFT OFFICE AVAILABLE				CORE i7 7TH GEN 16 GB RAM,  512 GB SSD STORAGE TOUCH SCREEN WITH BACKLIGHT KEYBOARD WINDOWS 10   PRO 64BITS MICROSOFT OFFICE AVAILABLE	dell-xps-13-9365e9bd3536-23d3-44be-87ab-f6629487cef6	Ksh	\N	\N	\N	Ksh	48000.00	\N	\N	\N	48000.00	\N	\N	t	2025-06-25	1	1	2
-48	HP ELITEBOOK 1040 G8	\N	\N	\N	HP ELITEBOOK 1040 G8	Core I7 11 TH GEN 32 GB RAM 512 GB SSD 3.0 GHz , X360 TOUCH SCREEN, HDMI, TYPE C				Core I7 11 TH GEN 32 GB RAM 512 GB SSD 3.0 GHz , X360 TOUCH SCREEN, HDMI, TYPE C	hp-elitebook-1040-g822b656a7-d3d0-482e-aa2a-a78d1e1367a5	Ksh	\N	\N	\N	Ksh	65000.00	\N	\N	\N	65000.00	\N	\N	t	2025-06-25	1	1	2
-49	HP ELITEBOOK 830 G5	\N	\N	\N	HP ELITEBOOK 830 G5	CORE I5 8TH GEN 8 GB RAM 256 GB SSD				CORE I5 8TH GEN 8 GB RAM 256 GB SSD	hp-elitebook-830-g5e61e6fa3-90e4-40d3-9d5e-6721d3ca49e0	Ksh	\N	\N	\N	Ksh	28000.00	\N	\N	\N	28000.00	\N	\N	t	2025-06-25	1	1	2
-50	DELL 3310	\N	\N	\N	DELL 3310	CORE  I5 8TH GEN \r\n8 GB RAM / 256 GB SSD \r\n2.1 GHZ BASE CLOCK\r\n8 CPUS 4.6 GHz MAX SPEED\r\n13.3 INCH TOUCH  SCREEN				CORE  I5 8TH GEN \r\n8 GB RAM / 256 GB SSD \r\n2.1 GHZ BASE CLOCK\r\n8 CPUS 4.6 GHz MAX SPEED\r\n13.3 INCH TOUCH  SCREEN	dell-331001d4c4c7-5f27-4ca7-9dda-65e3e672a17b	Ksh	\N	\N	\N	Ksh	25000.00	\N	\N	\N	25000.00	\N	\N	t	2025-06-25	1	1	2
-51	DELL LATITUDE 7280	\N	\N	\N	DELL LATITUDE 7280	CORE I5 7TH GEN 8GB RAM 256GB SSD NON TOUCH WITH 2.6 GHZ (4CPUS) 2.7 GHZ ,BACKLIT KEYBOARD ,WINDOWS 10PRO 64BITS MICROSOFT OFFICE				CORE I5 7TH GEN 8GB RAM 256GB SSD NON TOUCH WITH 2.6 GHZ (4CPUS) 2.7 GHZ ,BACKLIT KEYBOARD ,WINDOWS 10PRO 64BITS MICROSOFT OFFICE	dell-latitude-72801bb9c6cc-c44d-45ed-a652-ff3af26c00dd	Ksh	\N	\N	\N	Ksh	23000.00	\N	\N	\N	23000.00	\N	\N	t	2025-06-25	1	1	2
-52	HP 840 G5 core i5 8th gen	\N	\N	\N	HP 840 G5 core i5 8th gen	/core i5/8gb Ram/ 256gb ssd				/core i5/8gb Ram/ 256gb ssd	hp-840-g5-core-i5-8th-gen85ad1373-a761-4d3e-a46c-dd817164f08a	Ksh	\N	\N	\N	Ksh	28000.00	\N	\N	\N	28000.00	\N	\N	t	2025-06-25	1	1	2
 53	HP RAZOR BLADE 14	\N	\N	\N	HP RAZOR BLADE 14	CORE I7 7TH GEN  16 GB RAM 1TB SSD  2.8 GHZ BASE CLOCK 8CPUs  4.2 GHZ TURBO BOOST 8 CPUs 14 INCHS IPS DISPLAY 6 GB NVIDIA GEFORCE  MULTI COLOR BACKLIGHT KEYBOARD RGB				CORE I7 7TH GEN  16 GB RAM 1TB SSD  2.8 GHZ BASE CLOCK 8CPUs  4.2 GHZ TURBO BOOST 8 CPUs 14 INCHS IPS DISPLAY 6 GB NVIDIA GEFORCE  MULTI COLOR BACKLIGHT KEYBOARD RGB	hp-razor-blade-14d74a3324-02e7-44e7-8665-0003b42e8172	Ksh	\N	\N	\N	Ksh	84000.00	\N	\N	\N	84000.00	\N	\N	t	2025-06-27	1	1	1
-54	HP DRAGON FLY G3	\N	\N	\N	HP DRAGON FLY G3	CORE I7 12 TH GEN \r\n32 GB RAM 512 GB SSD \r\n14 INCH FHD DISPLAY \r\nBACKLIT KEYBOARD				CORE I7 12 TH GEN \r\n32 GB RAM 512 GB SSD \r\n14 INCH FHD DISPLAY \r\nBACKLIT KEYBOARD	hp-dragon-fly-g3cbbefb44-b333-4067-acce-76ce6f903911	Ksh	\N	\N	\N	Ksh	79999.00	\N	\N	\N	79999.00	\N	\N	t	2025-06-27	1	1	1
-55	🔥🔥 HP Dragonfly G2	\N	\N	\N	🔥🔥 HP Dragonfly G2	i7 11th @2.80GHz (8CPUS) 16GB RAM 512SSD x360 Touchscreen Window 11 pro Available in stock				i7 11th @2.80GHz (8CPUS) 16GB RAM 512SSD x360 Touchscreen Window 11 pro Available in stock	hp-dragonfly-g2ddca444a-17d6-4cb2-89c1-a7ddf4255796	Ksh	\N	\N	\N	Ksh	71000.00	\N	\N	\N	71000.00	\N	\N	t	2025-06-27	1	1	1
-56	🔥🔥🔥HP  Eliteboook 830 G8	\N	\N	\N	🔥🔥🔥HP  Eliteboook 830 G8	I7 11TH @ 3.0 GHZ (8VPUS) 32Gb RAM 512ssd touch available in stock				I7 11TH @ 3.0 GHZ (8VPUS) 32Gb RAM 512ssd touch available in stock	hp-eliteboook-830-g8f63f38e4-52fc-4df4-8694-2b15b02bb32b	Ksh	\N	\N	\N	Ksh	55000.00	\N	\N	\N	55000.00	\N	\N	t	2025-06-27	1	1	2
-57	Hp Elite book 840 G9	\N	\N	\N	Hp Elite book 840 G9	core i7 12th gen 32gb RAM 512GBssd				core i7 12th gen 32gb RAM 512GBssd	hp-elite-book-840-g91c7dc60f-76d5-4f07-85fd-e5793a20cc82	Ksh	\N	\N	\N	Ksh	72000.00	\N	\N	\N	72000.00	\N	\N	t	2025-06-27	1	1	2
+52	HP 840 G5 core i5 8th gen	\N	\N	\N	HP 840 G5 core i5 8th gen	/core i5/8gb Ram/ 256gb ssd				/core i5/8gb Ram/ 256gb ssd	hp-840-g5-core-i5-8th-gen85ad1373-a761-4d3e-a46c-dd817164f08a	Ksh	\N	\N	\N	Ksh	28000.00	\N	\N	\N	28000.00	\N	\N	t	2025-06-25	1	1	2
+51	DELL LATITUDE 7280	\N	\N	\N	DELL LATITUDE 7280	CORE I5 7TH GEN 8GB RAM 256GB SSD NON TOUCH WITH 2.6 GHZ (4CPUS) 2.7 GHZ ,BACKLIT KEYBOARD ,WINDOWS 10PRO 64BITS MICROSOFT OFFICE				CORE I5 7TH GEN 8GB RAM 256GB SSD NON TOUCH WITH 2.6 GHZ (4CPUS) 2.7 GHZ ,BACKLIT KEYBOARD ,WINDOWS 10PRO 64BITS MICROSOFT OFFICE	dell-latitude-72801bb9c6cc-c44d-45ed-a652-ff3af26c00dd	Ksh	\N	\N	\N	Ksh	23000.00	\N	\N	\N	23000.00	\N	\N	t	2025-06-25	1	1	2
+50	DELL 3310	\N	\N	\N	DELL 3310	CORE  I5 8TH GEN \r\n8 GB RAM / 256 GB SSD \r\n2.1 GHZ BASE CLOCK\r\n8 CPUS 4.6 GHz MAX SPEED\r\n13.3 INCH TOUCH  SCREEN				CORE  I5 8TH GEN \r\n8 GB RAM / 256 GB SSD \r\n2.1 GHZ BASE CLOCK\r\n8 CPUS 4.6 GHz MAX SPEED\r\n13.3 INCH TOUCH  SCREEN	dell-331001d4c4c7-5f27-4ca7-9dda-65e3e672a17b	Ksh	\N	\N	\N	Ksh	25000.00	\N	\N	\N	25000.00	\N	\N	t	2025-06-25	1	1	2
+49	HP ELITEBOOK 830 G5	\N	\N	\N	HP ELITEBOOK 830 G5	CORE I5 8TH GEN 8 GB RAM 256 GB SSD				CORE I5 8TH GEN 8 GB RAM 256 GB SSD	hp-elitebook-830-g5e61e6fa3-90e4-40d3-9d5e-6721d3ca49e0	Ksh	\N	\N	\N	Ksh	28000.00	\N	\N	\N	28000.00	\N	\N	t	2025-06-25	1	1	2
+48	HP ELITEBOOK 1040 G8	\N	\N	\N	HP ELITEBOOK 1040 G8	Core I7 11 TH GEN 32 GB RAM 512 GB SSD 3.0 GHz , X360 TOUCH SCREEN, HDMI, TYPE C				Core I7 11 TH GEN 32 GB RAM 512 GB SSD 3.0 GHz , X360 TOUCH SCREEN, HDMI, TYPE C	hp-elitebook-1040-g822b656a7-d3d0-482e-aa2a-a78d1e1367a5	Ksh	\N	\N	\N	Ksh	65000.00	\N	\N	\N	65000.00	\N	\N	t	2025-06-25	1	1	2
+47	*DEll XPS 13 9365	\N	\N	\N	*DEll XPS 13 9365	CORE i7 7TH GEN 16 GB RAM,  512 GB SSD STORAGE TOUCH SCREEN WITH BACKLIGHT KEYBOARD WINDOWS 10   PRO 64BITS MICROSOFT OFFICE AVAILABLE				CORE i7 7TH GEN 16 GB RAM,  512 GB SSD STORAGE TOUCH SCREEN WITH BACKLIGHT KEYBOARD WINDOWS 10   PRO 64BITS MICROSOFT OFFICE AVAILABLE	dell-xps-13-9365e9bd3536-23d3-44be-87ab-f6629487cef6	Ksh	\N	\N	\N	Ksh	48000.00	\N	\N	\N	48000.00	\N	\N	t	2025-06-25	1	1	2
+46	HP ELITEBOOK 840 G6	\N	\N	\N	HP ELITEBOOK 840 G6	CORE I5 8 TH GEN \r\n8 GB RAM : 256 GB SSD \r\n14 INCH FHD TOUCH SCREEN \r\nBACKLIT KEYBAORD				CORE I5 8 TH GEN \r\n8 GB RAM : 256 GB SSD \r\n14 INCH FHD TOUCH SCREEN \r\nBACKLIT KEYBAORD	hp-elitebook-840-g6cddcddec-ef5b-49f6-b861-8550b46f663f	Ksh	\N	\N	\N	Ksh	31000.00	\N	\N	\N	31000.00	\N	\N	t	2025-06-25	1	1	2
+45	HP Elitebook 830 G6/8th	\N	\N	\N	HP Elitebook 830 G6/8th	gen/Core i5/16gb Ram/512gb SSD/x360 touch				gen/Core i5/16gb Ram/512gb SSD/x360 touch	hp-elitebook-830-g68th07b8f677-8858-4edc-bcc0-9fddff2e186b	Ksh	\N	\N	\N	Ksh	37500.00	\N	\N	\N	37500.00	\N	\N	t	2025-06-25	1	1	2
+25	🔥LENOVO THINKPAD X380 YOGA	\N	\N	\N	🔥LENOVO THINKPAD X380 YOGA	INTEL CORE I5  8TH GEN, 8GB RAM, 256GB SSD ,1.70GHZ (8CPUS)~1.9GHZ,TOUCHSCREEN, WITH STYLUS PEN, WINDOWS 10PRO 64BITS,MICROSOFT OFFICE				INTEL CORE I5  8TH GEN, 8GB RAM, 256GB SSD ,1.70GHZ (8CPUS)~1.9GHZ,TOUCHSCREEN, WITH STYLUS PEN, WINDOWS 10PRO 64BITS,MICROSOFT OFFICE	lenovo-thinkpad-x380-yogad1b7ac9f-cc8b-46cb-9190-55838c14fa4f	Ksh	\N	\N	\N	Ksh	28000.00	\N	\N	\N	28000.00	\N	\N	t	2025-06-25	1	1	2
 10	Rechargable wireless mouse	\N	\N	\N	Rechargable wireless mouse	Rechargable wireless mouse				Rechargable wireless mouse	rechargable-wireless-mousec0f24a30-8baa-48d3-a875-5818b0532a51	Ksh	\N	\N	\N	Ksh	800.00	\N	\N	\N	800.00	\N	\N	t	2025-06-24	1	6	18
+57	Hp Elite book 840 G9	\N	\N	\N	Hp Elite book 840 G9	core i7 12th gen 32gb RAM 512GBssd				core i7 12th gen 32gb RAM 512GBssd	hp-elite-book-840-g91c7dc60f-76d5-4f07-85fd-e5793a20cc82	Ksh	\N	\N	\N	Ksh	72000.00	\N	\N	\N	72000.00	\N	\N	t	2025-06-27	1	1	2
+56	🔥🔥🔥HP  Eliteboook 830 G8	\N	\N	\N	🔥🔥🔥HP  Eliteboook 830 G8	I7 11TH @ 3.0 GHZ (8VPUS) 32Gb RAM 512ssd touch available in stock				I7 11TH @ 3.0 GHZ (8VPUS) 32Gb RAM 512ssd touch available in stock	hp-eliteboook-830-g8f63f38e4-52fc-4df4-8694-2b15b02bb32b	Ksh	\N	\N	\N	Ksh	55000.00	\N	\N	\N	55000.00	\N	\N	t	2025-06-27	1	1	2
+55	🔥🔥 HP Dragonfly G2	\N	\N	\N	🔥🔥 HP Dragonfly G2	i7 11th @2.80GHz (8CPUS) 16GB RAM 512SSD x360 Touchscreen Window 11 pro Available in stock				i7 11th @2.80GHz (8CPUS) 16GB RAM 512SSD x360 Touchscreen Window 11 pro Available in stock	hp-dragonfly-g2ddca444a-17d6-4cb2-89c1-a7ddf4255796	Ksh	\N	\N	\N	Ksh	71000.00	\N	\N	\N	71000.00	\N	\N	t	2025-06-27	1	1	1
+54	HP DRAGON FLY G3	\N	\N	\N	HP DRAGON FLY G3	CORE I7 12 TH GEN \r\n32 GB RAM 512 GB SSD \r\n14 INCH FHD DISPLAY \r\nBACKLIT KEYBOARD				CORE I7 12 TH GEN \r\n32 GB RAM 512 GB SSD \r\n14 INCH FHD DISPLAY \r\nBACKLIT KEYBOARD	hp-dragon-fly-g3cbbefb44-b333-4067-acce-76ce6f903911	Ksh	\N	\N	\N	Ksh	79999.00	\N	\N	\N	79999.00	\N	\N	t	2025-06-27	1	1	1
+\.
+
+
+--
+-- Data for Name: supplier_product_colors; Type: TABLE DATA; Schema: public; Owner: b2b_user
+--
+
+COPY public.supplier_product_colors (id, product_id, productcolor_id) FROM stdin;
+112	57	7
+113	56	7
+114	55	7
+115	54	7
+116	53	7
+117	52	7
+118	51	7
+119	50	7
+120	49	7
+121	48	7
+122	47	7
+123	46	7
+124	45	7
+125	44	7
+126	43	7
+127	42	7
+128	41	7
+129	40	7
+130	39	7
+131	38	7
+132	37	7
+133	36	7
+134	35	7
+135	34	7
+136	33	7
+137	32	7
+138	31	7
+139	30	7
+140	29	7
+141	28	7
+142	27	7
+143	26	7
+144	25	7
+145	24	7
+146	23	7
+147	22	7
+148	21	7
+149	20	7
+150	19	7
+151	18	7
+152	17	7
+153	16	7
+154	15	7
+155	14	7
+156	13	7
+157	12	7
+158	11	7
+159	10	7
+160	9	7
+161	8	7
+162	7	7
+163	6	7
+164	5	7
+165	4	7
+167	57	8
+168	56	8
+169	55	8
+170	54	8
+171	53	8
+172	52	8
+173	51	8
+174	50	8
+175	49	8
+176	48	8
+177	47	8
+178	46	8
+179	45	8
+180	44	8
+181	43	8
+182	42	8
+183	41	8
+184	40	8
+185	39	8
+186	38	8
+187	37	8
+188	36	8
+189	35	8
+190	34	8
+191	33	8
+192	32	8
+193	31	8
+194	30	8
+195	29	8
+196	28	8
+197	27	8
+198	26	8
+199	25	8
+200	24	8
+201	23	8
+202	22	8
+203	21	8
+204	20	8
+205	19	8
+206	18	8
+207	17	8
+208	16	8
+209	15	8
+210	14	8
+211	13	8
+212	12	8
+213	11	8
+214	10	8
+215	9	8
+216	8	8
+217	7	8
+218	6	8
+219	5	8
+220	4	8
+\.
+
+
+--
+-- Data for Name: supplier_product_materials; Type: TABLE DATA; Schema: public; Owner: b2b_user
+--
+
+COPY public.supplier_product_materials (id, product_id, productmaterial_id) FROM stdin;
+57	57	3
+58	56	3
+59	55	3
+60	54	3
+61	53	3
+62	52	3
+63	51	3
+64	50	3
+65	49	3
+66	48	3
+67	47	3
+68	46	3
+69	45	3
+70	44	3
+71	43	3
+72	42	3
+73	41	3
+74	40	3
+75	39	3
+76	38	3
+77	37	3
+78	36	3
+79	35	3
+80	34	3
+81	33	3
+82	32	3
+83	31	3
+84	30	3
+85	29	3
+86	28	3
+87	27	3
+88	26	3
+89	25	3
+90	24	3
+91	23	3
+92	22	3
+93	21	3
+94	20	3
+95	19	3
+96	18	3
+97	17	3
+98	16	3
+99	15	3
+100	14	3
+101	13	3
+102	12	3
+103	11	3
+104	10	3
+105	9	3
+106	8	3
+107	7	3
+108	6	3
+109	5	3
+110	4	3
+112	57	2
+113	56	2
+114	55	2
+115	54	2
+116	53	2
+117	52	2
+118	51	2
+119	50	2
+120	49	2
+121	48	2
+122	47	2
+123	46	2
+124	45	2
+125	44	2
+126	43	2
+127	42	2
+128	41	2
+129	40	2
+130	39	2
+131	38	2
+132	37	2
+133	36	2
+134	35	2
+135	34	2
+136	33	2
+137	32	2
+138	31	2
+139	30	2
+140	29	2
+141	28	2
+142	27	2
+143	26	2
+144	25	2
+145	24	2
+146	23	2
+147	22	2
+148	21	2
+149	20	2
+150	19	2
+151	18	2
+152	17	2
+153	16	2
+154	15	2
+155	14	2
+156	13	2
+157	12	2
+158	11	2
+159	10	2
+160	9	2
+161	8	2
+162	7	2
+163	6	2
+164	5	2
+165	4	2
 \.
 
 
@@ -5415,12 +6033,12 @@ COPY public.supplier_product_store (id, product_id, store_id) FROM stdin;
 --
 
 COPY public.supplier_productcategory (id, name, name_ar, name_fr, name_de, name_en, product_count, image, slug, created_on) FROM stdin;
-2	Printers	\N	\N	\N	Printers	5	ProductCategory/images/printersee5af875-3f31-44b2-ae3e-54a43cc9b7a1-b598a.jpeg	printersee5af875-3f31-44b2-ae3e-54a43cc9b7a1	2025-06-24
-5	Designer Mugs	\N	\N	\N	Designer Mugs	1	ProductCategory/images/designer-mugs189e7237-d172-4341-8063-af50ec1dbddd-.jpeg	designer-mugs189e7237-d172-4341-8063-af50ec1dbddd	2025-06-24
-4	Laptop Bags	\N	\N	\N	Laptop Bags	1	ProductCategory/images/laptop-bagsfe77e747-1339-43a3-ae9c-ecaf2ff6039d-5d.webp	laptop-bagsfe77e747-1339-43a3-ae9c-ecaf2ff6039d	2025-06-24
-3	Phones	\N	\N	\N	Phones	6	ProductCategory/images/phonesf1186290-9e6d-4306-8753-53df70b98bac-b147879.jpeg	phonesf1186290-9e6d-4306-8753-53df70b98bac	2025-06-24
-1	Laptops	\N	\N	\N	Laptops	75	ProductCategory/images/laptops509a457f-9c4f-4089-b83d-afd4d0b3d76f-2f54da.jpeg	laptops509a457f-9c4f-4089-b83d-afd4d0b3d76f	2025-06-24
-6	Mouse	\N	\N	\N	Mouse	1	ProductCategory/images/mouse300e2e15-cfea-44f7-bcfb-6284a8656e1a-1dce872e.jpeg	mouse300e2e15-cfea-44f7-bcfb-6284a8656e1a	2025-06-24
+3	Phones	\N	\N	\N	Phones	8	ProductCategory/images/phonesf1186290-9e6d-4306-8753-53df70b98bac-b147879.jpeg	phonesf1186290-9e6d-4306-8753-53df70b98bac	2025-06-24
+4	Laptop Bags	\N	\N	\N	Laptop Bags	3	ProductCategory/images/laptop-bagsfe77e747-1339-43a3-ae9c-ecaf2ff6039d-5d.webp	laptop-bagsfe77e747-1339-43a3-ae9c-ecaf2ff6039d	2025-06-24
+5	Designer Mugs	\N	\N	\N	Designer Mugs	3	ProductCategory/images/designer-mugs189e7237-d172-4341-8063-af50ec1dbddd-.jpeg	designer-mugs189e7237-d172-4341-8063-af50ec1dbddd	2025-06-24
+6	Mouse	\N	\N	\N	Mouse	3	ProductCategory/images/mouse300e2e15-cfea-44f7-bcfb-6284a8656e1a-1dce872e.jpeg	mouse300e2e15-cfea-44f7-bcfb-6284a8656e1a	2025-06-24
+2	Printers	\N	\N	\N	Printers	7	ProductCategory/images/printersee5af875-3f31-44b2-ae3e-54a43cc9b7a1-b598a.jpeg	printersee5af875-3f31-44b2-ae3e-54a43cc9b7a1	2025-06-24
+1	Laptops	\N	\N	\N	Laptops	176	ProductCategory/images/laptops509a457f-9c4f-4089-b83d-afd4d0b3d76f-2f54da.jpeg	laptops509a457f-9c4f-4089-b83d-afd4d0b3d76f	2025-06-24
 \.
 
 
@@ -5428,9 +6046,9 @@ COPY public.supplier_productcategory (id, name, name_ar, name_fr, name_de, name_
 -- Data for Name: supplier_productcolor; Type: TABLE DATA; Schema: public; Owner: b2b_user
 --
 
-COPY public.supplier_productcolor (id, name, name_ar, name_fr, name_de, name_en, product_id) FROM stdin;
-1	black	\N	\N	\N	black	4
-2	White	\N	\N	\N	White	4
+COPY public.supplier_productcolor (id, name, name_ar, name_fr, name_de, name_en) FROM stdin;
+7	black	\N	\N	\N	black
+8	purple	\N	\N	\N	purple
 \.
 
 
@@ -5511,7 +6129,9 @@ COPY public.supplier_productimage (id, image, slug, created_on, product_id) FROM
 -- Data for Name: supplier_productmaterial; Type: TABLE DATA; Schema: public; Owner: b2b_user
 --
 
-COPY public.supplier_productmaterial (id, name, name_ar, name_fr, name_de, name_en, product_id) FROM stdin;
+COPY public.supplier_productmaterial (id, name, name_ar, name_fr, name_de, name_en) FROM stdin;
+3	plastic	\N	\N	\N	plastic
+2	aluminium	\N	\N	\N	aluminium
 \.
 
 
@@ -5520,6 +6140,60 @@ COPY public.supplier_productmaterial (id, name, name_ar, name_fr, name_de, name_
 --
 
 COPY public.supplier_productprice (id, currency, min_price, max_price, product_id) FROM stdin;
+3	Ksh	72000.00	72000.00	57
+4	Ksh	55000.00	55000.00	56
+5	Ksh	71000.00	71000.00	55
+6	Ksh	79999.00	79999.00	54
+7	Ksh	84000.00	84000.00	53
+8	Ksh	28000.00	28000.00	52
+9	Ksh	23000.00	23000.00	51
+10	Ksh	25000.00	25000.00	50
+11	Ksh	28000.00	28000.00	49
+12	Ksh	65000.00	65000.00	48
+13	Ksh	48000.00	48000.00	47
+14	Ksh	31000.00	31000.00	46
+15	Ksh	37500.00	37500.00	45
+16	Ksh	82000.00	82000.00	44
+17	Ksh	148000.00	148000.00	43
+18	Ksh	169000.00	169000.00	42
+19	Ksh	74999.00	74999.00	41
+20	Ksh	43999.00	43999.00	40
+21	Ksh	28000.00	28000.00	39
+22	Ksh	78999.00	78999.00	38
+23	Ksh	46000.00	46000.00	37
+24	Ksh	92000.00	92000.00	36
+25	Ksh	95000.00	95000.00	35
+26	Ksh	62000.00	62000.00	34
+27	Ksh	74500.00	74500.00	33
+28	Ksh	23000.00	23000.00	32
+29	Ksh	79999.00	79999.00	31
+30	Ksh	75000.00	75000.00	30
+31	Ksh	26000.00	26000.00	29
+32	Ksh	14000.00	14000.00	28
+33	Ksh	17000.00	17000.00	27
+34	Ksh	45999.00	45999.00	26
+35	Ksh	28000.00	28000.00	25
+36	Ksh	50500.00	50500.00	24
+37	Ksh	40000.00	40000.00	23
+38	Ksh	104999.00	104999.00	22
+39	Ksh	168999.00	168999.00	21
+40	Ksh	50500.00	50500.00	20
+41	Ksh	56000.00	56000.00	19
+42	Ksh	28000.00	28000.00	18
+43	Ksh	23000.00	23000.00	17
+44	Ksh	36000.00	36000.00	16
+45	Ksh	55000.00	55000.00	15
+46	Ksh	78999.00	78999.00	14
+47	Ksh	76500.00	76500.00	13
+48	Ksh	950.00	950.00	12
+49	Ksh	2000.00	2000.00	11
+50	Ksh	800.00	800.00	10
+51	Ksh	90000.00	90000.00	9
+52	Ksh	50000.00	50000.00	8
+53	Ksh	30000.00	30000.00	7
+54	Ksh	60000.00	60000.00	6
+55	Ksh	139999.00	139999.00	5
+56	Ksh	23500.00	23500.00	4
 \.
 
 
@@ -5613,6 +6287,7 @@ COPY public.supplier_store (id, name, name_ar, name_fr, name_de, name_en, slug, 
 --
 
 COPY public.supplier_wishlistproduct (id, buyer_id, product_id) FROM stdin;
+1	10	49
 \.
 
 
@@ -5634,14 +6309,14 @@ SELECT pg_catalog.setval('public.account_emailconfirmation_id_seq', 1, false);
 -- Name: auth_app_clientprofile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.auth_app_clientprofile_id_seq', 2, true);
+SELECT pg_catalog.setval('public.auth_app_clientprofile_id_seq', 11, true);
 
 
 --
 -- Name: auth_app_clientprofile_team_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.auth_app_clientprofile_team_id_seq', 3, true);
+SELECT pg_catalog.setval('public.auth_app_clientprofile_team_id_seq', 87, true);
 
 
 --
@@ -5655,14 +6330,14 @@ SELECT pg_catalog.setval('public.auth_app_supportprofile_id_seq', 1, true);
 -- Name: auth_app_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.auth_app_user_groups_id_seq', 2, true);
+SELECT pg_catalog.setval('public.auth_app_user_groups_id_seq', 5, true);
 
 
 --
 -- Name: auth_app_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.auth_app_user_id_seq', 13, true);
+SELECT pg_catalog.setval('public.auth_app_user_id_seq', 15, true);
 
 
 --
@@ -5690,14 +6365,14 @@ SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 276, true);
 -- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.auth_permission_id_seq', 288, true);
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 296, true);
 
 
 --
 -- Name: buyer_cart_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.buyer_cart_id_seq', 1, false);
+SELECT pg_catalog.setval('public.buyer_cart_id_seq', 2, true);
 
 
 --
@@ -5719,6 +6394,13 @@ SELECT pg_catalog.setval('public.coms_groupchat_participants_id_seq', 1, false);
 --
 
 SELECT pg_catalog.setval('public.coms_interclientchat_id_seq', 1, false);
+
+
+--
+-- Name: coms_interclientmessage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
+--
+
+SELECT pg_catalog.setval('public.coms_interclientmessage_id_seq', 1, false);
 
 
 --
@@ -5753,28 +6435,28 @@ SELECT pg_catalog.setval('public.coms_supportclientchat_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 425, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 474, true);
 
 
 --
 -- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.django_content_type_id_seq', 72, true);
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 74, true);
 
 
 --
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 46, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 54, true);
 
 
 --
 -- Name: django_site_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.django_site_id_seq', 3, true);
+SELECT pg_catalog.setval('public.django_site_id_seq', 4, true);
 
 
 --
@@ -5995,31 +6677,38 @@ SELECT pg_catalog.setval('public.payment_paypalsubscription_id_seq', 1, false);
 
 
 --
+-- Name: payment_transaction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
+--
+
+SELECT pg_catalog.setval('public.payment_transaction_id_seq', 1, false);
+
+
+--
 -- Name: socialaccount_socialaccount_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.socialaccount_socialaccount_id_seq', 3, true);
+SELECT pg_catalog.setval('public.socialaccount_socialaccount_id_seq', 4, true);
 
 
 --
 -- Name: socialaccount_socialapp_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.socialaccount_socialapp_id_seq', 3, true);
+SELECT pg_catalog.setval('public.socialaccount_socialapp_id_seq', 4, true);
 
 
 --
 -- Name: socialaccount_socialapp_sites_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.socialaccount_socialapp_sites_id_seq', 3, true);
+SELECT pg_catalog.setval('public.socialaccount_socialapp_sites_id_seq', 6, true);
 
 
 --
 -- Name: socialaccount_socialtoken_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.socialaccount_socialtoken_id_seq', 3, true);
+SELECT pg_catalog.setval('public.socialaccount_socialtoken_id_seq', 4, true);
 
 
 --
@@ -6033,7 +6722,7 @@ SELECT pg_catalog.setval('public.supplier_deliverycarrier_id_seq', 1, false);
 -- Name: supplier_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.supplier_order_id_seq', 1, false);
+SELECT pg_catalog.setval('public.supplier_order_id_seq', 1, true);
 
 
 --
@@ -6044,10 +6733,24 @@ SELECT pg_catalog.setval('public.supplier_ordernote_id_seq', 1, false);
 
 
 --
+-- Name: supplier_orderproductvariation_color_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
+--
+
+SELECT pg_catalog.setval('public.supplier_orderproductvariation_color_id_seq', 8, true);
+
+
+--
 -- Name: supplier_orderproductvariation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.supplier_orderproductvariation_id_seq', 1, false);
+SELECT pg_catalog.setval('public.supplier_orderproductvariation_id_seq', 15, true);
+
+
+--
+-- Name: supplier_orderproductvariation_material_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
+--
+
+SELECT pg_catalog.setval('public.supplier_orderproductvariation_material_id_seq', 8, true);
 
 
 --
@@ -6058,17 +6761,31 @@ SELECT pg_catalog.setval('public.supplier_ordershippingdetail_id_seq', 1, false)
 
 
 --
+-- Name: supplier_product_colors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
+--
+
+SELECT pg_catalog.setval('public.supplier_product_colors_id_seq', 220, true);
+
+
+--
 -- Name: supplier_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.supplier_product_id_seq', 57, true);
+SELECT pg_catalog.setval('public.supplier_product_id_seq', 61, true);
+
+
+--
+-- Name: supplier_product_materials_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
+--
+
+SELECT pg_catalog.setval('public.supplier_product_materials_id_seq', 165, true);
 
 
 --
 -- Name: supplier_product_store_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.supplier_product_store_id_seq', 64, true);
+SELECT pg_catalog.setval('public.supplier_product_store_id_seq', 67, true);
 
 
 --
@@ -6082,7 +6799,7 @@ SELECT pg_catalog.setval('public.supplier_productcategory_id_seq', 6, true);
 -- Name: supplier_productcolor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.supplier_productcolor_id_seq', 2, true);
+SELECT pg_catalog.setval('public.supplier_productcolor_id_seq', 8, true);
 
 
 --
@@ -6096,14 +6813,14 @@ SELECT pg_catalog.setval('public.supplier_productimage_id_seq', 67, true);
 -- Name: supplier_productmaterial_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.supplier_productmaterial_id_seq', 1, false);
+SELECT pg_catalog.setval('public.supplier_productmaterial_id_seq', 3, true);
 
 
 --
 -- Name: supplier_productprice_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.supplier_productprice_id_seq', 2, true);
+SELECT pg_catalog.setval('public.supplier_productprice_id_seq', 57, true);
 
 
 --
@@ -6166,7 +6883,7 @@ SELECT pg_catalog.setval('public.supplier_store_id_seq', 4, true);
 -- Name: supplier_wishlistproduct_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.supplier_wishlistproduct_id_seq', 1, false);
+SELECT pg_catalog.setval('public.supplier_wishlistproduct_id_seq', 1, true);
 
 
 --
@@ -6426,6 +7143,14 @@ ALTER TABLE ONLY public.coms_interclientchat
 
 
 --
+-- Name: coms_interclientmessage coms_interclientmessage_pkey; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.coms_interclientmessage
+    ADD CONSTRAINT coms_interclientmessage_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: coms_interuserchat coms_interuserchat_chatfilepath_key; Type: CONSTRAINT; Schema: public; Owner: b2b_user
 --
 
@@ -6559,14 +7284,6 @@ ALTER TABLE ONLY public.django_migrations
 
 ALTER TABLE ONLY public.django_session
     ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
-
-
---
--- Name: django_site django_site_domain_a2e37b91_uniq; Type: CONSTRAINT; Schema: public; Owner: b2b_user
---
-
-ALTER TABLE ONLY public.django_site
-    ADD CONSTRAINT django_site_domain_a2e37b91_uniq UNIQUE (domain);
 
 
 --
@@ -6970,6 +7687,22 @@ ALTER TABLE ONLY public.payment_paypalsubscription
 
 
 --
+-- Name: payment_transaction payment_transaction_mpesa_code_key; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.payment_transaction
+    ADD CONSTRAINT payment_transaction_mpesa_code_key UNIQUE (mpesa_code);
+
+
+--
+-- Name: payment_transaction payment_transaction_pkey; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.payment_transaction
+    ADD CONSTRAINT payment_transaction_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: socialaccount_socialaccount socialaccount_socialaccount_pkey; Type: CONSTRAINT; Schema: public; Owner: b2b_user
 --
 
@@ -7066,6 +7799,38 @@ ALTER TABLE ONLY public.supplier_ordernote
 
 
 --
+-- Name: supplier_orderproductvariation_material supplier_orderproductvar_orderproductvariation_id_4c6a5181_uniq; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_orderproductvariation_material
+    ADD CONSTRAINT supplier_orderproductvar_orderproductvariation_id_4c6a5181_uniq UNIQUE (orderproductvariation_id, productmaterial_id);
+
+
+--
+-- Name: supplier_orderproductvariation_color supplier_orderproductvar_orderproductvariation_id_9faaf25c_uniq; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_orderproductvariation_color
+    ADD CONSTRAINT supplier_orderproductvar_orderproductvariation_id_9faaf25c_uniq UNIQUE (orderproductvariation_id, productcolor_id);
+
+
+--
+-- Name: supplier_orderproductvariation_color supplier_orderproductvariation_color_pkey; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_orderproductvariation_color
+    ADD CONSTRAINT supplier_orderproductvariation_color_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: supplier_orderproductvariation_material supplier_orderproductvariation_material_pkey; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_orderproductvariation_material
+    ADD CONSTRAINT supplier_orderproductvariation_material_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: supplier_orderproductvariation supplier_orderproductvariation_pkey; Type: CONSTRAINT; Schema: public; Owner: b2b_user
 --
 
@@ -7095,6 +7860,38 @@ ALTER TABLE ONLY public.supplier_ordershippingdetail
 
 ALTER TABLE ONLY public.supplier_ordershippingdetail
     ADD CONSTRAINT supplier_ordershippingdetail_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: supplier_product_colors supplier_product_colors_pkey; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_product_colors
+    ADD CONSTRAINT supplier_product_colors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: supplier_product_colors supplier_product_colors_product_id_productcolor__51fd640f_uniq; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_product_colors
+    ADD CONSTRAINT supplier_product_colors_product_id_productcolor__51fd640f_uniq UNIQUE (product_id, productcolor_id);
+
+
+--
+-- Name: supplier_product_materials supplier_product_materia_product_id_productmateri_60be1bff_uniq; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_product_materials
+    ADD CONSTRAINT supplier_product_materia_product_id_productmateri_60be1bff_uniq UNIQUE (product_id, productmaterial_id);
+
+
+--
+-- Name: supplier_product_materials supplier_product_materials_pkey; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_product_materials
+    ADD CONSTRAINT supplier_product_materials_pkey PRIMARY KEY (id);
 
 
 --
@@ -7146,6 +7943,46 @@ ALTER TABLE ONLY public.supplier_productcategory
 
 
 --
+-- Name: supplier_productcolor supplier_productcolor_name_ar_0114ce1e_uniq; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_productcolor
+    ADD CONSTRAINT supplier_productcolor_name_ar_0114ce1e_uniq UNIQUE (name_ar);
+
+
+--
+-- Name: supplier_productcolor supplier_productcolor_name_bac5abd6_uniq; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_productcolor
+    ADD CONSTRAINT supplier_productcolor_name_bac5abd6_uniq UNIQUE (name);
+
+
+--
+-- Name: supplier_productcolor supplier_productcolor_name_de_e50a31d5_uniq; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_productcolor
+    ADD CONSTRAINT supplier_productcolor_name_de_e50a31d5_uniq UNIQUE (name_de);
+
+
+--
+-- Name: supplier_productcolor supplier_productcolor_name_en_fe47bd2f_uniq; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_productcolor
+    ADD CONSTRAINT supplier_productcolor_name_en_fe47bd2f_uniq UNIQUE (name_en);
+
+
+--
+-- Name: supplier_productcolor supplier_productcolor_name_fr_3dc0383a_uniq; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_productcolor
+    ADD CONSTRAINT supplier_productcolor_name_fr_3dc0383a_uniq UNIQUE (name_fr);
+
+
+--
 -- Name: supplier_productcolor supplier_productcolor_pkey; Type: CONSTRAINT; Schema: public; Owner: b2b_user
 --
 
@@ -7167,6 +8004,46 @@ ALTER TABLE ONLY public.supplier_productimage
 
 ALTER TABLE ONLY public.supplier_productimage
     ADD CONSTRAINT supplier_productimage_slug_key UNIQUE (slug);
+
+
+--
+-- Name: supplier_productmaterial supplier_productmaterial_name_45de6b23_uniq; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_productmaterial
+    ADD CONSTRAINT supplier_productmaterial_name_45de6b23_uniq UNIQUE (name);
+
+
+--
+-- Name: supplier_productmaterial supplier_productmaterial_name_ar_beb19736_uniq; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_productmaterial
+    ADD CONSTRAINT supplier_productmaterial_name_ar_beb19736_uniq UNIQUE (name_ar);
+
+
+--
+-- Name: supplier_productmaterial supplier_productmaterial_name_de_db08cede_uniq; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_productmaterial
+    ADD CONSTRAINT supplier_productmaterial_name_de_db08cede_uniq UNIQUE (name_de);
+
+
+--
+-- Name: supplier_productmaterial supplier_productmaterial_name_en_ed6485c5_uniq; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_productmaterial
+    ADD CONSTRAINT supplier_productmaterial_name_en_ed6485c5_uniq UNIQUE (name_en);
+
+
+--
+-- Name: supplier_productmaterial supplier_productmaterial_name_fr_cbf10b2c_uniq; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_productmaterial
+    ADD CONSTRAINT supplier_productmaterial_name_fr_cbf10b2c_uniq UNIQUE (name_fr);
 
 
 --
@@ -7485,6 +8362,20 @@ CREATE INDEX coms_interclientchat_participant_id_0a9d6048 ON public.coms_intercl
 --
 
 CREATE INDEX coms_interclientchat_roomname_d1dfdaa2_like ON public.coms_interclientchat USING btree (roomname varchar_pattern_ops);
+
+
+--
+-- Name: coms_interclientmessage_chat_id_18559665; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX coms_interclientmessage_chat_id_18559665 ON public.coms_interclientmessage USING btree (chat_id);
+
+
+--
+-- Name: coms_interclientmessage_sender_id_efa059f6; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX coms_interclientmessage_sender_id_efa059f6 ON public.coms_interclientmessage USING btree (sender_id);
 
 
 --
@@ -7894,6 +8785,13 @@ CREATE INDEX payment_modeofpayment_slug_afddf4b4_like ON public.payment_modeofpa
 
 
 --
+-- Name: payment_transaction_mpesa_code_e47775b8_like; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX payment_transaction_mpesa_code_e47775b8_like ON public.payment_transaction USING btree (mpesa_code varchar_pattern_ops);
+
+
+--
 -- Name: socialaccount_socialaccount_user_id_8146e70c; Type: INDEX; Schema: public; Owner: b2b_user
 --
 
@@ -7943,6 +8841,13 @@ CREATE INDEX supplier_order_order_id_d9a5fbe7_like ON public.supplier_order USIN
 
 
 --
+-- Name: supplier_order_payment_id_57f3d513; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX supplier_order_payment_id_57f3d513 ON public.supplier_order USING btree (payment_id);
+
+
+--
 -- Name: supplier_order_supplier_id_4292fc37; Type: INDEX; Schema: public; Owner: b2b_user
 --
 
@@ -7957,6 +8862,27 @@ CREATE INDEX supplier_ordernote_user_id_74f43a3c ON public.supplier_ordernote US
 
 
 --
+-- Name: supplier_orderproductvaria_orderproductvariation_id_a76edb6f; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX supplier_orderproductvaria_orderproductvariation_id_a76edb6f ON public.supplier_orderproductvariation_color USING btree (orderproductvariation_id);
+
+
+--
+-- Name: supplier_orderproductvaria_orderproductvariation_id_b0c6baf7; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX supplier_orderproductvaria_orderproductvariation_id_b0c6baf7 ON public.supplier_orderproductvariation_material USING btree (orderproductvariation_id);
+
+
+--
+-- Name: supplier_orderproductvaria_productmaterial_id_2a8c6cb9; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX supplier_orderproductvaria_productmaterial_id_2a8c6cb9 ON public.supplier_orderproductvariation_material USING btree (productmaterial_id);
+
+
+--
 -- Name: supplier_orderproductvariation_cart_id_0ce6675e; Type: INDEX; Schema: public; Owner: b2b_user
 --
 
@@ -7964,17 +8890,10 @@ CREATE INDEX supplier_orderproductvariation_cart_id_0ce6675e ON public.supplier_
 
 
 --
--- Name: supplier_orderproductvariation_color_id_e96f2f40; Type: INDEX; Schema: public; Owner: b2b_user
+-- Name: supplier_orderproductvariation_color_productcolor_id_c1ceea7c; Type: INDEX; Schema: public; Owner: b2b_user
 --
 
-CREATE INDEX supplier_orderproductvariation_color_id_e96f2f40 ON public.supplier_orderproductvariation USING btree (color_id);
-
-
---
--- Name: supplier_orderproductvariation_material_id_6a120db1; Type: INDEX; Schema: public; Owner: b2b_user
---
-
-CREATE INDEX supplier_orderproductvariation_material_id_6a120db1 ON public.supplier_orderproductvariation USING btree (material_id);
+CREATE INDEX supplier_orderproductvariation_color_productcolor_id_c1ceea7c ON public.supplier_orderproductvariation_color USING btree (productcolor_id);
 
 
 --
@@ -8013,6 +8932,34 @@ CREATE INDEX supplier_product_category_id_fcab0966 ON public.supplier_product US
 
 
 --
+-- Name: supplier_product_colors_product_id_78838609; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX supplier_product_colors_product_id_78838609 ON public.supplier_product_colors USING btree (product_id);
+
+
+--
+-- Name: supplier_product_colors_productcolor_id_734e48c3; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX supplier_product_colors_productcolor_id_734e48c3 ON public.supplier_product_colors USING btree (productcolor_id);
+
+
+--
+-- Name: supplier_product_materials_product_id_22e0a8d6; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX supplier_product_materials_product_id_22e0a8d6 ON public.supplier_product_materials USING btree (product_id);
+
+
+--
+-- Name: supplier_product_materials_productmaterial_id_0ef8f26e; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX supplier_product_materials_productmaterial_id_0ef8f26e ON public.supplier_product_materials USING btree (productmaterial_id);
+
+
+--
 -- Name: supplier_product_slug_bb394dfb_like; Type: INDEX; Schema: public; Owner: b2b_user
 --
 
@@ -8048,10 +8995,38 @@ CREATE INDEX supplier_productcategory_slug_f7449658_like ON public.supplier_prod
 
 
 --
--- Name: supplier_productcolor_product_id_50624bf9; Type: INDEX; Schema: public; Owner: b2b_user
+-- Name: supplier_productcolor_name_ar_0114ce1e_like; Type: INDEX; Schema: public; Owner: b2b_user
 --
 
-CREATE INDEX supplier_productcolor_product_id_50624bf9 ON public.supplier_productcolor USING btree (product_id);
+CREATE INDEX supplier_productcolor_name_ar_0114ce1e_like ON public.supplier_productcolor USING btree (name_ar varchar_pattern_ops);
+
+
+--
+-- Name: supplier_productcolor_name_bac5abd6_like; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX supplier_productcolor_name_bac5abd6_like ON public.supplier_productcolor USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: supplier_productcolor_name_de_e50a31d5_like; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX supplier_productcolor_name_de_e50a31d5_like ON public.supplier_productcolor USING btree (name_de varchar_pattern_ops);
+
+
+--
+-- Name: supplier_productcolor_name_en_fe47bd2f_like; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX supplier_productcolor_name_en_fe47bd2f_like ON public.supplier_productcolor USING btree (name_en varchar_pattern_ops);
+
+
+--
+-- Name: supplier_productcolor_name_fr_3dc0383a_like; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX supplier_productcolor_name_fr_3dc0383a_like ON public.supplier_productcolor USING btree (name_fr varchar_pattern_ops);
 
 
 --
@@ -8069,10 +9044,38 @@ CREATE INDEX supplier_productimage_slug_125e424e_like ON public.supplier_product
 
 
 --
--- Name: supplier_productmaterial_product_id_cd84c7dd; Type: INDEX; Schema: public; Owner: b2b_user
+-- Name: supplier_productmaterial_name_45de6b23_like; Type: INDEX; Schema: public; Owner: b2b_user
 --
 
-CREATE INDEX supplier_productmaterial_product_id_cd84c7dd ON public.supplier_productmaterial USING btree (product_id);
+CREATE INDEX supplier_productmaterial_name_45de6b23_like ON public.supplier_productmaterial USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: supplier_productmaterial_name_ar_beb19736_like; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX supplier_productmaterial_name_ar_beb19736_like ON public.supplier_productmaterial USING btree (name_ar varchar_pattern_ops);
+
+
+--
+-- Name: supplier_productmaterial_name_de_db08cede_like; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX supplier_productmaterial_name_de_db08cede_like ON public.supplier_productmaterial USING btree (name_de varchar_pattern_ops);
+
+
+--
+-- Name: supplier_productmaterial_name_en_ed6485c5_like; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX supplier_productmaterial_name_en_ed6485c5_like ON public.supplier_productmaterial USING btree (name_en varchar_pattern_ops);
+
+
+--
+-- Name: supplier_productmaterial_name_fr_cbf10b2c_like; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX supplier_productmaterial_name_fr_cbf10b2c_like ON public.supplier_productmaterial USING btree (name_fr varchar_pattern_ops);
 
 
 --
@@ -8357,6 +9360,22 @@ ALTER TABLE ONLY public.coms_interclientchat
 
 ALTER TABLE ONLY public.coms_interclientchat
     ADD CONSTRAINT coms_interclientchat_participant_id_0a9d6048_fk_auth_app_ FOREIGN KEY (participant_id) REFERENCES public.auth_app_clientprofile(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: coms_interclientmessage coms_interclientmess_chat_id_18559665_fk_coms_inte; Type: FK CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.coms_interclientmessage
+    ADD CONSTRAINT coms_interclientmess_chat_id_18559665_fk_coms_inte FOREIGN KEY (chat_id) REFERENCES public.coms_interclientchat(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: coms_interclientmessage coms_interclientmessage_sender_id_efa059f6_fk_auth_app_user_id; Type: FK CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.coms_interclientmessage
+    ADD CONSTRAINT coms_interclientmessage_sender_id_efa059f6_fk_auth_app_user_id FOREIGN KEY (sender_id) REFERENCES public.auth_app_user(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --
@@ -8728,6 +9747,14 @@ ALTER TABLE ONLY public.supplier_order
 
 
 --
+-- Name: supplier_order supplier_order_payment_id_57f3d513_fk_payment_transaction_id; Type: FK CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_order
+    ADD CONSTRAINT supplier_order_payment_id_57f3d513_fk_payment_transaction_id FOREIGN KEY (payment_id) REFERENCES public.payment_transaction(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
 -- Name: supplier_order supplier_order_supplier_id_4292fc37_fk_auth_app_; Type: FK CONSTRAINT; Schema: public; Owner: b2b_user
 --
 
@@ -8760,27 +9787,27 @@ ALTER TABLE ONLY public.supplier_orderproductvariation
 
 
 --
--- Name: supplier_orderproductvariation supplier_orderproduc_color_id_e96f2f40_fk_supplier_; Type: FK CONSTRAINT; Schema: public; Owner: b2b_user
---
-
-ALTER TABLE ONLY public.supplier_orderproductvariation
-    ADD CONSTRAINT supplier_orderproduc_color_id_e96f2f40_fk_supplier_ FOREIGN KEY (color_id) REFERENCES public.supplier_productcolor(id) DEFERRABLE INITIALLY DEFERRED;
-
-
---
--- Name: supplier_orderproductvariation supplier_orderproduc_material_id_6a120db1_fk_supplier_; Type: FK CONSTRAINT; Schema: public; Owner: b2b_user
---
-
-ALTER TABLE ONLY public.supplier_orderproductvariation
-    ADD CONSTRAINT supplier_orderproduc_material_id_6a120db1_fk_supplier_ FOREIGN KEY (material_id) REFERENCES public.supplier_productmaterial(id) DEFERRABLE INITIALLY DEFERRED;
-
-
---
 -- Name: supplier_orderproductvariation supplier_orderproduc_order_id_6fe9284c_fk_supplier_; Type: FK CONSTRAINT; Schema: public; Owner: b2b_user
 --
 
 ALTER TABLE ONLY public.supplier_orderproductvariation
     ADD CONSTRAINT supplier_orderproduc_order_id_6fe9284c_fk_supplier_ FOREIGN KEY (order_id) REFERENCES public.supplier_order(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: supplier_orderproductvariation_color supplier_orderproduc_orderproductvariatio_a76edb6f_fk_supplier_; Type: FK CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_orderproductvariation_color
+    ADD CONSTRAINT supplier_orderproduc_orderproductvariatio_a76edb6f_fk_supplier_ FOREIGN KEY (orderproductvariation_id) REFERENCES public.supplier_orderproductvariation(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: supplier_orderproductvariation_material supplier_orderproduc_orderproductvariatio_b0c6baf7_fk_supplier_; Type: FK CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_orderproductvariation_material
+    ADD CONSTRAINT supplier_orderproduc_orderproductvariatio_b0c6baf7_fk_supplier_ FOREIGN KEY (orderproductvariation_id) REFERENCES public.supplier_orderproductvariation(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --
@@ -8797,6 +9824,22 @@ ALTER TABLE ONLY public.supplier_orderproductvariation
 
 ALTER TABLE ONLY public.supplier_orderproductvariation
     ADD CONSTRAINT supplier_orderproduc_product_id_1e151f49_fk_supplier_ FOREIGN KEY (product_id) REFERENCES public.supplier_product(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: supplier_orderproductvariation_color supplier_orderproduc_productcolor_id_c1ceea7c_fk_supplier_; Type: FK CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_orderproductvariation_color
+    ADD CONSTRAINT supplier_orderproduc_productcolor_id_c1ceea7c_fk_supplier_ FOREIGN KEY (productcolor_id) REFERENCES public.supplier_productcolor(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: supplier_orderproductvariation_material supplier_orderproduc_productmaterial_id_2a8c6cb9_fk_supplier_; Type: FK CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_orderproductvariation_material
+    ADD CONSTRAINT supplier_orderproduc_productmaterial_id_2a8c6cb9_fk_supplier_ FOREIGN KEY (productmaterial_id) REFERENCES public.supplier_productmaterial(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --
@@ -8832,6 +9875,38 @@ ALTER TABLE ONLY public.supplier_product
 
 
 --
+-- Name: supplier_product_colors supplier_product_col_product_id_78838609_fk_supplier_; Type: FK CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_product_colors
+    ADD CONSTRAINT supplier_product_col_product_id_78838609_fk_supplier_ FOREIGN KEY (product_id) REFERENCES public.supplier_product(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: supplier_product_colors supplier_product_col_productcolor_id_734e48c3_fk_supplier_; Type: FK CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_product_colors
+    ADD CONSTRAINT supplier_product_col_productcolor_id_734e48c3_fk_supplier_ FOREIGN KEY (productcolor_id) REFERENCES public.supplier_productcolor(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: supplier_product_materials supplier_product_mat_product_id_22e0a8d6_fk_supplier_; Type: FK CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_product_materials
+    ADD CONSTRAINT supplier_product_mat_product_id_22e0a8d6_fk_supplier_ FOREIGN KEY (product_id) REFERENCES public.supplier_product(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: supplier_product_materials supplier_product_mat_productmaterial_id_0ef8f26e_fk_supplier_; Type: FK CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.supplier_product_materials
+    ADD CONSTRAINT supplier_product_mat_productmaterial_id_0ef8f26e_fk_supplier_ FOREIGN KEY (productmaterial_id) REFERENCES public.supplier_productmaterial(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
 -- Name: supplier_product_store supplier_product_sto_product_id_1101525a_fk_supplier_; Type: FK CONSTRAINT; Schema: public; Owner: b2b_user
 --
 
@@ -8856,27 +9931,11 @@ ALTER TABLE ONLY public.supplier_product
 
 
 --
--- Name: supplier_productcolor supplier_productcolo_product_id_50624bf9_fk_supplier_; Type: FK CONSTRAINT; Schema: public; Owner: b2b_user
---
-
-ALTER TABLE ONLY public.supplier_productcolor
-    ADD CONSTRAINT supplier_productcolo_product_id_50624bf9_fk_supplier_ FOREIGN KEY (product_id) REFERENCES public.supplier_product(id) DEFERRABLE INITIALLY DEFERRED;
-
-
---
 -- Name: supplier_productimage supplier_productimag_product_id_5f2b7070_fk_supplier_; Type: FK CONSTRAINT; Schema: public; Owner: b2b_user
 --
 
 ALTER TABLE ONLY public.supplier_productimage
     ADD CONSTRAINT supplier_productimag_product_id_5f2b7070_fk_supplier_ FOREIGN KEY (product_id) REFERENCES public.supplier_product(id) DEFERRABLE INITIALLY DEFERRED;
-
-
---
--- Name: supplier_productmaterial supplier_productmate_product_id_cd84c7dd_fk_supplier_; Type: FK CONSTRAINT; Schema: public; Owner: b2b_user
---
-
-ALTER TABLE ONLY public.supplier_productmaterial
-    ADD CONSTRAINT supplier_productmate_product_id_cd84c7dd_fk_supplier_ FOREIGN KEY (product_id) REFERENCES public.supplier_product(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --
