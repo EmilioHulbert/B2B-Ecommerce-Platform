@@ -24,3 +24,8 @@ daphne
 gunicorn
 pandas
 openpyxl
+jwt
+honcho
+django-bootstrap-v5==1.0.11
+django-cors-headers
+

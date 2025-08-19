@@ -11,7 +11,11 @@ from payment.views import InitSubscriptionView
 from django.core.signals import request_finished
 from django.dispatch import receiver
 
+#for mpesa
+from payment.views import payment_callback
+#end for mpesa
 
+#originally commented
 # @receiver(request_finished)
 # def my_callback(sender, **kwargs):
 #     print("Request finished!")
@@ -48,6 +52,7 @@ from django.dispatch import receiver
 # return response
 # pass
 
+#endof originally commented
 
 urlpatterns = i18n_patterns(
     path("", include("manager.urls", namespace="manager")),
@@ -62,6 +67,7 @@ urlpatterns = i18n_patterns(
     path(_("admin/"), admin.site.urls),
 )
 urlpatterns += [
+    path("callback/", payment_callback, name="payment_callback"),
     path("accounts/inactive/", InitSubscriptionView.as_view()),
     path("accounts/profile/", views.HomeView.as_view()),
     path("accounts/", include("allauth.urls")),
@@ -72,3 +78,6 @@ if "rosetta" in settings.INSTALLED_APPS:
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# if settings.DEBUG is False:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

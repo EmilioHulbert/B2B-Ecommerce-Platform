@@ -8,18 +8,21 @@ document.addEventListener("DOMContentLoaded", () => {
         "services_loaded": false,
     }
 
-    let BASE_API_URL
-    let BASE_URL
+    // let BASE_API_URL
+    // let BASE_URL
 
-    if (window.location.href.includes("localhost")) {
-        BASE_API_URL = 'http://localhost:8000';
-        BASE_URL = 'http://localhost:8000';
-    }
-    else {
-        BASE_API_URL = 'http://mugisa.tech';
-        BASE_URL = 'http://mugisa.tech';
-    }
+    // if (window.location.href.includes("localhost")) {
+    //     BASE_API_URL = 'http://localhost:8000';
+    //     BASE_URL = 'http://localhost:8000';
+    // }
+    // else {
+    //     BASE_API_URL = 'http://mugisa.tech';
+    //     BASE_URL = 'http://mugisa.tech';
+    // }
 
+    const BASE_API_URL = `${window.location.origin}`;
+    const BASE_URL = `${window.location.origin}`;
+    
     const fetchData = async (url, has_page_num = true) => {
         let response;
         if (has_page_num) {

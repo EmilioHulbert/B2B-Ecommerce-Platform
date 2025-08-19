@@ -333,3 +333,17 @@ class AdvertPaymentReceipt:
 # def translate(sender, instance, *args, **kwargs):
 #     fields = ("name", "description")
 #     ManagerTasks.make_manager_model_translations.delay(fields, instance.pk, instance.__class__.__name__, "payment")
+
+#mpesa models start
+class Transaction(models.Model):
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    checkout_id = models.CharField(max_length=100, unique=False)
+    mpesa_code = models.CharField(max_length=100, unique=True, blank=True, null=True)
+    phone_number = models.CharField(max_length=15)
+    status = models.CharField(max_length=20)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.mpesa_code or self.checkout_id} - {self.amount} KES"
+
+#mpesa models end

@@ -22,3 +22,12 @@ class CheckoutForm(forms.Form):
                 _("We couldn't verify your payment. Please try again.")
             )
         return self.cleaned_data
+
+
+#mpesa forms
+class PaymentForm(forms.Form):
+    phone_number = forms.CharField(label='Phone Number', max_length=15)
+    #amount = forms.IntegerField(label='Amount', min_value=1, max_value=250000)
+#endof mpesa forms
+
+

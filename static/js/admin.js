@@ -33,18 +33,21 @@ document.addEventListener('DOMContentLoaded', () => {
         "adverts_was_loaded" : false,
     }
 
-    let BASE_API_URL
-    let BASE_URL
+    // let BASE_API_URL
+    // let BASE_URL
 
-    if (window.location.href.includes("localhost")) {
-        BASE_API_URL = 'http://localhost:8000/en/admin-api';
-        BASE_URL = 'http://localhost:8000';
-    }
-    else {
-        BASE_API_URL = 'http://mugisa.tech/en/admin-api';
-        BASE_URL = 'http://mugisa.tech/';
-    }
+    // if (window.location.href.includes("localhost")) {
+    //     BASE_API_URL = 'http://localhost:8000/en/admin-api';
+    //     BASE_URL = 'http://localhost:8000';
+    // }
+    // else {
+    //     BASE_API_URL = 'http://mugisa.tech/en/admin-api';
+    //     BASE_URL = 'http://mugisa.tech/';
+    // }
 
+    const BASE_API_URL = `${window.location.origin}/en/admin-api`;
+    const BASE_URL = `${window.location.origin}`;
+    
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {

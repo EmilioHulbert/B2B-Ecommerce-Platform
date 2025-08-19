@@ -24,7 +24,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{% static 'js/client/dashboard/requests.js' %}"></script>
 
-    <title>NashTech-Global - {% trans 'Supplier Dashboard' %}</title>
+    <title>NashTech-KE - {% trans 'Supplier Dashboard' %}</title>
 </head>
 
 <body>
@@ -123,14 +123,14 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="link">
+                            <!-- <li class="link">
                                 <a href="{% url 'supplier:dashboard-messenger' %}">
                                     <span><i class="fa fa-comment"></i></span>
                                     <span
                                         class="text toggle-able block">{%  trans 'Messenger' %}
                                     </span>
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="link">
                                 <a href="{% url 'supplier:dashboard-notification' %}">
                                     <span><i class="fa fa-bell"></i></span>
@@ -149,7 +149,7 @@
             <div class="main">
                 <div class="cs-navbar card cs-no-box-shadow">
                     <div class="left">
-                        <h4>Good Morning {{ request.user.username }}!</h4>
+                        <h4>Welcome Back {{ request.user.username }}!</h4>
                     </div>
                     <div class="right">
                         <!-- <div class="link customer-display cs-text-accent" style="justify-self: flex-start; align-self: center;padding: .5rem 1rem;font-weight: bold;">

@@ -305,37 +305,99 @@ class CartListView(ListAPIView):
             cart = cart.first()
         return SupplierModels.OrderProductVariation.objects.filter(cart=cart)
         
+# class CartAppeendAppendView(generics.CreateAPIView):
+#     permission_classes = [permissions.AllowAny]
+
+#     def post(self, request, product_slug):
+#         product = get_object_or_404(SupplierModels.Product, slug=product_slug)
+#         business = AuthModels.ClientProfile.objects.filter(user=request.user).first()
+#         cart = BuyerModels.Cart.objects.filter(buyer=business)
+#         if not cart:
+#             cart = BuyerModels.Cart.objects.create(buyer=business)
+#         else:
+#             cart = cart.first()
+        
+#         # create product variation
+#         variation = SupplierModels.OrderProductVariation(
+#             cart = cart,
+#             product = product,
+#             price = SupplierModels.ProductPrice.objects.filter(id=request.data.get("pricing")).first(),
+#             color = SupplierModels.ProductColor.objects.filter(id=request.data.get("color")).first(),
+#             material = SupplierModels.ProductMaterial.objects.filter(id=request.data.get("material")).first(),
+#             quantity = int(request.data.get("quantity")),
+#         )
+#         variation.save()
+
+#         return Response(
+#             {
+#                 "message": _("Product Added To Cart Successfully."),
+#                 "data": ""
+#             },
+#             status=status.HTTP_201_CREATED,
+#         )
+    
+    
+from rest_framework.response import Response
+from rest_framework import status
+import traceback
+
 class CartAppeendAppendView(generics.CreateAPIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self, request, product_slug):
-        product = get_object_or_404(SupplierModels.Product, slug=product_slug)
-        business = AuthModels.ClientProfile.objects.filter(user=request.user).first()
-        cart = BuyerModels.Cart.objects.filter(buyer=business)
-        if not cart:
-            cart = BuyerModels.Cart.objects.create(buyer=business)
-        else:
-            cart = cart.first()
-        
-        # create product variation
-        variation = SupplierModels.OrderProductVariation(
-            cart = cart,
-            product = product,
-            price = SupplierModels.ProductPrice.objects.filter(id=request.data.get("pricing")).first(),
-            color = SupplierModels.ProductColor.objects.filter(id=request.data.get("color")).first(),
-            material = SupplierModels.ProductMaterial.objects.filter(id=request.data.get("material")).first(),
-            quantity = int(request.data.get("quantity")),
-        )
-        variation.save()
+        try:
+            if not request.user.is_authenticated:
+                return Response(
+                    {"message": "You must be logged in as a buyer to add items to the cart."},
+                    status=status.HTTP_401_UNAUTHORIZED
+                )
 
-        return Response(
-            {
-                "message": _("Product Added To Cart Successfully."),
-                "data": ""
-            },
-            status=status.HTTP_201_CREATED,
-        )
-    
+            product = get_object_or_404(SupplierModels.Product, slug=product_slug)
+            business = AuthModels.ClientProfile.objects.filter(user=request.user).first()
+
+            if not business:
+                return Response(
+                    {"message": "You must have a buyer account to add items to the cart."},
+                    status=status.HTTP_403_FORBIDDEN
+                )
+
+            cart = BuyerModels.Cart.objects.filter(buyer=business).first()
+            if not cart:
+                cart = BuyerModels.Cart.objects.create(buyer=business)
+
+            # Create variation without assigning ManyToMany fields
+            variation = SupplierModels.OrderProductVariation.objects.create(
+                cart=cart,
+                product=product,
+                price=SupplierModels.ProductPrice.objects.filter(id=request.data.get("pricing")).first(),
+                quantity=int(request.data.get("quantity")),
+            )
+
+            # Assign ManyToMany fields using .set()
+            selected_color = SupplierModels.ProductColor.objects.filter(id=request.data.get("color")).first()
+            if selected_color:
+                variation.color.set([selected_color])
+
+            selected_material = SupplierModels.ProductMaterial.objects.filter(id=request.data.get("material")).first()
+            if selected_material:
+                variation.material.set([selected_material])
+
+            return Response(
+                {
+                    "message": "Product Added To Cart Successfully.",
+                    "data": ""
+                },
+                status=status.HTTP_201_CREATED,
+            )
+
+        except Exception as e:
+            traceback_str = traceback.format_exc()
+            print(traceback_str)
+            return Response(
+                {"message": f"Server Error: {str(e)}", "trace": traceback_str},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
 
 class CartDeleteProductView(ListAPIView):
     pass

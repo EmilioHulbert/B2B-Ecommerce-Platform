@@ -33,7 +33,7 @@ class ProductsCategoryTests(unittest.TestCase):
         self.browser.get(f"{self.BASE_URL}")
 
         # user sees website title as tab title
-        self.assertIn("NashTech-Global - Home", self.browser.title)
+        self.assertIn("NashTech-KE - Home", self.browser.title)
 
         # user sees different data lists
         data_list = [
@@ -58,7 +58,7 @@ class ProductsCategoryTests(unittest.TestCase):
         # the user see the "product" tab and decides to click on it
         product_tab = self.browser.find_element(By.LINK_TEXT, "Products")
         product_tab.click()
-        self.assertIn(f"NashTech-Global - Products", self.browser.title)
+        self.assertIn(f"NashTech-KE - Products", self.browser.title)
 
     def test_user_select_single_product(self):
         # user is at home page
@@ -96,7 +96,7 @@ class ProductsCategoryTests(unittest.TestCase):
         selected_category.click()
 
         # use sees selected category name as tab title and page title
-        self.assertIn(f"NashTech-Global - {selected_category_name}", self.browser.title)
+        self.assertIn(f"NashTech-KE - {selected_category_name}", self.browser.title)
 
         category_name = self.browser.find_element(By.ID, "category-name").text
 
@@ -114,7 +114,7 @@ class ProductsCategoryTests(unittest.TestCase):
         selected_category.click()
 
         # on category list page
-        self.assertIn(f"NashTech-Global - Categories", self.browser.title)
+        self.assertIn(f"NashTech-KE - Categories", self.browser.title)
 
         # select first subcategory in first category
         category_list = self.browser.find_element(
@@ -128,7 +128,7 @@ class ProductsCategoryTests(unittest.TestCase):
         ).text
         selected_subcategory.click()
 
-        self.assertIn(f"NashTech-Global - {selected_subcategory_name}", self.browser.title)
+        self.assertIn(f"NashTech-KE - {selected_subcategory_name}", self.browser.title)
 
         self.assertEqual(
             selected_subcategory_name,
@@ -160,7 +160,7 @@ class ShowRoowTests(unittest.TestCase):
         # the user see the "showrooms" tab and decides to click on it
         product_tab = self.browser.find_element(By.LINK_TEXT, "Showrooms")
         product_tab.click()
-        self.assertIn(f"NashTech-Global - Showrooms", self.browser.title)
+        self.assertIn(f"NashTech-KE - Showrooms", self.browser.title)
 
     def test_select_showroom(self):
         # user is at home page
@@ -176,7 +176,7 @@ class ShowRoowTests(unittest.TestCase):
         selected_showroom.click()
 
         # redirected to showroom page
-        self.assertIn(f"NashTech-Global - {selected_showroom_name}", self.browser.title)
+        self.assertIn(f"NashTech-KE - {selected_showroom_name}", self.browser.title)
 
         # one storeroom list page
         self.browser.get(f"{self.BASE_URL}/showrooms/")
@@ -191,7 +191,7 @@ class ShowRoowTests(unittest.TestCase):
         selected_showroom.click()
 
         # redirected to showroom page
-        self.assertIn(f"NashTech-Global - {selected_showroom_name}", self.browser.title)
+        self.assertIn(f"NashTech-KE - {selected_showroom_name}", self.browser.title)
 
     def test_select_store(self):
 
@@ -213,7 +213,7 @@ class ShowRoowTests(unittest.TestCase):
 
         selected_store.click()
 
-        self.assertIn(f"NashTech-Global - {selected_store_name}", self.browser.title)
+        self.assertIn(f"NashTech-KE - {selected_store_name}", self.browser.title)
 
 
 if __name__ == "__main__":

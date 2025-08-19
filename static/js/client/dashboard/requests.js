@@ -20,14 +20,54 @@ function getCookie(name) {
     return null;
 }
 
-async function makeRequest (url, method, data={}, dataType=null, access_token=null) {
-    let BASE_API_URL
-    if (window.location.href.includes("localhost")) {
-        BASE_API_URL = 'http://localhost:8000/en';
-    }
-    else {
-        BASE_API_URL = 'http://mugisa.tech/en';
-    }
+// async function makeRequest (url, method, data={}, dataType=null, access_token=null) {
+//     // let BASE_API_URL
+//     // if (window.location.href.includes("localhost")) {
+//     //     BASE_API_URL = 'http://localhost:8000/en';
+//     // }
+//     // else {
+//     //     BASE_API_URL = 'http://mugisa.tech/en';
+//     // }
+//     const BASE_API_URL = `${window.location.origin}/en`;
+    
+//     let requestData = {
+//         method: method,
+//         mode: "cors",
+//         cache: "no-cache",
+//         redirect: 'follow',
+//         referrerPolicy: 'no-referrer',
+//         // "headers" : {
+//         //     Authorization: "JWT " + localStorage.getItem("ext_access_token"),
+//         // }
+//     };
+
+//     if (method == "POST" || method == "PUT" || method == "PATCH" || method == "DELETE") {
+//         if (dataType == "media") {
+//             requestData["body"] = data;
+//             requestData["headers"] = {
+//                 'X-CSRFToken': getCookie()
+//             }
+//         }
+//         else {
+//             requestData["body"] = JSON.stringify(removeEmpty(data));
+//             requestData["headers"] = {
+//                 Accept: "application/json",
+//                 "Content-Type": "application/json",
+//                 'X-CSRFToken': getCookie()
+//             }
+//         }
+//     }
+
+//     let response = await fetch(`${BASE_API_URL}${url}`, requestData);
+//     if (!response.ok) {
+//         let resp = await response.json();
+//         throw new Error(resp);
+//     }
+//     return await response.json();
+// }
+
+async function makeRequest(url, method, data = {}, dataType = null, access_token = null) {
+    const BASE_API_URL = `${window.location.origin}/en`;
 
     let requestData = {
         method: method,
@@ -35,19 +75,15 @@ async function makeRequest (url, method, data={}, dataType=null, access_token=nu
         cache: "no-cache",
         redirect: 'follow',
         referrerPolicy: 'no-referrer',
-        // "headers" : {
-        //     Authorization: "JWT " + localStorage.getItem("ext_access_token"),
-        // }
     };
 
-    if (method == "POST" || method == "PUT" || method == "PATCH" || method == "DELETE") {
-        if (dataType == "media") {
+    if (method === "POST" || method === "PUT" || method === "PATCH" || method === "DELETE") {
+        if (dataType === "media") {
             requestData["body"] = data;
             requestData["headers"] = {
                 'X-CSRFToken': getCookie()
             }
-        }
-        else {
+        } else {
             requestData["body"] = JSON.stringify(removeEmpty(data));
             requestData["headers"] = {
                 Accept: "application/json",
@@ -57,10 +93,29 @@ async function makeRequest (url, method, data={}, dataType=null, access_token=nu
         }
     }
 
-    let response = await fetch(`${BASE_API_URL}${url}`, requestData);
-    if (!response.ok) {
-        let resp = await response.json();
-        throw new Error(resp);
+    try {
+        let response = await fetch(`${BASE_API_URL}${url}`, requestData);
+
+        if (!response.ok) {
+            const errorJson = await response.json();
+
+            if (response.status === 401 || response.status === 403) {
+                // 👇 Show login alert or redirect
+                alert("⚠️ You must be logged in as a buyer to perform this action.");
+                // Optional: redirect to login page
+                // window.location.href = "/en/accounts/login/?next=" + window.location.pathname;
+                throw new Error("Unauthorized");
+            }
+
+            // Let other errors propagate
+            throw new Error(JSON.stringify(errorJson));
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("❌ API Error:", error);
+        // Optionally show a more general message
+        // alert("Something went wrong. Please try again.");
+        throw error;
     }
-    return await response.json();
 }

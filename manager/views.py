@@ -32,6 +32,7 @@ from django.utils.translation import get_language
 from googletrans import Translator
 from django.conf import settings
 
+
 translator = Translator()
 
 # class BrandingView(View):

@@ -14,6 +14,7 @@
     text-align: center;
     transition: 0.3s ease;
     background-color: #f8f9fa; /* default bg for non-image cards */
+
     
   }
   
@@ -44,6 +45,7 @@
     margin-bottom: 0;
   }
   
+
 /* start avoiding overflow */
   html, body {
   overflow-x: hidden;
@@ -116,6 +118,68 @@ img {
     text-decoration: none;
 }
 
+/*remac start */
+.team-carousel .card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 90px;
+    transition: transform 0.3s;
+  }
+  
+  .team-carousel .card .image img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 70%;
+    border: 20px solid #ddd; /* was 3px */
+    margin: 0 auto 25px auto;
+    display: block;
+    overflow: hidden;
+  }
+  
+  .team-carousel .card:hover {
+    transform: translateY(-5px);
+  }
+  .team-carousel .card .info h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: #333;
+    overflow: hidden;
+  }
+  .team-carousel .card .info span {
+  font-size: 0.95rem;
+  color: #777;
+  overflow: hidden;
+}
+
+.team-carousel .card .icons a {
+    color: #555;
+    margin: 0 6px;
+    font-size: 1rem;
+    transition: color 0.2s;
+    overflow: hidden;
+  }
+  
+  .team-carousel .card .icons a:hover {
+    color: #007bff;
+  } */
+  
+
+
+/* 
+
+
+
+
+
+
+
+
+
+/* remac end */
 html{
     font-size: 62.5%;
 }
@@ -576,6 +640,94 @@ body{
     padding: 40px 20px;
 }  
 
+/* start remac */
+/* Parent stays the same */
+.communicate {
+    position: relative;
+    text-align: center;
+    align-items: center;
+    background-image: url(../images/img3.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #fff;
+    min-height: 35vh;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Overlay layer */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5); /* semi-transparent black */
+    z-index: 1;
+}
+
+/* Content sits above overlay */
+.overlay-content {
+    position: relative;
+    z-index: 2;
+}
+/* end remac */
+
+/* remac start */
+
+/* Consistent styling for all service cards */
+.service-card {
+    background-color: rgba(0, 51, 102, 0.85); /* semi-transparent deep blue */
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 2rem; /* add spacing between stacked cards */
+}
+/* remac each card spacing start */
+.col-md-4 {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  @media (max-width: 767.98px) {
+    .col-md-4:not(:last-child) {
+      margin-bottom: 2rem;
+    }
+  }
+  
+  /* remac each card spacing end */
+
+
+/* Icon styling */
+.service-card .icon {
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: #ffd700; /* golden yellow icon for contrast */
+}
+
+/* On hover */
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+
+/* remac end *
+/
+/* remac start */
+.service-card h6,
+.service-card p {
+    color: #ffffff; /* pure white text */
+}
+
+/* remac end */
+
 .communicate h3{
     margin-top: 3rem;
     font-size: 3rem;
@@ -705,8 +857,15 @@ body{
     min-width: 100vw;
     min-height: 95vh;
     text-align: center;
-    background-color: #222;
+    /* background-color: #222; */
+    background-color: #002e5f;
+    
 }
+
+.team-carousel {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
 
 .team .heading{
     color: #00bfff;
@@ -776,7 +935,7 @@ body{
 }
 
 .team .row .card .info .icons .fa-facebook-f:hover, .footer .icons .fa-facebook-f:hover{
-    color: #4267B2;
+    color: #4267B2; 
     text-decoration: none;
 }
 
@@ -951,7 +1110,8 @@ body{
         .footer {
             position: relative;
             padding: 0 0 30px 0;
-            background: #333;
+            /* background: #333; */
+            background: #002e5f;
         }
         
         .footer .footer-top {
@@ -965,7 +1125,16 @@ body{
         .footer .footer-top .footer-newsletter {
             margin-bottom: 30px;
         }
-        
+        /* start remac */
+        .social-links {
+            display: flex;
+            flex-wrap: nowrap; /* force everything to stay in one line */
+            gap: 6px; /* optional: adds spacing between icons */
+            justify-content: center; /* optional: center align */
+            align-items: center;
+        }
+        /* end remac */
+
         .footer .footer-top .social-links a {
             font-size: 18px;
             display: inline-block;
@@ -1007,7 +1176,7 @@ body{
         }
         
         .footer .footer-top .footer-links ul {
-            list-style: none;
+             list-style: none;
             padding: 0;
             margin: 0;
         }
@@ -1086,6 +1255,7 @@ body{
             
             .footer .copyright {
                 text-align: left;
+                 padding-left: 0; /* remac */
             }
         }
 

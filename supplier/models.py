@@ -1,5 +1,5 @@
 # django
-from django.db import models
+from django.db import models, transaction
 from django.utils import timezone
 import datetime
 from django.utils.translation import gettext_lazy as _
@@ -18,6 +18,7 @@ import string
 from auth_app.models import Supplier, Buyer, ClientProfile, User
 from buyer import models as BuyerModels
 from supplier import tasks as SupplierTasks
+
 
 # utility functions
 def get_file_path(instance, filename):
@@ -142,6 +143,11 @@ class Product(models.Model):
     description = models.TextField(
         _("Description"),
     )
+    #remac start
+    colors = models.ManyToManyField('supplier.ProductColor', blank=True)
+    materials = models.ManyToManyField('supplier.ProductMaterial', blank=True)
+    #remac end
+
     # for easy querying supplier attribute has been added
     business = models.ForeignKey(
         to=ClientProfile,
@@ -176,6 +182,18 @@ class Product(models.Model):
         self.name = self.name
 
         super().save(*args, **kwargs)
+     # After saving product, create ProductPrice if needed
+        if self.price and self.currency:
+            # Use transaction.on_commit to avoid race condition
+            def create_price():
+                if not ProductPrice.objects.filter(product=self).exists():
+                    ProductPrice.objects.create(
+                        product=self,
+                        currency=self.currency,
+                        min_price=self.price,
+                        max_price=self.price
+                    )
+            transaction.on_commit(create_price)
 
     def sell_made(self, items_sold):
         if self.stock > 0 and items_sold >= self.stock:
@@ -246,21 +264,49 @@ class ProductTag(models.Model):
     def __str__(self) -> str:
         return f"{self.product.name} - {self.name}"
 
-class ProductColor(models.Model):
-    name = models.CharField(_("Name"), max_length=256)
-    product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
+# class ProductColor(models.Model):
+#     name = models.CharField(_("Name"), max_length=256)
+#     product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
     
-    def __str__(self) -> str:
-        return f"{self.product.name} - {self.name}"
+#     def __str__(self) -> str:
+#         return f"{self.product.name} - {self.name}"
+
+# class ProductMaterial(models.Model):
+#     name = models.CharField(_("Name"), max_length=256)
+#     product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
+
+#     def __str__(self) -> str:
+#         return f"{self.product.name} - {self.name}"
+
+
+# supplier/models.py
+
+class ProductColor(models.Model):
+    name = models.CharField(_("Name"), max_length=256, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        # Auto-attach this color to all products (optional)
+        for product in Product.objects.all():
+            product.colors.add(self)
+
 
 class ProductMaterial(models.Model):
-    name = models.CharField(_("Name"), max_length=256)
-    product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
+    name = models.CharField(_("Name"), max_length=256, unique=True)
 
-    def __str__(self) -> str:
-        return f"{self.product.name} - {self.name}"
+    def __str__(self):
+        return self.name
 
-        
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        # Auto-attach this material to all products (optional)
+        for product in Product.objects.all():
+            product.materials.add(self)
+
+
 class ProductPrice(models.Model):
     currency = models.CharField(_("Currency"), max_length=6)
     product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
@@ -271,11 +317,11 @@ class ProductPrice(models.Model):
         if not (self.product.currency or self.product.price):
             self.product.currency = self.currency
             self.product.price = self.min_price
-            # self.product.save(update_fields=['currency', 'price'])
+            self.product.save(update_fields=['currency', 'price'])
             self.product.save()
 
         super().save(*args, **kwargs)
-
+  
     def __str__(self) -> str:
         return f"{self.product.name} - {self.currency}"
         
@@ -298,7 +344,7 @@ class Order(models.Model):
         ordering = ("-id","-updated_on")
 
     order_statuses = (
-        (_("PENDING"), _("PENDING")),
+        (_("PAID"), _("PAID")),
         (_("VIEWED BY SUPPLER"), _("VIEWED BY SUPPLER")),
         (_("ACCEPTED BY SUPPLER"), _("ACCEPTED BY SUPPLER")),
         (_("IN DELIVERY"), _("IN DELIVERY")),
@@ -310,17 +356,19 @@ class Order(models.Model):
     order_id = models.CharField(_("Order Id"), max_length=50, unique=True, blank=True, null=True)
     buyer = models.ForeignKey(to=ClientProfile, on_delete=models.CASCADE, related_name="buyer")
     supplier = models.ForeignKey(to=ClientProfile, on_delete=models.CASCADE, related_name="supplier")
-    status = models.CharField(_("Order Status"), max_length=256, choices=order_statuses, default="PENDING")
+    status = models.CharField(_("Order Status"), max_length=256, choices=order_statuses, default="PAID")
     currency = models.CharField(_("Currency"), max_length=6, blank=True, null=True)
     total_price = models.DecimalField(_("Total Price"), decimal_places=2, max_digits=12, blank=True, null=True)
     agreed_price = models.DecimalField(_("Agreed Price"), decimal_places=2, max_digits=12, blank=True, null=True)
     paid_price = models.DecimalField(_("Paid Price"), decimal_places=2, max_digits=12, blank=True, null=True)
     discount = models.DecimalField(_("Discount as a Percentage"), decimal_places=2, max_digits=3, blank=True, null=True, default=0.00)
-    is_complete = models.BooleanField(_("Completed"), default=True)
+    # is_complete = models.BooleanField(_("Completed"), default=True)
+    is_complete = models.BooleanField(_("Completed"), default=False)
     accepted_on = models.DateField(_("Accepted on"), blank=True, null=True)
     delivery_date = models.DateField(_("Delivery Date"), blank=True, null=True) 
     created_on = models.DateField(_("Created on"), default=timezone.now)
     updated_on = models.DateTimeField(_("Updated on"), null=True, blank=True)
+    payment = models.ForeignKey('payment.Transaction', null=True, blank=True, on_delete=models.SET_NULL)
 
     def generateOrderId(self):
         pretext = "FODR"
@@ -376,12 +424,15 @@ class Order(models.Model):
         return f"{self.order_id} - {self.supplier} - {self.buyer} - {self.status}"
 
 class OrderProductVariation(models.Model):
-    order = models.ForeignKey(to=Order, on_delete=models.CASCADE, null=True, blank=True)
+    # order = models.ForeignKey(to=Order, on_delete=models.CASCADE, null=True, blank=True)
+    order = models.ForeignKey(to=Order, on_delete=models.CASCADE,related_name="items", null=True, blank=True)
     cart = models.ForeignKey(to=BuyerModels.Cart, on_delete=models.SET_NULL, null=True, blank=True)
     product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
     price = models.ForeignKey(to=ProductPrice, on_delete=models.CASCADE, null=True, blank=True)
-    color = models.ForeignKey(to=ProductColor, on_delete=models.CASCADE, null=True, blank=True)
-    material = models.ForeignKey(to=ProductMaterial, on_delete=models.CASCADE, null=True, blank=True)
+    # color = models.ForeignKey(to=ProductColor, on_delete=models.CASCADE, null=True, blank=True)
+    # material = models.ForeignKey(to=ProductMaterial, on_delete=models.CASCADE, null=True, blank=True)
+    material = models.ManyToManyField(to=ProductMaterial, blank=True)
+    color = models.ManyToManyField(to=ProductColor, blank=True)
     quantity = models.IntegerField(_("Quantity"), validators=[MinValueValidator(0)])
     min_total_price = models.DecimalField(_("Min Total Price"), decimal_places=2, max_digits=12, blank=True, null=True)
     max_total_price = models.DecimalField(_("Max Total Price"), decimal_places=2, max_digits=12, blank=True, null=True)
@@ -547,11 +598,14 @@ def delete_product(sender, instance, *args, **kwargs):
     for record in ProductTag.objects.filter(product=instance):
         record.delete()
 
-    for record in ProductColor.objects.filter(product=instance):
-        record.delete()
+    # for record in ProductColor.objects.filter(product=instance):
+    #     record.delete()
+    instance.colors.clear()
 
-    for record in ProductMaterial.objects.filter(product=instance):
-        record.delete()
+    # for record in ProductMaterial.objects.filter(product=instance):
+    #     record.delete()
+    instance.materials.clear()
+
 
     for record in ProductPrice.objects.filter(product=instance):
         record.delete()

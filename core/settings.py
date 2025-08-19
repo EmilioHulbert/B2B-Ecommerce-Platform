@@ -50,7 +50,9 @@ INSTALLED_APPS = [
     "modeltranslation",
     "django.contrib.admin",
     "django.contrib.sites",
+     "bootstrap5",
 ]
+INSTALLED_APPS += ['corsheaders']
 
 CUSTOM_APPS = [
     "manager.apps.ManagerConfig",
@@ -95,6 +97,7 @@ USER_AGENTS_CACHE = "default"
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     # translations
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -105,6 +108,7 @@ MIDDLEWARE = [
     "django_user_agents.middleware.UserAgentMiddleware",
     # 'django_xframe_options.middleware.XFrameOptionsMiddleware',
     "allauth.account.middleware.AccountMiddleware",
+    
 ]
 
 # X_FRAME_OPTIONS = 'DENY'
@@ -172,7 +176,7 @@ if PRODUCTION:
             "USER": os.environ.get("DATABASE_USER"),
             "PASSWORD": os.environ.get("DATABASE_PASSWORD"),
             "HOST": "localhost",
-            "PORT": "",
+            "PORT": "5432",
         }
     }
 
@@ -213,7 +217,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Africa/Nairobi"
 
 USE_I18N = True
 
@@ -226,7 +230,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "static/"
-
 if PRODUCTION:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 else:
@@ -263,13 +266,14 @@ DEFAULT_FROM_EMAIL = os.environ.get("RESPONSE_EMAIL", None)
 LOGIN_REDIRECT = "/auth/login/"
 LOGIN_URL = "/auth/login/"
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.AllowAny",
     ]
 }
-CORS_URLS_REGEX = r"^/api/.*$"
+# CORS_URLS_REGEX = r"^/api/.*$"
+CORS_URLS_REGEX = r"^/.*$"   
 
 # translations
 LANGUAGE_CODE = "en"
@@ -291,7 +295,12 @@ MODELTRANSLATION_LANGUAGES = ("ar", "fr", "de", "en")
 # if (len(sys.argv) >= 2 and sys.argv[1] == 'runserver'):
 #     BRAINTREE_PRODUCTION = False
 # else:
-BRAINTREE_PRODUCTION = False
+# BRAINTREE_PRODUCTION = False
+def str_to_bool(val):
+    return str(val).lower() in ("true", "1", "yes")
+
+BRAINTREE_PRODUCTION = str_to_bool(os.getenv("BRAINTREE_PRODUCTION", "false"))
+
 BRAINTREE_MERCHANT_ID = os.environ.get("BRAINTREE_MERCHANT_ID")
 BRAINTREE_PUBLIC_KEY = os.environ.get("BRAINTREE_PUBLIC_KEY")
 BRAINTREE_PRIVATE_KEY = os.environ.get("BRAINTREE_PRIVATE_KEY")
@@ -391,9 +400,54 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 2684354560  # 2.5 GB
 # Set the maximum size for files stored in memory (2.5 GB in this example)
 FILE_UPLOAD_MAX_MEMORY_SIZE = 2684354560  # 2.5 GB
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://hybrid.nairobiskates.com",
-]
-SITE_ID = 2
+# CSRF_TRUSTED_ORIGINS = [
+#     "https://hybrid.nairobiskates.com",
+#     "http://0.0.0.0:1000",
+#     "https://demo.nairobiskates.com",
+#     "http://0.0.0.0:1000:1000",
+#     "http://127.0.0.1"
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # or any dir you prefer
+# ]
+
+# CORS_ALLOWED_ORIGINS = [
+#     "http://127.0.0.1",
+#     "http://0.0.0.0:1000",
+#     "http://0.0.0.0:1000",
+#     "http://127.0.0.1:80",
+#     "http://0.0.0.0:1000:1000",
+# ]
+
+SITE_ID = 2
+# settings.py  – dev only!
+CORS_ALLOW_ALL_ORIGINS = True          # easiest while debugging
+# OR, if you prefer a regex whitelist:
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^http://127\.0\.0\.1(:\d+)?$",
+    r"^http://0\.0\.0\.0(:\d+)?$",
+    r"^http://mugisa\.tech(:\d+)?$",    # :80, :1000, etc.
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1",
+    "http://0.0.0.0",
+    "http://0.0.0.0:1000",
+    "https://demo.nairobiskates.com",
+    "https://emiliohulbert-2.expose.nairobiskates.com",
+    "https://nashtech.nairobiskates.com",
+]
+
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CONN_MAX_AGE = 60  # Keeps DB connection alive for 1 minute
+
+# Shorten session duration (e.g., 1 hour)
+SESSION_COOKIE_AGE = 3600  # 1 hour in seconds
+
+# Optional: End session on browser close
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Optional: Refresh session expiry on every request
+SESSION_SAVE_EVERY_REQUEST = True

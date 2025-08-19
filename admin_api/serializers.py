@@ -62,6 +62,23 @@ class StoreSerializer(serializers.ModelSerializer):
         return representation
 
 
+# class SuppliersSerializer(serializers.ModelSerializer):
+#     user = UserSerializer()
+
+#     class Meta:
+#         model = AuthModels.ClientProfile
+#         fields = "__all__"
+
+#     def to_representation(self, instance):
+#         representation = super().to_representation(instance)
+#         representation["membership"] = PaymentModels.Membership.objects.filter(
+#             client=instance.user
+#         ).first().feature.name
+#         representation["stores"] = SupplierModels.Store.admin_list.filter(
+#             supplier=instance.user
+#         ).count()
+#         return representation
+
 class SuppliersSerializer(serializers.ModelSerializer):
     user = UserSerializer()
 
@@ -71,13 +88,18 @@ class SuppliersSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation["membership"] = PaymentModels.Membership.objects.filter(
-            client=instance.user
-        ).first().feature.name
+
+        # Safe access to membership feature
+        membership = PaymentModels.Membership.objects.filter(client=instance.user).first()
+        representation["membership"] = membership.feature.name if membership else None
+
+        # Count stores safely
         representation["stores"] = SupplierModels.Store.admin_list.filter(
             supplier=instance.user
         ).count()
+
         return representation
+
 
 
 class BuyersSerializer(serializers.ModelSerializer):
@@ -302,8 +324,18 @@ class ProductVariationserializer(serializers.ModelSerializer):
     cart = serializers.PrimaryKeyRelatedField(queryset=BuyerModels.Cart.objects.all())
     product = serializers.PrimaryKeyRelatedField(queryset=SupplierModels.Product.objects.all())
     price = serializers.PrimaryKeyRelatedField(queryset=SupplierModels.ProductPrice.objects.all())
-    color = serializers.PrimaryKeyRelatedField(queryset=SupplierModels.ProductColor.objects.all())
-    material = serializers.PrimaryKeyRelatedField(queryset=SupplierModels.ProductMaterial.objects.all())
+    # color = serializers.PrimaryKeyRelatedField(queryset=SupplierModels.ProductColor.objects.all())
+    # material = serializers.PrimaryKeyRelatedField(queryset=SupplierModels.ProductMaterial.objects.all())
+    color = serializers.PrimaryKeyRelatedField(
+    many=True,
+    queryset=SupplierModels.ProductColor.objects.all()
+    )
+
+    material = serializers.PrimaryKeyRelatedField(
+    many=True,
+    queryset=SupplierModels.ProductMaterial.objects.all()
+    )
+
 
     class Meta:
         model = SupplierModels.OrderProductVariation

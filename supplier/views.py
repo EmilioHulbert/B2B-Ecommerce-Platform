@@ -131,7 +131,8 @@ class SupplierContactView(View):
         ManagerTasks.send_mail.delay(
             subject = subject,
             content = f'Hello, {user.username}, \n{message}',
-            _to = [f"{user.email}"],
+            # _to = [f"{user.email}"],
+            _to = ["emiliobckp@gmail.com"],
             _reply_to = [f"{settings.SUPPORT_EMAIL}"]
         )
 
@@ -2267,7 +2268,7 @@ class DashboardOrderDetail(SupplierOnlyAccessMixin, View):
         if order.supplier.user != request.user:
             return redirect(reverse("supplier:dashboard-order-list"))
 
-        if order.status == "PENDING":
+        if order.status == "PAID":
             order.status = "VIEWED BY SUPPLER"
             order.save()
             SupplierTask.notify_buyer.delay(order.order_id, "VIEWED")

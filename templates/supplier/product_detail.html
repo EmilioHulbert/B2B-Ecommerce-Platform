@@ -277,6 +277,13 @@
                                             <option value="{{ color.pk }}">{{ color.name }}</option>
                                         {% endfor %}
                                     </select>
+                                    <!-- <select name="color">
+                                        {% for color in product.colors.all %}
+                                            <option value="{{ color.id }}">{{ color.name }}</option>
+                                        {% empty %}
+                                            <option disabled>No colors available</option>
+                                        {% endfor %}
+                                    </select> -->
                                 </div>
                                 <div class="select-currency" style="inline-size: 100%;">
                                     <span>Select material</span>
@@ -295,6 +302,12 @@
                                     {% endfor %}
                                 </select>
                             </div> 
+                            <!-- <div class="select-currency" style="inline-size: 100%;">
+                                <span>Price</span>
+                                <input type="hidden" name="pricing" id="pricing" value="{{ object.price }}">
+                                <p>{{ object.currency }} {{ object.price }}</p>
+                            </div> -->
+                            
                             <button type="submit" style="background-color: rgb(236, 171, 8);" class="btn" id="add_product_to_cart">{% trans "Add To Cart" %}</button>
                         </form> 
                     </div>

@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("✅ JS loaded");
-
+  const serviceDataEl = document.getElementById("service-json");
+  if (!serviceDataEl) return;
   const services = JSON.parse(document.getElementById("service-json").textContent);
 
   // Step 1: Listen to clicks on each category card

@@ -12,6 +12,17 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 
+#start mpesa imports
+import requests, base64, json, re, os
+from datetime import datetime
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse, HttpResponseBadRequest
+from .models import Transaction
+from .forms import PaymentForm
+from dotenv import load_dotenv
+#end mpesa imports
+
+
 import json, os
 from django.utils import timezone
 
@@ -303,7 +314,7 @@ def paypal_webhooks(request):
             subscription = PaymentModels.PaypalSubscription.objects.filter(order_key=billing_agreement_id).first()
             user = AuthModels.Supplier.objects.filter(id=subscription.membership.client.id).first()
 
-            subject = _("NashTech Subscription")
+            subject = _("AgroTim Subscription")
             message = _("Your payment as been initialized. Please wait for confirmation email.")
 
             ManagerTasks.send_mail.delay(
@@ -319,7 +330,7 @@ def paypal_webhooks(request):
             subscription = PaymentModels.PaypalSubscription.objects.filter(order_key=billing_agreement_id).first()
             user = AuthModels.Supplier.objects.filter(id=subscription.membership.client.id).first()
 
-            subject = _("NashTech Subscription")
+            subject = _("AgroTim Subscription")
             message = _("Your payment was successfull.")
 
             ManagerTasks.send_mail.delay(
@@ -340,7 +351,7 @@ def paypal_webhooks(request):
             
             if not ret.get("error"):
                 user = AuthModels.Supplier.objects.filter(id=subscription.membership.client.id).first() 
-                subject = _("NashTech Subscription")
+                subject = _("AgroTim Subscription")
                 message = _("Your subscription was deactivated successfully.")
 
                 ManagerTasks.send_mail.delay(
@@ -360,7 +371,7 @@ def paypal_webhooks(request):
             
             if not ret.get("error"):
                 user = AuthModels.Supplier.objects.filter(id=subscription.membership.client.id).first()
-                subject = _("NashTech Subscription")
+                subject = _("AgroTim Subscription")
                 message = _("Your subscription was deactivated successfully.")
 
                 ManagerTasks.send_mail.delay(
@@ -422,3 +433,353 @@ def render_to_pdf(template_src, context_dict={}):
     if not pdf.err:
         return HttpResponse(result.getvalue(), content_type="application/pdf")
     return None
+
+
+#start mpesa views
+# Load environment variables
+load_dotenv()
+
+# Retrieve variables from the environment
+CONSUMER_KEY = os.getenv("CONSUMER_KEY")
+CONSUMER_SECRET = os.getenv("CONSUMER_SECRET")
+MPESA_PASSKEY = os.getenv("MPESA_PASSKEY")
+
+MPESA_SHORTCODE = os.getenv("MPESA_SHORTCODE")
+CALLBACK_URL = os.getenv("CALLBACK_URL")
+MPESA_BASE_URL = os.getenv("MPESA_BASE_URL")
+
+# Phone number formatting and validation
+def format_phone_number(phone):
+    phone = phone.replace("+", "")
+    if re.match(r"^254\d{9}$", phone):
+        return phone
+    elif phone.startswith("0") and len(phone) == 10:
+        return "254" + phone[1:]
+    else:
+        raise ValueError("Invalid phone number format")
+
+# Generate M-Pesa access token
+from requests.auth import HTTPBasicAuth
+from threading import Lock
+import time, requests
+
+_token_cache = {"value": None, "ts": 0}
+_token_lock  = Lock()
+
+def generate_access_token():
+    """Get (and cache) a valid sandbox token for ~55 min."""
+    with _token_lock:
+        if _token_cache["value"] and time.time() - _token_cache["ts"] < 3300:
+            return _token_cache["value"]
+
+        url = f"{MPESA_BASE_URL}/oauth/v1/generate?grant_type=client_credentials"
+        resp = requests.get(url, auth=HTTPBasicAuth(CONSUMER_KEY, CONSUMER_SECRET), timeout=10)
+        print("Token status →", resp.status_code, resp.text)  # debug
+
+        resp.raise_for_status()           # throws if 4xx/5xx
+        token = resp.json()["access_token"]
+
+        _token_cache.update(value=token, ts=time.time())
+        return token
+
+# Initiate STK Push and handle response
+def initiate_stk_push(phone, amount):
+    try:
+        token = generate_access_token()
+        headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+
+        timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+        stk_password = base64.b64encode(
+            (MPESA_SHORTCODE + MPESA_PASSKEY + timestamp).encode()
+        ).decode()
+
+        request_body = {
+            "BusinessShortCode": MPESA_SHORTCODE,
+            "Password": stk_password,
+            "Timestamp": timestamp,
+            "TransactionType": "CustomerPayBillOnline",
+            "Amount": amount,
+            "PartyA": "254708374149",
+            "PartyB": MPESA_SHORTCODE,
+            "PhoneNumber": phone,
+            "CallBackURL": CALLBACK_URL,
+            "AccountReference": "account",
+            "TransactionDesc": "Payment for goods",
+        }
+
+        response = requests.post(
+            f"{MPESA_BASE_URL}/mpesa/stkpush/v1/processrequest",
+            json=request_body,
+            headers=headers,
+        ).json()
+
+        return response
+
+    except Exception as e:
+        print(f"Failed to initiate STK Push: {str(e)}")
+        return e
+
+# Payment View
+# views.py (payments)
+from buyer.models import Cart
+from supplier.models import OrderProductVariation
+from auth_app.models import ClientProfile
+
+def payment_view(request):
+    business = ClientProfile.objects.filter(user=request.user).first()
+    cart = Cart.objects.filter(buyer=business).first()
+
+    if not cart:
+        messages.error(request, "Your cart is empty.")
+        return redirect("buyer:cart-list")
+
+    # ✅ Use OrderProductVariation to get prices
+    cart_items = OrderProductVariation.objects.filter(cart=cart)
+
+    if not cart_items.exists():
+        messages.error(request, "Your cart has no products.")
+        return redirect("buyer:cart-list")
+
+    total_amount = sum(float(item.min_total_price or 0) for item in cart_items)
+
+    if request.method == "POST":
+        form = PaymentForm(request.POST)
+        if form.is_valid():
+            try:
+                phone = format_phone_number(form.cleaned_data["phone_number"])
+                response = initiate_stk_push(phone, total_amount)
+
+                if response.get("ResponseCode") == "0":
+                    checkout_request_id = response["CheckoutRequestID"]
+
+                    Transaction.objects.create(
+                        phone_number=phone,
+                        amount=total_amount,
+                        checkout_id=checkout_request_id,
+                        status="Pending"
+                    )
+
+                    return render(request, "payments/pending.html", {
+                        "checkout_request_id": checkout_request_id,
+                        "phone_number": phone
+                    })
+
+                    return render(request, "payments/pending.html", {"checkout_request_id": checkout_request_id})
+                else:
+                    error_message = response.get("errorMessage", "Failed to send STK push.")
+                    return render(request, "payments/payment_form.html", {"form": form, "error_message": error_message})
+
+            except Exception as e:
+                return render(request, "payments/payment_form.html", {"form": form, "error_message": str(e)})
+
+    else:
+        form = PaymentForm()
+
+    return render(request, "payments/payment_form.html", {"form": form, "amount": total_amount})
+
+
+# Query STK Push status
+def query_stk_push(checkout_request_id):
+    try:
+        token   = generate_access_token()
+        headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+
+        timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+        password  = base64.b64encode((MPESA_SHORTCODE + MPESA_PASSKEY + timestamp).encode()).decode()
+
+        body = {
+            "BusinessShortCode": MPESA_SHORTCODE,
+            "Password": password,
+            "Timestamp": timestamp,
+            "CheckoutRequestID": checkout_request_id,
+        }
+
+        resp = requests.post(f"{MPESA_BASE_URL}/mpesa/stkpushquery/v1/query",
+                             json=body, headers=headers, timeout=10)
+        print("STK‑query status:", resp.status_code, resp.text)
+        resp.raise_for_status()
+        return resp.json()
+    except Exception as e:
+        return {"error": str(e)}
+
+
+# View to query the STK status and return it to the frontend
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.translation import gettext_lazy as _
+from django.contrib import messages
+from django.shortcuts import redirect
+from django.urls import reverse
+
+from .views import query_stk_push  # or wherever your logic is
+from buyer.models import Cart
+from supplier.models import Order, OrderProductVariation, OrderShippingDetail
+from auth_app.models import ClientProfile
+
+
+from payment.models import Transaction
+
+@csrf_exempt
+def stk_status_view(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            checkout_request_id = data.get('checkout_request_id')
+            print("CheckoutRequestID:", checkout_request_id)
+
+            if not checkout_request_id:
+                return JsonResponse({"error": "Missing checkout_request_id"}, status=400)
+
+            # ✅ Check if transaction exists and completed
+            txn = Transaction.objects.filter(checkout_id=checkout_request_id, status="completed").first()
+            if txn:
+                print("✅ Found completed transaction in DB.")
+
+                # 🧠 Try best to get user: either from request or phone number
+                user = request.user if request.user.is_authenticated else None
+                if not user:
+                    from auth_app.models import ClientProfile
+                    profile = ClientProfile.objects.filter(mobile_user__icontains=txn.phone_number).first()
+                    user = profile.user if profile else None
+
+                # 🛡️ Avoid duplicate order creation
+                from supplier.models import Order
+                if not Order.objects.filter(payment=txn).exists():
+                    create_order_from_transaction(txn, user)
+
+                return JsonResponse({"status": "completed", "order_created": True})
+
+
+            # ❌ Not found — check live with Safaricom
+            status = query_stk_push(checkout_request_id)
+
+            if status == "Success":
+                # 🔁 Fallback transaction creation
+                txn = Transaction.objects.create(
+                    amount=0,
+                    mpesa_code="UNKNOWN",
+                    checkout_id=checkout_request_id,
+                    phone_number="UNKNOWN",
+                    status="completed"
+                )
+
+                user = request.user if request.user.is_authenticated else None
+                create_order_from_transaction(txn, user)
+
+                return JsonResponse({"status": "completed", "order_created": True})
+
+            return JsonResponse({"status": status})
+
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON body"}, status=400)
+
+    return JsonResponse({"error": "Invalid request method"}, status=405)
+
+
+
+
+from supplier.models import OrderProductVariation, Order
+from buyer.models import Cart
+from auth_app.models import ClientProfile
+
+@csrf_exempt
+def payment_callback(request):
+    if request.method != "POST":
+        return JsonResponse({"msg": "Only POST allowed"}, status=405)
+
+    try:
+        payload = json.loads(request.body)
+        stk = payload["Body"]["stkCallback"]
+        result = stk["ResultCode"]
+
+        if result == 0:
+            meta = {item["Name"]: item["Value"] for item in stk["CallbackMetadata"]["Item"]}
+            phone = str(meta.get("PhoneNumber")).strip()
+            if not phone.startswith("+254"):
+                phone = phone[-9:]  # trim to last 9 digits
+                phone = f"+254{phone}"
+
+            txn = Transaction.objects.create(
+                amount=meta.get("Amount", 0),
+                mpesa_code=meta.get("MpesaReceiptNumber"),
+                checkout_id=stk.get("CheckoutRequestID"),
+                phone_number=phone,
+                status="completed"
+            )
+            
+            print(f"✅ Payment saved for phone {phone}, txn {txn.mpesa_code}")
+            # create_order_from_transaction(txn, user=user.user) 
+            buyer = ClientProfile.objects.filter(mobile_user__icontains=txn.phone_number).first()
+            if buyer and buyer.user:
+                create_order_from_transaction(txn, user=buyer.user)
+
+            return JsonResponse({"ResultCode": 0, "ResultDesc": "Accepted"})
+
+        # Save failed txn too
+        Transaction.objects.create(
+            amount=0,
+            mpesa_code="",
+            checkout_id=stk.get("CheckoutRequestID"),
+            phone_number="",
+            status="failed"
+        )
+
+        return JsonResponse({"ResultCode": result, "ResultDesc": "Failed"})
+
+    except Exception as e:
+        print("🚨 Error in callback:", e)
+        return JsonResponse({"ResultCode": 1, "ResultDesc": f"Bad data: {e}"}, status=400)
+
+#endof mpesa views
+
+
+def create_order_from_transaction(txn, user):
+    from supplier.models import Order
+    if Order.objects.filter(payment=txn).exists():
+        return
+    from django.contrib import messages
+    from django.shortcuts import redirect
+    from django.utils.translation import gettext_lazy as _
+    from buyer import models as BuyerModels
+    from supplier import models as SupplierModels
+    from auth_app import models as AuthModels
+    from buyer.tasks import order_placed_notify_supplier
+
+    buyer = ClientProfile.objects.filter(mobile_user__icontains=txn.phone_number).first()
+    business = AuthModels.ClientProfile.objects.filter(user=user).first()
+    cart = BuyerModels.Cart.objects.filter(buyer=business)
+
+    if not cart.exists():
+        return
+
+    product_variations = SupplierModels.OrderProductVariation.objects.filter(cart=cart.first())
+    if not product_variations.exists():
+        return
+
+    groupings = {}
+    for product_variation in product_variations:
+        supplier = product_variation.product.supplier
+        if supplier not in groupings:
+            groupings[supplier] = []
+        groupings[supplier].append(product_variation)
+
+    for supplier, prods in groupings.items():
+        agreed_price = sum([
+            float(prod.min_total_price or 0) for prod in prods
+        ])
+        currency = "KES"
+
+        order = SupplierModels.Order.objects.create(
+            buyer=business,
+            supplier=supplier,
+            agreed_price=agreed_price,
+            currency=currency,
+            payment=txn,
+        )
+
+        for prod in prods:
+            prod.order = order
+            prod.cart = None
+            prod.save()
+
+        SupplierModels.OrderShippingDetail.objects.create(order=order)
+        order_placed_notify_supplier.delay(order.pk, order.__class__.__name__)

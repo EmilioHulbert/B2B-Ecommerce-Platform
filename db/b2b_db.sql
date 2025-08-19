@@ -3767,6 +3767,7 @@ COPY public.account_emailconfirmation (id, created, sent, key, email_address_id)
 
 COPY public.auth_app_clientprofile (id, business_name, business_name_ar, business_name_fr, business_name_de, business_name_en, slug, business_description, business_description_ar, business_description_fr, business_description_de, business_description_en, country, country_ar, country_fr, country_de, country_en, country_code, country_code_ar, country_code_fr, country_code_de, country_code_en, city, city_ar, city_fr, city_de, city_en, mobile_user, mobile_user_ar, mobile_user_fr, mobile_user_de, mobile_user_en, vat_number, legal_etity_identifier, website, customer_id, image, user_id) FROM stdin;
 1	Betwan Suppliers	\N	\N	\N	Betwan Suppliers	betwan-suppliers	Betwan Suppliers				Betwan Suppliers	Kenya	\N	\N	\N	Kenya	+254	\N	\N	\N	+254	Nairobi	\N	\N	\N	Nairobi	+254 727 074610	\N	\N	\N	+254 727 074610	\N	\N	\N	\N	test/django.png	3
+2	vegetables	\N	\N	\N	vegetables	vegetables	i sell vegetables	\N	\N	\N	i sell vegetables	Kenya	\N	\N	\N	Kenya	254	\N	\N	\N	254	nairobi	\N	\N	\N	nairobi	795800861	\N	\N	\N	795800861	7249	49721khafiwieurh09	https://nairobiskates.com	\N	test/django.png	13
 \.
 
 
@@ -3776,6 +3777,7 @@ COPY public.auth_app_clientprofile (id, business_name, business_name_ar, busines
 
 COPY public.auth_app_clientprofile_team (id, clientprofile_id, user_id) FROM stdin;
 2	1	3
+3	2	13
 \.
 
 
@@ -3793,8 +3795,9 @@ COPY public.auth_app_supportprofile (id, responses, user_id) FROM stdin;
 --
 
 COPY public.auth_app_user (id, password, last_login, is_superuser, username, first_name, first_name_ar, first_name_fr, first_name_de, first_name_en, last_name, last_name_ar, last_name_fr, last_name_de, last_name_en, email, is_staff, is_active, date_joined, account_type, image, is_email_activated) FROM stdin;
-3	melody254	2025-06-24 19:19:20+03	t	Betwan	Betwan	\N	\N	\N	Betwan	Suppliers	\N	\N	\N	Suppliers	info@betwancomputers.co.ke	t	t	2025-06-24 19:19:08+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
-4	pbkdf2_sha256$320000$GuJQnnqDBoqelHJn31jS3h$C0qzsjEPgZezFEHYvhMr/J5ByXIWfO3F3Kyhj/b9I+8=	2025-07-11 17:35:50.403033+03	t	Admin		\N	\N	\N	\N		\N	\N	\N	\N	emiliohulbert2017@gmail.com	t	t	2025-06-30 20:15:14.535421+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
+13	pbkdf2_sha256$320000$rLPIUsHM23awacbWUoHtQR$w91FvU4RGLrBAKjQJqT1i6UqXnDnj2xw9yDQw3NQzM0=	2025-07-21 20:24:51.455573+03	f	user	user	\N	\N	\N	user		\N	\N	\N	\N		f	t	2025-07-21 14:19:28+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
+4	pbkdf2_sha256$320000$GuJQnnqDBoqelHJn31jS3h$C0qzsjEPgZezFEHYvhMr/J5ByXIWfO3F3Kyhj/b9I+8=	2025-07-31 12:37:51.979595+03	t	Admin		\N	\N	\N	\N		\N	\N	\N	\N	emiliohulbert2017@gmail.com	t	t	2025-06-30 20:15:14.535421+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
+3	pbkdf2_sha256$320000$GuJQnnqDBoqelHJn31jS3h$C0qzsjEPgZezFEHYvhMr/J5ByXIWfO3F3Kyhj/b9I+8=	2025-06-24 19:19:20+03	t	Betwan	Betwan	\N	\N	\N	Betwan	Suppliers	\N	\N	\N	Suppliers	info@betwancomputers.co.ke	t	t	2025-06-24 19:19:08+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
 \.
 
 
@@ -3804,6 +3807,7 @@ COPY public.auth_app_user (id, password, last_login, is_superuser, username, fir
 
 COPY public.auth_app_user_groups (id, user_id, group_id) FROM stdin;
 1	3	1
+2	13	1
 \.
 
 
@@ -4515,6 +4519,156 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 270	2025-07-10 22:33:36.699526+03	8	Web & Mobile App Development (Android & iOS)	1	[{"added": {}}]	10	4
 271	2025-07-10 22:33:57.582366+03	9	Web & Mobile App Development (Android & iOS)	1	[{"added": {}}]	13	4
 272	2025-07-10 22:35:02.653355+03	7	ERP Systems (Custom-built)	2	[{"changed": {"fields": ["Description", "Description [en]"]}}]	10	4
+273	2025-07-13 10:57:52.48617+03	9	CCTV & Surveillance Systems	1	[{"added": {}}]	10	4
+274	2025-07-13 10:58:29.532201+03	10	CCTV & Surveillance Systems	1	[{"added": {}}]	13	4
+275	2025-07-13 10:59:07.473573+03	9	CCTV & Surveillance Systems	2	[{"changed": {"fields": ["Category"]}}]	10	4
+276	2025-07-13 10:59:34.127466+03	9	CCTV & Surveillance Systems	2	[{"changed": {"fields": ["Category"]}}]	10	4
+277	2025-07-20 22:19:02.779047+03	3	Betwan	2	[]	54	4
+278	2025-07-20 22:20:07.330591+03	3	Betwan	2	[]	54	4
+279	2025-07-20 22:22:39.280581+03	3	Betwan	2	[{"changed": {"fields": ["Active"]}}]	54	4
+280	2025-07-20 22:23:14.882134+03	3	Betwan	2	[{"changed": {"fields": ["Active"]}}]	54	4
+281	2025-07-20 22:25:03.608014+03	5	test	1	[{"added": {}}]	54	4
+282	2025-07-20 22:25:40.398012+03	5	test	2	[{"changed": {"fields": ["User permissions"]}}]	54	4
+283	2025-07-20 22:27:08.566513+03	5	test	2	[{"changed": {"fields": ["Staff status"]}}]	54	4
+284	2025-07-20 22:28:47.44638+03	3	Betwan	2	[{"changed": {"fields": ["Account Type"]}}]	54	4
+285	2025-07-20 22:30:19.714796+03	3	Betwan	2	[{"changed": {"fields": ["Password"]}}]	54	4
+286	2025-07-20 22:30:56.014285+03	3	Betwan	2	[{"changed": {"fields": ["Account Type"]}}]	54	4
+287	2025-07-20 22:33:43.543477+03	5	test	3		54	4
+288	2025-07-20 22:35:16.940874+03	6	test	2	[{"changed": {"fields": ["Staff status"]}}]	54	4
+289	2025-07-20 22:36:43.77699+03	6	test	3		54	4
+290	2025-07-20 22:37:44.611632+03	7	test1	1	[{"added": {}}]	54	4
+291	2025-07-21 10:44:20.241127+03	7	test1	2	[]	54	4
+292	2025-07-21 10:45:13.447097+03	7	test1	2	[{"changed": {"fields": ["Password"]}}]	54	4
+293	2025-07-21 10:48:47.476725+03	7	test1	2	[{"changed": {"fields": ["Superuser status"]}}]	54	4
+294	2025-07-21 10:48:55.038272+03	7	test1	2	[{"changed": {"fields": ["Account Type"]}}]	54	4
+295	2025-07-21 10:49:57.089324+03	7	test1	2	[{"changed": {"fields": ["Last login", "Account Type"]}}]	54	4
+296	2025-07-21 10:50:47.105805+03	7	test1	3		54	4
+297	2025-07-21 10:51:37.429622+03	8	test	1	[{"added": {}}]	54	4
+298	2025-07-21 11:19:39.605908+03	8	test	2	[]	54	4
+299	2025-07-21 11:20:21.610052+03	8	test	3		54	4
+300	2025-07-21 11:20:57.524919+03	9	test	1	[{"added": {}}]	54	4
+301	2025-07-21 11:22:16.632888+03	9	test	2	[]	54	4
+302	2025-07-21 11:22:44.914378+03	9	test	2	[]	54	4
+303	2025-07-21 11:57:08.858132+03	9	test	2	[]	54	4
+304	2025-07-21 11:57:27.092479+03	9	test	3		54	4
+305	2025-07-21 11:57:59.286207+03	10	test	1	[{"added": {}}]	54	4
+306	2025-07-21 12:13:08.443446+03	10	test	2	[]	54	4
+307	2025-07-21 12:21:00.296552+03	10	test	2	[]	54	4
+308	2025-07-21 12:21:29.423255+03	10	test	2	[{"changed": {"fields": ["Account Type"]}}]	54	4
+309	2025-07-21 12:22:16.665259+03	10	test	2	[]	54	4
+310	2025-07-21 12:23:41.159016+03	10	test	2	[]	54	4
+311	2025-07-21 12:25:24.771672+03	10	test	2	[]	54	4
+312	2025-07-21 12:25:27.776406+03	10	test	2	[]	54	4
+313	2025-07-21 13:02:29.095697+03	10	test	2	[]	54	4
+314	2025-07-21 13:02:56.878331+03	11	test1	1	[{"added": {}}]	54	4
+315	2025-07-21 13:06:21.851684+03	11	test1	2	[]	54	4
+316	2025-07-21 13:08:02.285043+03	10	test	2	[]	54	4
+317	2025-07-21 13:08:13.474579+03	10	test	2	[]	54	4
+318	2025-07-21 13:08:49.242261+03	10	test	2	[]	54	4
+319	2025-07-21 13:45:46.683437+03	10	test	2	[{"changed": {"fields": ["Password"]}}]	54	4
+320	2025-07-21 13:53:45.455218+03	10	test	2	[]	54	4
+321	2025-07-21 13:55:37.015383+03	10	test	2	[{"changed": {"fields": ["Account Type"]}}]	54	4
+322	2025-07-21 14:05:35.357213+03	11	test1	2	[{"changed": {"fields": ["Password"]}}]	54	4
+323	2025-07-21 14:07:16.262271+03	11	test1	2	[]	54	4
+324	2025-07-21 14:08:46.119476+03	11	test1	2	[]	54	4
+325	2025-07-21 14:11:14.143067+03	12	king	1	[{"added": {}}]	54	4
+326	2025-07-21 14:12:12.248162+03	12	king	2	[{"changed": {"fields": ["Last login", "Account Type"]}}]	54	4
+327	2025-07-21 14:12:44.848566+03	12	king	2	[{"changed": {"fields": ["Staff status"]}}]	54	4
+328	2025-07-21 14:13:05.519473+03	12	king	2	[{"changed": {"fields": ["Last login", "Superuser status"]}}]	54	4
+332	2025-07-21 14:20:05.738867+03	13	user	1	[{"added": {}}]	54	4
+333	2025-07-21 15:17:01.964007+03	3	hybridapp	1	[{"added": {}}]	68	4
+334	2025-07-21 15:18:57.165741+03	3	social application token (3)	1	[{"added": {}}]	69	4
+335	2025-07-21 15:21:32.250434+03	3	Admin	1	[{"added": {}}]	67	4
+336	2025-07-21 15:21:59.309616+03	3	Admin	2	[{"changed": {"fields": ["Provider"]}}]	67	4
+337	2025-07-21 15:22:42.168798+03	3	Facebook Login	2	[{"changed": {"fields": ["Name"]}}]	68	4
+338	2025-07-21 20:24:31.734675+03	13	user	2	[{"changed": {"fields": ["Password"]}}]	54	4
+339	2025-07-31 12:41:21.632235+03	9	CCTV & Surveillance Systems	3		10	4
+340	2025-07-31 12:41:21.65091+03	8	Web & Mobile App Development (Android & iOS)	3		10	4
+341	2025-07-31 12:41:21.656585+03	7	ERP Systems (Custom-built)	3		10	4
+342	2025-07-31 12:42:21.700685+03	10	ERP Systems (Custom-built)	1	[{"added": {}}]	10	4
+343	2025-07-31 12:42:53.249857+03	11	Web & Mobile App Development (Android & iOS)	1	[{"added": {}}]	10	4
+344	2025-07-31 12:43:05.051458+03	11	Web & Mobile App Development (Android & iOS)	2	[]	10	4
+345	2025-07-31 12:43:14.305371+03	12	POS Systems	1	[{"added": {}}]	10	4
+346	2025-07-31 12:43:29.525324+03	13	UI/UX Design	1	[{"added": {}}]	10	4
+347	2025-07-31 12:43:47.388619+03	14	AI Solutions	1	[{"added": {}}]	10	4
+348	2025-07-31 12:44:02.760138+03	15	IoT Integration	1	[{"added": {}}]	10	4
+349	2025-07-31 12:44:17.520707+03	16	Data Science & Analysis	1	[{"added": {}}]	10	4
+350	2025-07-31 12:44:36.249967+03	17	Digital Strategy & Marketing Campaign	1	[{"added": {}}]	10	4
+351	2025-07-31 12:44:50.191502+03	18	Search Engine Optimization (SEO)	1	[{"added": {}}]	10	4
+352	2025-07-31 12:45:03.195394+03	19	Search Engine Marketing (SEM)	1	[{"added": {}}]	10	4
+353	2025-07-31 12:45:16.332519+03	20	Social Media Marketing & Management	1	[{"added": {}}]	10	4
+354	2025-07-31 12:45:28.76741+03	21	Content Creation	1	[{"added": {}}]	10	4
+355	2025-07-31 12:45:42.069168+03	22	Promotional Items e.g. t-shirts, mugs, hoodies, biros	1	[{"added": {}}]	10	4
+356	2025-07-31 12:45:59.051609+03	23	Branding & Creative/ Graphic Design	1	[{"added": {}}]	10	4
+357	2025-07-31 12:46:10.148613+03	24	Bulk SMS Services	1	[{"added": {}}]	10	4
+358	2025-07-31 12:46:21.799772+03	25	Influencer & Affiliate Marketing	1	[{"added": {}}]	10	4
+359	2025-07-31 12:46:35.836798+03	26	Phones, Computers, Laptops, Cameras, Projectors, TV’s & Accessories etc.	1	[{"added": {}}]	10	4
+360	2025-07-31 12:46:46.607434+03	27	CCTV & Surveillance Systems	1	[{"added": {}}]	10	4
+361	2025-07-31 12:47:04.869154+03	28	Cybersecurity Services	1	[{"added": {}}]	10	4
+362	2025-07-31 12:47:17.037365+03	29	Networking & IT Infrastructure Setup	1	[{"added": {}}]	10	4
+363	2025-07-31 12:47:29.333098+03	30	POS Systems & Hardware	1	[{"added": {}}]	10	4
+364	2025-07-31 12:47:39.917175+03	31	Internet Service Provider	1	[{"added": {}}]	10	4
+365	2025-07-31 12:47:52.519673+03	32	IoT & Smart Office Solutions	1	[{"added": {}}]	10	4
+366	2025-07-31 12:48:07.407531+03	33	IT Maintenance & Support	1	[{"added": {}}]	10	4
+367	2025-07-31 12:48:18.304405+03	34	Photography & Videography	1	[{"added": {}}]	10	4
+368	2025-07-31 12:48:30.807495+03	35	Multimedia: Video Production, Film Making, Podcasts& Voiceovers etc	1	[{"added": {}}]	10	4
+369	2025-07-31 12:48:53.276639+03	36	All Tech categories	1	[{"added": {}}]	10	4
+370	2025-07-31 12:49:55.657765+03	11	ERP Systems (Custom-built)	1	[{"added": {}}]	13	4
+371	2025-07-31 13:02:01.506157+03	12	Web & Mobile App Development (Android & iOS)	1	[{"added": {}}]	13	4
+372	2025-07-31 13:02:23.393427+03	13	POS Systems	1	[{"added": {}}]	13	4
+373	2025-07-31 13:02:32.71444+03	14	UI/UX Design	1	[{"added": {}}]	13	4
+374	2025-07-31 13:02:41.945884+03	15	AI Solutions	1	[{"added": {}}]	13	4
+375	2025-07-31 13:02:51.147984+03	16	IoT Integration	1	[{"added": {}}]	13	4
+376	2025-07-31 13:02:58.933552+03	17	Data Science & Analysis	1	[{"added": {}}]	13	4
+377	2025-07-31 13:03:07.336697+03	18	Digital Strategy & Marketing Campaign	1	[{"added": {}}]	13	4
+378	2025-07-31 13:03:18.924706+03	19	Search Engine Optimization (SEO)	1	[{"added": {}}]	13	4
+379	2025-07-31 13:03:30.261414+03	20	Search Engine Marketing (SEM)	1	[{"added": {}}]	13	4
+380	2025-07-31 13:03:40.155712+03	21	Social Media Marketing & Management	1	[{"added": {}}]	13	4
+381	2025-07-31 13:03:52.212388+03	22	Content Creation	1	[{"added": {}}]	13	4
+382	2025-07-31 13:04:00.839569+03	23	Promotional Items e.g. t-shirts, mugs, hoodies, biros	1	[{"added": {}}]	13	4
+383	2025-07-31 13:04:10.067485+03	24	Branding & Creative/ Graphic Design	1	[{"added": {}}]	13	4
+384	2025-07-31 13:04:19.404516+03	25	Bulk SMS Services	1	[{"added": {}}]	13	4
+385	2025-07-31 13:04:27.79143+03	26	Influencer & Affiliate Marketing	1	[{"added": {}}]	13	4
+386	2025-07-31 13:04:38.319253+03	27	Phones, Computers, Laptops, Cameras, Projectors, TV’s & Accessories etc.	1	[{"added": {}}]	13	4
+387	2025-07-31 13:04:47.27883+03	28	CCTV & Surveillance Systems	1	[{"added": {}}]	13	4
+388	2025-07-31 13:04:54.842505+03	29	Cybersecurity Services	1	[{"added": {}}]	13	4
+389	2025-07-31 13:05:12.62134+03	30	Networking & IT Infrastructure Setup	1	[{"added": {}}]	13	4
+390	2025-07-31 13:05:28.289007+03	31	POS Systems & Hardware	1	[{"added": {}}]	13	4
+391	2025-07-31 13:05:37.510291+03	32	Internet Service Provider	1	[{"added": {}}]	13	4
+392	2025-07-31 13:05:50.039774+03	33	IoT & Smart Office Solutions	1	[{"added": {}}]	13	4
+393	2025-07-31 13:06:01.128397+03	34	IT Maintenance & Support	1	[{"added": {}}]	13	4
+394	2025-07-31 13:06:13.229829+03	35	Photography & Videography	1	[{"added": {}}]	13	4
+395	2025-07-31 13:06:25.402216+03	36	Multimedia: Video Production, Film Making, Podcasts& Voiceovers etc	1	[{"added": {}}]	13	4
+396	2025-07-31 13:11:43.288503+03	10	ERP Systems (Custom-built)	2	[{"changed": {"fields": ["Description"]}}]	10	4
+397	2025-07-31 13:11:49.42231+03	10	ERP Systems (Custom-built)	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+398	2025-07-31 13:12:12.546908+03	11	Web & Mobile App Development (Android & iOS)	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+399	2025-07-31 13:13:28.07738+03	12	POS Systems	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+400	2025-07-31 13:13:45.537975+03	13	UI/UX Design	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+401	2025-07-31 13:13:58.648005+03	14	AI Solutions	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+402	2025-07-31 13:14:09.458521+03	15	IoT Integration	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+403	2025-07-31 13:15:02.400602+03	16	Data Science & Analysis	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+404	2025-07-31 13:15:14.178975+03	17	Digital Strategy & Marketing Campaign	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+405	2025-07-31 13:15:24.891281+03	18	Search Engine Optimization (SEO)	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+406	2025-07-31 13:15:39.3056+03	19	Search Engine Marketing (SEM)	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+407	2025-07-31 13:15:51.728158+03	20	Social Media Marketing & Management	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+408	2025-07-31 13:16:03.158536+03	21	Content Creation	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+409	2025-07-31 13:16:17.418684+03	22	Promotional Items e.g. t-shirts, mugs, hoodies, biros	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+410	2025-07-31 13:16:27.646384+03	23	Branding & Creative/ Graphic Design	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+411	2025-07-31 13:16:38.847697+03	24	Bulk SMS Services	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+412	2025-07-31 13:16:51.151742+03	25	Influencer & Affiliate Marketing	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+413	2025-07-31 13:17:01.90551+03	26	Phones, Computers, Laptops, Cameras, Projectors, TV’s & Accessories etc.	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+414	2025-07-31 13:17:12.15507+03	27	CCTV & Surveillance Systems	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+415	2025-07-31 13:17:21.446162+03	28	Cybersecurity Services	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+416	2025-07-31 13:17:49.242976+03	29	Networking & IT Infrastructure Setup	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+417	2025-07-31 13:17:58.893734+03	30	POS Systems & Hardware	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+418	2025-07-31 13:18:12.447366+03	31	Internet Service Provider	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+419	2025-07-31 13:18:28.614674+03	32	IoT & Smart Office Solutions	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+420	2025-07-31 13:18:34.57098+03	33	IT Maintenance & Support	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+421	2025-07-31 13:18:43.973168+03	34	Photography & Videography	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+422	2025-07-31 13:18:53.075341+03	35	Multimedia: Video Production, Film Making, Podcasts& Voiceovers etc	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+423	2025-07-31 13:19:28.098676+03	36	All Tech categories	2	[{"changed": {"fields": ["Description [en]"]}}]	10	4
+424	2025-07-31 13:27:34.074782+03	26	Phones, Computers, Laptops, Cameras, Projectors, TV’s & Accessories etc.	2	[{"changed": {"fields": ["Category"]}}]	10	4
+425	2025-07-31 13:28:52.381149+03	27	CCTV & Surveillance Systems	2	[{"changed": {"fields": ["Category"]}}]	10	4
 \.
 
 
@@ -4688,6 +4842,13 @@ rrq4lkzsrk49i5p1vzd4tc55v2pg2ede	eyJzaG93X3N1Y2Nlc3NfbW9kYWwiOnRydWV9:1uaDCR:EqU
 1e77vy0kac9yc67ik2tlmbaphfy2t9p9	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1uaERk:EirYHbYzqYkrQ4shNI6RRhYJ6XedhdOhALgsGyWQsfU	2025-07-25 17:09:52.447452+03
 v446l3s8rpxih3l4stxnwctwj59msh4z	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1uaEZS:O8S8oT-gpwmN8zQPcNT9MLNL1RasKbzpw2Rl68Hb1og	2025-07-25 17:17:50.847111+03
 wsokkl9nheoawqj4jn3ap3gqnu7512al	.eJxVjMsOwiAQRf-FtSEwhQ64dO83kBkeUjU0Ke3K-O_apAvd3nPOfYlA21rD1vMSpiTOwojT78YUH7ntIN2p3WYZ57YuE8tdkQft8jqn_Lwc7t9BpV6_NScC0sYM2hKP0TosxvNIwOCh-AyEjsihskUBqAJRIRZPSusBPGbx_gDjNDdk:1uaEqs:PqUIiHPRX_n8-IkIth0_B27g4Ac4uu5smti3oj1iZqs	2025-07-25 17:35:50.410429+03
+9ukgly3xyyci9jqq8d3rrg7cnqvtqf77	.eJxVjbFOxDAQRP9l6yhyNs45TonogIICIUDIWjv2xSSyT7ZDE-XfyYlrrp0382aDHI2nhYyJaygqFyo2w7DB8yu-f-i3HD_ZPD2JRxi-NrikaGw-OCzx7ANUMFIhGMK6LBVcZmOViaNVvzZ55236J3vViK5lUiDHGiXvhWi_9woUrWVSa7ZJ-fFwcrjLNJnZhisYfyicY21iKMnr-lqpbzTXL8fh8nDr3gkmytOx1iMhNZy3TUf6ZLpeOC71iVCjRCctkuiJesE6xxCZQ8OEcJJY07QohYX9D6nuYDo:1udopT:Gcz_cehfFPv6s7W5c_Ya12r_wqpWphVPAjuks-Qp4i0	2025-08-04 14:37:11.713041+03
+fbv0iuksftsmj6i2ex5ggss3fu2ibm8d	.eJxVjM0OwiAQhN-Fs2mQP7ve9EXIsiyB2NBE4GR8d1vTgx7nm5nvJTyOnv1o_PQliqsw4vTLAtKD617gsux4QqJ11D59N0fdptuWuPZC2Mta78frT5Wx5c0TORjnEhoLs4MkIRhWcDYSeQ4hwSUplgCMoKNiJ6NFG7RTmgkgEYj3B8vKPM4:1udZQ2:gR_79n-spUOcNJ9Mm5ejIRkr9WrCAhL_yOt4TQPBVow	2025-08-03 22:09:54.925547+03
+efdwa83p0w46kby59g4x9vn0fn1tnmw0	.eJxVjDsOwyAQRO9CHSEwH0PK9D4D2l0gOImwZOwqyt2DJRdJNdK8N_NmAfathL2lNcyRXZlU7PJbItAz1YPEB9T7wmmp2zojPxR-0sanJabX7XT_Dgq00tc5jZTJDcIrBckM4NA7IO-UAe2kxCyABLlRIvZUmK0WOSltvbHdY58vIFE4kw:1uduFv:r8qCUYs50oq4eezg3aTSHV7U8AA0CcBjJRBUhWaA6b8	2025-08-04 20:24:51.460762+03
+ldhssaq33tlj1a5k7sfphv2senfvipxl	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIqrDj9boTxyXWA9MB6bzK2uq0LyaHIg3Y5t8Sv2-H-HRTsZdRM1vuM1sHkISsgyxrOViFPRBkuWbMCYASTNHuVHDoyXhuOADmC-HwB87A4Wg:1uhPjT:lyI28ihTBIIamZxWzIFDFcYznotBtzrS6rq7wPeZwI4	2025-08-14 12:37:51.989058+03
+5eeci208dhku29jtba7hiv3teol6q75e	.eJxVjEEOwiAQRe_C2hAYSgdcuvcMDcMMUjVtUtqV8e7apAvd_vfef6khbWsdtibLMLI6q16dfjdK-SHTDvieptus8zyty0h6V_RBm77OLM_L4f4d1NTqt6YSPThL6IRKCd4Bo0SJLmCXLED2XQY0hYDJeg-CCJZN6DGwGFfU-wPgTTeA:1udZpM:kS7-CAud38LFu_KiY17L7RbcV58KpXubCixMl7Dyh8Y	2025-08-03 22:36:04.913418+03
+fxtyoun77bz6xy4qxuigjmx5kk02ssb2	.eJxVjMsOwiAQRf-FtSHIqx2X7v0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIiJnH63Qjjk-sA6YH13mRsdVsXkkORB-3y1hK_rof7d1Cwl1EzWe8zWgezh6yALGs4W4U8E2WYsmYFwAgmafYqOXRkvDYcAXIE8fkC9Xs4XQ:1udlH3:Y0xBSkXDjZwKWCzxd6MDVWz_6vb3S4S33uhVmuytDIk	2025-08-04 10:49:25.331101+03
+irtdbjduzvqipxpxakruhcpoxdb33v9u	.eJxVjDsOwyAQBe9CHSEwH7Mp0_sMaIElOIlAMnYV5e6xJRdJ-2bmvZnHbS1-67T4ObErk4pdfseA8Un1IOmB9d54bHVd5sAPhZ-086klet1O9--gYC97jVkYqaIll0UEpYGSgVE60iiMy0hCwzhkS-jkEIUMkLRVcrc1CGuAfb4ArDdV:1udoZK:YA56XiDKPwdZjDIIlRqM7lH7ejjq1n0RMeg3YbPmcH8	2025-08-04 14:20:30.410942+03
 \.
 
 
@@ -4839,8 +5000,33 @@ COPY public.manager_sentemail (id, recipient, subject, sending_email, content, r
 --
 
 COPY public.manager_service (id, name, name_ar, name_fr, name_de, name_en, description, description_ar, description_fr, description_de, description_en, slug, created_on, category_id) FROM stdin;
-8	Web & Mobile App Development (Android & iOS)	\N	\N	\N	Web & Mobile App Development (Android & iOS)	Build modern, responsive web platforms and native or cross-platform mobile apps tailored for both Android and iOS. We specialize in creating seamless, high-performance applications with intuitive interfaces, robust backend integration, and optimized user experiences. Whether you're launching a startup MVP or scaling an enterprise solution, our development team ensures your digital product is fast, secure, and ready for growth.				Build modern, responsive web platforms and native or cross-platform mobile apps tailored for both Android and iOS. We specialize in creating seamless, high-performance applications with intuitive interfaces, robust backend integration, and optimized user experiences. Whether you're launching a startup MVP or scaling an enterprise solution, our development team ensures your digital product is fast, secure, and ready for growth.	web-mobile-app-development-android-ios-818fb584-08	2025-07-10	1
-7	ERP Systems (Custom-built)	\N	\N	\N	ERP Systems (Custom-built)	ERP Systems (Custom-built)\r\nStreamline your operations with tailored Enterprise Resource Planning (ERP) systems designed to fit your unique business workflows. Our custom-built ERP solutions integrate core functions—such as finance, HR, inventory, and sales—into a centralized platform, improving efficiency, visibility, and decision-making across your organization.				ERP Systems (Custom-built)\r\nStreamline your operations with tailored Enterprise Resource Planning (ERP) systems designed to fit your unique business workflows. Our custom-built ERP solutions integrate core functions—such as finance, HR, inventory, and sales—into a centralized platform, improving efficiency, visibility, and decision-making across your organization.	erp-systems-custom-built-2754a812-02ce-4124-890f-7	2025-07-10	1
+10	ERP Systems (Custom-built)	\N	\N	\N	ERP Systems (Custom-built)	We build powerful, scalable, and fully customizable ERP (Enterprise Resource Planning) systems tailored to your business operations. Whether you're managing a retail chain, a hospital, or a large enterprise with multiple departments, our ERP solutions integrate key functions like inventory management, finance and accounting, CRM, HR, and procurement into one centralized platform. We don’t believe in one-size-fits-all — each ERP is built from the ground up to align with your unique workflows, ensuring maximum efficiency, automation, and real-time insights for better decision-making.				We build powerful, scalable, and fully customizable ERP (Enterprise Resource Planning) systems tailored to your business operations. Whether you're managing a retail chain, a hospital, or a large enterprise with multiple departments, our ERP solutions integrate key functions like inventory management, finance and accounting, CRM, HR, and procurement into one centralized platform. We don’t believe in one-size-fits-all — each ERP is built from the ground up to align with your unique workflows, ensuring maximum efficiency, automation, and real-time insights for better decision-making.	erp-systems-custom-built-55e72d00-88b5-4e28-8059-6	2025-07-31	1
+11	Web & Mobile App Development (Android & iOS)	\N	\N	\N	Web & Mobile App Development (Android & iOS)	From concept to launch, we develop responsive websites and feature-rich mobile applications tailored to your business goals. Whether you're a startup launching a new e-commerce app or an enterprise digitizing your services, our development team builds intuitive, scalable, and secure apps for Android and iOS platforms. We use modern frameworks and tools to deliver seamless user experiences, powerful backend systems, and integrations with third-party services such as payment gateways, CRMs, and APIs. Our goal is to help you innovate, scale, and stay competitive in the digital era.				From concept to launch, we develop responsive websites and feature-rich mobile applications tailored to your business goals. Whether you're a startup launching a new e-commerce app or an enterprise digitizing your services, our development team builds intuitive, scalable, and secure apps for Android and iOS platforms. We use modern frameworks and tools to deliver seamless user experiences, powerful backend systems, and integrations with third-party services such as payment gateways, CRMs, and APIs. Our goal is to help you innovate, scale, and stay competitive in the digital era.	web-mobile-app-development-android-ios-42dbcf3b-8e	2025-07-31	1
+15	IoT Integration	\N	\N	\N	IoT Integration	We help businesses and organizations harness the Internet of Things (IoT) to connect devices, collect data, and automate operations. Our IoT solutions include integrating smart sensors, controllers, and communication networks that allow devices to work together intelligently. Whether it’s automating home lighting, managing supply chains in logistics, or monitoring utilities in real time, we design reliable, secure, and scalable IoT infrastructures. Data collected is then visualized via dashboards or linked with alerting systems for actionable insights.				We help businesses and organizations harness the Internet of Things (IoT) to connect devices, collect data, and automate operations. Our IoT solutions include integrating smart sensors, controllers, and communication networks that allow devices to work together intelligently. Whether it’s automating home lighting, managing supply chains in logistics, or monitoring utilities in real time, we design reliable, secure, and scalable IoT infrastructures. Data collected is then visualized via dashboards or linked with alerting systems for actionable insights.	iot-integration-0b63cd91-ca86-40ff-b5fc-71e9b8fb30	2025-07-31	1
+20	Social Media Marketing & Management	\N	\N	\N	Social Media Marketing & Management	We manage your social media presence across platforms like Facebook, Instagram, X (Twitter), LinkedIn, and TikTok. From content creation to daily management and audience engagement, we help you grow your community and brand. Our strategies include influencer collaborations, ad placements, contests, and analytics tracking to ensure your social media not only looks good — it delivers measurable results.				We manage your social media presence across platforms like Facebook, Instagram, X (Twitter), LinkedIn, and TikTok. From content creation to daily management and audience engagement, we help you grow your community and brand. Our strategies include influencer collaborations, ad placements, contests, and analytics tracking to ensure your social media not only looks good — it delivers measurable results.	social-media-marketing-management-7667a209-cc71-4f	2025-07-31	2
+23	Branding & Creative/ Graphic Design	\N	\N	\N	Branding & Creative/ Graphic Design	We craft powerful brand identities that resonate. From logo design and brand guidelines to marketing collateral, brochures, and packaging — our creative team delivers visuals that tell your story. Whether you're rebranding an established company or launching a new product, we help you define your look, voice, and market positioning with design that connects.				We craft powerful brand identities that resonate. From logo design and brand guidelines to marketing collateral, brochures, and packaging — our creative team delivers visuals that tell your story. Whether you're rebranding an established company or launching a new product, we help you define your look, voice, and market positioning with design that connects.	branding-creative-graphic-design-1075edb5-940f-4d7	2025-07-31	2
+30	POS Systems & Hardware	\N	\N	\N	POS Systems & Hardware	Our turnkey POS hardware packages include everything you need to start selling — touchscreen terminals, barcode scanners, cash drawers, thermal printers, and customer displays. All hardware is pre-configured to work with our POS software for a plug-and-play experience that gets your business up and running quickly.				Our turnkey POS hardware packages include everything you need to start selling — touchscreen terminals, barcode scanners, cash drawers, thermal printers, and customer displays. All hardware is pre-configured to work with our POS software for a plug-and-play experience that gets your business up and running quickly.	pos-systems-hardware-f76267fd-5f6c-4040-88a5-93851	2025-07-31	3
+12	POS Systems	\N	\N	\N	POS Systems	Our advanced Point of Sale (POS) systems streamline transactions and enhance customer service in retail stores, supermarkets, restaurants, and service businesses. With modules for inventory tracking, staff management, customer loyalty programs, and real-time sales analytics, our POS solutions go far beyond basic billing. We also provide hardware like receipt printers, barcode scanners, and touch-screen terminals, all configured for quick deployment. Whether it's a single outlet or a multi-branch operation, our systems are built to scale and simplify day-to-day operations.				Our advanced Point of Sale (POS) systems streamline transactions and enhance customer service in retail stores, supermarkets, restaurants, and service businesses. With modules for inventory tracking, staff management, customer loyalty programs, and real-time sales analytics, our POS solutions go far beyond basic billing. We also provide hardware like receipt printers, barcode scanners, and touch-screen terminals, all configured for quick deployment. Whether it's a single outlet or a multi-branch operation, our systems are built to scale and simplify day-to-day operations.	pos-systems-bcf454e7-b528-4118-8f75-bc9c98dd9071	2025-07-31	1
+13	UI/UX Design	\N	\N	\N	UI/UX Design	Design is not just about aesthetics; it’s about usability, flow, and user satisfaction. Our UI/UX design team creates intuitive interfaces and seamless user journeys across mobile apps, websites, dashboards, and software platforms. We conduct in-depth user research, wireframing, prototyping, and user testing to ensure the final product meets both user needs and business goals. Whether you're redesigning a patient portal for a hospital or launching a mobile banking app, we make sure the user experience is smooth, efficient, and delightful.				Design is not just about aesthetics; it’s about usability, flow, and user satisfaction. Our UI/UX design team creates intuitive interfaces and seamless user journeys across mobile apps, websites, dashboards, and software platforms. We conduct in-depth user research, wireframing, prototyping, and user testing to ensure the final product meets both user needs and business goals. Whether you're redesigning a patient portal for a hospital or launching a mobile banking app, we make sure the user experience is smooth, efficient, and delightful.	uiux-design-5bf5cdeb-ffee-4f5d-af6b-78c1b1ca3738	2025-07-31	1
+14	AI Solutions	\N	\N	\N	AI Solutions	Unlock the power of Artificial Intelligence to streamline operations, predict outcomes, and personalize user experiences. We design and deploy AI-powered solutions such as chatbots, recommendation engines, predictive analytics tools, and machine learning models tailored to your business. From automating customer support to detecting fraud in financial systems, our AI services empower organizations to make data-driven decisions, cut costs, and innovate at scale. We support end-to-end implementation — from model training to deployment and monitoring.				Unlock the power of Artificial Intelligence to streamline operations, predict outcomes, and personalize user experiences. We design and deploy AI-powered solutions such as chatbots, recommendation engines, predictive analytics tools, and machine learning models tailored to your business. From automating customer support to detecting fraud in financial systems, our AI services empower organizations to make data-driven decisions, cut costs, and innovate at scale. We support end-to-end implementation — from model training to deployment and monitoring.	ai-solutions-812d8f0a-d4c5-42bd-b151-8ac4cf331dab	2025-07-31	1
+16	Data Science & Analysis	\N	\N	\N	Data Science & Analysis	Transform your raw data into actionable insights. We offer advanced data analysis services including real-time dashboards, KPI tracking, and business intelligence (BI) tools tailored to your strategic goals. Our team helps you gather, clean, and visualize your data using tools like Power BI, Tableau, or custom-built dashboards. Whether you’re tracking sales performance, customer behavior, or operational efficiency, we ensure that your data tells a story you can act on — fast and accurately.				Transform your raw data into actionable insights. We offer advanced data analysis services including real-time dashboards, KPI tracking, and business intelligence (BI) tools tailored to your strategic goals. Our team helps you gather, clean, and visualize your data using tools like Power BI, Tableau, or custom-built dashboards. Whether you’re tracking sales performance, customer behavior, or operational efficiency, we ensure that your data tells a story you can act on — fast and accurately.	data-science-analysis-c9089465-bd2a-47af-b6f6-f0b5	2025-07-31	1
+17	Digital Strategy & Marketing Campaign	\N	\N	\N	Digital Strategy & Marketing Campaign	We help brands develop digital strategies that deliver results. From defining your online voice and target audience to running multi-channel marketing campaigns, we provide end-to-end support for digital growth. Our strategies combine market research, performance analytics, content planning, and ad optimization to ensure your business gets noticed and stays ahead of the competition. Whether you're launching a product or running a seasonal promotion, we craft campaigns that convert.				We help brands develop digital strategies that deliver results. From defining your online voice and target audience to running multi-channel marketing campaigns, we provide end-to-end support for digital growth. Our strategies combine market research, performance analytics, content planning, and ad optimization to ensure your business gets noticed and stays ahead of the competition. Whether you're launching a product or running a seasonal promotion, we craft campaigns that convert.	digital-strategy-marketing-campaign-6c67f55d-2a0c-	2025-07-31	2
+33	IT Maintenance & Support	\N	\N	\N	IT Maintenance & Support	Keep your tech running smoothly with our proactive IT maintenance and support services. From routine checkups to emergency repairs, we provide both remote and on-site assistance to resolve issues quickly. Our services include software updates, hardware diagnostics, backup solutions, and user training.				Keep your tech running smoothly with our proactive IT maintenance and support services. From routine checkups to emergency repairs, we provide both remote and on-site assistance to resolve issues quickly. Our services include software updates, hardware diagnostics, backup solutions, and user training.	it-maintenance-support-db504c45-d03b-444f-ba3c-4a3	2025-07-31	3
+18	Search Engine Optimization (SEO)	\N	\N	\N	Search Engine Optimization (SEO)	Get found where it matters. Our SEO services improve your website's ranking on Google and other search engines through keyword research, on-page optimization, technical audits, link-building, and content strategy. We also optimize for local SEO to help businesses appear in maps and regional searches. By making your site more visible and user-friendly, we help attract more organic traffic and generate long-term growth without the need for constant ad spending.				Get found where it matters. Our SEO services improve your website's ranking on Google and other search engines through keyword research, on-page optimization, technical audits, link-building, and content strategy. We also optimize for local SEO to help businesses appear in maps and regional searches. By making your site more visible and user-friendly, we help attract more organic traffic and generate long-term growth without the need for constant ad spending.	search-engine-optimization-seo-2fd2cc6e-66d4-4a64-	2025-07-31	2
+19	Search Engine Marketing (SEM)	\N	\N	\N	Search Engine Marketing (SEM)	Accelerate your online visibility and sales with our SEM services. We manage Pay-Per-Click (PPC) campaigns across Google Ads, Bing, and YouTube — including search, display, shopping, and remarketing ads. Our campaigns are data-driven, A/B tested, and performance-optimized to generate the best ROI for your ad spend. Whether your goal is lead generation, brand awareness, or e-commerce sales, we deliver campaigns that reach your audience at the right time.				Accelerate your online visibility and sales with our SEM services. We manage Pay-Per-Click (PPC) campaigns across Google Ads, Bing, and YouTube — including search, display, shopping, and remarketing ads. Our campaigns are data-driven, A/B tested, and performance-optimized to generate the best ROI for your ad spend. Whether your goal is lead generation, brand awareness, or e-commerce sales, we deliver campaigns that reach your audience at the right time.	search-engine-marketing-sem-4f51e735-f3eb-4ae8-a98	2025-07-31	2
+21	Content Creation	\N	\N	\N	Content Creation	Content is the heart of digital communication. We create high-quality, engaging content across multiple formats — blog posts, infographics, videos, animations, and podcasts. Whether you're explaining a complex product, launching a new brand, or educating your audience, we ensure your message is clear, compelling, and aligned with your goals. Our content is designed to educate, entertain, and convert.				Content is the heart of digital communication. We create high-quality, engaging content across multiple formats — blog posts, infographics, videos, animations, and podcasts. Whether you're explaining a complex product, launching a new brand, or educating your audience, we ensure your message is clear, compelling, and aligned with your goals. Our content is designed to educate, entertain, and convert.	content-creation-a5f91387-fb44-4228-b08c-1972e5abf	2025-07-31	2
+22	Promotional Items e.g. t-shirts, mugs, hoodies, biros	\N	\N	\N	Promotional Items e.g. t-shirts, mugs, hoodies, biros	Make your brand tangible with custom-designed promotional items. We produce and print branded merchandise including t-shirts, mugs, pens, hoodies, caps, bags, and more. Ideal for corporate giveaways, product launches, or brand awareness campaigns, our promotional items are designed to leave a lasting impression and increase your visibility — both online and offline.				Make your brand tangible with custom-designed promotional items. We produce and print branded merchandise including t-shirts, mugs, pens, hoodies, caps, bags, and more. Ideal for corporate giveaways, product launches, or brand awareness campaigns, our promotional items are designed to leave a lasting impression and increase your visibility — both online and offline.	promotional-items-eg-t-shirts-mugs-hoodies-biros-d	2025-07-31	2
+24	Bulk SMS Services	\N	\N	\N	Bulk SMS Services	Reach thousands of customers instantly with our bulk SMS platform. Ideal for promotions, alerts, reminders, and announcements, we provide a simple interface for sending customized messages to targeted lists. Our SMS gateway ensures high delivery rates, while tracking tools let you measure engagement and response in real time.				Reach thousands of customers instantly with our bulk SMS platform. Ideal for promotions, alerts, reminders, and announcements, we provide a simple interface for sending customized messages to targeted lists. Our SMS gateway ensures high delivery rates, while tracking tools let you measure engagement and response in real time.	bulk-sms-services-354ffc18-3398-4a70-84a6-26f4f552	2025-07-31	2
+25	Influencer & Affiliate Marketing	\N	\N	\N	Influencer & Affiliate Marketing	Tap into the power of digital word-of-mouth. We connect your brand with the right influencers and affiliate marketers who can authentically promote your products or services. Whether you're looking for micro-influencers for niche audiences or larger campaigns, we manage outreach, contracts, and performance tracking to ensure you get measurable returns.				Tap into the power of digital word-of-mouth. We connect your brand with the right influencers and affiliate marketers who can authentically promote your products or services. Whether you're looking for micro-influencers for niche audiences or larger campaigns, we manage outreach, contracts, and performance tracking to ensure you get measurable returns.	influencer-affiliate-marketing-74ccb215-74fd-45d8-	2025-07-31	2
+28	Cybersecurity Services	\N	\N	\N	Cybersecurity Services	Stay protected in an ever-evolving threat landscape. Our cybersecurity services include firewall setup, penetration testing, endpoint protection, vulnerability scanning, email security, and compliance consulting. We help you identify risks, secure data, and maintain business continuity in the face of potential cyber attacks.				Stay protected in an ever-evolving threat landscape. Our cybersecurity services include firewall setup, penetration testing, endpoint protection, vulnerability scanning, email security, and compliance consulting. We help you identify risks, secure data, and maintain business continuity in the face of potential cyber attacks.	cybersecurity-services-57d585b8-51d5-4564-a564-39d	2025-07-31	3
+29	Networking & IT Infrastructure Setup	\N	\N	\N	Networking & IT Infrastructure Setup	We plan, install, and configure complete IT networks for offices, schools, data centers, and commercial buildings. Our services cover wired and wireless networking, routers, switches, servers, cloud connectivity, and structured cabling. We ensure your infrastructure is reliable, secure, and scalable for future growth.				We plan, install, and configure complete IT networks for offices, schools, data centers, and commercial buildings. Our services cover wired and wireless networking, routers, switches, servers, cloud connectivity, and structured cabling. We ensure your infrastructure is reliable, secure, and scalable for future growth.	networking-it-infrastructure-setup-6e77117f-759e-4	2025-07-31	3
+31	Internet Service Provider	\N	\N	\N	Internet Service Provider	We deliver reliable, high-speed internet services for homes, SMEs, and corporate clients. With flexible packages for fiber, wireless, and satellite connections, we ensure consistent performance and support. Whether you're streaming, gaming, or running critical online operations, we keep you connected 24/7.				We deliver reliable, high-speed internet services for homes, SMEs, and corporate clients. With flexible packages for fiber, wireless, and satellite connections, we ensure consistent performance and support. Whether you're streaming, gaming, or running critical online operations, we keep you connected 24/7.	internet-service-provider-23cae367-f0de-4efa-a5ed-	2025-07-31	3
+32	IoT & Smart Office Solutions	\N	\N	\N	IoT & Smart Office Solutions	Bring intelligence into your workspace with smart office solutions. We install and integrate systems for energy-saving lighting, automated doors, smart meeting room scheduling, occupancy sensors, and more. These tools not only make offices more efficient but also enhance security and sustainability.				Bring intelligence into your workspace with smart office solutions. We install and integrate systems for energy-saving lighting, automated doors, smart meeting room scheduling, occupancy sensors, and more. These tools not only make offices more efficient but also enhance security and sustainability.	iot-smart-office-solutions-b3c78859-749a-4882-bcb7	2025-07-31	3
+34	Photography & Videography	\N	\N	\N	Photography & Videography	Capture the essence of your brand or event with professional photography and videography services. Whether it’s product shoots, corporate events, weddings, or promotional videos, we handle the entire process from planning and shooting to editing and delivery in high resolution.				Capture the essence of your brand or event with professional photography and videography services. Whether it’s product shoots, corporate events, weddings, or promotional videos, we handle the entire process from planning and shooting to editing and delivery in high resolution.	photography-videography-f8a29358-dd8f-4b4c-989d-47	2025-07-31	4
+35	Multimedia: Video Production, Film Making, Podcasts& Voiceovers etc	\N	\N	\N	Multimedia: Video Production, Film Making, Podcasts& Voiceovers etc	We bring ideas to life through audio-visual storytelling. Our multimedia services cover video production, filmmaking, podcast creation, voiceovers, animation, and post-production editing. Whether you're launching a YouTube series, a documentary, or a brand commercial, we produce content that engages and inspires.				We bring ideas to life through audio-visual storytelling. Our multimedia services cover video production, filmmaking, podcast creation, voiceovers, animation, and post-production editing. Whether you're launching a YouTube series, a documentary, or a brand commercial, we produce content that engages and inspires.	multimedia-video-production-film-making-podcasts-v	2025-07-31	4
+36	All Tech categories	\N	\N	\N	All Tech categories	We provide a full suite of technology services designed to support businesses, institutions, and individuals at every stage of their digital journey. From custom ERP systems and mobile app development to cutting-edge AI solutions, IoT integration, and smart device automation, we engineer tools that help you operate smarter and scale faster. Our team specializes in building intelligent infrastructure — including industrial IoT systems, remote monitoring platforms, and full-stack IT setups — that improve efficiency, data visibility, and control across your organization.\r\n\r\nIn the digital experience space, we craft world-class UI/UX designs, power data-driven decisions through advanced data analytics and dashboards, and create seamless omnichannel marketing strategies — spanning SEO, SEM, social media, content creation, influencer marketing, and branded merchandise production. On the hardware front, we supply and maintain essential electronics including computers, phones, laptops, surveillance systems, and POS equipment, while ensuring robust cybersecurity, stable networking, and IT infrastructure that supports daily operations.\r\n\r\nOur multimedia division completes the offering with creative services like professional photography, videography, video production, podcasts, and voiceovers to help you tell your story with impact. Whether you need a smart office setup, digital transformation, or full-service tech support, we’re your one-stop partner for future-ready technology.				We provide a full suite of technology services designed to support businesses, institutions, and individuals at every stage of their digital journey. From custom ERP systems and mobile app development to cutting-edge AI solutions, IoT integration, and smart device automation, we engineer tools that help you operate smarter and scale faster. Our team specializes in building intelligent infrastructure — including industrial IoT systems, remote monitoring platforms, and full-stack IT setups — that improve efficiency, data visibility, and control across your organization.\r\n\r\nIn the digital experience space, we craft world-class UI/UX designs, power data-driven decisions through advanced data analytics and dashboards, and create seamless omnichannel marketing strategies — spanning SEO, SEM, social media, content creation, influencer marketing, and branded merchandise production. On the hardware front, we supply and maintain essential electronics including computers, phones, laptops, surveillance systems, and POS equipment, while ensuring robust cybersecurity, stable networking, and IT infrastructure that supports daily operations.\r\n\r\nOur multimedia division completes the offering with creative services like professional photography, videography, video production, podcasts, and voiceovers to help you tell your story with impact. Whether you need a smart office setup, digital transformation, or full-service tech support, we’re your one-stop partner for future-ready technology.	all-tech-categories-5550f16d-a7ca-4486-af38-f952db	2025-07-31	5
+26	Phones, Computers, Laptops, Cameras, Projectors, TV’s & Accessories etc.	\N	\N	\N	Phones, Computers, Laptops, Cameras, Projectors, TV’s & Accessories etc.	We supply a wide range of electronics and accessories — from smartphones and laptops to DSLR cameras, TVs, projectors, routers, and gaming accessories. Whether for home use, business, or education, we offer reliable tech from trusted brands, backed by warranty and after-sales support.				We supply a wide range of electronics and accessories — from smartphones and laptops to DSLR cameras, TVs, projectors, routers, and gaming accessories. Whether for home use, business, or education, we offer reliable tech from trusted brands, backed by warranty and after-sales support.	phones-computers-laptops-cameras-projectors-tvs-ac	2025-07-31	3
+27	CCTV & Surveillance Systems	\N	\N	\N	CCTV & Surveillance Systems	Protect your assets with modern CCTV surveillance systems. We offer installation and maintenance of high-resolution cameras with features like remote viewing, motion detection, night vision, and cloud storage. Whether it’s a home, office, shop, or industrial facility, our security setups are scalable and tailored to your safety needs.				Protect your assets with modern CCTV surveillance systems. We offer installation and maintenance of high-resolution cameras with features like remote viewing, motion detection, night vision, and cloud storage. Whether it’s a home, office, shop, or industrial facility, our security setups are scalable and tailored to your safety needs.	cctv-surveillance-systems-80a82b14-7962-49f7-9cdb-	2025-07-31	3
 \.
 
 
@@ -4862,8 +5048,32 @@ COPY public.manager_servicecategory (id, name, description, slug) FROM stdin;
 --
 
 COPY public.manager_serviceimage (id, image, slug, created_on, service_id) FROM stdin;
-8	ServiceImage/images/erp-systems-custom-built-81bf8f80-8598-41bf-a7b9-1-215b3b2e-5ed4-4e_wBHE2kn.jpeg	erp-systems-custom-built-81bf8f80-8598-41bf-a7b9-1	2025-07-10	7
-9	ServiceImage/images/web-mobile-app-development-android-ios-de016752-a9-3fa508e9-efe2-41_OdoiIgG.jpeg	web-mobile-app-development-android-ios-de016752-a9	2025-07-10	8
+11	ServiceImage/images/erp-systems-custom-built-210057c5-50db-43c9-a286-7-c9cad320-fac4-467_qaKIkJy.jpg	erp-systems-custom-built-210057c5-50db-43c9-a286-7	2025-07-31	10
+12	ServiceImage/images/web-mobile-app-development-android-ios-0b413656-f9-215ef169-c5e5-402_nKyMNWQ.png	web-mobile-app-development-android-ios-0b413656-f9	2025-07-31	11
+13	ServiceImage/images/pos-systems-8522be30-7d65-42b8-9191-fffb575ca229-ef1c6f15-76b5-4b8d-_SIjpjrh.png	pos-systems-8522be30-7d65-42b8-9191-fffb575ca229	2025-07-31	12
+14	ServiceImage/images/uiux-design-de82e790-c4f5-48ab-9019-6fa4c2e73d71-3541521a-40a0-4608-_YcqFXlq.png	uiux-design-de82e790-c4f5-48ab-9019-6fa4c2e73d71	2025-07-31	13
+15	ServiceImage/images/ai-solutions-c756256d-a57b-4a9b-9d92-7a8e68ff5832-9fcb2e46-6354-4733_GIW1uIN.png	ai-solutions-c756256d-a57b-4a9b-9d92-7a8e68ff5832	2025-07-31	14
+16	ServiceImage/images/iot-integration-0fdfad16-3ffc-4a40-8ddd-44c500a064-f6880f6a-cb41-438_hiEVaFd.png	iot-integration-0fdfad16-3ffc-4a40-8ddd-44c500a064	2025-07-31	15
+17	ServiceImage/images/data-science-analysis-05031375-1329-45a5-9b03-8991-8962c434-3d98-427_gzeLVG8.png	data-science-analysis-05031375-1329-45a5-9b03-8991	2025-07-31	16
+18	ServiceImage/images/digital-strategy-marketing-campaign-2e6a7724-09ae--c926717f-4102-464_iyCJScY.png	digital-strategy-marketing-campaign-2e6a7724-09ae-	2025-07-31	17
+19	ServiceImage/images/search-engine-optimization-seo-a4d0d295-ea8f-4251--cf300c23-ca39-426_4CxDzqa.png	search-engine-optimization-seo-a4d0d295-ea8f-4251-	2025-07-31	18
+20	ServiceImage/images/search-engine-marketing-sem-2f854dc4-7df7-4317-a83-09c43ad1-570f-40e_Dc9FnPl.png	search-engine-marketing-sem-2f854dc4-7df7-4317-a83	2025-07-31	19
+21	ServiceImage/images/social-media-marketing-management-bac59804-061b-49-bab2716e-f986-4ba_I8Wi9OM.png	social-media-marketing-management-bac59804-061b-49	2025-07-31	20
+22	ServiceImage/images/content-creation-1ed6240c-edc7-4600-8a95-445c0862a-39f06ae9-b190-400_uS40BFp.png	content-creation-1ed6240c-edc7-4600-8a95-445c0862a	2025-07-31	21
+23	ServiceImage/images/promotional-items-eg-t-shirts-mugs-hoodies-biros-c-f931394b-5dd9-4cf_xDx6BoF.png	promotional-items-eg-t-shirts-mugs-hoodies-biros-c	2025-07-31	22
+24	ServiceImage/images/branding-creative-graphic-design-62b316cc-af41-402-65490ab1-0e4d-4e3_Txpeb5U.png	branding-creative-graphic-design-62b316cc-af41-402	2025-07-31	23
+25	ServiceImage/images/bulk-sms-services-fe46f22f-db7d-4cfa-9b89-cd11a1d4-5fa43c43-acb5-477_VnT8zyA.png	bulk-sms-services-fe46f22f-db7d-4cfa-9b89-cd11a1d4	2025-07-31	24
+26	ServiceImage/images/influencer-affiliate-marketing-9d415550-8ffd-4a50--ffccf666-b985-43d_yBFDnFE.png	influencer-affiliate-marketing-9d415550-8ffd-4a50-	2025-07-31	25
+27	ServiceImage/images/phones-computers-laptops-cameras-projectors-tvs-ac-900972e1-2ff7-4bc_1oqkVeJ.png	phones-computers-laptops-cameras-projectors-tvs-ac	2025-07-31	26
+28	ServiceImage/images/cctv-surveillance-systems-48cf4891-7f04-4fe7-a268--a65ad482-5719-4b8_SOvGhYT.png	cctv-surveillance-systems-48cf4891-7f04-4fe7-a268-	2025-07-31	27
+29	ServiceImage/images/cybersecurity-services-4e13ed28-5afb-4525-bb8b-e2c-d15c2e1c-dc55-4a3_vrev23q.png	cybersecurity-services-4e13ed28-5afb-4525-bb8b-e2c	2025-07-31	28
+30	ServiceImage/images/networking-it-infrastructure-setup-bc8e489a-8b8f-4-a7251b58-87f9-4dc_wYCJHqV.png	networking-it-infrastructure-setup-bc8e489a-8b8f-4	2025-07-31	29
+31	ServiceImage/images/pos-systems-hardware-b25f1a38-9f72-4e7e-a1b1-9a09b-b95acb15-bd48-443_FE2vFcz.png	pos-systems-hardware-b25f1a38-9f72-4e7e-a1b1-9a09b	2025-07-31	30
+32	ServiceImage/images/internet-service-provider-c99eeb72-720d-415b-aa7f--0b87a2c6-8162-4eb_UHRiQ9p.png	internet-service-provider-c99eeb72-720d-415b-aa7f-	2025-07-31	31
+33	ServiceImage/images/iot-smart-office-solutions-f993366e-0a6b-484f-a5ff-eab36055-9b9d-405_uvayqOF.png	iot-smart-office-solutions-f993366e-0a6b-484f-a5ff	2025-07-31	32
+34	ServiceImage/images/it-maintenance-support-b154f73b-4ffd-4834-b847-b4b-b0cda17e-e37f-471_gb0dfnM.png	it-maintenance-support-b154f73b-4ffd-4834-b847-b4b	2025-07-31	33
+35	ServiceImage/images/photography-videography-dc4ba80c-df8d-402e-bb08-49-e1cf035c-cfaa-414_R5ydsZy.png	photography-videography-dc4ba80c-df8d-402e-bb08-49	2025-07-31	34
+36	ServiceImage/images/multimedia-video-production-film-making-podcasts-v-120f9900-9075-4e7_oCEFio4.png	multimedia-video-production-film-making-podcasts-v	2025-07-31	35
 \.
 
 
@@ -5003,6 +5213,7 @@ COPY public.payment_paypalsubscription (id, order_key, created_on, membership_id
 
 COPY public.socialaccount_socialaccount (id, provider, uid, last_login, date_joined, extra_data, user_id) FROM stdin;
 2	Google	575828224879-asfhisfn1o96sqperclrm2lv6n54ttfo.apps.googleusercontent.com	2025-07-07 13:49:29.193896+03	2025-06-20 11:12:02.287248+03	{"web": {"auth_uri": "https://accounts.google.com/o/oauth2/auth", "client_id": "575828224879-asfhisfn1o96sqperclrm2lv6n54ttfo.apps.googleusercontent.com", "token_uri": "https://oauth2.googleapis.com/token", "project_id": "hybridnairobiskates", "client_secret": "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", "redirect_uris": ["https://hybrid.nairobiskates.com/accounts/google/login/callback/"], "javascript_origins": ["https://hybrid.nairobiskates.com"], "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"}}	4
+3	Facebook	70c46868dd81f1442fd07cce29e3940b	2025-07-21 15:21:59.308241+03	2025-07-21 15:21:32.241425+03	{"web": {"auth_uri": "https://accounts.google.com/o/oauth2/auth", "client_id": "575828224879-asfhisfn1o96sqperclrm2lv6n54ttfo.apps.googleusercontent.com", "token_uri": "https://oauth2.googleapis.com/token", "project_id": "hybridnairobiskates", "client_secret": "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", "redirect_uris": ["https://hybrid.nairobiskates.com/accounts/google/login/callback/"], "javascript_origins": ["https://hybrid.nairobiskates.com"], "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"}}	4
 \.
 
 
@@ -5012,6 +5223,7 @@ COPY public.socialaccount_socialaccount (id, provider, uid, last_login, date_joi
 
 COPY public.socialaccount_socialapp (id, provider, name, client_id, secret, key, provider_id, settings) FROM stdin;
 2	google	Google Login	575828224879-asfhisfn1o96sqperclrm2lv6n54ttfo.apps.googleusercontent.com	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			{}
+3	facebook	Facebook Login	1141600924485019	70c46868dd81f1442fd07cce29e3940b		1141600924485019	{}
 \.
 
 
@@ -5030,6 +5242,7 @@ COPY public.socialaccount_socialapp_sites (id, socialapp_id, site_id) FROM stdin
 
 COPY public.socialaccount_socialtoken (id, token, token_secret, expires_at, account_id, app_id) FROM stdin;
 2	{"web":{"client_id":"575828224879-asfhisfn1o96sqperclrm2lv6n54ttfo.apps.googleusercontent.com","project_id":"hybridnairobiskates","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"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","redirect_uris":["https://hybrid.nairobiskates.com/accounts/google/login/callback/"],"javascript_origins":["https://hybrid.nairobiskates.com"]}}	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	\N	2	2
+3	1141600924485019	70c46868dd81f1442fd07cce29e3940b	2025-07-31 15:18:48+03	2	3
 \.
 
 
@@ -5421,14 +5634,14 @@ SELECT pg_catalog.setval('public.account_emailconfirmation_id_seq', 1, false);
 -- Name: auth_app_clientprofile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.auth_app_clientprofile_id_seq', 1, true);
+SELECT pg_catalog.setval('public.auth_app_clientprofile_id_seq', 2, true);
 
 
 --
 -- Name: auth_app_clientprofile_team_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.auth_app_clientprofile_team_id_seq', 2, true);
+SELECT pg_catalog.setval('public.auth_app_clientprofile_team_id_seq', 3, true);
 
 
 --
@@ -5442,21 +5655,21 @@ SELECT pg_catalog.setval('public.auth_app_supportprofile_id_seq', 1, true);
 -- Name: auth_app_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.auth_app_user_groups_id_seq', 1, true);
+SELECT pg_catalog.setval('public.auth_app_user_groups_id_seq', 2, true);
 
 
 --
 -- Name: auth_app_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.auth_app_user_id_seq', 4, true);
+SELECT pg_catalog.setval('public.auth_app_user_id_seq', 13, true);
 
 
 --
 -- Name: auth_app_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.auth_app_user_user_permissions_id_seq', 1, false);
+SELECT pg_catalog.setval('public.auth_app_user_user_permissions_id_seq', 9, true);
 
 
 --
@@ -5540,7 +5753,7 @@ SELECT pg_catalog.setval('public.coms_supportclientchat_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 272, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 425, true);
 
 
 --
@@ -5652,7 +5865,7 @@ SELECT pg_catalog.setval('public.manager_sentemail_id_seq', 1, false);
 -- Name: manager_service_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.manager_service_id_seq', 8, true);
+SELECT pg_catalog.setval('public.manager_service_id_seq', 36, true);
 
 
 --
@@ -5666,7 +5879,7 @@ SELECT pg_catalog.setval('public.manager_servicecategory_id_seq', 5, true);
 -- Name: manager_serviceimage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.manager_serviceimage_id_seq', 9, true);
+SELECT pg_catalog.setval('public.manager_serviceimage_id_seq', 36, true);
 
 
 --
@@ -5785,14 +5998,14 @@ SELECT pg_catalog.setval('public.payment_paypalsubscription_id_seq', 1, false);
 -- Name: socialaccount_socialaccount_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.socialaccount_socialaccount_id_seq', 2, true);
+SELECT pg_catalog.setval('public.socialaccount_socialaccount_id_seq', 3, true);
 
 
 --
 -- Name: socialaccount_socialapp_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.socialaccount_socialapp_id_seq', 2, true);
+SELECT pg_catalog.setval('public.socialaccount_socialapp_id_seq', 3, true);
 
 
 --
@@ -5806,7 +6019,7 @@ SELECT pg_catalog.setval('public.socialaccount_socialapp_sites_id_seq', 3, true)
 -- Name: socialaccount_socialtoken_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.socialaccount_socialtoken_id_seq', 2, true);
+SELECT pg_catalog.setval('public.socialaccount_socialtoken_id_seq', 3, true);
 
 
 --

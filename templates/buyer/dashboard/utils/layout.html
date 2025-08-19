@@ -36,7 +36,7 @@
 
     <script src="{% static 'js/client/dashboard/requests.js' %}"></script>
 
-    <title>NashTech-Global - {% trans 'Dashboard' %}</title>
+    <title>NashTech-KE - {% trans 'Dashboard' %}</title>
 </head>
 
 <body>
@@ -100,14 +100,14 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="link">
+                            <!-- <li class="link">
                                 <a href="{% url 'buyer:messenger' %}">
                                     <span><img src="/static/graphics/facebook-messenger.png" alt=""></span>
                                     <span
                                         class="text toggle-able">{%  trans 'Messenger' %}
                                     </span>
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="link">
                                 <a href="{% url 'buyer:bids' %}">
                                     <span class="flex"><img src="/static/graphics/bid.svg" alt=""></span>
@@ -139,7 +139,7 @@
             <div class="main">
                 <div class="cs-navbar card cs-no-box-shadow">
                     <div class="left">
-                        <h4>Good Morning {{ request.user.username }}!</h4>
+                        <h4>Welcome Back {{ request.user.username }}!</h4>
                     </div>
                     <div class="right">
                         <nav style="justify-self: flex-end;">

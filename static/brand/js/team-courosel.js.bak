@@ -1,0 +1,34 @@
+$('.team-carousel').owlCarousel({
+  loop: false,
+  margin: 30,
+  nav: true,
+  responsive: {
+    0: { items: 1 },
+    768: { items: 2 },
+    1024: { items: 3 }
+  },
+  autoHeight: true // 🔥 THIS IS IMPORTANT
+});
+
+
+$(document).ready(function(){
+    $(".team-carousel").owlCarousel({
+      loop: true,
+      margin: 20,
+      nav: true,
+      dots: true,
+      autoplay: true,
+      autoplayTimeout: 3000,
+      responsive: {
+        0: {
+          items: 1
+        },
+        600: {
+          items: 2
+        },
+        1000: {
+          items: 3
+        }
+      }
+    });
+  });

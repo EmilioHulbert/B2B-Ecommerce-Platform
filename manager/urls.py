@@ -5,6 +5,7 @@ from manager import views
 #remac //
 from django.shortcuts import redirect
 
+
 app_name = "manager"
 
 urlpatterns = [

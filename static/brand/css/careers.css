@@ -18,6 +18,28 @@ body{
     overflow-x: hidden;
 }
 
+
+/* remac :start */
+.header {
+    background: rgba(0, 0, 0, 0.7);  /* translucent dark background */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    transition: background 0.3s ease-in-out;
+}
+
+.navbar ul li a {
+    color: #fff !important;         /* force white links */
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.navbar ul li a:hover {
+    color: #fcd000 !important;      /* optional yellow highlight on hover */
+}
+
+/* remac :end */
 .header{
     display: flex;
     align-items: center;
@@ -70,7 +92,7 @@ body{
     display: none;
 }
 
-.home{
+/* .home{
     min-height: 70vh;
     width: 100vw;
     background-image: url(../images/img3.jpg);
@@ -83,12 +105,44 @@ body{
     padding: 0 1rem;
     position: relative;
     overflow: hidden !important;
-}
+    
+} */
 
-.home h2{
+/* remac start */
+.home {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                url('../images/img3.jpg') top center/cover no-repeat;
+    color: #fff;
+    text-align: center;
+    padding: 60px 20px;
+    /* min-height: 30vh; */
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* remac end */
+
+
+
+/* .home h2{
     color: #fff;
     font-size: 5.5rem;
+} */
+
+/* remac start */
+.home h2 {
+    font-size: 2rem;
+    font-weight: 700;
 }
+
+@media screen and (max-width: 768px) {
+    .home h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* remac end */
 
 .career-heading{
     text-align: center;
