@@ -64,11 +64,31 @@
                     </tbody>
                 </table>
                 <div class="cta-area" style="display: grid;justify-content: flex-end;">
-                    <form action="{% url 'buyer:order-create' %}" method="POST">
-                        {% csrf_token %}
-                        <input type="submit" value='{% trans "Place Order" %}' class="btn">
-                    </form>
-                </div>
+    <form action="{% url 'payment:payment' %}" method="POST" style="margin-top: 1rem;">
+        {% csrf_token %}
+        
+        
+        <p style="font-weight: bold;">
+            Total Amount to pay: 
+            <span style="color: green;">
+                KES {{ total_amount }}
+            </span>
+        </p>
+        
+        <input type="hidden" name="amount" value="{{ total_amount }}">
+        
+      
+        <label for="phone_number">Phone Number</label>
+        <input type="text" name="phone_number" placeholder="e.g. 07XXXXXXXX" required style="padding: .4rem; margin-bottom: .6rem; display: block; width: 100%; max-width: 300px;">
+
+        <input type="submit" value="{% trans 'Pay with M-Pesa' %}" class="btn">
+    </form>
+
+    {% if error_message %}
+        <p style="color: red; margin-top: .5rem;">{{ error_message }}</p>
+    {% endif %}
+</div>
+
             </div>
         </div>
     </div>

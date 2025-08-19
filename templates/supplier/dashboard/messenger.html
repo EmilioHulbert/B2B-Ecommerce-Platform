@@ -100,6 +100,7 @@
                         </div>
                         <div class="room-messages flex"></div>
                         <form method="POST" id="business-chat-form" class="room-actions flex">
+                            {% csrf_token %}
                             <textarea name="" id="" rows="3" placeholder="Type a message"></textarea>
                             <button type="submit" style="cursor: pointer;"><img src="/static/graphics/paper-plane.png" alt=""></button>
                         </form>
@@ -124,6 +125,7 @@
                         </div>
                         <div class="room-messages flex"></div>
                         <form method="POST" id="personal-chat-form" class="room-actions flex">
+                            {% csrf_token %}
                             <textarea name="" id="" rows="3" placeholder="Type a message"></textarea>
                             <button type="submit" style="cursor: pointer;"><img src="/static/graphics/paper-plane.png" alt=""></button>
                         </form>
@@ -165,6 +167,7 @@
                         </div>
                         <div class="room-messages flex"></div>
                         <form method="POST" id="group-chat-form" class="room-actions flex">
+                            {% csrf_token %}
                             <textarea name="" id="" rows="3" placeholder="Type a message"></textarea>
                             <button type="submit" style="cursor: pointer;"><img src="/static/graphics/paper-plane.png" alt=""></button>
                         </form>

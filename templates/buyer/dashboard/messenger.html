@@ -99,9 +99,15 @@
                             </div>
                         </div>
                         <div class="room-messages flex"></div>
-                        <form method="POST" id="business-chat-form" class="room-actions flex">
+                        <!-- <form method="POST" id="business-chat-form" class="room-actions flex">
                             <textarea name="" id="" rows="3" placeholder="Type a message"></textarea>
                             <button type="submit" style="cursor: pointer;"><img src="/static/graphics/paper-plane.png" alt=""></button>
+                        </form> -->
+                        <form method="POST" id="business-chat-form" class="room-actions flex">
+                            {% csrf_token %}
+                            <textarea name="message" rows="3" placeholder="Type a message"></textarea>
+                            <input type="hidden" name="chat_id" value="{{ business_chat.id }}">
+                            <button type="submit"><img src="/static/graphics/paper-plane.png" alt=""></button>
                         </form>
                     </div>
                 </div>
@@ -124,6 +130,7 @@
                         </div>
                         <div class="room-messages flex"></div>
                         <form method="POST" id="personal-chat-form" class="room-actions flex">
+                            {% csrf_token %}
                             <textarea name="" id="" rows="3" placeholder="Type a message"></textarea>
                             <button type="submit" style="cursor: pointer;"><img src="/static/graphics/paper-plane.png" alt=""></button>
                         </form>
@@ -165,6 +172,7 @@
                         </div>
                         <div class="room-messages flex"></div>
                         <form method="POST" id="group-chat-form" class="room-actions flex">
+                            {% csrf_token %}
                             <textarea name="" id="" rows="3" placeholder="Type a message"></textarea>
                             <button type="submit" style="cursor: pointer;"><img src="/static/graphics/paper-plane.png" alt=""></button>
                         </form>

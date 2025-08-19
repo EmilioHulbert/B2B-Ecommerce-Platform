@@ -20,20 +20,20 @@ msgstr ""
 "X-Translated-Using: django-rosetta 0.9.8\n"
 
 #: admin_api/views.py:86
-msgid "Suspension of Product On NashTech"
-msgstr "Aussetzung des Produkts auf NashTech"
+msgid "Suspension of Product On AgroTim"
+msgstr "Aussetzung des Produkts auf AgroTim"
 
 #: admin_api/views.py:124
-msgid "Verification of Product On NashTech"
-msgstr "Überprüfung des Produkts auf NashTech"
+msgid "Verification of Product On AgroTim"
+msgstr "Überprüfung des Produkts auf AgroTim"
 
 #: admin_api/views.py:282 admin_api/views.py:371
-msgid "Suspension of Store On NashTech"
-msgstr "Aussetzung des Geschäfts auf NashTech"
+msgid "Suspension of Store On AgroTim"
+msgstr "Aussetzung des Geschäfts auf AgroTim"
 
 #: admin_api/views.py:319
-msgid "Verification of Store On NashTech"
-msgstr "Überprüfung des Stores auf NashTech"
+msgid "Verification of Store On AgroTim"
+msgstr "Überprüfung des Stores auf AgroTim"
 
 #: app_admin/views.py:61 app_admin/views.py:136
 #: templates/app_admin/utils/layout.html:111
@@ -182,8 +182,8 @@ msgid "Password mismatch."
 msgstr "Die Passwörter stimmen nicht überein."
 
 #: app_admin/views.py:690
-msgid "NashTech Support Team invite."
-msgstr "NashTech-Support-Team-Einladung."
+msgid "AgroTim Support Team invite."
+msgstr "AgroTim-Support-Team-Einladung."
 
 #: app_admin/views.py:691
 msgid "Hello"
@@ -191,10 +191,10 @@ msgstr "Hallo"
 
 #: app_admin/views.py:691
 msgid ""
-"Your have been added a NashTech Support Team Member, Please edit your account"
+"Your have been added a AgroTim Support Team Member, Please edit your account"
 " details and set a desired password after activating your account."
 msgstr ""
-"Sie wurden als Mitglied des NashTech Support-Teams hinzugefügt. Bitte "
+"Sie wurden als Mitglied des AgroTim Support-Teams hinzugefügt. Bitte "
 "bearbeiten Sie Ihre Kontodaten und legen Sie ein gewünschtes Passwort fest, "
 "nachdem Sie Ihr Konto aktiviert haben."
 
@@ -374,12 +374,12 @@ msgid "Email not available."
 msgstr "E-Mail nicht verfügbar."
 
 #: auth_app/views.py:143
-msgid "Activate NashTech Activation"
-msgstr "Aktivieren Sie die NashTech-Aktivierung"
+msgid "Activate AgroTim Activation"
+msgstr "Aktivieren Sie die AgroTim-Aktivierung"
 
 #: auth_app/views.py:144
 msgid "Follow this link to activate you foroden account."
-msgstr "Folgen Sie diesem Link, um Ihr NashTech-Konto zu aktivieren."
+msgstr "Folgen Sie diesem Link, um Ihr AgroTim-Konto zu aktivieren."
 
 #: auth_app/views.py:152
 msgid ""
@@ -665,8 +665,8 @@ msgid "reply_to"
 msgstr "Antwort an"
 
 #: manager/templates/email_message.html:8
-msgid "NashTech Email"
-msgstr "NashTech-E-Mail"
+msgid "AgroTim Email"
+msgstr "AgroTim-E-Mail"
 
 #: manager/views.py:44 templates/app_admin/utils/layout.html:57
 #: templates/app_admin/utils/layout.html:113
@@ -929,8 +929,8 @@ msgstr "Ihr Abonnement kann nicht aktualisiert werden."
 
 #: payment/views.py:306 payment/views.py:322 payment/views.py:343
 #: payment/views.py:363
-msgid "NashTech Subscription"
-msgstr "NashTech-Abonnement"
+msgid "AgroTim Subscription"
+msgstr "AgroTim-Abonnement"
 
 #: payment/views.py:307
 msgid "Your payment as been initialized. Please wait for confirmation email."
@@ -988,8 +988,8 @@ msgid "Please create a buyer account to create a contract."
 msgstr "Bitte erstellen Sie ein Käuferkonto, um einen Vertrag zu erstellen."
 
 #: supplier/views.py:195
-msgid "NashTech Contract Created"
-msgstr "NashTech-Vertrag erstellt"
+msgid "AgroTim Contract Created"
+msgstr "AgroTim-Vertrag erstellt"
 
 #: supplier/views.py:196
 #, python-brace-format
@@ -1068,8 +1068,8 @@ msgid "Contract has been rejected."
 msgstr "Vertrag wurde abgelehnt."
 
 #: supplier/views.py:1498
-msgid "NashTech Contract Rejected."
-msgstr "NashTech-Vertrag abgelehnt."
+msgid "AgroTim Contract Rejected."
+msgstr "AgroTim-Vertrag abgelehnt."
 
 #: supplier/views.py:1499
 #, python-brace-format
@@ -1089,8 +1089,8 @@ msgid "Contract has been accepted."
 msgstr "Vertrag wurde angenommen."
 
 #: supplier/views.py:1522
-msgid "NashTech Contract Accepted"
-msgstr "NashTech-Vertrag angenommen"
+msgid "AgroTim Contract Accepted"
+msgstr "AgroTim-Vertrag angenommen"
 
 #: supplier/views.py:1523
 #, python-brace-format
@@ -1334,8 +1334,8 @@ msgid "Continue With Facebook"
 msgstr "Weiter mit LinkedIn"
 
 #: templates/auth_app/signin.html:60 templates/auth_app/signup.html:10
-msgid "Welcome To NashTech"
-msgstr "Willkommen bei NashTech"
+msgid "Welcome To AgroTim"
+msgstr "Willkommen bei AgroTim"
 
 #: templates/auth_app/signin.html:61 templates/auth_app/signup.html:11
 msgid "Join the biggest community of over 70,000 Business People."
@@ -1666,8 +1666,8 @@ msgid "stores"
 msgstr "Shops"
 
 #: templates/manager/about.html:156
-msgid "About NashTech"
-msgstr "Über NashTech"
+msgid "About AgroTim"
+msgstr "Über AgroTim"
 
 #: templates/manager/about.html:160
 msgid ""
@@ -1787,8 +1787,8 @@ msgid "Countries"
 msgstr "Länder"
 
 #: templates/manager/about.html:228
-msgid "Using NashTech."
-msgstr "Verwenden von NashTech."
+msgid "Using AgroTim."
+msgstr "Verwenden von AgroTim."
 
 #: templates/manager/about.html:232
 msgid "Buyers"
@@ -1823,12 +1823,12 @@ msgid "Discussions"
 msgstr "Diskussionen"
 
 #: templates/manager/guides/accounts.html:13
-msgid "NashTech Account Creation"
-msgstr "NashTech-Kontoerstellung"
+msgid "AgroTim Account Creation"
+msgstr "AgroTim-Kontoerstellung"
 
 #: templates/manager/guides/accounts.html:14
-msgid "NashTech offers 2 types of client accounts, that is:"
-msgstr "NashTech bietet 2 Arten von Kundenkonten an, nämlich:"
+msgid "AgroTim offers 2 types of client accounts, that is:"
+msgstr "AgroTim bietet 2 Arten von Kundenkonten an, nämlich:"
 
 #: templates/manager/guides/accounts.html:17
 #: templates/manager/guides/accounts.html:50
@@ -1847,10 +1847,10 @@ msgstr "Lieferantenkonto"
 
 #: templates/manager/guides/accounts.html:21
 msgid ""
-"NashTech Suppliers are users who indent to promote their businesses and "
+"AgroTim Suppliers are users who indent to promote their businesses and "
 "products. These have access to the following features:"
 msgstr ""
-"NashTech-Lieferanten sind Benutzer, die ihre Geschäfte und Produkte bewerben "
+"AgroTim-Lieferanten sind Benutzer, die ihre Geschäfte und Produkte bewerben "
 "möchten. Diese haben Zugriff auf die folgenden Funktionen:"
 
 #: templates/manager/guides/accounts.html:23
@@ -1885,11 +1885,11 @@ msgstr "Käuferkonto"
 
 #: templates/manager/guides/accounts.html:36
 msgid ""
-"NashTech Buyers are users who seek different services or products from "
-"NashTech Suppliers: These have access to the following features:"
+"AgroTim Buyers are users who seek different services or products from "
+"AgroTim Suppliers: These have access to the following features:"
 msgstr ""
-"NashTech-Käufer sind Benutzer, die verschiedene Dienstleistungen oder "
-"Produkte von NashTech-Lieferanten suchen: Diese haben Zugriff auf die "
+"AgroTim-Käufer sind Benutzer, die verschiedene Dienstleistungen oder "
+"Produkte von AgroTim-Lieferanten suchen: Diese haben Zugriff auf die "
 "folgenden Funktionen:"
 
 #: templates/manager/guides/accounts.html:46
@@ -1902,10 +1902,10 @@ msgstr "Wählen Sie die gewünschte Kontoerstellungsmethode"
 
 #: templates/manager/guides/accounts.html:54
 msgid ""
-"NashTech offers both custom account creation and social account creation "
+"AgroTim offers both custom account creation and social account creation "
 "using Google and LinkedIn "
 msgstr ""
-"NashTech bietet sowohl die Erstellung benutzerdefinierter Konten als auch die"
+"AgroTim bietet sowohl die Erstellung benutzerdefinierter Konten als auch die"
 " Erstellung sozialer Konten mit Google und LinkedIn an"
 
 #: templates/manager/guides/accounts.html:65
@@ -1971,8 +1971,8 @@ msgid "Accounts Creation"
 msgstr "Kontenerstellung"
 
 #: templates/manager/guides/memberships.html:11
-msgid "NashTech Membership Plans"
-msgstr "NashTech-Mitgliedschaftspläne"
+msgid "AgroTim Membership Plans"
+msgstr "AgroTim-Mitgliedschaftspläne"
 
 #: templates/manager/guides/memberships.html:12
 msgid ""
@@ -1984,8 +1984,8 @@ msgstr ""
 "erreichen können."
 
 #: templates/manager/guides/memberships.html:13
-msgid "NashTech offers the following three membership plans"
-msgstr "NashTech bietet die folgenden drei Mitgliedschaftspläne an"
+msgid "AgroTim offers the following three membership plans"
+msgstr "AgroTim bietet die folgenden drei Mitgliedschaftspläne an"
 
 #: templates/manager/guides/memberships.html:15
 #: templates/manager/guides/memberships.html:22
@@ -2057,18 +2057,18 @@ msgstr ""
 "Übersee. Das Bronze-Paket ist kostenlos."
 
 #: templates/manager/guides/products.html:13
-msgid "NashTech Supplier Products"
+msgid "AgroTim Supplier Products"
 msgstr "Bronze-Mitgliedschaftsplan"
 
 #: templates/manager/guides/products.html:14
 msgid ""
-"NashTech Suppliers able able to advertise their product using our different "
-"advertising method based on the supplier's membership plan. NashTech doesnot "
+"AgroTim Suppliers able able to advertise their product using our different "
+"advertising method based on the supplier's membership plan. AgroTim doesnot "
 "handle selling of products, this is handled by the suppliers."
 msgstr ""
-"NashTech-Lieferanten sind in der Lage, ihr Produkt mit unseren "
+"AgroTim-Lieferanten sind in der Lage, ihr Produkt mit unseren "
 "unterschiedlichen Werbemethoden zu bewerben, die auf dem Mitgliedschaftsplan"
-" des Lieferanten basieren. NashTech kümmert sich nicht um den Verkauf von "
+" des Lieferanten basieren. AgroTim kümmert sich nicht um den Verkauf von "
 "Produkten, dies wird von den Lieferanten gehandhabt."
 
 #: templates/manager/guides/products.html:19
@@ -2093,18 +2093,18 @@ msgstr ""
 "erstellen können."
 
 #: templates/manager/guides/services.html:13
-msgid "NashTech Supplier Services"
-msgstr "NashTech-Lieferantendienste"
+msgid "AgroTim Supplier Services"
+msgstr "AgroTim-Lieferantendienste"
 
 #: templates/manager/guides/services.html:14
 msgid ""
-"NashTech Supplier Services make it easy for suppliers to sell their business "
-"as a service to different NashTech buyers. A verified NashTech Buyer is able "
+"AgroTim Supplier Services make it easy for suppliers to sell their business "
+"as a service to different AgroTim buyers. A verified AgroTim Buyer is able "
 "to create a contract inorder to buy one or more supplier services."
 msgstr ""
-"NashTech Supplier Services machen es Lieferanten leicht, ihr Geschäft als "
-"Dienstleistung an verschiedene NashTech-Käufer zu verkaufen. Ein "
-"verifizierter NashTech-Käufer kann einen Vertrag erstellen, um eine oder "
+"AgroTim Supplier Services machen es Lieferanten leicht, ihr Geschäft als "
+"Dienstleistung an verschiedene AgroTim-Käufer zu verkaufen. Ein "
+"verifizierter AgroTim-Käufer kann einen Vertrag erstellen, um eine oder "
 "mehrere Lieferantendienstleistungen zu kaufen."
 
 #: templates/manager/guides/services.html:19
@@ -2122,12 +2122,12 @@ msgstr ""
 "erstellen können."
 
 #: templates/manager/guides/showrooms.html:12
-msgid "NashTech Showrooms"
-msgstr "NashTech-Ausstellungsräume"
+msgid "AgroTim Showrooms"
+msgstr "AgroTim-Ausstellungsräume"
 
 #: templates/manager/guides/showrooms.html:13
 msgid ""
-"NashTech provides a showrooms feature where stores from different locations "
+"AgroTim provides a showrooms feature where stores from different locations "
 "are displayed and made accessible to the buyers."
 msgstr ""
 "Foramen bietet eine Showroom-Funktion, in der Geschäfte von verschiedenen "
@@ -2154,9 +2154,9 @@ msgstr ""
 "Kaufprozess in unseren virtuellen Geschäften vereinfacht wird."
 
 #: templates/manager/guides/showrooms.html:16
-#| msgid "NashTech offers the following three membership plans"
-msgid "NashTech offers the following showrooms:"
-msgstr "NashTech bietet folgende Showrooms an:"
+#| msgid "AgroTim offers the following three membership plans"
+msgid "AgroTim offers the following showrooms:"
+msgstr "AgroTim bietet folgende Showrooms an:"
 
 #: templates/manager/guides/showrooms.html:28
 msgid "How to add a store to a showroom."
@@ -2189,29 +2189,29 @@ msgstr ""
 
 #: templates/manager/guides/stores.html:13
 #: templates/manager/showroom_list.html:77
-msgid "NashTech Stores"
+msgid "AgroTim Stores"
 msgstr "Wählen Sie Store aus der Store-Liste aus"
 
 #: templates/manager/guides/stores.html:14
 msgid ""
-"This is an online (virtual) shop that sell different products. NashTech also "
+"This is an online (virtual) shop that sell different products. AgroTim also "
 "has stores that provide services such as online virtual assistance for "
 "people looking for teams to help manage their businesses remotely."
 msgstr ""
 "Dies ist ein (virtueller) Online-Shop, der verschiedene Produkte verkauft. "
-"NashTech hat auch Geschäfte, die Dienste wie virtuelle Online-Unterstützung "
+"AgroTim hat auch Geschäfte, die Dienste wie virtuelle Online-Unterstützung "
 "für Menschen anbieten, die nach Teams suchen, die ihnen helfen, ihre "
 "Geschäfte aus der Ferne zu verwalten."
 
 #: templates/manager/guides/stores.html:15
 msgid ""
 "Well, think of a store as a shop you visit to purchase some products you "
-"need. However, this store has all products listed on NashTech but not "
+"need. However, this store has all products listed on AgroTim but not "
 "physically present with them."
 msgstr ""
 "Nun, stellen Sie sich ein Geschäft als ein Geschäft vor, das Sie besuchen, "
 "um einige Produkte zu kaufen, die Sie benötigen. Dieses Geschäft hat jedoch "
-"alle Produkte, die auf NashTech gelistet sind, aber nicht physisch mit ihnen "
+"alle Produkte, die auf AgroTim gelistet sind, aber nicht physisch mit ihnen "
 "vorhanden sind."
 
 #: templates/manager/guides/stores.html:20
@@ -2281,8 +2281,8 @@ msgid "All Showrooms"
 msgstr "Alle Showrooms"
 
 #: templates/manager/service_list.html:17
-msgid "NashTech Services"
-msgstr "NashTech-Dienste"
+msgid "AgroTim Services"
+msgstr "AgroTim-Dienste"
 
 #: templates/manager/showroom_detail.html:56
 msgid "Top"
@@ -2402,8 +2402,8 @@ msgid "End Date"
 msgstr "Endtermin"
 
 #: templates/payments/contract_receipt.html:34
-msgid "NashTech Contract Payment Receipt"
-msgstr "Zahlungsbeleg für den NashTech-Vertrag"
+msgid "AgroTim Contract Payment Receipt"
+msgstr "Zahlungsbeleg für den AgroTim-Vertrag"
 
 #: templates/payments/contract_receipt.html:35
 msgid "Ref No:"
@@ -3059,8 +3059,8 @@ msgid "Return Home"
 msgstr "Nach Hause zurückkehren"
 
 #: templates/utils/category_cards.html:6
-msgid "NashTech Marketplace"
-msgstr "NashTech Marketplace"
+msgid "AgroTim Marketplace"
+msgstr "AgroTim Marketplace"
 
 #: templates/utils/category_group.html:11
 msgid "Shopping guide for trending"
@@ -3127,12 +3127,12 @@ msgid "My Account"
 msgstr "Mein Konto"
 
 #: templates/utils/header.html:132
-msgid "Sell On NashTech"
-msgstr "Verkaufen Sie auf NashTech"
+msgid "Sell On AgroTim"
+msgstr "Verkaufen Sie auf AgroTim"
 
 #: templates/utils/header.html:187
-msgid "Sell on NashTech"
-msgstr "Verkaufen auf NashTech"
+msgid "Sell on AgroTim"
+msgstr "Verkaufen auf AgroTim"
 
 #: templates/utils/header.html:312
 msgid "Languages"
@@ -3143,8 +3143,8 @@ msgid "Popular Products"
 msgstr "beliebte Produkte"
 
 #: templates/utils/product_list.html:15
-msgid "NashTech Products"
-msgstr "NashTech-Produkte"
+msgid "AgroTim Products"
+msgstr "AgroTim-Produkte"
 
 #: templates/utils/profile404.html:39
 msgid "Business Profile Not Found"
@@ -3158,14 +3158,14 @@ msgstr "Profil erstellen"
 #~ msgstr "Bronze-Mitgliedschaftsplan"
 
 #~ msgid ""
-#~ "Your NashTech Account has been suspended. Contact NashTech Support for more "
+#~ "Your AgroTim Account has been suspended. Contact AgroTim Support for more "
 #~ "information"
 #~ msgstr ""
-#~ "Ihr NashTech-Konto wurde gesperrt. Wenden Sie sich für weitere Informationen "
-#~ "an den NashTech-Support"
+#~ "Ihr AgroTim-Konto wurde gesperrt. Wenden Sie sich für weitere Informationen "
+#~ "an den AgroTim-Support"
 
-#~ msgid "NashTech Account Suspended"
-#~ msgstr "NashTech-Konto gesperrt"
+#~ msgid "AgroTim Account Suspended"
+#~ msgstr "AgroTim-Konto gesperrt"
 
 #~ msgid "Total Contracts"
 #~ msgstr "Gesamtverträge"

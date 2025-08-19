@@ -1,0 +1,21 @@
+┌─[root@Intel5]─[/home/hulbert/Desktop/b2B-Ecommerce-Platform]
+└──╼ #find . -path ./venv -prune -o -type f ! -name "*.pyc" -exec grep -Hn "mugisa.tech" {} +
+./config/server:95:    server_name b2b.mugisa.tech;
+./core/settings.py:407:#     "http://mugisa.tech:1000",
+./core/settings.py:415:#     "http://mugisa.tech",
+./core/settings.py:418:#     "http://mugisa.tech:1000",
+./core/settings.py:434:    "http://mugisa.tech",
+./static/js/admin.js:44:        BASE_API_URL = 'http://mugisa.tech/en/admin-api';
+./static/js/admin.js:45:        BASE_URL = 'http://mugisa.tech/';
+./static/js/client/dashboard/requests.js:29:        BASE_API_URL = 'http://mugisa.tech/en';
+./static/js/supplierDash.js:19:        BASE_API_URL = 'http://mugisa.tech';
+./static/js/supplierDash.js:20:        BASE_URL = 'http://mugisa.tech';
+./templates/buyer/dashboard/notifications.html:92:                    endpoint = 'http://mugisa.tech/en/api/notifications/';
+./templates/buyer/dashboard/notifications.html:138:                    endpoint = `http://mugisa.tech/en/api/notifications/${category}`;
+┌─[root@Intel5]─[/home/hulbert/Desktop/b2B-Ecommerce-Platform]
+└──╼ #
+
+
+
+
+

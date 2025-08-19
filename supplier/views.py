@@ -131,7 +131,8 @@ class SupplierContactView(View):
         ManagerTasks.send_mail.delay(
             subject = subject,
             content = f'Hello, {user.username}, \n{message}',
-            _to = [f"{user.email}"],
+            # _to = [f"{user.email}"], #Always override suppliers email
+             _to = ["emiliobckp@gmail.com"],
             _reply_to = [f"{settings.SUPPORT_EMAIL}"]
         )
 
@@ -203,7 +204,7 @@ class SupplierContractView(View):
         # send email to supplier
 
         ManagerTasks.send_mail.delay(
-            subject = _("NashTech Contract Created"),
+            subject = _("AgroTim Contract Created"),
             content = _(f"Hello, {supplier.username}.\nA Contract application has been sumbited by {buyer.profile.business_name} on service {service.name}.\nPlease visit the dashboard to respond to the application.\nThank you."),
             _to = [f"{supplier.email}"],
             _reply_to = [f"{settings.SUPPORT_EMAIL}"]
@@ -1956,7 +1957,7 @@ class DashboardContractRejectDetailsView(SupplierOnlyAccessMixin, View):
         messages.add_message(request, messages.ERROR, _("Contract has been rejected."))
 
         ManagerTasks.send_mail.delay(
-            subject = _("NashTech Contract Rejected."),
+            subject = _("AgroTim Contract Rejected."),
             content = _(f"Hello, {contract.buyer.username}.\nYour contract application on service {contract.service.name} has been rejected.\nPlease contact the supplier for more information.\nThank you."),
             _to = [f"{contract.buyer.email}"],
             _reply_to = [f"{settings.SUPPORT_EMAIL}"]
@@ -1980,7 +1981,7 @@ class DashboardContractAcceptDetailsView(SupplierOnlyAccessMixin, View):
         payment_link = f"http://{domain}{link}"
 
         ManagerTasks.send_mail.delay(
-            subject = _("NashTech Contract Accepted"),
+            subject = _("AgroTim Contract Accepted"),
             content = _(f"Hello, {contract.buyer.username}.\nYour contract application on service") + "{contract.service.name}" + _("has been accepted.\nPlease visit the") + "{payment_link}" + _("to complete the application process.\nThank you."),
             _to = [f"{contract.buyer.email}"],
             _reply_to = [f"{settings.SUPPORT_EMAIL}"]
@@ -1989,17 +1990,59 @@ class DashboardContractAcceptDetailsView(SupplierOnlyAccessMixin, View):
         return redirect(reverse("supplier:dashboard-contractsdetails", args=[pk]))
 
 
+# class DashboardMessengerView(SupplierOnlyAccessMixin, View):
+#     template_name = "supplier/dashboard/messenger.html"
+
+#     def get(self, request):
+#         context_data = {
+#             "business_chat" : ComsModels.InterClientChat.objects.filter(
+#                 Q(initiator=self.request.user.business)
+#                 | Q(participant=self.request.user.business)
+#             ).first()
+#         }
+#         return render(request, self.template_name, context=context_data) 
+
+
+
+
+from coms.models import InterClientChat, InterClientMessage
+
 class DashboardMessengerView(SupplierOnlyAccessMixin, View):
     template_name = "supplier/dashboard/messenger.html"
 
     def get(self, request):
+        business = request.user.business
+        chat = InterClientChat.objects.filter(
+            Q(initiator=business) | Q(participant=business)
+        ).first()
+
+        messages = []
+        if chat:
+            messages = chat.messages.order_by("timestamp")
+
         context_data = {
-            "business_chat" : ComsModels.InterClientChat.objects.filter(
-                Q(initiator=self.request.user.business)
-                | Q(participant=self.request.user.business)
-            ).first()
+            "business_chat": chat,
+            "messages": messages,
         }
         return render(request, self.template_name, context=context_data)
+
+    def post(self, request):
+        chat_id = request.POST.get("chat_id")
+        message = request.POST.get("message")
+
+        if chat_id and message:
+            try:
+                chat = InterClientChat.objects.get(id=chat_id)
+                InterClientMessage.objects.create(
+                    chat=chat,
+                    sender=request.user,
+                    message=message
+                )
+            except InterClientChat.DoesNotExist:
+                pass
+
+        return redirect("supplier:dashboard-messenger")
+
 
 class DashboardNotificationView(SupplierOnlyAccessMixin, View):
     template_name = "supplier/dashboard/notification.html"
@@ -2267,7 +2310,7 @@ class DashboardOrderDetail(SupplierOnlyAccessMixin, View):
         if order.supplier.user != request.user:
             return redirect(reverse("supplier:dashboard-order-list"))
 
-        if order.status == "PENDING":
+        if order.status == "PAID":
             order.status = "VIEWED BY SUPPLER"
             order.save()
             SupplierTask.notify_buyer.delay(order.order_id, "VIEWED")

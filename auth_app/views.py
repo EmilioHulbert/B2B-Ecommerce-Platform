@@ -138,7 +138,7 @@ class SignUpView(View):
         )
 
         fields = ("first_name", "last_name")
-        AuthTask.make_user_translations.delay(fields, user.pk)
+        AuthTask.make_user_translations(fields, user.pk)
 
         uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
         token = appTokenGenerator.make_token(user)
@@ -147,10 +147,10 @@ class SignUpView(View):
 
         activate_url = f"{domain}{link}"
 
-        subject = _("Activate NashTech Activation")
+        subject = _("Activate AgroTim Activation")
         description = "{}\n{}\n{}".format(_("Follow this link to activate you foroden account."), _("Your activation link is"), activate_url)
 
-        AuthTask.send_account_activation_email_task.delay(user.username, user.email, subject, description)
+        AuthTask.send_account_activation_email_task(user.username, user.email, subject, description)
 
         messages.add_message(
             request,
@@ -182,6 +182,110 @@ def LogoutView(request):
     logout(request)
     return redirect(reverse("auth_app:login"))
 
+
+# class BusinessProfileView(View):
+#     template_name = "auth_app/business_infor.html"
+
+#     def get(self, request):
+#         if not request.user.is_authenticated:
+#             return redirect(reverse("auth_app:login"))
+
+#         if AuthModels.ClientProfile.objects.filter(user=request.user).exists():
+#             return redirect(reverse("manager:home"))
+
+#         context_data = {"view_name": _("Business Profile")}
+#         return render(request, self.template_name, context=context_data)
+
+#     def post(self, request):
+#         print("▶️ Starting POST /auth/signup/business/")
+
+#         try:
+#             print("⚙️ About to call get_braintree_gateway()")
+#             gateway = braintree_config.get_braintree_gateway()
+#             print("✅ Got Braintree gateway:", gateway)
+#         except Exception as e:
+#             print("❌ Exception while calling get_braintree_gateway():", e)
+#             raise
+
+#         # ---- basic form validation ------------------------------------------
+#         required_fields = ("business_name", "business_description", "country", "city")
+#         if not all(request.POST.get(field) for field in required_fields):
+#             print("❌ Required field missing")
+#             messages.error(request, _("Please fill all required fields."))
+#             return redirect(reverse("auth_app:business"))
+
+#         try:
+#             # ---- create profile ---------------------------------------------
+#             profile = AuthModels.ClientProfile.objects.create(
+#                 user=request.user,
+#                 business_name=request.POST.get("business_name"),
+#                 business_description=request.POST.get("business_description"),
+#                 country=request.POST.get("country"),
+#                 city=request.POST.get("city"),
+#                 country_code=request.POST.get("country_code"),
+#                 mobile_user=request.POST.get("mobile_user"),
+#                 vat_number=request.POST.get("vat_number") or None,
+#                 legal_etity_identifier=request.POST.get("legal_etity_identifier") or None,
+#                 website=request.POST.get("website") or None,
+#             )
+#             print(f"✅ Profile created (id={profile.pk})")
+
+#             # ---- translations ----------------------------------------------
+#             fields = (
+#                 "business_name",
+#                 "business_description",
+#                 "country",
+#                 "country_code",
+#                 "city",
+#                 "mobile_user",
+#             )
+#             AuthTask.make_business_translations(fields, profile.pk)
+#             print("📤 Translation task queued")
+
+#             # ---- Braintree customer creation -------------------------------
+#             try:
+#                 print("⚙️ Calling Braintree …")
+#                 result = gateway.customer.create(
+#                     {
+#                         "first_name": profile.user.first_name,
+#                         "last_name": profile.user.last_name,
+#                         "company": profile.business_name,
+#                         "email": profile.user.email,
+#                         "phone": profile.mobile_user,
+#                     }
+#                 )
+#                 print("✅ Braintree call returned")
+
+#                 if result.is_success:
+#                     profile.customer_id = result.customer.id
+#                     profile.save()
+#                     print(f"🔗 Braintree customer saved (id={result.customer.id})")
+#                 else:
+#                     print("❌ Braintree error:", result.message)
+
+#             except Exception as braintree_exc:
+#                 print("❗ Exception during Braintree:", braintree_exc)
+#                 raise
+
+#             # ---- redirect ---------------------------------------------------
+#             account_type = profile.user.account_type.lower()  # <- Normalize case
+
+#             if account_type == "supplier":
+#                 print("🚀 Redirecting to memberships page")
+#                 return redirect(reverse("supplier:dashboard"))
+
+#             if account_type == "buyer":
+#                 print("🚀 Redirecting to buyer dashboard")
+#                 return redirect(reverse("buyer:dashboard"))  # <- Replace with actual buyer route
+
+#             print("❓ Unknown account type:", account_type)
+#             messages.warning(request, _("Unrecognized account type."))
+#             return redirect(reverse("auth_app:business"))
+
+#         except Exception as e:
+#             print("❗ Outer exception:", e)
+#             messages.error(request, _("An error occurred. Try again."))
+#             return redirect(reverse("auth_app:business"))
 
 class BusinessProfileView(View):
     template_name = "auth_app/business_infor.html"
@@ -231,7 +335,7 @@ class BusinessProfileView(View):
                 "city",
                 "mobile_user",
             )
-            AuthTask.make_business_translations.delay(fields, profile.pk)
+            AuthTask.make_business_translations(fields, profile.pk)
 
             # create braintree customer
             result = braintree_config.get_braintree_gateway().customer.create(
@@ -257,3 +361,4 @@ class BusinessProfileView(View):
                 request, messages.ERROR, _("An Error Occurred. Try Again.")
             )
             return redirect(reverse("auth_app:business"))
+

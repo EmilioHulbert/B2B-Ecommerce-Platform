@@ -1,5 +1,7 @@
 # B2B E-commerce Platform Implemented in Django
+For TimKim Agricultural Agency
 ----
+
 ## Overview
 Welcome to my Business to Business Platform Web project. This platform serves as a marketplace where users can post their businesses and products from all around the world. Whether you're a supplier looking to showcase your offerings or a buyer searching for unique products, our platform provides a seamless experience. This project utilizes various technologies to deliver a robust solution.
 

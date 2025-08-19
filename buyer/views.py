@@ -426,17 +426,27 @@ class WishListDeleteProductView(BuyerOnlyAccessMixin, View):
 # cart
 class CartListView(BuyerOnlyAccessMixin, ListView):
     template_name = "buyer/dashboard/cartlist.html"
-    model = BuyerModels.Cart
+    model = SupplierModels.OrderProductVariation
+    context_object_name = "object_list"
 
     def get_queryset(self):
         business = AuthModels.ClientProfile.objects.filter(user=self.request.user).first()
-        cart = self.model.objects.filter(buyer=business)
+        cart = BuyerModels.Cart.objects.filter(buyer=business).first()
+
         if not cart:
             cart = BuyerModels.Cart.objects.create(buyer=business)
-        else:
-            cart = cart.first()
 
         return SupplierModels.OrderProductVariation.objects.filter(cart=cart)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        queryset = context["object_list"]
+
+        # Total up the prices of all items
+        total_amount = sum(item.min_total_price for item in queryset if item.min_total_price)
+
+        context["total_amount"] = total_amount
+        return context
 
 
 # @method_decorator(csrf_exempt, name='dispatch')
@@ -446,45 +456,161 @@ class CartDeleteProductView(BuyerOnlyAccessMixin, View):
         product_variation.delete()
         return redirect(reverse("buyer:cart-list"))
 
+# class OrderCreateView(BuyerOnlyAccessMixin, View):
+#     def post(self, request):
+#         business = AuthModels.ClientProfile.objects.filter(user = self.request.user).first()
+#         cart = BuyerModels.Cart.objects.filter(buyer=business)
+#         if not cart:
+#             messages.add_message(request, messages.ERROR, _("No Products found in Cart."))
+#             return redirect(reverse("buyer:cart-list"))
+
+#         product_variations = SupplierModels.OrderProductVariation.objects.filter(cart=cart.first())
+#         if not product_variations:
+#             messages.add_message(request, messages.ERROR, _("No Products found in Cart."))
+#             return redirect(reverse("buyer:cart-list"))
+
+#         groupings = {}
+#         for product_variation in product_variations:
+#             supplier = product_variation.product.supplier
+#             if not groupings.get(supplier):
+#                 groupings[supplier] = []
+#             groupings[supplier].append(product_variation)
+
+#         # create orders to the different suppliers
+#         for bus, prods in groupings.items():
+#             order = SupplierModels.Order.objects.create(
+#                 buyer = business,
+#                 supplier = bus
+#             )
+#             for prod in prods:
+
+#                 prod.order = order
+#                 prod.cart = None
+#                 prod.save()
+
+#             SupplierModels.OrderShippingDetail.objects.create(order=order)
+            
+#             # notify suppliers
+#             BuyerTasks.order_placed_notify_supplier.delay(order.pk, order.__class__.__name__)
+        
+#         messages.add_message(request, messages.SUCCESS, _("Orders Placed successfully. Adjust Order Details."))
+#         return redirect(reverse("buyer:order-tracking"))
+
+# class OrderCreateView(BuyerOnlyAccessMixin, View):
+#     def post(self, request):
+#         business = AuthModels.ClientProfile.objects.filter(user=self.request.user).first()
+#         cart = BuyerModels.Cart.objects.filter(buyer=business)
+#         if not cart:
+#             messages.add_message(request, messages.ERROR, _("No Products found in Cart."))
+#             return redirect(reverse("buyer:cart-list"))
+
+#         product_variations = SupplierModels.OrderProductVariation.objects.filter(cart=cart.first())
+#         if not product_variations:
+#             messages.add_message(request, messages.ERROR, _("No Products found in Cart."))
+#             return redirect(reverse("buyer:cart-list"))
+
+#         groupings = {}
+#         for product_variation in product_variations:
+#             supplier = product_variation.product.supplier
+#             if not groupings.get(supplier):
+#                 groupings[supplier] = []
+#             groupings[supplier].append(product_variation)
+
+#         for bus, prods in groupings.items():
+#             order = SupplierModels.Order.objects.create(
+#                 buyer=business,
+#                 supplier=bus
+#             )
+#             # for prod in prods:
+#             #     prod.order = order
+#             #     prod.cart = None
+#             #     prod.save()
+#             total_price = 0
+#             for prod in prods:
+#                 prod.order = order
+#                 prod.cart = None
+#                 prod.save()
+                
+#                 total_price += prod.min_total_price or 0  # use Decimal sum
+
+#             order.total_price = total_price
+#             order.save()
+
+
+#             SupplierModels.OrderShippingDetail.objects.create(order=order)
+
+#             # ✅ FIXED HERE
+#             # BuyerTasks.order_placed_notify_supplier.delay(order.pk, order.__class__.__name__)
+#             BuyerTasks.order_placed_notify_supplier.delay(order.pk, order.__class__.__name__)
+
+
+#         messages.add_message(request, messages.SUCCESS, _("Orders Placed successfully. Adjust Order Details."))
+#         return redirect(reverse("buyer:order-tracking"))
+
 class OrderCreateView(BuyerOnlyAccessMixin, View):
+    def get(self, request):
+        return self.post(request)
+
     def post(self, request):
-        business = AuthModels.ClientProfile.objects.filter(user = self.request.user).first()
+        business = AuthModels.ClientProfile.objects.filter(user=self.request.user).first()
         cart = BuyerModels.Cart.objects.filter(buyer=business)
-        if not cart:
+        if not cart.exists():
             messages.add_message(request, messages.ERROR, _("No Products found in Cart."))
             return redirect(reverse("buyer:cart-list"))
 
         product_variations = SupplierModels.OrderProductVariation.objects.filter(cart=cart.first())
-        if not product_variations:
+        if not product_variations.exists():
             messages.add_message(request, messages.ERROR, _("No Products found in Cart."))
             return redirect(reverse("buyer:cart-list"))
 
         groupings = {}
         for product_variation in product_variations:
             supplier = product_variation.product.supplier
-            if not groupings.get(supplier):
+            if supplier not in groupings:
                 groupings[supplier] = []
             groupings[supplier].append(product_variation)
 
-        # create orders to the different suppliers
-        for bus, prods in groupings.items():
+        for supplier, prods in groupings.items():
+            agreed_price = sum([
+                float(prod.min_total_price or 0) for prod in prods
+            ])
+            currency = "KES"
+
             order = SupplierModels.Order.objects.create(
-                buyer = business,
-                supplier = bus
+                buyer=business,
+                supplier=supplier,
+                agreed_price=agreed_price,
+                currency=currency
             )
+
             for prod in prods:
                 prod.order = order
                 prod.cart = None
                 prod.save()
 
             SupplierModels.OrderShippingDetail.objects.create(order=order)
-            
-            # notify suppliers
-            BuyerTasks.order_placed_notify_supplier.delay(order.pk, instance.__class__.__name__)
-        
+            BuyerTasks.order_placed_notify_supplier.delay(order.pk, order.__class__.__name__)
+
         messages.add_message(request, messages.SUCCESS, _("Orders Placed successfully. Adjust Order Details."))
         return redirect(reverse("buyer:order-tracking"))
 
+
+class OrderAfterPaymentView(BuyerOnlyAccessMixin, View):
+    def get(self, request):
+        business = AuthModels.ClientProfile.objects.filter(user=request.user).first()
+        latest_txn = Transaction.objects.filter(
+            phone_number=business.phone_number,
+            status="Success"
+        ).order_by('-timestamp').first()
+
+        if not latest_txn:
+            messages.error(request, "No successful payment found. Please complete M-Pesa payment.")
+            return redirect("buyer:cart-list")
+
+        # ✅ Optional: check amount matches cart total
+
+        # Now proceed to order creation
+        return OrderCreateView.as_view()(request)
 
 
 class OrderTrackingView(BuyerOnlyAccessMixin, ListView):
@@ -821,14 +947,51 @@ class OrderShippingDetailView(BuyerOnlyAccessMixin, View):
         return redirect(reverse("buyer:order-detail", kwargs={"order_id": order.order_id}))
 
 
-class MessengerView(BuyerOnlyAccessMixin, ListView):
+# class MessengerView(BuyerOnlyAccessMixin, ListView):
+#     template_name = "buyer/dashboard/messenger.html"
+
+#     def get(self, request):
+#         context_data = {
+#             "business_chat" : ComsModels.InterClientChat.objects.filter(
+#                 Q(initiator=self.request.user.business)
+#                 | Q(participant=self.request.user.business)
+#             ).first()
+#         }
+#         return render(request, self.template_name, context=context_data)
+
+
+from coms.models import InterClientChat, InterClientMessage
+class MessengerView(BuyerOnlyAccessMixin, View):
     template_name = "buyer/dashboard/messenger.html"
 
     def get(self, request):
-        context_data = {
-            "business_chat" : ComsModels.InterClientChat.objects.filter(
-                Q(initiator=self.request.user.business)
-                | Q(participant=self.request.user.business)
-            ).first()
-        }
-        return render(request, self.template_name, context=context_data)
+        business = request.user.business
+        chat = InterClientChat.objects.filter(
+            Q(initiator=business) | Q(participant=business)
+        ).first()
+
+        messages = []
+        if chat:
+            messages = chat.messages.order_by("timestamp")
+
+        return render(request, self.template_name, {
+            "business_chat": chat,
+            "messages": messages
+        })
+
+    def post(self, request):
+        chat_id = request.POST.get("chat_id")
+        message = request.POST.get("message")
+
+        if chat_id and message:
+            try:
+                chat = InterClientChat.objects.get(id=chat_id)
+                InterClientMessage.objects.create(
+                    chat=chat,
+                    sender=request.user,
+                    message=message
+                )
+            except InterClientChat.DoesNotExist:
+                pass
+
+        return redirect("buyer:messenger")

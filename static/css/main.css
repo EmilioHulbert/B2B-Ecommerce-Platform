@@ -1076,9 +1076,13 @@ body.modal-open {
     }
 }
 
-#order_product_modal {
+/* #order_product_modal {
     display: none;
-}
+} */
+
+
+
+/* 
 
 #order_product_modal.inview {
     display: block;
@@ -1091,13 +1095,86 @@ body.modal-open {
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
-}
+} */
 
-#order_product_form {
+
+
+/* #order_product_form {
     background-color: #fff;
     inline-size: fit-content;
     block-size: fit-content;
 }
+     */
+
+
+     /* Modal background overlay */
+
+
+
+
+/* startof remac edits */
+/* Modal backdrop */
+#order_product_modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    overflow-y: auto;
+}
+
+/* Displayed state */
+#order_product_modal.inview {
+    display: flex;
+}
+
+/* Modal content */
+#order_product_form {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 1.25rem;
+    width: 90vw;
+    max-width: 500px;
+    box-sizing: border-box;
+    overflow: hidden;
+    max-height: 90vh;
+}
+
+/* Make all child elements responsive */
+#order_product_form * {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Fix wide buttons, selects, and inputs */
+#order_product_form input,
+#order_product_form select,
+#order_product_form button {
+    width: 100%;
+    margin-bottom: 0.75rem;
+}
+
+/* Optional: grid for quantity section */
+.quantity-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+/* Prevent large image overflow */
+#order_product_form img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+
+/* end of remac edits */
+
 
 .product-form-wrapper {
     display: flex;

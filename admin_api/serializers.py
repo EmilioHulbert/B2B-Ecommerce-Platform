@@ -71,13 +71,18 @@ class SuppliersSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation["membership"] = PaymentModels.Membership.objects.filter(
-            client=instance.user
-        ).first().feature.name
+
+        # Safe access to membership feature
+        membership = PaymentModels.Membership.objects.filter(client=instance.user).first()
+        representation["membership"] = membership.feature.name if membership else None
+
+        # Count stores safely
         representation["stores"] = SupplierModels.Store.admin_list.filter(
             supplier=instance.user
         ).count()
+
         return representation
+
 
 
 class BuyersSerializer(serializers.ModelSerializer):

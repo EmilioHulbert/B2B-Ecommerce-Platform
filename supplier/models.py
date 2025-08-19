@@ -298,7 +298,7 @@ class Order(models.Model):
         ordering = ("-id","-updated_on")
 
     order_statuses = (
-        (_("PENDING"), _("PENDING")),
+        (_("PAID"), _("PAID")),
         (_("VIEWED BY SUPPLER"), _("VIEWED BY SUPPLER")),
         (_("ACCEPTED BY SUPPLER"), _("ACCEPTED BY SUPPLER")),
         (_("IN DELIVERY"), _("IN DELIVERY")),
@@ -310,17 +310,19 @@ class Order(models.Model):
     order_id = models.CharField(_("Order Id"), max_length=50, unique=True, blank=True, null=True)
     buyer = models.ForeignKey(to=ClientProfile, on_delete=models.CASCADE, related_name="buyer")
     supplier = models.ForeignKey(to=ClientProfile, on_delete=models.CASCADE, related_name="supplier")
-    status = models.CharField(_("Order Status"), max_length=256, choices=order_statuses, default="PENDING")
+    status = models.CharField(_("Order Status"), max_length=256, choices=order_statuses, default="PAID")
     currency = models.CharField(_("Currency"), max_length=6, blank=True, null=True)
     total_price = models.DecimalField(_("Total Price"), decimal_places=2, max_digits=12, blank=True, null=True)
     agreed_price = models.DecimalField(_("Agreed Price"), decimal_places=2, max_digits=12, blank=True, null=True)
     paid_price = models.DecimalField(_("Paid Price"), decimal_places=2, max_digits=12, blank=True, null=True)
     discount = models.DecimalField(_("Discount as a Percentage"), decimal_places=2, max_digits=3, blank=True, null=True, default=0.00)
-    is_complete = models.BooleanField(_("Completed"), default=True)
+    # is_complete = models.BooleanField(_("Completed"), default=True)
+    is_complete = models.BooleanField(_("Completed"), default=False)
     accepted_on = models.DateField(_("Accepted on"), blank=True, null=True)
     delivery_date = models.DateField(_("Delivery Date"), blank=True, null=True) 
     created_on = models.DateField(_("Created on"), default=timezone.now)
     updated_on = models.DateTimeField(_("Updated on"), null=True, blank=True)
+    payment = models.ForeignKey('payment.Transaction', null=True, blank=True, on_delete=models.SET_NULL)
 
     def generateOrderId(self):
         pretext = "FODR"
@@ -375,8 +377,8 @@ class Order(models.Model):
     def __str__(self) -> str:
         return f"{self.order_id} - {self.supplier} - {self.buyer} - {self.status}"
 
-class OrderProductVariation(models.Model):
-    order = models.ForeignKey(to=Order, on_delete=models.CASCADE, null=True, blank=True)
+class OrderProductVariation(models.Model): 
+    order = models.ForeignKey(to=Order, on_delete=models.CASCADE,related_name="items", null=True, blank=True)
     cart = models.ForeignKey(to=BuyerModels.Cart, on_delete=models.SET_NULL, null=True, blank=True)
     product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
     price = models.ForeignKey(to=ProductPrice, on_delete=models.CASCADE, null=True, blank=True)

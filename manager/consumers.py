@@ -15,33 +15,76 @@ import os
 from manager import models as ManagerModels
 
 
+# class Notifications(AsyncWebsocketConsumer):
+#     async def connect(self):
+#         await self.channel_layer.group_add("notifications", self.channel_name)
+#         await self.accept()
+
+#     async def disconnect(self, code):
+#         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
+#         await super().disconnect(code)
+
+#     async def notification_alerts(self, event):
+#         busines_pk = database_sync_to_async(self.get_business_id)()
+#         if busines_pk != event['target']:
+#             pass
+
+#         notification = event["notification"]
+#         title = event["title"]
+#         category = event["category"]
+
+#         await self.send(
+#             text_data=json.dumps(
+#                 {"title": title, "category": category}
+#             )
+#         )
+
+
+#     def get_business_id(self):
+#         return self.scope['user'].business.pk
+
+
 class Notifications(AsyncWebsocketConsumer):
     async def connect(self):
-        await self.channel_layer.group_add("notifications", self.channel_name)
+        # ✅ define room_group_name — can be user-specific or global
+        self.room_group_name = f"notifications_{self.scope['user'].id}"
+
+        # ✅ add to the group
+        await self.channel_layer.group_add(
+            self.room_group_name,
+            self.channel_name
+        )
         await self.accept()
 
     async def disconnect(self, code):
-        await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
+        # ✅ only discard if room_group_name exists
+        if hasattr(self, 'room_group_name'):
+            await self.channel_layer.group_discard(
+                self.room_group_name,
+                self.channel_name
+            )
         await super().disconnect(code)
 
     async def notification_alerts(self, event):
-        busines_pk = database_sync_to_async(self.get_business_id)()
-        if busines_pk != event['target']:
-            pass
+        # ✅ await the database call
+        business_pk = await database_sync_to_async(self.get_business_id)()
+        if business_pk != event['target']:
+            return  # 🔁 was `pass`, but `return` makes intent clearer
 
-        notification = event["notification"]
-        title = event["title"]
-        category = event["category"]
+        title = event.get("title")
+        category = event.get("category")
 
         await self.send(
-            text_data=json.dumps(
-                {"title": title, "category": category}
-            )
+            text_data=json.dumps({
+                "title": title,
+                "category": category
+            })
         )
-
 
     def get_business_id(self):
         return self.scope['user'].business.pk
+
+
 
 class InterChats(AsyncWebsocketConsumer):
     async def connect(self):

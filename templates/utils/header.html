@@ -17,7 +17,7 @@
     <link href="{% static 'icons/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet"  type='text/css'>
     <link href="{% static 'css/tailwcss.css' %}" rel="stylesheet">
 
-    <title>NashTech-Global - {% trans view_name %}</title>
+    <title>AgroTim-Global - {% trans view_name %}</title>
 
     
 
@@ -134,7 +134,7 @@
             {% if not request.user.is_authenticated %}
             <ul class="flex text-base text-white">
                 <li>
-                    <a class="grid py-3 px-4 bg-yellowColor hover:bg-yellowColorHover font-semibold transition-colors transition-200 ease-in" href="{% url 'auth_app:signup' %}?Supplier=1">{% trans "Sell On NashTech" %}</a>
+                    <a class="grid py-3 px-4 bg-yellowColor hover:bg-yellowColorHover font-semibold transition-colors transition-200 ease-in" href="{% url 'auth_app:signup' %}?Supplier=1">{% trans "Sell On AgroTim" %}</a>
                 </li>
             </ul>
             {% endif %}
@@ -189,7 +189,7 @@
                     </a>
                     {% if not request.user.is_authenticated %}
                     <a href="{% url 'auth_app:signup' %}?Supplier=1" class="flex place-items-center px-6 py-2 text-base bg-yellowColor focus:bg-yellowColorHover duration-200 transition-all ease-in text-white font-semibold">
-                        {% trans "Sell on NashTech" %}
+                        {% trans "Sell on AgroTim" %}
                     </a>
                     {% endif %}
                 {% else %}

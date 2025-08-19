@@ -36,12 +36,25 @@ class UserProfileUpdateFormManager(ModelForm):
         exclude = ("user", "slug")
 
 
-class UserFormManager(ModelForm):
+# class UserFormManager(ModelForm):
+#     class Meta:
+#         model = AuthModels.User
+#         fields = "__all__"
+
+
+from django.contrib.auth.hashers import make_password
+
+class UserFormManager(forms.ModelForm):
     class Meta:
         model = AuthModels.User
         fields = "__all__"
 
-
+    def clean_password(self):
+        password = self.cleaned_data.get("password")
+        if password and not password.startswith("pbkdf2_"):  # already hashed?
+            return make_password(password)
+        return password
+        
 class UserUpdateFormManager(ModelForm):
     class Meta:
         model = AuthModels.User

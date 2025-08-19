@@ -9,11 +9,11 @@
         {% get_current_language as LANGUAGE_CODE %}
             <div class="section-body card py-6 px-2 md:px-6 grid gap-4 text-lighterBackgroundColor" style="box-shadow:unset;">
                 <div class="grid gap-2">
-                    <h1 class="font-bold text-lg md:text-2xl" style="text-align: justify;">{% trans "NashTech Showrooms" %}:</h1>
-                    <p class="" style="text-align: justify;">{% trans "NashTech provides a showrooms feature where stores from different locations are displayed and made accessible to the buyers." %}</p>
+                    <h1 class="font-bold text-lg md:text-2xl" style="text-align: justify;">{% trans "AgroTim Showrooms" %}:</h1>
+                    <p class="" style="text-align: justify;">{% trans "AgroTim provides a showrooms feature where stores from different locations are displayed and made accessible to the buyers." %}</p>
                     <p class="" style="text-align: justify;">{% trans "The stores are displayed on the showrooms basing on their membership packages. Those with Gold membership are made accessible to all buyers all over the world." %}</p>
                     <p class="" style="text-align: justify;">{% trans "The showrooms organize the stores in a way that our algorithms can make the best suggestions for our buyers hence simplifying the entire process of buying from our virtual stores." %}</p>
-                    <p class="" style="text-align: justify;">{% trans "NashTech offers the following showrooms:" %}</p>
+                    <p class="" style="text-align: justify;">{% trans "AgroTim offers the following showrooms:" %}</p>
                     <ul class="grid gap-2 px-2 py-2 mx-4 font-semibold">
                         {% for showroom in showrooms %}
                             <li><a href="{% url 'manager:showroom-detail' showroom.slug %}" class="flex gap-2">

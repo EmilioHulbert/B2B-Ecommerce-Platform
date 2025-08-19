@@ -21,13 +21,15 @@ function getCookie(name) {
 }
 
 async function makeRequest (url, method, data={}, dataType=null, access_token=null) {
-    let BASE_API_URL
-    if (window.location.href.includes("localhost")) {
-        BASE_API_URL = 'http://localhost:8000/en';
-    }
-    else {
-        BASE_API_URL = 'http://mugisa.tech/en';
-    }
+    // let BASE_API_URL
+    // if (window.location.href.includes("localhost")) {
+    //     BASE_API_URL = 'http://localhost:1000/en';
+    // }
+    // else {
+    //     BASE_API_URL = 'http://0.0.0.0:1000/en';
+    // }
+
+    const BASE_API_URL = `${window.location.origin}/en`;
 
     let requestData = {
         method: method,
