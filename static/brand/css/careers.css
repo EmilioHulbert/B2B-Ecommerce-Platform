@@ -30,7 +30,8 @@ body{
 }
 
 .navbar ul li a {
-    color: #fff !important;         /* force white links */
+    /* color: #fff !important;         force white links */
+    color: #fcd000;
     font-weight: 600;
     text-transform: capitalize;
 }
@@ -501,7 +502,7 @@ body{
     html{
         font-size: 50%;
     }
-
+    
     .header .logo img{
         width: 20%;
         height: 3rem;
