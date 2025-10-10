@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Company Website</title>
+    <link rel="stylesheet" href="{% static 'brand/css/careers.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="icon" href="{% static 'brand/images/image.png' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="{% static 'brand/lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'brand/lib/ionicons/css/ionicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'brand/lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'brand/lib/lightbox/css/lightbox.min.css' %}" rel="stylesheet">
+    <script src="{% static 'brand/js/main.js' %}"></script>
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo"><img src="{% static 'brand/images/image.png' %}" alt=""></a>
+        <div class="fas fa-bars"></div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="{% url 'manager:branding-home' %}#home">home</a></li>
+                <li><a href="{% url 'manager:branding-home' %}#about">about</a></li>
+                <li><a href="{% url 'manager:branding-home' %}#service">services</a></li>
+                <li><a href="{% url 'manager:branding-home' %}#portfolio">portfolio</a></li>
+                <li><a href="{% url 'manager:branding-home' %}#team">team</a></li>
+                <li><a href="{% url 'manager:careers' %}">career</a></li>
+                <li><a href="{% url 'manager:branding-home' %}#contact">contact</a></li>
+                <li><a href="{% url 'manager:branding-home' %}#faq">FAQ</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="home" class="home">
+        <h2>Home / Privay Policy</h2>
+    </section>
+
+
+    <section id="privacy-policy">
+        <h2>Privacy Policy</h2>
+        <p><strong>Last updated:</strong> October 10, 2025</p>
+      
+        <p>NashTech Solutions (“we”, “our”, or “us”) values your privacy and is committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services. Please read this policy carefully to understand our practices regarding your data.</p>
+      
+        <h3>1. Information We Collect</h3>
+        <p>We may collect various types of personal and technical information, including:</p>
+        <ul>
+          <li><strong>Personal Information:</strong> Name, email address, phone number, company name, job title, billing information, and other identifying details you provide when contacting us or using our services.</li>
+          <li><strong>Usage Data:</strong> Information on how you use our website and services, such as pages visited, time spent on pages, click patterns, and referring website addresses.</li>
+          <li><strong>Device & Technical Data:</strong> IP address, browser type, operating system, and other system-related data automatically collected through cookies and similar technologies.</li>
+        </ul>
+      
+        <h3>2. How We Use Your Information</h3>
+        <p>We use the information we collect for a variety of purposes, including to:</p>
+        <ul>
+          <li>Provide and maintain our services</li>
+          <li>Process transactions and send notifications</li>
+          <li>Respond to inquiries and provide customer support</li>
+          <li>Personalize user experience and improve our offerings</li>
+          <li>Send newsletters, updates, and promotional content (only if you opt in)</li>
+          <li>Detect, prevent, and address technical issues or unauthorized use</li>
+        </ul>
+      
+        <h3>3. Cookies and Tracking Technologies</h3>
+        <p>We use cookies and similar tracking technologies to enhance your browsing experience. Cookies help us remember user preferences, track usage patterns, and compile aggregate data to improve our services. You can manage cookie preferences through your browser settings.</p>
+      
+        <h3>4. Data Sharing and Disclosure</h3>
+        <p>We do not sell or rent your personal information. We may share your data with:</p>
+        <ul>
+          <li>Trusted third-party service providers who assist us in operating our business</li>
+          <li>Legal authorities, if required by law or in response to valid legal processes</li>
+          <li>Business partners or affiliates with your consent</li>
+        </ul>
+      
+        <h3>5. Data Security</h3>
+        <p>We take data security seriously and implement a variety of security measures, including encryption, firewalls, access controls, and secure servers, to protect your personal information from unauthorized access, alteration, or disclosure.</p>
+      
+        <h3>6. Your Rights</h3>
+        <p>You have the right to:</p>
+        <ul>
+          <li>Access the personal information we hold about you</li>
+          <li>Request correction of inaccurate data</li>
+          <li>Request deletion of your data under certain conditions</li>
+          <li>Withdraw consent at any time for data processing based on your consent</li>
+        </ul>
+      
+        <h3>7. Data Retention</h3>
+        <p>We retain your information only for as long as necessary to fulfill the purposes outlined in this policy, unless a longer retention period is required by law.</p>
+      
+        <h3>8. Children’s Privacy</h3>
+        <p>Our services are not directed to individuals under the age of 16. We do not knowingly collect personal information from children. If you believe a child has provided us with personal data, please contact us immediately.</p>
+      
+        <h3>9. Changes to This Privacy Policy</h3>
+        <p>We may update this Privacy Policy from time to time. Changes will be effective immediately upon posting. We encourage you to review this page regularly to stay informed of our practices.</p>
+      
+        <h3>10. Contact Us</h3>
+        <p>If you have any questions about this Privacy Policy or how we handle your data, please contact us at:</p>
+        <p>Email: <a href="mailto:info@nashtechsolutions.com">info@nashtechsolutions.com</a></p>
+      </section>
+      
+
+
+
+
+
+
+      <div class="footer">
+        <div class="footer-top">
+          <div class="container-fluid px-4"> <!-- or px-2 / px-0 -->
+            <div class="row justify-content-start">
+              
+        <div class="col-lg-3 col-md-6 footer-links">
+            <h4>About Us</h4>
+            <ul>
+                <li><i class="ion-ios-arrow-forward"></i> <a href="#">Home</a></li>
+                <li><i class="ion-ios-arrow-forward"></i> <a href="#about">About us</a></li>
+                <li><i class="ion-ios-arrow-forward"></i> <a href="#service">Our services</a></li>
+                <li><i class="ion-ios-arrow-forward"></i> <a href="{% url 'manager:terms-and-conditions' %}">Terms & condition</a></li>
+                <li><i class="ion-ios-arrow-forward"></i> <a href="{% url 'manager:privacy-policy' %}">Privacy policy</a></li>
+            </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+                <li><i class="ion-ios-arrow-forward"></i> <a href="#portfolio">Mission</a></li>
+                <li><i class="ion-ios-arrow-forward"></i> <a href="#team">Team</a></li>
+                <li><i class="ion-ios-arrow-forward"></i> <a href="{% static 'careers.html' %}">Career</a></li>
+                <li><i class="ion-ios-arrow-forward"></i> <a href="#contact">Contact</a></li>
+                <li><i class="ion-ios-arrow-forward"></i> <a href="#faq">FAQ</a></li>
+            </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-contact" style="font-size: 1.5rem;">
+            <h4>Contact Us</h4>
+            <p>
+              <b>HQ:</b> Revlon Professional Plaza, Biashara Street<br>
+                Nairobi, Kenya <br>
+                <strong>Phone: </strong> +254719174913 or +254739174913<br>
+                <strong>Email: </strong> nashtech.nk@gmail.com or nashtechsolutionske@gmail.com<br>
+            </p>
+            <div class="col-lg-6 col-md-7 social-links">
+                <a href="https://www.facebook.com/profile.php?id=100083154079336"><i class="ion-logo-facebook"></i></a>
+                <a href="https://x.com/NashTechKE?t=8zJxP11uDydrOURxMqtq7Q&s=09"><i class="ion-logo-twitter"></i></a>
+                <a href="https://www.linkedin.com/company/nashtech-solutions-ke/"><i class="ion-logo-linkedin"></i></a>
+                <a href="https://www.instagram.com/nashtech_solutions_ke?utm_source=qr&igsh=MWgxMzlzZ3d3YWh6Yg=="><i class="ion-logo-instagram"></i></a>
+                <a href="https://vm.tiktok.com/ZMSoRnAyW/" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>                          
+                <a href="https://accounts.google.com/servicelogin/signinchooser?flowName=GlifWebSignIn&flowEntry=ServiceLogin"><i class="ion-logo-googleplus"></i></a>
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-newsletter">
+            <h4>How To Reach Us?</h4>
+            <p>Contact Us</p>
+            <form action="" method="post">
+                <input type="email" name="email"><input type="submit"  value="submit">
+            </form>
+        </div>
+
+    </div>
+</div>
+</div>
+
+<!-- <div class="container"> -->
+<div class="container-fluid px-4">
+<div class="row align-items-center">
+    <div class="col-md-6 copyright" style="color: #fff; font-size: 1.3rem;">
+        Copyright &copy; 2025 NashTech Solutions. All Rights Reserved.
+    </div>
+</div>
+</div>
+</div>
+
+<a href="#" class="back-to-top"><i class="ion-ios-arrow-up"></i></a>
+<script id="service-json" type="application/json">{{ service_data|safe }}</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+<div class="modal-content text-center">
+<div class="modal-header border-0">
+<h5 class="modal-title w-100" id="successModalLabel">✅ Message Sent Successfully!</h5>
+</div>
+<div class="modal-body">
+We’ve received your message. We’ll get back to you shortly.
+</div>
+<div class="modal-footer border-0 justify-content-center">
+<button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Success Modal End -->
+
+<script src="{% static 'brand/js/msgsuccess.js' %}"></script>
+<script src="{% static 'brand/js/team-courosel.js' %}"></script>
+
+
+</body>
+
+
+</html>

@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="{% static 'brand/css/global.css' %}">
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -68,25 +70,9 @@
     <div class="about-popup-content">
       <span class="close-btn" onclick="toggleAboutPopup()">&times;</span>
       <p>
-        Backed by a diverse and skilled team, NashTech Solutions is committed to empowering clients
-        through cutting-edge technology, strategic innovation, and end-to-end digital support.<br><br>
+        NashTech Solutions, founded in 2016, is a forward-thinking tech company focused on empowering clients through innovative technology and digital support. Starting as a small team offering software development, IT support, and hardware sales, NashTech quickly built a reputation for reliability and customer-centric solutions across SMEs, startups, and large businesses. By 2021, the company was incorporated, marking its evolution into a fully structured and scalable tech provider.
 
-        Whether helping a startup build its first app, deploying ERP systems for industrial clients,
-        or providing corporate tech training, NashTech is driven by the mission to deliver dynamic,
-        tailored, and scalable tech-driven solutions that empower people, automate systems, and spark
-        growth across all sectors — bridging business goals with innovative tech.
-
-        
-        NashTech Solutions is a forward-thinking, full-service technology solutions company
-        that delivers innovative digital transformation services to businesses of all sizes.
-        Originally established in 2016 as a small team of passionate tech enthusiasts,NashTech
-        began by offering freelance software development, hardware sales and IT support services.
-        Over the years, the team steadily built a reputation for reliability, innovation, and customer-centric
-        solutions, serving SMEs, startups, and corporates across multiple industries.In response to growing
-        demand and a broader vision, NashTech was officially incorporated in 2021, marking a significant milestone
-        in its evolution from a small operation into a fully structured and scalable technology company.The incorporation 
-        enabled NashTech to expand its service portfolio, formalize its operations, and position itself as 
-        a trusted digital partner for organizations looking to thrive in an increasingly tech-driven world.
+        Today, NashTech delivers a wide range of services, including app development for startups, ERP system deployment for industrial clients, and corporate tech training. The company is committed to providing tailored, scalable, and tech-driven solutions that automate systems, foster growth, and align with business goals, making them a trusted partner for digital transformation across industries.
 
         
       </p>
@@ -204,14 +190,14 @@
           </div>
         </div>
   
-        <div class="col-md-6 mt-4">
-          <!-- <div class="item"> -->
+            <!-- <div class="item"> PASTE BELOW <div class="col-md-6 mt-4"> -->
+       <!--   <div class="col-md-6 mt-4">
             <div class="item mb-4 service-card" data-category="Information Management Systems">
             <span class="icon feature_box_col_one"><i class="fa fa-th-large"></i></span>
             <h6>All Tech categories</h6>
             <p>End-to-end IT hardware, cloud, and networking solutions for scalable growth.</p>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -601,8 +587,8 @@
                           <li><i class="ion-ios-arrow-forward"></i> <a href="#">Home</a></li>
                           <li><i class="ion-ios-arrow-forward"></i> <a href="#about">About us</a></li>
                           <li><i class="ion-ios-arrow-forward"></i> <a href="#service">Our services</a></li>
-                          <li><i class="ion-ios-arrow-forward"></i> <a href="#">Terms & condition</a></li>
-                          <li><i class="ion-ios-arrow-forward"></i> <a href="#">Privacy policy</a></li>
+                          <li><i class="ion-ios-arrow-forward"></i> <a href="{% url 'manager:terms-and-conditions' %}">Terms & condition</a></li>
+                          <li><i class="ion-ios-arrow-forward"></i> <a href="{% url 'manager:privacy-policy' %}">Privacy policy</a></li>
                       </ul>
                   </div>
 

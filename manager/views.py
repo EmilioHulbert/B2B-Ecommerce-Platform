@@ -150,6 +150,20 @@ class CareersView(View):
     def get(self, request):
         return render(request, self.template_name)
 
+#remac 10nth oc 2025 start
+class TermsView(View):
+    template_name = "manager/terms-and-conditions.html"
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+class PrivacyView(View):
+    template_name = "manager/privacy-policy.html"
+
+    def get(self, request):
+        return render(request, self.template_name)
+#remac 10nth oc 2025 end
+
 #remac start
 from .forms import CareerApplicationForm
 class CareerApplicationView(View):

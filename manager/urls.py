@@ -11,6 +11,8 @@ app_name = "manager"
 urlpatterns = [
     path("", views.BrandingView.as_view(), name="branding-home"),
     path("shop/", views.HomeView.as_view(), name="home"),
+    path("terms-and-conditions/", views.TermsView.as_view(), name="terms-and-conditions"),
+    path("privacy-policy/", views.PrivacyView.as_view(), name="privacy-policy"),
     # showrooms
     path("showrooms/", views.ShowRoomListView.as_view(), name="showrooms"),
     path(

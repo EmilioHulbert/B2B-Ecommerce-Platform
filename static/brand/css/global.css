@@ -1,0 +1,22 @@
+/* Slightly larger base font size */
+html {
+    font-size: 16px !important;  /* was 14px */
+  }
+  
+  /* Adjust general text elements */
+  body,
+  p,
+  a,
+  button,
+  input,
+  textarea {
+    font-size: 1rem !important;  /* was 0.9rem */
+  }
+  
+  /* Headings - scale up subtly */
+  h1 { font-size: 2rem !important; }     /* was 1.8rem */
+  h2 { font-size: 1.7rem !important; } 
+  h3 { font-size: 1.4rem !important; } 
+  h4 { font-size: 1.2rem !important; }
+
+  
