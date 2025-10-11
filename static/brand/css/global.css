@@ -2,7 +2,7 @@
 html {
     font-size: 16px !important;  /* was 14px */
   }
-  
+
   /* Adjust general text elements */
   body,
   p,
@@ -12,11 +12,58 @@ html {
   textarea {
     font-size: 1rem !important;  /* was 0.9rem */
   }
-  
+
   /* Headings - scale up subtly */
   h1 { font-size: 2rem !important; }     /* was 1.8rem */
-  h2 { font-size: 1.7rem !important; } 
-  h3 { font-size: 1.4rem !important; } 
+  h2 { font-size: 1.7rem !important; }
+  h3 { font-size: 1.4rem !important; }
   h4 { font-size: 1.2rem !important; }
 
-  
+  /* Mobile responsiveness - apply reduced font sizes on smaller screens */
+  @media (max-width: 768px) {
+    html {
+      font-size: 14px !important;
+    }
+
+    body,
+    p,
+    a,
+    button,
+    input,
+    textarea {
+      font-size: 0.95rem !important;
+    }
+
+    h1 { font-size: 1.8rem !important; }
+    h2 { font-size: 1.5rem !important; }
+    h3 { font-size: 1.3rem !important; }
+    h4 { font-size: 1.1rem !important; }
+
+    /* Ensure buttons are large enough for touch */
+    .btn,
+    button {
+      min-height: 44px !important;
+      padding: 0.75rem 1.5rem !important;
+      font-size: 1rem !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    html {
+      font-size: 13px !important;
+    }
+
+    body,
+    p,
+    a,
+    button,
+    input,
+    textarea {
+      font-size: 0.9rem !important;
+    }
+
+    h1 { font-size: 1.6rem !important; }
+    h2 { font-size: 1.4rem !important; }
+    h3 { font-size: 1.2rem !important; }
+    h4 { font-size: 1rem !important; }
+  }

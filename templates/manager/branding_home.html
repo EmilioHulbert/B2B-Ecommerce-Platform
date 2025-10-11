@@ -2,9 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="{% static 'brand/css/global.css' %}">
-
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NashTech Solutions Website</title>
@@ -23,7 +21,7 @@
     <link href="{% static 'brand/lib/lightbox/css/lightbox.min.css' %}" rel="stylesheet">
     <script src="{% static 'brand/js/main.js' %}"></script>
     <link rel="stylesheet" href="{% static 'brand/css/about-section.css' %}">
-
+    <link rel="stylesheet" href="{% static 'brand/css/global.css' %}">
 </head>
 <body>
     <header class="header">
@@ -51,38 +49,39 @@
     <div class="wave wave3"></div>
   </section>
 
- <section id="about" class="about">
-  <h1 class="heading">about us</h1>
-  <div class="row">
-    <div class="content">
-      <p>
-        NashTech Solutions is a multi-disciplinary technology company that combines strategy,
-        innovation, and execution to help businesses thrive in the digital age.
-      </p>
-
-      <button class="btn" onclick="toggleAboutPopup()">Read More</button>
+  <section id="about" class="about">
+    <div class="container">
+      <h1 class="heading text-center">about us</h1>
+  
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+          <div class="content">
+            <p>
+              NashTech Solutions is a multi-disciplinary technology company that combines strategy,
+              innovation, and execution to help businesses thrive in the digital age.
+            </p>
+  
+            <button class="btn" onclick="toggleAboutPopup()">Read More</button>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <!-- Hidden Full About Popup -->
-  <div id="about-popup" class="about-popup hidden">
-    <!-- <div class="about-popup-overlay"> added for external close functionality -->
-    <div class="about-popup-content">
-      <span class="close-btn" onclick="toggleAboutPopup()">&times;</span>
-      <p>
-        NashTech Solutions, founded in 2016, is a forward-thinking tech company focused on empowering clients through innovative technology and digital support. Starting as a small team offering software development, IT support, and hardware sales, NashTech quickly built a reputation for reliability and customer-centric solutions across SMEs, startups, and large businesses. By 2021, the company was incorporated, marking its evolution into a fully structured and scalable tech provider.
-
-        Today, NashTech delivers a wide range of services, including app development for startups, ERP system deployment for industrial clients, and corporate tech training. The company is committed to providing tailored, scalable, and tech-driven solutions that automate systems, foster growth, and align with business goals, making them a trusted partner for digital transformation across industries.
-
-        
-      </p>
+  
+    <!-- Hidden Full About Popup -->
+    <div id="about-popup" class="about-popup hidden">
+      <div class="about-popup-content">
+        <span class="close-btn" onclick="toggleAboutPopup()">&times;</span>
+        <p>
+          NashTech Solutions, founded in 2016, is a forward-thinking tech company focused on empowering clients through innovative technology and digital support. Starting as a small team offering software development, IT support, and hardware sales, NashTech quickly built a reputation for reliability and customer-centric solutions across SMEs, startups, and large businesses. By 2021, the company was incorporated, marking its evolution into a fully structured and scalable tech provider.
+  
+          Today, NashTech delivers a wide range of services, including app development for startups, ERP system deployment for industrial clients, and corporate tech training. The company is committed to providing tailored, scalable, and tech-driven solutions that automate systems, foster growth, and align with business goals, making them a trusted partner for digital transformation across industries.
+        </p>
+      </div>
     </div>
-    <!-- </div> -->
-  </div>
-</section>
-<script src="{% static 'brand/js/about-section.js' %}"></script>
-
-
+  </section>
+  
+  <script src="{% static 'brand/js/about-section.js' %}"></script>
+  
 <div class="pt-5 pb-5" style="background-color: #f2f2f2;">
  <div class="container-fluid"><!--can be cont fluid-->
       <div class="section-head col-sm-12" id="service">
