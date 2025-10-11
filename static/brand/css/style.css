@@ -1254,23 +1254,23 @@ body{
         .social-links {
             display: flex;
             flex-wrap: nowrap; /* force everything to stay in one line */
-            gap: 6px; /* optional: adds spacing between icons */
-            justify-content: center; /* optional: center align */
+            gap: 12px; /* increased spacing between icons */
+            justify-content: flex-start; /* align to the left/start */
             align-items: center;
         }
         /* end remac */
 
         .footer .footer-top .social-links a {
-            font-size: 18px;
+            font-size: 20px;
             display: inline-block;
             background: #ffffff;
             color: #00bfff;
             line-height: 1;
-            padding: 9px 0;
-            margin-right: 4px;
+            padding: 10px 0;
+            margin-right: 0;
             text-align: center;
-            width: 36px;
-            height: 36px;
+            width: 42px;
+            height: 42px;
             transition: 0.3s;
         }
         
