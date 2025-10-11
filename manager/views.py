@@ -166,6 +166,26 @@ class PrivacyView(View):
 
 #remac start
 from .forms import CareerApplicationForm
+from .forms import NewsletterSubscriptionForm
+
+class NewsletterSubscriptionView(View):
+    def post(self, request):
+        form = NewsletterSubscriptionForm(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                # Redirect with success message
+                url = reverse('manager:branding-home') + '?newsletter=subscribed#footer'
+                return redirect(url)
+            except Exception as e:
+                # Handle duplicate email or other errors
+                url = reverse('manager:branding-home') + '?newsletter=error#footer'
+                return redirect(url)
+
+        # If form is not valid
+        url = reverse('manager:branding-home') + '?newsletter=invalid#footer'
+        return redirect(url)
+
 class CareerApplicationView(View):
     def post(self, request):
         form = CareerApplicationForm(request.POST, request.FILES)

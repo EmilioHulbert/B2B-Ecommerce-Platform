@@ -3,6 +3,7 @@ from django import forms
 from manager import models as ManagerModels
 from .models import ContactMessage
 from .models import CareerApplication
+from .models import NewsletterSubscription
 
 class ServiceFormManager(forms.ModelForm):
     class Meta:
@@ -25,3 +26,15 @@ class CareerApplicationForm(forms.ModelForm):
     class Meta:
         model = CareerApplication
         fields = ['name', 'phone', 'email', 'status', 'experience', 'details', 'resume']
+
+
+class NewsletterSubscriptionForm(forms.ModelForm):
+    class Meta:
+        model = NewsletterSubscription
+        fields = ['email']
+        widgets = {
+            'email': forms.EmailInput(attrs={
+                'placeholder': 'Enter your email',
+                'class': 'form-control'
+            })
+        }

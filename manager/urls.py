@@ -55,6 +55,7 @@ urlpatterns = [
     path("careers/", views.CareersView.as_view(), name="careers"),
     path('contact/', views.ContactView.as_view(), name='contact'),
     path('apply/', views.CareerApplicationView.as_view(), name='apply-job'),
+    path('newsletter/subscribe/', views.NewsletterSubscriptionView.as_view(), name='newsletter-subscribe'),
 
 
 ]

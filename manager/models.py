@@ -150,6 +150,20 @@ class ContactMessage(models.Model):
         return f"{self.name} - {self.email}"
 
 
+class NewsletterSubscription(models.Model):
+    email = models.EmailField(unique=True)
+    subscribed_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.email
+
+    class Meta:
+        ordering = ['-subscribed_at']
+        verbose_name = 'Newsletter Subscription'
+        verbose_name_plural = 'Newsletter Subscriptions'
+
+
 class Showroom(models.Model):
     name = models.CharField(_("Name"), max_length=256)
     store = models.ManyToManyField(to=Store, related_name="store", default=None)
