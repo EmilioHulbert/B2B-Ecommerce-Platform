@@ -190,7 +190,8 @@ body{
 
 .heading, .clients .section-header h2, .section-head h1, .testimonials .section-header h2, .section-head-1 h4{
     margin: 2rem;
-    padding-top: 6rem;
+    margin-top: 4rem;
+    padding: 2.5rem 2.5rem 1.5rem 2.5rem;
     display: inline-block;
     font-size: 3.5rem;
     color: #002e5f;
@@ -213,13 +214,13 @@ body{
 }
 
 .heading::before, .clients .section-header h2::before, .section-head h1::before, .testimonials .section-header h2::before, .section-head-1 h4::before{
-    top: 5.8rem;
-    left: -2rem;
+    top: 0.5rem;
+    left: 0.5rem;
 }
 
 .heading::after, .clients .section-header h2::after, .section-head h1::after, .testimonials .section-header h2::after, .section-head-1 h4::after{
-    bottom: -.5rem;
-    right: -2rem;
+    bottom: 0.5rem;
+    right: 0.5rem;
     transform: rotate(180deg);
 }
 
@@ -414,7 +415,8 @@ body{
   .section-head{
     margin-bottom: 60px;
     text-align: center;
-    margin-top: -8rem;
+    margin-top: 0;
+    padding-top: 2rem;
   }
   .section-head p{
     font-size: 20px;
@@ -810,8 +812,8 @@ body{
     position: relative;
     padding: 90px 0;
     text-align: center;
-    margin-top: -10rem;
-    margin-bottom: -10rem;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .clients .section-header p {
@@ -859,7 +861,7 @@ body{
     text-align: center;
     /* background-color: #222; */
     background-color: #002e5f;
-    
+    padding-top: 2rem;
 }
 
 .team-carousel {
@@ -1287,7 +1289,7 @@ body{
             min-height: 70vh;
             width: 100vw;
             text-align: center;
-            padding: 0 2rem;
+            padding: 2rem 2rem 0 2rem;
             background: url(../images/faq.jpg);
             background-repeat: no-repeat;
             background-size: cover;
@@ -1462,8 +1464,8 @@ body{
         position: relative;
         padding: 90px 0;
         text-align: center;
-        margin-top: -15rem;
-        margin-bottom: -8rem;
+        margin-top: 0;
+        margin-bottom: 0;
     }
 
     .clients .section-header p {
@@ -1488,7 +1490,7 @@ body{
     
     .contact .heading{
         margin-bottom: 3rem;
-        margin-top: -2rem;
+        margin-top: 2rem;
     }
 
     .contact-in
@@ -1631,5 +1633,40 @@ body{
     
         .faq .row .accordion-container{
             width: 100%;
+        }
+
+        /* Better heading decorations for mobile */
+        .heading, .clients .section-header h2, .section-head h1, .testimonials .section-header h2, .section-head-1 h4 {
+            font-size: 2.5rem;
+            padding: 2rem 1.8rem 1rem 1.8rem;
+            margin: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .heading::before, .heading::after, .clients .section-header h2::before, .clients .section-header h2::after, .section-head h1::before, .section-head h1::after, .testimonials .section-header h2::before, .testimonials .section-header h2::after, .section-head-1 h4::before, .section-head-1 h4::after {
+            height: 2rem;
+            width: 2rem;
+            border-top: .3rem solid #002e5f;
+            border-left: .3rem solid #002e5f;
+        }
+
+        .faq .heading::before, .faq .heading::after {
+            border-top: .3rem solid #00bfff;
+            border-left: .3rem solid #00bfff;
+        }
+
+        .team .heading::before, .team .heading::after {
+            border-top: .3rem solid #00bfff;
+            border-left: .3rem solid #00bfff;
+        }
+
+        .heading::before, .clients .section-header h2::before, .section-head h1::before, .testimonials .section-header h2::before, .section-head-1 h4::before {
+            top: 0.4rem;
+            left: 0.4rem;
+        }
+
+        .heading::after, .clients .section-header h2::after, .section-head h1::after, .testimonials .section-header h2::after, .section-head-1 h4::after {
+            bottom: 0.4rem;
+            right: 0.4rem;
         }
 }
