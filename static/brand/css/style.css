@@ -237,9 +237,10 @@ body{
 }
 
 .heading, .clients .section-header h2, .section-head h1, .testimonials .section-header h2, .section-head-1 h4{
-    margin: 2rem;
-    margin-top: 4rem;
-    padding: 2.5rem 2.5rem 1.5rem 2.5rem;
+    margin: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    padding: 2rem 2.5rem 1rem 2.5rem;
     display: inline-block;
     font-size: 3.5rem;
     color: #002e5f;
@@ -791,7 +792,7 @@ body{
 
 .testimonials {
     position: relative;
-    padding: 90px 0 60px 0;
+    padding: 30px 0 30px 0;
     background: #f2f2f2;
 }
 
@@ -860,7 +861,7 @@ body{
 
 .clients {
     position: relative;
-    padding: 90px 0;
+    padding: 30px 0;
     text-align: center;
     margin-top: 0;
     margin-bottom: 0;
@@ -916,8 +917,80 @@ body{
 
 .team-carousel {
     margin-bottom: 0;
-    padding-bottom: 0;
+    padding-bottom: 3rem;
+    position: relative;
   }
+
+/* Team Carousel Navigation Buttons */
+.team-carousel .owl-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.team-carousel .owl-nav button {
+    pointer-events: all;
+    background: rgba(0, 191, 255, 0.9) !important;
+    color: #ffffff !important;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 2rem;
+    line-height: 50px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 191, 255, 0.4);
+}
+
+.team-carousel .owl-nav button:hover {
+    background: rgba(0, 80, 158, 0.95) !important;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 191, 255, 0.6);
+}
+
+.team-carousel .owl-nav button.owl-prev {
+    margin-left: 10px;
+}
+
+.team-carousel .owl-nav button.owl-next {
+    margin-right: 10px;
+}
+
+.team-carousel .owl-nav button span {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+/* Carousel dots */
+.team-carousel .owl-dots {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.team-carousel .owl-dots .owl-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    margin: 0 5px;
+    transition: all 0.3s ease;
+}
+
+.team-carousel .owl-dots .owl-dot.active {
+    background: #00bfff;
+    width: 30px;
+    border-radius: 10px;
+}
+
+.team-carousel .owl-dots .owl-dot:hover {
+    background: rgba(0, 191, 255, 0.7);
+}
 
 .team .heading{
     color: #00bfff;
@@ -1522,7 +1595,7 @@ body{
 
     .clients {
         position: relative;
-        padding: 90px 0;
+        padding: 30px 0;
         text-align: center;
         margin-top: 0;
         margin-bottom: 0;
@@ -1698,9 +1771,10 @@ body{
         /* Better heading decorations for mobile */
         .heading, .clients .section-header h2, .section-head h1, .testimonials .section-header h2, .section-head-1 h4 {
             font-size: 2.5rem;
-            padding: 2rem 1.8rem 1rem 1.8rem;
-            margin: 1.5rem;
-            margin-top: 3rem;
+            padding: 1.5rem 1.8rem 0.8rem 1.8rem;
+            margin: 1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .heading::before, .heading::after, .clients .section-header h2::before, .clients .section-header h2::after, .section-head h1::before, .section-head h1::after, .testimonials .section-header h2::before, .testimonials .section-header h2::after, .section-head-1 h4::before, .section-head-1 h4::after {
