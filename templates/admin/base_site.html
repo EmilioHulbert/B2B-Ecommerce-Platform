@@ -1,0 +1,222 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | NashTech Solutions Admin{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">NashTech Solutions Administration</a></h1>
+{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+    /* Cool Unsplash background image */
+    body {
+        background: linear-gradient(rgba(0, 46, 95, 0.85), rgba(0, 46, 95, 0.85)),
+                    url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+    }
+
+    /* Style the main content area */
+    #content {
+        background: rgba(255, 255, 255, 0.98);
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Header styling */
+    #header {
+        background: linear-gradient(135deg, #002e5f 0%, #00509e 100%);
+        border-bottom: 3px solid #00bfff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Site branding */
+    #branding h1, #branding h1 a:link, #branding h1 a:visited {
+        color: #00bfff;
+        font-weight: 600;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    #branding h1 a:hover {
+        color: #66ffcc;
+        text-decoration: none;
+    }
+
+    /* User tools */
+    #user-tools {
+        background: transparent;
+        padding: 10px 20px;
+    }
+
+    #user-tools a {
+        color: #ffffff;
+        font-weight: 500;
+    }
+
+    #user-tools a:hover {
+        color: #00bfff;
+    }
+
+    /* Breadcrumbs */
+    div.breadcrumbs {
+        background: linear-gradient(90deg, #002e5f 0%, #00509e 100%);
+        color: #ffffff;
+        border-radius: 5px;
+        margin: 10px 20px;
+        padding: 12px 20px;
+    }
+
+    div.breadcrumbs a {
+        color: #00bfff;
+    }
+
+    div.breadcrumbs a:hover {
+        color: #66ffcc;
+    }
+
+    /* Module styling */
+    .module {
+        background: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .module h2, .module caption, .inline-group h2 {
+        background: linear-gradient(90deg, #002e5f 0%, #00509e 100%);
+        color: #ffffff;
+        border-radius: 8px 8px 0 0;
+        padding: 12px 15px;
+    }
+
+    /* Buttons */
+    .button, input[type=submit], input[type=button], .submit-row input, button {
+        background: linear-gradient(135deg, #002e5f 0%, #00509e 100%);
+        border: none;
+        color: #ffffff;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .button:hover, input[type=submit]:hover, input[type=button]:hover, .submit-row input:hover, button:hover {
+        background: linear-gradient(135deg, #00509e 0%, #0070d0 100%);
+        box-shadow: 0 4px 12px rgba(0, 46, 95, 0.3);
+        transform: translateY(-2px);
+    }
+
+    /* Delete button */
+    .deletelink, .deletelink-box {
+        background: linear-gradient(135deg, #d32f2f 0%, #e53935 100%);
+    }
+
+    .deletelink:hover, .deletelink-box:hover {
+        background: linear-gradient(135deg, #c62828 0%, #d32f2f 100%);
+    }
+
+    /* Links */
+    a:link, a:visited {
+        color: #002e5f;
+        font-weight: 500;
+    }
+
+    a:hover {
+        color: #00509e;
+    }
+
+    /* Tables */
+    thead th {
+        background: linear-gradient(90deg, #002e5f 0%, #00509e 100%);
+        color: #ffffff;
+    }
+
+    tr.row1 {
+        background: #f5f5f5;
+    }
+
+    tr.row2 {
+        background: #ffffff;
+    }
+
+    /* Change list filters */
+    #changelist-filter {
+        background: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #changelist-filter h2 {
+        background: linear-gradient(90deg, #002e5f 0%, #00509e 100%);
+        color: #ffffff;
+        padding: 10px;
+        border-radius: 8px 8px 0 0;
+    }
+
+    /* Login form (if needed) */
+    .login {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 10px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .login #header {
+        background: linear-gradient(135deg, #002e5f 0%, #00509e 100%);
+        border-radius: 10px 10px 0 0;
+    }
+
+    /* Dashboard modules */
+    #content-main .module h2 a {
+        color: #ffffff;
+    }
+
+    /* Messages */
+    .messagelist {
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .messagelist li {
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .messagelist .success {
+        background: linear-gradient(90deg, #2e7d32 0%, #43a047 100%);
+    }
+
+    .messagelist .warning {
+        background: linear-gradient(90deg, #f57c00 0%, #fb8c00 100%);
+    }
+
+    .messagelist .error {
+        background: linear-gradient(90deg, #c62828 0%, #d32f2f 100%);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        body {
+            background-attachment: scroll;
+        }
+
+        #content {
+            margin: 10px;
+            padding: 15px;
+        }
+
+        div.breadcrumbs {
+            margin: 10px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

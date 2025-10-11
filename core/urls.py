@@ -8,6 +8,11 @@ from django.utils.translation import gettext as _
 from manager import views
 from payment.views import InitSubscriptionView
 
+# Customize Django Admin Site
+admin.site.site_header = "NashTech Solutions Administration"
+admin.site.site_title = "NashTech Admin Portal"
+admin.site.index_title = "Welcome to NashTech Solutions Administration"
+
 from django.core.signals import request_finished
 from django.dispatch import receiver
 
