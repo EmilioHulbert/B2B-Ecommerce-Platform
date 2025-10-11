@@ -1,0 +1,98 @@
+{% load static %}
+<div class="footer">
+    <div class="footer-top">
+      <div class="container-fluid px-4"> <!-- or px-2 / px-0 -->
+        <div class="row justify-content-start">
+          
+    <div class="col-lg-3 col-md-6 footer-links">
+        <h4>About Us</h4>
+        <ul>
+            <li><i class="ion-ios-arrow-forward"></i> <a href="#">Home</a></li>
+            <li><i class="ion-ios-arrow-forward"></i> <a href="#about">About us</a></li>
+            <li><i class="ion-ios-arrow-forward"></i> <a href="#service">Our services</a></li>
+            <li><i class="ion-ios-arrow-forward"></i> <a href="{% url 'manager:terms-and-conditions' %}">Terms & condition</a></li>
+            <li><i class="ion-ios-arrow-forward"></i> <a href="{% url 'manager:privacy-policy' %}">Privacy policy</a></li>
+        </ul>
+    </div>
+
+    <div class="col-lg-3 col-md-6 footer-links">
+        <h4>Useful Links</h4>
+        <ul>
+            <li><i class="ion-ios-arrow-forward"></i> <a href="#portfolio">Mission</a></li>
+            <li><i class="ion-ios-arrow-forward"></i> <a href="#team">Team</a></li>
+            <li><i class="ion-ios-arrow-forward"></i> <a href="{% static 'careers.html' %}">Career</a></li>
+            <li><i class="ion-ios-arrow-forward"></i> <a href="#contact">Contact</a></li>
+            <li><i class="ion-ios-arrow-forward"></i> <a href="#faq">FAQ</a></li>
+        </ul>
+    </div>
+
+    <div class="col-lg-3 col-md-6 footer-contact" style="font-size: 1.5rem;">
+        <h4>Contact Us</h4>
+        <p>
+          <b>HQ:</b> Revlon Professional Plaza, Biashara Street<br>
+            Nairobi, Kenya <br>
+            <strong>Phone: </strong> +254719174913 or +254739174913<br>
+            <strong>Email: </strong> nashtech.nk@gmail.com or nashtechsolutionske@gmail.com<br>
+        </p>
+        <div class="col-lg-6 col-md-7 social-links">
+            <a href="https://www.facebook.com/profile.php?id=100083154079336"><i class="ion-logo-facebook"></i></a>
+            <a href="https://x.com/NashTechKE?t=8zJxP11uDydrOURxMqtq7Q&s=09"><i class="ion-logo-twitter"></i></a>
+            <a href="https://www.linkedin.com/company/nashtech-solutions-ke/"><i class="ion-logo-linkedin"></i></a>
+            <a href="https://www.instagram.com/nashtech_solutions_ke?utm_source=qr&igsh=MWgxMzlzZ3d3YWh6Yg=="><i class="ion-logo-instagram"></i></a>
+            <a href="https://vm.tiktok.com/ZMSoRnAyW/" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>                          
+            <!-- <a href="https://accounts.google.com/servicelogin/signinchooser?flowName=GlifWebSignIn&flowEntry=ServiceLogin"><i class="ion-logo-googleplus"></i></a> -->
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6 footer-newsletter">
+        <h4>Subscribe To Our NewsLetter</h4>
+        <p>Enter Your Email Adress </p>
+        <form action="" method="post">
+            <input type="email" name="email"><input type="submit"  value="submit">
+        </form>
+    </div>
+
+</div>
+</div>
+</div>
+
+<!-- <div class="container"> -->
+<div class="container-fluid px-4">
+<div class="row align-items-center">
+<div class="col-md-6 copyright" style="color: #fff; font-size: 1.3rem;">
+    Copyright &copy; 2025 NashTech Solutions. All Rights Reserved.
+</div>
+</div>
+</div>
+</div>
+
+<a href="#" class="back-to-top"><i class="ion-ios-arrow-up"></i></a>
+<script id="service-json" type="application/json">{{ service_data|safe }}</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+<div class="modal-content text-center">
+<div class="modal-header border-0">
+<h5 class="modal-title w-100" id="successModalLabel">✅ Message Sent Successfully!</h5>
+</div>
+<div class="modal-body">
+We’ve received your message. We’ll get back to you shortly.
+</div>
+<div class="modal-footer border-0 justify-content-center">
+<button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Success Modal End -->
+
+<script src="{% static 'brand/js/msgsuccess.js' %}"></script>
+<script src="{% static 'brand/js/team-courosel.js' %}"></script>
+
+
+</body>
+
+
+</html>
