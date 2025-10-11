@@ -53,6 +53,13 @@
   }
 
   /* Responsive breakpoints for smooth transitions */
+  @media (max-width: 767px) {
+    .services-row .item.service-card {
+      margin-bottom: 1.5rem !important;
+      margin-top: 0 !important;
+    }
+  }
+
   @media (min-width: 576px) and (max-width: 767px) {
     .service-card {
       min-height: 200px;
@@ -1254,7 +1261,7 @@ body{
         .social-links {
             display: flex;
             flex-wrap: nowrap; /* force everything to stay in one line */
-            gap: 12px; /* increased spacing between icons */
+            gap: 6px; /* increased spacing between icons */
             justify-content: flex-start; /* align to the left/start */
             align-items: center;
         }
