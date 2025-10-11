@@ -328,10 +328,12 @@ body{
 }
 
 .header .logo img{
-    width: 130%;
-    height: 3rem;
+    width: auto;
+    max-width: 200px;
+    height: 3.5rem;
     top: 0;
     left: 0;
+    object-fit: contain;
 }
 
 .header .navbar ul{
@@ -1404,7 +1406,15 @@ body{
     .faq{
         min-height: 70vh;
     }
-}        
+}
+
+/* Tablet logo adjustment */
+@media (max-width: 1024px) and (min-width: 768px) {
+    .header .logo img{
+        max-width: 170px;
+        height: 3rem;
+    }
+}
 
 @media (max-width: 1000px){
     html{
@@ -1412,11 +1422,13 @@ body{
     }
 
     .header .logo img{
-        width: 20%;
-        height: 3rem;
+        width: auto;
+        max-width: 150px;
+        height: 2.5rem;
         top: 0;
         left: 0;
         background-size: cover;
+        object-fit: contain;
     }
 
     .header .fa-bars{
@@ -1717,4 +1729,19 @@ body{
             bottom: 0.4rem;
             right: 0.4rem;
         }
+}
+
+/* Extra small mobile screens - logo optimization */
+@media (max-width: 480px) {
+    .header .logo img{
+        max-width: 120px;
+        height: 2.2rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .header .logo img{
+        max-width: 100px;
+        height: 2rem;
+    }
 }
