@@ -44,12 +44,39 @@
         </div>
 
     </div>
-
+<!-- 
     <div class="col-lg-3 col-md-6 footer-newsletter">
         <h4>Subscribe To Our NewsLetter</h4>
         <p>Enter Your Email Adress </p>
         <form action="" method="post">
             <input type="email" name="email"><input type="submit"  value="submit">
+        </form>
+    </div>
+
+     -->
+     <div class="col-lg-3 col-md-6 footer-newsletter" id="footer">
+        <h4>Subscribe To Our NewsLetter</h4>
+        <p>Enter Your Email Address</p>
+
+        <!-- Success/Error Messages -->
+        {% if request.GET.newsletter == 'subscribed' %}
+        <div class="alert alert-success" style="padding: 10px; margin-bottom: 10px; background: #4caf50; color: white; border-radius: 5px;">
+            ✅ Successfully subscribed!
+        </div>
+        {% elif request.GET.newsletter == 'error' %}
+        <div class="alert alert-danger" style="padding: 10px; margin-bottom: 10px; background: #f44336; color: white; border-radius: 5px;">
+            ⚠️ Email already subscribed!
+        </div>
+        {% elif request.GET.newsletter == 'invalid' %}
+        <div class="alert alert-warning" style="padding: 10px; margin-bottom: 10px; background: #ff9800; color: white; border-radius: 5px;">
+            ⚠️ Please enter a valid email!
+        </div>
+        {% endif %}
+
+        <form action="{% url 'manager:newsletter-subscribe' %}" method="post">
+            {% csrf_token %}
+            <input type="email" name="email" placeholder="your@email.com" required>
+            <input type="submit" value="Submit">
         </form>
     </div>
 
