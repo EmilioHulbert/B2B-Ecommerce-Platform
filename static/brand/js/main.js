@@ -68,10 +68,22 @@ $('.back-to-top').click(function () {
 });
 
 $('.accordion-header').click(function(){
-    $('.accordion .accordion-body').slideUp(500);
-    $(this).next('.accordion-body').slideDown(500);
-    $('.accordion .accordion-header span').text('+');
-    $(this).children('span').text('-');
+    var accordionBody = $(this).next('.accordion-body');
+    var isOpen = accordionBody.is(':visible');
+
+    if (isOpen) {
+        // If already open, just close it
+        accordionBody.slideUp(500);
+        $(this).children('span').text('+');
+    } else {
+        // Close all other accordions
+        $('.accordion .accordion-body').slideUp(500);
+        $('.accordion .accordion-header span').text('+');
+
+        // Open the clicked one
+        accordionBody.slideDown(500);
+        $(this).children('span').text('-');
+    }
 });
 
 });
