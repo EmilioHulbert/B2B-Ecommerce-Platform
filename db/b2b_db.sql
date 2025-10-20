@@ -1328,6 +1328,41 @@ ALTER SEQUENCE public.manager_location_id_seq OWNED BY public.manager_location.i
 
 
 --
+-- Name: manager_newslettersubscription; Type: TABLE; Schema: public; Owner: b2b_user
+--
+
+CREATE TABLE public.manager_newslettersubscription (
+    id bigint NOT NULL,
+    email character varying(254) NOT NULL,
+    subscribed_at timestamp with time zone NOT NULL,
+    is_active boolean NOT NULL
+);
+
+
+ALTER TABLE public.manager_newslettersubscription OWNER TO b2b_user;
+
+--
+-- Name: manager_newslettersubscription_id_seq; Type: SEQUENCE; Schema: public; Owner: b2b_user
+--
+
+CREATE SEQUENCE public.manager_newslettersubscription_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.manager_newslettersubscription_id_seq OWNER TO b2b_user;
+
+--
+-- Name: manager_newslettersubscription_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: b2b_user
+--
+
+ALTER SEQUENCE public.manager_newslettersubscription_id_seq OWNED BY public.manager_newslettersubscription.id;
+
+
+--
 -- Name: manager_notification; Type: TABLE; Schema: public; Owner: b2b_user
 --
 
@@ -3631,6 +3666,13 @@ ALTER TABLE ONLY public.manager_location ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
+-- Name: manager_newslettersubscription id; Type: DEFAULT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.manager_newslettersubscription ALTER COLUMN id SET DEFAULT nextval('public.manager_newslettersubscription_id_seq'::regclass);
+
+
+--
 -- Name: manager_notification id; Type: DEFAULT; Schema: public; Owner: b2b_user
 --
 
@@ -4051,7 +4093,7 @@ COPY public.auth_app_user (id, password, last_login, is_superuser, username, fir
 15	pbkdf2_sha256$320000$xKLWUyS8ovcy2YTbp44W66$8kfaNkkESffKu2DhQaQMfp2jYhnzKd5nvwJSTleTiUs=	2025-08-05 17:00:59.72333+03	f	seller	seller	\N	\N	\N	seller	seller	\N	\N	\N	seller	seller@gmail.com	f	t	2025-08-05 11:55:34+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
 3	pbkdf2_sha256$320000$GuJQnnqDBoqelHJn31jS3h$C0qzsjEPgZezFEHYvhMr/J5ByXIWfO3F3Kyhj/b9I+8=	2025-06-24 19:19:20+03	t	Betwan	Betwan	\N	\N	\N	Betwan	Suppliers	\N	\N	\N	Suppliers	info@betwancomputers.co.ke	t	t	2025-06-24 19:19:08+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
 14	pbkdf2_sha256$320000$N8XZv7icB5kXQ5SXuPOttu$ZiqqMiQC7JkKmx0cO1Uwh4Vl2mzdKlfa+BkbpykR4rs=	2025-08-06 06:34:07.200433+03	f	buyer	buyer	\N	\N	\N	buyer	buyer	\N	\N	\N	buyer	buyer@gmail.com	f	t	2025-08-05 11:54:58+03	BUYER	assets/imgs/resources/profiledefault.png	t
-4	pbkdf2_sha256$320000$GuJQnnqDBoqelHJn31jS3h$C0qzsjEPgZezFEHYvhMr/J5ByXIWfO3F3Kyhj/b9I+8=	2025-08-09 08:03:48.999182+03	t	Admin		\N	\N	\N	\N		\N	\N	\N	\N	emiliohulbert2017@gmail.com	t	t	2025-06-30 20:15:14+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
+4	pbkdf2_sha256$320000$GuJQnnqDBoqelHJn31jS3h$C0qzsjEPgZezFEHYvhMr/J5ByXIWfO3F3Kyhj/b9I+8=	2025-10-11 20:04:16.233839+03	t	Admin		\N	\N	\N	\N		\N	\N	\N	\N	emiliohulbert2017@gmail.com	t	t	2025-06-30 20:15:14+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
 \.
 
 
@@ -4669,6 +4711,10 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 294	Can change inter client message	74	change_interclientmessage
 295	Can delete inter client message	74	delete_interclientmessage
 296	Can view inter client message	74	view_interclientmessage
+297	Can add Newsletter Subscription	75	add_newslettersubscription
+298	Can change Newsletter Subscription	75	change_newslettersubscription
+299	Can delete Newsletter Subscription	75	delete_newslettersubscription
+300	Can view Newsletter Subscription	75	view_newslettersubscription
 \.
 
 
@@ -5074,6 +5120,7 @@ COPY public.django_content_type (id, app_label, model) FROM stdin;
 72	manager	careerapplication
 73	payment	transaction
 74	coms	interclientmessage
+75	manager	newslettersubscription
 \.
 
 
@@ -5136,6 +5183,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 52	coms	0003_interclientmessage	2025-08-06 00:08:40.302842+03
 53	supplier	0006_alter_order_status_alter_order_status_ar_and_more	2025-08-06 08:20:13.724486+03
 54	supplier	0007_alter_orderproductvariation_order	2025-08-06 08:39:54.08763+03
+55	manager	0005_newslettersubscription	2025-10-11 20:03:36.912875+03
 \.
 
 
@@ -5198,6 +5246,7 @@ y94sawmb95hubipxxx8qxw7fesk9hgt0	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdK
 74zz4an9zz5gtk4r3w99kbdloq7dquk2	.eJxVjDsOwyAQBe9CHSEwyy9lep8BLV4ITiKQjF1FuXuE5CJp38y8Nwt47CUcPW1hJXZlEtjld4y4PFMdhB5Y740vre7bGvlQ-Ek7nxul1-10_w4K9jJqL20GctohKdAWjJPaJDlpCUDRArqJtBJOeFJZi5x8NJCVskhRJcs-X-HgN1k:1ujUul:ftOPfHK_s10U0pCF9DxKTND72O74RsLmbU9a_XV22zg	2025-08-20 06:34:07.209656+03
 60sdk82lsnerx26d4enly8f9l9rmpvub	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIqrDj9boTxyXWA9MB6bzK2uq0LyaHIg3Y5t8Sv2-H-HRTsZdRM1vuM1sHkISsgyxrOViFPRBkuWbMCYASTNHuVHDoyXhuOADmC-HwB87A4Wg:1ujehg:XQp_IsSj28zIBGis7P6btiRL9x-NdYxPXyLIEldba4E	2025-08-20 17:01:16.864888+03
 7hdvs3rfh4qa7rgve0g7cognwm1ebn45	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIqrDj9boTxyXWA9MB6bzK2uq0LyaHIg3Y5t8Sv2-H-HRTsZdRM1vuM1sHkISsgyxrOViFPRBkuWbMCYASTNHuVHDoyXhuOADmC-HwB87A4Wg:1ukbmp:4Nxy4SF-RoJlXfUE1Th_KX-vJAa6ho0Za9mUFAGJdbw	2025-08-09 09:06:31.648635+03
+hz07xvpi02pofnifdcjc9978zvtt4z8y	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIqrDj9boTxyXWA9MB6bzK2uq0LyaHIg3Y5t8Sv2-H-HRTsZdRM1vuM1sHkISsgyxrOViFPRBkuWbMCYASTNHuVHDoyXhuOADmC-HwB87A4Wg:1v7cbx:BVPo6u85ruBPT8Pj--DXt0E1qZM-jZgYoCvUHBOPC4o	2025-10-11 20:38:25.448689+03
 \.
 
 
@@ -5315,6 +5364,17 @@ COPY public.manager_emailpromotion (id, subject, subject_ar, subject_fr, subject
 --
 
 COPY public.manager_location (id, name, created_on, slug) FROM stdin;
+\.
+
+
+--
+-- Data for Name: manager_newslettersubscription; Type: TABLE DATA; Schema: public; Owner: b2b_user
+--
+
+COPY public.manager_newslettersubscription (id, email, subscribed_at, is_active) FROM stdin;
+1	emiliohulbert2017@gmail.com	2025-10-11 20:04:04.644666+03	t
+2	ganizachifundo@gmail.com	2025-10-11 20:09:33.880257+03	t
+3	muriuki.emilio.h.21@students.dkut.ac.ke	2025-10-11 20:09:53.956744+03	t
 \.
 
 
@@ -6365,7 +6425,7 @@ SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 276, true);
 -- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.auth_permission_id_seq', 296, true);
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 300, true);
 
 
 --
@@ -6442,14 +6502,14 @@ SELECT pg_catalog.setval('public.django_admin_log_id_seq', 474, true);
 -- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.django_content_type_id_seq', 74, true);
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 75, true);
 
 
 --
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 54, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 55, true);
 
 
 --
@@ -6520,6 +6580,13 @@ SELECT pg_catalog.setval('public.manager_emailpromotion_id_seq', 1, false);
 --
 
 SELECT pg_catalog.setval('public.manager_location_id_seq', 1, false);
+
+
+--
+-- Name: manager_newslettersubscription_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
+--
+
+SELECT pg_catalog.setval('public.manager_newslettersubscription_id_seq', 3, true);
 
 
 --
@@ -7396,6 +7463,22 @@ ALTER TABLE ONLY public.manager_location
 
 ALTER TABLE ONLY public.manager_location
     ADD CONSTRAINT manager_location_slug_key UNIQUE (slug);
+
+
+--
+-- Name: manager_newslettersubscription manager_newslettersubscription_email_key; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.manager_newslettersubscription
+    ADD CONSTRAINT manager_newslettersubscription_email_key UNIQUE (email);
+
+
+--
+-- Name: manager_newslettersubscription manager_newslettersubscription_pkey; Type: CONSTRAINT; Schema: public; Owner: b2b_user
+--
+
+ALTER TABLE ONLY public.manager_newslettersubscription
+    ADD CONSTRAINT manager_newslettersubscription_pkey PRIMARY KEY (id);
 
 
 --
@@ -8579,6 +8662,13 @@ CREATE INDEX manager_emailpromotion_slug_a740182c_like ON public.manager_emailpr
 --
 
 CREATE INDEX manager_location_slug_9940b2ab_like ON public.manager_location USING btree (slug varchar_pattern_ops);
+
+
+--
+-- Name: manager_newslettersubscription_email_31c70bd9_like; Type: INDEX; Schema: public; Owner: b2b_user
+--
+
+CREATE INDEX manager_newslettersubscription_email_31c70bd9_like ON public.manager_newslettersubscription USING btree (email varchar_pattern_ops);
 
 
 --
