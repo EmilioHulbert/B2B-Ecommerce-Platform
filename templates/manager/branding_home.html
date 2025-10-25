@@ -143,14 +143,24 @@
                   <p>To view this video, please enable JavaScript, or <a href="https://www.youtube.com/watch?v=zI2eCVrUTvU" target="_blank">watch it on YouTube</a>.</p>
                 </noscript>
 
-                <iframe
+                <!-- <iframe
                   id="youtube-iframe"
                   src=""
                   title="What is ERP?"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowfullscreen
                   style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; display: none;">
-                </iframe>
+                </iframe> -->
+                <iframe
+  id="youtube-iframe"
+  src=""
+  referrerpolicy="strict-origin-when-cross-origin"
+  sandbox="allow-scripts allow-same-origin allow-fullscreen"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; display: none;">
+</iframe>
+
               </div>
                 
               <script src="{% static 'brand/js/youtube-script.js' %}"></script>
