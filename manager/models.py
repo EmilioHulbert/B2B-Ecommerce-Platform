@@ -29,7 +29,7 @@ class CareerApplication(models.Model):
         ("Digital Marketer", "Digital Marketer"),
     ]
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=512)
     phone = models.CharField(max_length=15)
     email = models.EmailField()
     status = models.CharField(max_length=50, choices=ROLE_CHOICES)
@@ -109,6 +109,7 @@ class ServiceImage(models.Model):
     image = models.ImageField(
         verbose_name=_("Service Image"),
         upload_to=get_file_path,
+        max_length=512,
     )
     slug = models.SlugField(
         _("Safe Url"),
@@ -127,7 +128,7 @@ class ServiceImage(models.Model):
 
 
 class ServiceCategory(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=512)
     description = models.TextField(blank=True, null=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
 
@@ -174,6 +175,7 @@ class Showroom(models.Model):
         verbose_name=_("Image"),
         upload_to=get_file_path,
         default="test/django.png",
+        max_length=512,
     )
     visits = models.IntegerField(_("Number of visits"), default=0)
     slug = models.SlugField(
@@ -269,6 +271,7 @@ class Promotion(models.Model):
         verbose_name=_("Image"),
         upload_to=get_file_path,
         blank=True,
+        max_length=512,
         null=True
     )
     type = models.CharField(_("Type"), max_length=256, choices=promotion_types)
@@ -309,7 +312,8 @@ class EmailPromotion(models.Model):
         verbose_name=_("Image"),
         upload_to=get_file_path,
         blank=True,
-        null=True
+        null=True,
+        max_length=512
     )
     target = models.CharField(_("Type"), max_length=256, choices=promotion_types)
     created_on = models.DateField(_("Created on"), default=timezone.now)

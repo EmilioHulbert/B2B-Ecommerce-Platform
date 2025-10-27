@@ -40,6 +40,7 @@ class User(AbstractUser):
         blank=True,
         null=True,
         default="assets/imgs/resources/profiledefault.png",
+        max_length=512,
     )
     is_email_activated = models.BooleanField(_("Email Activated"), default=False)
 
@@ -92,6 +93,7 @@ class ClientProfile(models.Model):
         verbose_name=_("Business Image"),
         upload_to=get_file_path,
         default="test/django.png",
+        max_length=512,
     )
 
     team = models.ManyToManyField(to=User, related_name="team_members", blank=True)

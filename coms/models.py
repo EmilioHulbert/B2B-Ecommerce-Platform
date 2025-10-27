@@ -182,6 +182,7 @@ class GroupChat(models.Model):
         blank=True,
         null=True,
         default="assets/imgs/resources/profiledefault.png",
+        max_length=512,
     )
     participants = models.ManyToManyField(to=Authmodels.User, related_name="group_participants", blank=True)
 

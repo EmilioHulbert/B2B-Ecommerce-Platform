@@ -70,6 +70,7 @@ class Store(models.Model):
         verbose_name=_("Service Image"),
         upload_to=get_file_path,
         default="test/django.png",
+        max_length=512,
     )
     is_verified = models.BooleanField(_("Verified by Admin"), default=True)
     created_on = models.DateField(_("Created on"), default=timezone.now)
@@ -93,6 +94,7 @@ class ProductCategory(models.Model):
         verbose_name=_("Image"),
         upload_to=get_file_path,
         default="test/django.png",
+        max_length=512,
     )
     slug = models.SlugField(
         _("Safe Url"), unique=True, blank=True, null=True, max_length=200
@@ -117,6 +119,7 @@ class ProductSubCategory(models.Model):
         verbose_name=_("Image"),
         upload_to=get_file_path,
         default="test/django.png",
+        max_length=512,
     )
     slug = models.SlugField(
         _("Safe Url"), unique=True, blank=True, null=True, max_length=200
@@ -225,9 +228,10 @@ class ProductImage(models.Model):
     image = models.FileField(
         verbose_name=_("Image"),
         upload_to=get_file_path,
+        max_length=512,
     )
     slug = models.SlugField(
-        _("Safe Url"), unique=True, blank=True, null=True, max_length=100
+        _("Safe Url"), unique=True, blank=True, null=True, max_length=255
     )
     created_on = models.DateField(_("Created on"), default=timezone.now)
 
@@ -245,7 +249,7 @@ class ProductVideo(models.Model):
         upload_to=get_video_path,
     )
     slug = models.SlugField(
-        _("Safe Url"), unique=True, blank=True, null=True, max_length=100
+        _("Safe Url"), unique=True, blank=True, null=True, max_length=255
     )
     created_on = models.DateField(_("Created on"), default=timezone.now)
 
@@ -540,6 +544,7 @@ class ServiceImage(models.Model):
     image = models.ImageField(
         verbose_name=_("Service Image"),
         upload_to=get_file_path,
+        max_length=512,
     )
     slug = models.SlugField(
         _("Safe Url"),
