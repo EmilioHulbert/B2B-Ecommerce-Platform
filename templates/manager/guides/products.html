@@ -24,7 +24,7 @@
                             <span>{% trans 'Access your supplier dashboard' %}</span>
                         </h3>
                         <div class="guide-img">
-                            {% with "images/guides/"|add:request.LANGUAGE_CODE|add:"/supplier_dash.png" as url %}
+                            {% with "images/guides/"|add:request.LANGUAGE_CODE|add:"/supplier_dash.webp" as url %}
                                 
                                 <img loading="lazy" src="{% static url %}" alt="access-dashboard">
                             {% endwith %}
@@ -39,7 +39,7 @@
                             {% trans 'This Redirects you to a form, with which you can create a new product.' %}
                         </p>
                         <div class="guide-img">
-                            {% with "images/guides/"|add:request.LANGUAGE_CODE|add:"/create_product.png" as url %}
+                            {% with "images/guides/"|add:request.LANGUAGE_CODE|add:"/create_product.webp" as url %}
                                 
                                 <img loading="lazy" src="{% static url %}" alt="access-dashboard">
                             {% endwith %}

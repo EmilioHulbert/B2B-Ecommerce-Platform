@@ -54,7 +54,7 @@
                             {% trans 'NashTech offers both custom account creation and social account creation using Google and LinkedIn ' %}
                         </p>
                         <div class="guide-img">
-                            {% with "images/guides/"|add:request.LANGUAGE_CODE|add:"/auth_page.png" as url %}
+                            {% with "images/guides/"|add:request.LANGUAGE_CODE|add:"/auth_page.webp" as url %}
                                 
                                 <img loading="lazy" src="{% static url %}" alt="access-dashboard">
                             {% endwith %}
@@ -66,7 +66,7 @@
                             <span>{% trans 'Using custom account creation' %}</span>
                         </h3>
                         <div class="guide-img">
-                            {% with "images/guides/"|add:request.LANGUAGE_CODE|add:"/custom_signup.png" as url %}
+                            {% with "images/guides/"|add:request.LANGUAGE_CODE|add:"/custom_signup.webp" as url %}
                                 
                                 <img loading="lazy" src="{% static url %}" alt="access-dashboard">
                             {% endwith %}
@@ -81,7 +81,7 @@
                             {% trans 'You are prompted to selected your desired account type.' %}
                         </p>
                         <div class="guide-img">
-                            <img loading="lazy" src="{% static 'images/guides/en/social_signup.png' %}" alt="access-dashboard">
+                            <img loading="lazy" src="{% static 'images/guides/en/social_signup.webp' %}" alt="access-dashboard">
                         </div>
                     </div>
                     <div class="grid gap-2 px-2 md:px-4">
@@ -90,7 +90,7 @@
                             <span>{% trans 'Enter your business details' %}</span>
                         </h3>
                         <div class="guide-img">
-                            {% with "images/guides/"|add:request.LANGUAGE_CODE|add:"/business_infor.png" as url %}
+                            {% with "images/guides/"|add:request.LANGUAGE_CODE|add:"/business_infor.webp" as url %}
                                 
                                 <img loading="lazy" src="{% static url %}" alt="access-dashboard">
                             {% endwith %}
