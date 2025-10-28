@@ -1,0 +1,46 @@
+  <!-- First column: 2 cards -->
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4">
+                <div class="item mb-3 service-card" data-category="Information Management Systems">
+                    <span class="icon"><i class="fa fa-server"></i></span>
+                    <h6>Information Management Systems</h6>
+                    <p>Centralized data management for enterprise operations.</p>
+                  </div>
+
+            <!-- <div class="item mb-3 service-card" data-category="Digital Marketing & Branding">
+            <span class="icon feature_box_col_two"><i class="fa fa-bullhorn"></i></span>
+            <h6>Digital Marketing & Branding</h6>
+            <p>Promoting products and building brand presence across online channels.</p>
+          </div> -->
+        </div>
+        <!-- Second column: 2 cards -->
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4">
+            <div class="item mb-3 service-card" data-category="Hardware & IT Infrastructure">
+            <span class="icon feature_box_col_three"><i class="fa fa-magic"></i></span>
+            <h6>Hardware & IT Infrastructure</h6>
+            <p>The foundational physical and digital backbone supporting an organization's technology.</p>
+          </div>
+            <!-- <div class="item mb-3 service-card" data-category="Creative Media">
+            <span class="icon feature_box_col_one"><i class="fa fa-code"></i></span>
+            <h6>Creative Media</h6>
+            <p>Crafting compelling visual and audio content for diverse platforms and storytelling.</p>
+          </div> -->
+        </div>
+
+
+        
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 service-col">
+          <div class="item mb-3 service-card" data-category="Information Management Systems">
+              <span class="icon"><i class="fa fa-server"></i></span>
+              <h6>Information Management Systems</h6>
+              <p>Centralized data management for enterprise operations.</p>
+          </div>
+      </div>
+      
+      <div class="col-12 col-sm-6 col-md-6 col-lg-4 service-col">
+          <div class="item mb-3 service-card" data-category="Hardware & IT Infrastructure">
+              <span class="icon feature_box_col_three"><i class="fa fa-magic"></i></span>
+              <h6>Hardware & IT Infrastructure</h6>
+              <p>The foundational physical and digital backbone supporting an organization's technology.</p>
+          </div>
+      </div>
+      
