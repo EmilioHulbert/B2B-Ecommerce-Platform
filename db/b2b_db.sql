@@ -144,7 +144,7 @@ CREATE TABLE public.auth_app_clientprofile (
     legal_etity_identifier character varying(256),
     website character varying(200),
     customer_id character varying(30),
-    image character varying(100) NOT NULL,
+    image character varying(512) NOT NULL,
     user_id bigint NOT NULL
 );
 
@@ -265,7 +265,7 @@ CREATE TABLE public.auth_app_user (
     is_active boolean NOT NULL,
     date_joined timestamp with time zone NOT NULL,
     account_type character varying(50) NOT NULL,
-    image character varying(100),
+    image character varying(512),
     is_email_activated boolean NOT NULL
 );
 
@@ -512,7 +512,7 @@ CREATE TABLE public.coms_groupchat (
     created_on date NOT NULL,
     updated_on timestamp with time zone,
     name character varying(256),
-    image character varying(100)
+    image character varying(512)
 );
 
 
@@ -1086,7 +1086,7 @@ ALTER SEQUENCE public.manager_calenderevent_id_seq OWNED BY public.manager_calen
 
 CREATE TABLE public.manager_careerapplication (
     id bigint NOT NULL,
-    name character varying(100) NOT NULL,
+    name character varying(512) NOT NULL,
     phone character varying(15) NOT NULL,
     email character varying(254) NOT NULL,
     status character varying(50) NOT NULL,
@@ -1260,7 +1260,7 @@ CREATE TABLE public.manager_emailpromotion (
     description_fr character varying(256),
     description_de character varying(256),
     description_en character varying(256),
-    image character varying(100),
+    image character varying(512),
     target character varying(256) NOT NULL,
     created_on date NOT NULL,
     slug character varying(50),
@@ -1416,7 +1416,7 @@ CREATE TABLE public.manager_promotion (
     description_fr character varying(256),
     description_de character varying(256),
     description_en character varying(256),
-    image character varying(100),
+    image character varying(512),
     type character varying(256) NOT NULL,
     created_on date NOT NULL,
     slug character varying(50),
@@ -1537,7 +1537,7 @@ ALTER SEQUENCE public.manager_service_id_seq OWNED BY public.manager_service.id;
 
 CREATE TABLE public.manager_servicecategory (
     id bigint NOT NULL,
-    name character varying(100) NOT NULL,
+    name character varying(512) NOT NULL,
     description text,
     slug character varying(50)
 );
@@ -1572,7 +1572,7 @@ ALTER SEQUENCE public.manager_servicecategory_id_seq OWNED BY public.manager_ser
 
 CREATE TABLE public.manager_serviceimage (
     id bigint NOT NULL,
-    image character varying(100) NOT NULL,
+    image character varying(512) NOT NULL,
     slug character varying(50),
     created_on date NOT NULL,
     service_id bigint NOT NULL
@@ -1613,7 +1613,7 @@ CREATE TABLE public.manager_showroom (
     name_fr character varying(256),
     name_de character varying(256),
     name_en character varying(256),
-    image character varying(100) NOT NULL,
+    image character varying(512) NOT NULL,
     visits integer NOT NULL,
     slug character varying(50),
     created_on date NOT NULL,
@@ -2902,7 +2902,7 @@ CREATE TABLE public.supplier_productcategory (
     name_de character varying(256),
     name_en character varying(256),
     product_count integer NOT NULL,
-    image character varying(100) NOT NULL,
+    image character varying(512) NOT NULL,
     slug character varying(200),
     created_on date NOT NULL
 );
@@ -2974,8 +2974,8 @@ ALTER SEQUENCE public.supplier_productcolor_id_seq OWNED BY public.supplier_prod
 
 CREATE TABLE public.supplier_productimage (
     id bigint NOT NULL,
-    image character varying(100) NOT NULL,
-    slug character varying(100),
+    image character varying(512) NOT NULL,
+    slug character varying(255),
     created_on date NOT NULL,
     product_id bigint NOT NULL
 );
@@ -3123,7 +3123,7 @@ CREATE TABLE public.supplier_productsubcategory (
     name_fr character varying(256),
     name_de character varying(256),
     name_en character varying(256),
-    image character varying(100) NOT NULL,
+    image character varying(512) NOT NULL,
     slug character varying(200),
     created_on date NOT NULL,
     category_id bigint NOT NULL
@@ -3198,7 +3198,7 @@ ALTER SEQUENCE public.supplier_producttag_id_seq OWNED BY public.supplier_produc
 CREATE TABLE public.supplier_productvideo (
     id bigint NOT NULL,
     video character varying(100) NOT NULL,
-    slug character varying(100),
+    slug character varying(255),
     created_on date NOT NULL,
     product_id bigint NOT NULL
 );
@@ -3289,7 +3289,7 @@ ALTER SEQUENCE public.supplier_service_id_seq OWNED BY public.supplier_service.i
 
 CREATE TABLE public.supplier_serviceimage (
     id bigint NOT NULL,
-    image character varying(100) NOT NULL,
+    image character varying(512) NOT NULL,
     slug character varying(50),
     created_on date NOT NULL,
     service_id bigint NOT NULL
@@ -3370,7 +3370,7 @@ CREATE TABLE public.supplier_store (
     name_de character varying(256),
     name_en character varying(256),
     slug character varying(200),
-    image character varying(100) NOT NULL,
+    image character varying(512) NOT NULL,
     is_verified boolean NOT NULL,
     created_on date NOT NULL,
     supplier_id bigint NOT NULL
@@ -4057,10 +4057,10 @@ COPY public.account_emailconfirmation (id, created, sent, key, email_address_id)
 --
 
 COPY public.auth_app_clientprofile (id, business_name, business_name_ar, business_name_fr, business_name_de, business_name_en, slug, business_description, business_description_ar, business_description_fr, business_description_de, business_description_en, country, country_ar, country_fr, country_de, country_en, country_code, country_code_ar, country_code_fr, country_code_de, country_code_en, city, city_ar, city_fr, city_de, city_en, mobile_user, mobile_user_ar, mobile_user_fr, mobile_user_de, mobile_user_en, vat_number, legal_etity_identifier, website, customer_id, image, user_id) FROM stdin;
-1	Betwan Suppliers	\N	\N	\N	Betwan Suppliers	betwan-suppliers	Betwan Suppliers				Betwan Suppliers	Kenya	\N	\N	\N	Kenya	+254	\N	\N	\N	+254	Nairobi	\N	\N	\N	Nairobi	+254 727 074610	\N	\N	\N	+254 727 074610	\N	\N	\N	\N	test/django.png	3
-10	buyer	\N	\N	\N	buyer	buyer	buyer description	\N	\N	\N	buyer description	Kenya	\N	\N	\N	Kenya	254	\N	\N	\N	254	Nairobi	\N	\N	\N	Nairobi	8483278978	\N	\N	\N	8483278978	8483278978	8483278978	https://nairobiskates.com	16035845264	test/django.png	14
-11	seller	\N	\N	\N	seller	seller	seller description	\N	\N	\N	seller description	Kenya	\N	\N	\N	Kenya	254	\N	\N	\N	254	Nairobi	\N	\N	\N	Nairobi	778234783	\N	\N	\N	778234783	778234783	778234783	https://nairobiskates.com	58820850816	test/django.png	15
-9	admin	\N	\N	\N	admin	admin	shakfiw	\N	\N	\N	shakfiw	Kenya	\N	\N	\N	Kenya	254	\N	\N	\N	254	ajhkfieh	\N	\N	\N	ajhkfieh	3892423479	\N	\N	\N	3892423479	3892423479	3892423479	https://nairobiskates.com	57473125601	test/django.png	4
+1	Betwan Suppliers	\N	\N	\N	Betwan Suppliers	betwan-suppliers	Betwan Suppliers				Betwan Suppliers	Kenya	\N	\N	\N	Kenya	+254	\N	\N	\N	+254	Nairobi	\N	\N	\N	Nairobi	+254 727 074610	\N	\N	\N	+254 727 074610	\N	\N	\N	\N	test/django.webp	3
+10	buyer	\N	\N	\N	buyer	buyer	buyer description	\N	\N	\N	buyer description	Kenya	\N	\N	\N	Kenya	254	\N	\N	\N	254	Nairobi	\N	\N	\N	Nairobi	8483278978	\N	\N	\N	8483278978	8483278978	8483278978	https://nairobiskates.com	16035845264	test/django.webp	14
+11	seller	\N	\N	\N	seller	seller	seller description	\N	\N	\N	seller description	Kenya	\N	\N	\N	Kenya	254	\N	\N	\N	254	Nairobi	\N	\N	\N	Nairobi	778234783	\N	\N	\N	778234783	778234783	778234783	https://nairobiskates.com	58820850816	test/django.webp	15
+9	admin	\N	\N	\N	admin	admin	shakfiw	\N	\N	\N	shakfiw	Kenya	\N	\N	\N	Kenya	254	\N	\N	\N	254	ajhkfieh	\N	\N	\N	ajhkfieh	3892423479	\N	\N	\N	3892423479	3892423479	3892423479	https://nairobiskates.com	57473125601	test/django.webp	4
 \.
 
 
@@ -4090,10 +4090,10 @@ COPY public.auth_app_supportprofile (id, responses, user_id) FROM stdin;
 --
 
 COPY public.auth_app_user (id, password, last_login, is_superuser, username, first_name, first_name_ar, first_name_fr, first_name_de, first_name_en, last_name, last_name_ar, last_name_fr, last_name_de, last_name_en, email, is_staff, is_active, date_joined, account_type, image, is_email_activated) FROM stdin;
-15	pbkdf2_sha256$320000$xKLWUyS8ovcy2YTbp44W66$8kfaNkkESffKu2DhQaQMfp2jYhnzKd5nvwJSTleTiUs=	2025-08-05 17:00:59.72333+03	f	seller	seller	\N	\N	\N	seller	seller	\N	\N	\N	seller	seller@gmail.com	f	t	2025-08-05 11:55:34+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
-3	pbkdf2_sha256$320000$GuJQnnqDBoqelHJn31jS3h$C0qzsjEPgZezFEHYvhMr/J5ByXIWfO3F3Kyhj/b9I+8=	2025-06-24 19:19:20+03	t	Betwan	Betwan	\N	\N	\N	Betwan	Suppliers	\N	\N	\N	Suppliers	info@betwancomputers.co.ke	t	t	2025-06-24 19:19:08+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
-14	pbkdf2_sha256$320000$N8XZv7icB5kXQ5SXuPOttu$ZiqqMiQC7JkKmx0cO1Uwh4Vl2mzdKlfa+BkbpykR4rs=	2025-08-06 06:34:07.200433+03	f	buyer	buyer	\N	\N	\N	buyer	buyer	\N	\N	\N	buyer	buyer@gmail.com	f	t	2025-08-05 11:54:58+03	BUYER	assets/imgs/resources/profiledefault.png	t
-4	pbkdf2_sha256$320000$GuJQnnqDBoqelHJn31jS3h$C0qzsjEPgZezFEHYvhMr/J5ByXIWfO3F3Kyhj/b9I+8=	2025-10-11 20:04:16.233839+03	t	Admin		\N	\N	\N	\N		\N	\N	\N	\N	emiliohulbert2017@gmail.com	t	t	2025-06-30 20:15:14+03	SUPPLIER	assets/imgs/resources/profiledefault.png	t
+15	pbkdf2_sha256$320000$xKLWUyS8ovcy2YTbp44W66$8kfaNkkESffKu2DhQaQMfp2jYhnzKd5nvwJSTleTiUs=	2025-08-05 17:00:59.72333+03	f	seller	seller	\N	\N	\N	seller	seller	\N	\N	\N	seller	seller@gmail.com	f	t	2025-08-05 11:55:34+03	SUPPLIER	assets/imgs/resources/profiledefault.webp	t
+3	pbkdf2_sha256$320000$GuJQnnqDBoqelHJn31jS3h$C0qzsjEPgZezFEHYvhMr/J5ByXIWfO3F3Kyhj/b9I+8=	2025-06-24 19:19:20+03	t	Betwan	Betwan	\N	\N	\N	Betwan	Suppliers	\N	\N	\N	Suppliers	info@betwancomputers.co.ke	t	t	2025-06-24 19:19:08+03	SUPPLIER	assets/imgs/resources/profiledefault.webp	t
+14	pbkdf2_sha256$320000$N8XZv7icB5kXQ5SXuPOttu$ZiqqMiQC7JkKmx0cO1Uwh4Vl2mzdKlfa+BkbpykR4rs=	2025-08-06 06:34:07.200433+03	f	buyer	buyer	\N	\N	\N	buyer	buyer	\N	\N	\N	buyer	buyer@gmail.com	f	t	2025-08-05 11:54:58+03	BUYER	assets/imgs/resources/profiledefault.webp	t
+4	pbkdf2_sha256$320000$GuJQnnqDBoqelHJn31jS3h$C0qzsjEPgZezFEHYvhMr/J5ByXIWfO3F3Kyhj/b9I+8=	2025-10-25 08:45:45.275452+03	t	Admin		\N	\N	\N	\N		\N	\N	\N	\N	emiliohulbert2017@gmail.com	t	t	2025-06-30 20:15:14+03	SUPPLIER	assets/imgs/resources/profiledefault.webp	t
 \.
 
 
@@ -5038,6 +5038,16 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 472	2025-08-05 21:19:56.005925+03	61	test Betwan Suppliers	3		23	4
 473	2025-08-09 08:06:06.866761+03	1	FODR-TEST - Betwan Suppliers - buyer - PAID	1	[{"added": {}}]	22	4
 474	2025-08-09 08:06:31.169173+03	1	FODR-TEST - Betwan Suppliers - buyer - VIEWED BY SUPPLER	2	[{"changed": {"fields": ["Order Status [en]"]}}]	22	4
+475	2025-10-25 08:40:52.22498+03	33	IT Maintenance & Support	2	[{"changed": {"fields": ["Category"]}}]	10	4
+476	2025-10-25 08:41:04.284002+03	30	POS Systems & Hardware	2	[{"changed": {"fields": ["Category"]}}]	10	4
+477	2025-10-25 08:41:23.534596+03	18	Search Engine Optimization (SEO)	2	[{"changed": {"fields": ["Category"]}}]	10	4
+478	2025-10-25 08:42:49.162327+03	32	IoT & Smart Office Solutions	2	[{"changed": {"fields": ["Category"]}}]	10	4
+479	2025-10-25 08:42:58.307885+03	27	CCTV & Surveillance Systems	2	[{"changed": {"fields": ["Category"]}}]	10	4
+480	2025-10-25 08:43:06.530755+03	31	Internet Service Provider	2	[{"changed": {"fields": ["Category"]}}]	10	4
+481	2025-10-25 08:43:44.187801+03	29	Networking & IT Infrastructure Setup	2	[{"changed": {"fields": ["Category"]}}]	10	4
+482	2025-10-25 08:43:50.87028+03	28	Cybersecurity Services	2	[{"changed": {"fields": ["Category"]}}]	10	4
+483	2025-10-25 08:46:21.416698+03	12	POS Systems	2	[{"changed": {"fields": ["Category"]}}]	10	4
+484	2025-10-25 08:46:30.491606+03	15	IoT Integration	2	[{"changed": {"fields": ["Category"]}}]	10	4
 \.
 
 
@@ -5184,6 +5194,14 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 53	supplier	0006_alter_order_status_alter_order_status_ar_and_more	2025-08-06 08:20:13.724486+03
 54	supplier	0007_alter_orderproductvariation_order	2025-08-06 08:39:54.08763+03
 55	manager	0005_newslettersubscription	2025-10-11 20:03:36.912875+03
+56	manager	0006_alter_careerapplication_name_and_more	2025-10-27 16:40:29.313878+03
+57	supplier	0008_alter_productimage_slug_alter_productvideo_slug	2025-10-27 16:45:07.324566+03
+58	manager	0007_alter_emailpromotion_image	2025-10-27 16:54:30.304662+03
+59	auth_app	0002_alter_clientprofile_image_alter_user_image	2025-10-27 16:59:14.389361+03
+60	manager	0008_alter_promotion_image_alter_serviceimage_image_and_more	2025-10-27 16:59:14.447859+03
+61	supplier	0009_alter_productcategory_image_alter_productimage_image_and_more	2025-10-27 16:59:14.581896+03
+62	coms	0004_alter_groupchat_image	2025-10-27 17:00:52.690363+03
+63	manager	0009_alter_careerapplication_name_and_more	2025-10-27 17:00:52.724401+03
 \.
 
 
@@ -5245,8 +5263,12 @@ vs7prxsl6x8316qpu1wfcnrr2ierjgiy	.eJxVjDsOwjAQBe_iGlnetVl7KelzBsu_4ABypDipEHeHSC
 y94sawmb95hubipxxx8qxw7fesk9hgt0	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIqrDj9boTxyXWA9MB6bzK2uq0LyaHIg3Y5t8Sv2-H-HRTsZdRM1vuM1sHkISsgyxrOViFPRBkuWbMCYASTNHuVHDoyXhuOADmC-HwB87A4Wg:1ujMGA:2syjSlNplKZoqr7Wi6zrieWfGBwOTD07EvpRdSNc8aw	2025-08-19 21:19:38.985999+03
 74zz4an9zz5gtk4r3w99kbdloq7dquk2	.eJxVjDsOwyAQBe9CHSEwyy9lep8BLV4ITiKQjF1FuXuE5CJp38y8Nwt47CUcPW1hJXZlEtjld4y4PFMdhB5Y740vre7bGvlQ-Ek7nxul1-10_w4K9jJqL20GctohKdAWjJPaJDlpCUDRArqJtBJOeFJZi5x8NJCVskhRJcs-X-HgN1k:1ujUul:ftOPfHK_s10U0pCF9DxKTND72O74RsLmbU9a_XV22zg	2025-08-20 06:34:07.209656+03
 60sdk82lsnerx26d4enly8f9l9rmpvub	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIqrDj9boTxyXWA9MB6bzK2uq0LyaHIg3Y5t8Sv2-H-HRTsZdRM1vuM1sHkISsgyxrOViFPRBkuWbMCYASTNHuVHDoyXhuOADmC-HwB87A4Wg:1ujehg:XQp_IsSj28zIBGis7P6btiRL9x-NdYxPXyLIEldba4E	2025-08-20 17:01:16.864888+03
+dxlb6rmz2qnlbbq71xrzyfjb8973pkah	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIqrDj9boTxyXWA9MB6bzK2uq0LyaHIg3Y5t8Sv2-H-HRTsZdRM1vuM1sHkISsgyxrOViFPRBkuWbMCYASTNHuVHDoyXhuOADmC-HwB87A4Wg:1vAnS0:HS9h3D0pSJD_Vam2F8cmcfj_yBmCMjASwy7apWCYfUo	2025-10-20 14:49:16.389368+03
+v3xuf1uoojhsn92xnyuqa9qr09gfy8ls	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIqrDj9boTxyXWA9MB6bzK2uq0LyaHIg3Y5t8Sv2-H-HRTsZdRM1vuM1sHkISsgyxrOViFPRBkuWbMCYASTNHuVHDoyXhuOADmC-HwB87A4Wg:1vCX4l:EgAVGEnMUahvu8-i1Lk5adM9zpH3ItK4W-IcSPiphqI	2025-10-25 09:44:27.790739+03
 7hdvs3rfh4qa7rgve0g7cognwm1ebn45	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIqrDj9boTxyXWA9MB6bzK2uq0LyaHIg3Y5t8Sv2-H-HRTsZdRM1vuM1sHkISsgyxrOViFPRBkuWbMCYASTNHuVHDoyXhuOADmC-HwB87A4Wg:1ukbmp:4Nxy4SF-RoJlXfUE1Th_KX-vJAa6ho0Za9mUFAGJdbw	2025-08-09 09:06:31.648635+03
+wfu8k9bs0c5jt52es0bp6hdfa1z30g1w	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIqrDj9boTxyXWA9MB6bzK2uq0LyaHIg3Y5t8Sv2-H-HRTsZdRM1vuM1sHkISsgyxrOViFPRBkuWbMCYASTNHuVHDoyXhuOADmC-HwB87A4Wg:1vCXDn:U9PqA0vDU2pz84Q0WNWfJoB-ca96MH_mBKk6cmDTmsM	2025-10-25 09:53:47.808287+03
 hz07xvpi02pofnifdcjc9978zvtt4z8y	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIqrDj9boTxyXWA9MB6bzK2uq0LyaHIg3Y5t8Sv2-H-HRTsZdRM1vuM1sHkISsgyxrOViFPRBkuWbMCYASTNHuVHDoyXhuOADmC-HwB87A4Wg:1v7cbx:BVPo6u85ruBPT8Pj--DXt0E1qZM-jZgYoCvUHBOPC4o	2025-10-11 20:38:25.448689+03
+k2bual7wlsbtyvkwrb4n2zk0miz6yugq	.eJxVjMsOwiAQRf-FtSHIy45L9_0GMgODVA0kpV0Z_92QdKHbe865bxFw30rYO69hSeIqrDj9boTxyXWA9MB6bzK2uq0LyaHIg3Y5t8Sv2-H-HRTsZdRM1vuM1sHkISsgyxrOViFPRBkuWbMCYASTNHuVHDoyXhuOADmC-HwB87A4Wg:1vAnPZ:os_i4Da7QqZX1h7hcGzbGojiBTO3SH5ddfgQTYQ05fE	2025-10-20 14:46:45.371659+03
 \.
 
 
@@ -5391,9 +5413,9 @@ COPY public.manager_notification (id, title, category, description, viewed, crea
 --
 
 COPY public.manager_promotion (id, name, name_ar, name_fr, name_de, name_en, description, description_ar, description_fr, description_de, description_en, image, type, created_on, slug, has_image, showroom_id) FROM stdin;
-2	Samsung Offers	\N	\N	\N	Samsung Offers	Samsung Offers	\N	\N	\N	Samsung Offers	Promotion/images/samsung-offers-ea0ce214-9ac4-4ea1-bde5-ebe0fd7d664-da500bd2-6e92-4a38-8_MfVBXHK.jpg	BANNER	2025-06-24	samsung-offers-ea0ce214-9ac4-4ea1-bde5-ebe0fd7d664	t	2
-3	Laptop Offers	\N	\N	\N	Laptop Offers	Laptop Offers	\N	\N	\N	Laptop Offers	Promotion/images/laptop-offers-3ec067dd-f311-44a0-82d3-b2ac4dea51fb-fd232b16-24dc-4227-8_SyzWjdS.jpg	BANNER	2025-06-24	laptop-offers-3ec067dd-f311-44a0-82d3-b2ac4dea51fb	t	2
-4	Design Mugs Offers	\N	\N	\N	Design Mugs Offers	Design Mugs Offers	\N	\N	\N	Design Mugs Offers	Promotion/images/design-mugs-offers-ab34c59a-b1e3-49e7-98b3-8c3c53e-0e3da394-d318-4542-9_KY4Y9Gs.jpg	BANNER	2025-06-24	design-mugs-offers-ab34c59a-b1e3-49e7-98b3-8c3c53e	t	2
+2	Samsung Offers	\N	\N	\N	Samsung Offers	Samsung Offers	\N	\N	\N	Samsung Offers	Promotion/images/samsung-offers-ea0ce214-9ac4-4ea1-bde5-ebe0fd7d664-da500bd2-6e92-4a38-8_MfVBXHK.webp	BANNER	2025-06-24	samsung-offers-ea0ce214-9ac4-4ea1-bde5-ebe0fd7d664	t	2
+3	Laptop Offers	\N	\N	\N	Laptop Offers	Laptop Offers	\N	\N	\N	Laptop Offers	Promotion/images/laptop-offers-3ec067dd-f311-44a0-82d3-b2ac4dea51fb-fd232b16-24dc-4227-8_SyzWjdS.webp	BANNER	2025-06-24	laptop-offers-3ec067dd-f311-44a0-82d3-b2ac4dea51fb	t	2
+4	Design Mugs Offers	\N	\N	\N	Design Mugs Offers	Design Mugs Offers	\N	\N	\N	Design Mugs Offers	Promotion/images/design-mugs-offers-ab34c59a-b1e3-49e7-98b3-8c3c53e-0e3da394-d318-4542-9_KY4Y9Gs.webp	BANNER	2025-06-24	design-mugs-offers-ab34c59a-b1e3-49e7-98b3-8c3c53e	t	2
 \.
 
 
@@ -5412,31 +5434,31 @@ COPY public.manager_sentemail (id, recipient, subject, sending_email, content, r
 COPY public.manager_service (id, name, name_ar, name_fr, name_de, name_en, description, description_ar, description_fr, description_de, description_en, slug, created_on, category_id) FROM stdin;
 10	ERP Systems (Custom-built)	\N	\N	\N	ERP Systems (Custom-built)	We build powerful, scalable, and fully customizable ERP (Enterprise Resource Planning) systems tailored to your business operations. Whether you're managing a retail chain, a hospital, or a large enterprise with multiple departments, our ERP solutions integrate key functions like inventory management, finance and accounting, CRM, HR, and procurement into one centralized platform. We don’t believe in one-size-fits-all — each ERP is built from the ground up to align with your unique workflows, ensuring maximum efficiency, automation, and real-time insights for better decision-making.				We build powerful, scalable, and fully customizable ERP (Enterprise Resource Planning) systems tailored to your business operations. Whether you're managing a retail chain, a hospital, or a large enterprise with multiple departments, our ERP solutions integrate key functions like inventory management, finance and accounting, CRM, HR, and procurement into one centralized platform. We don’t believe in one-size-fits-all — each ERP is built from the ground up to align with your unique workflows, ensuring maximum efficiency, automation, and real-time insights for better decision-making.	erp-systems-custom-built-55e72d00-88b5-4e28-8059-6	2025-07-31	1
 11	Web & Mobile App Development (Android & iOS)	\N	\N	\N	Web & Mobile App Development (Android & iOS)	From concept to launch, we develop responsive websites and feature-rich mobile applications tailored to your business goals. Whether you're a startup launching a new e-commerce app or an enterprise digitizing your services, our development team builds intuitive, scalable, and secure apps for Android and iOS platforms. We use modern frameworks and tools to deliver seamless user experiences, powerful backend systems, and integrations with third-party services such as payment gateways, CRMs, and APIs. Our goal is to help you innovate, scale, and stay competitive in the digital era.				From concept to launch, we develop responsive websites and feature-rich mobile applications tailored to your business goals. Whether you're a startup launching a new e-commerce app or an enterprise digitizing your services, our development team builds intuitive, scalable, and secure apps for Android and iOS platforms. We use modern frameworks and tools to deliver seamless user experiences, powerful backend systems, and integrations with third-party services such as payment gateways, CRMs, and APIs. Our goal is to help you innovate, scale, and stay competitive in the digital era.	web-mobile-app-development-android-ios-42dbcf3b-8e	2025-07-31	1
-15	IoT Integration	\N	\N	\N	IoT Integration	We help businesses and organizations harness the Internet of Things (IoT) to connect devices, collect data, and automate operations. Our IoT solutions include integrating smart sensors, controllers, and communication networks that allow devices to work together intelligently. Whether it’s automating home lighting, managing supply chains in logistics, or monitoring utilities in real time, we design reliable, secure, and scalable IoT infrastructures. Data collected is then visualized via dashboards or linked with alerting systems for actionable insights.				We help businesses and organizations harness the Internet of Things (IoT) to connect devices, collect data, and automate operations. Our IoT solutions include integrating smart sensors, controllers, and communication networks that allow devices to work together intelligently. Whether it’s automating home lighting, managing supply chains in logistics, or monitoring utilities in real time, we design reliable, secure, and scalable IoT infrastructures. Data collected is then visualized via dashboards or linked with alerting systems for actionable insights.	iot-integration-0b63cd91-ca86-40ff-b5fc-71e9b8fb30	2025-07-31	1
 20	Social Media Marketing & Management	\N	\N	\N	Social Media Marketing & Management	We manage your social media presence across platforms like Facebook, Instagram, X (Twitter), LinkedIn, and TikTok. From content creation to daily management and audience engagement, we help you grow your community and brand. Our strategies include influencer collaborations, ad placements, contests, and analytics tracking to ensure your social media not only looks good — it delivers measurable results.				We manage your social media presence across platforms like Facebook, Instagram, X (Twitter), LinkedIn, and TikTok. From content creation to daily management and audience engagement, we help you grow your community and brand. Our strategies include influencer collaborations, ad placements, contests, and analytics tracking to ensure your social media not only looks good — it delivers measurable results.	social-media-marketing-management-7667a209-cc71-4f	2025-07-31	2
 23	Branding & Creative/ Graphic Design	\N	\N	\N	Branding & Creative/ Graphic Design	We craft powerful brand identities that resonate. From logo design and brand guidelines to marketing collateral, brochures, and packaging — our creative team delivers visuals that tell your story. Whether you're rebranding an established company or launching a new product, we help you define your look, voice, and market positioning with design that connects.				We craft powerful brand identities that resonate. From logo design and brand guidelines to marketing collateral, brochures, and packaging — our creative team delivers visuals that tell your story. Whether you're rebranding an established company or launching a new product, we help you define your look, voice, and market positioning with design that connects.	branding-creative-graphic-design-1075edb5-940f-4d7	2025-07-31	2
-30	POS Systems & Hardware	\N	\N	\N	POS Systems & Hardware	Our turnkey POS hardware packages include everything you need to start selling — touchscreen terminals, barcode scanners, cash drawers, thermal printers, and customer displays. All hardware is pre-configured to work with our POS software for a plug-and-play experience that gets your business up and running quickly.				Our turnkey POS hardware packages include everything you need to start selling — touchscreen terminals, barcode scanners, cash drawers, thermal printers, and customer displays. All hardware is pre-configured to work with our POS software for a plug-and-play experience that gets your business up and running quickly.	pos-systems-hardware-f76267fd-5f6c-4040-88a5-93851	2025-07-31	3
-12	POS Systems	\N	\N	\N	POS Systems	Our advanced Point of Sale (POS) systems streamline transactions and enhance customer service in retail stores, supermarkets, restaurants, and service businesses. With modules for inventory tracking, staff management, customer loyalty programs, and real-time sales analytics, our POS solutions go far beyond basic billing. We also provide hardware like receipt printers, barcode scanners, and touch-screen terminals, all configured for quick deployment. Whether it's a single outlet or a multi-branch operation, our systems are built to scale and simplify day-to-day operations.				Our advanced Point of Sale (POS) systems streamline transactions and enhance customer service in retail stores, supermarkets, restaurants, and service businesses. With modules for inventory tracking, staff management, customer loyalty programs, and real-time sales analytics, our POS solutions go far beyond basic billing. We also provide hardware like receipt printers, barcode scanners, and touch-screen terminals, all configured for quick deployment. Whether it's a single outlet or a multi-branch operation, our systems are built to scale and simplify day-to-day operations.	pos-systems-bcf454e7-b528-4118-8f75-bc9c98dd9071	2025-07-31	1
+15	IoT Integration	\N	\N	\N	IoT Integration	We help businesses and organizations harness the Internet of Things (IoT) to connect devices, collect data, and automate operations. Our IoT solutions include integrating smart sensors, controllers, and communication networks that allow devices to work together intelligently. Whether it’s automating home lighting, managing supply chains in logistics, or monitoring utilities in real time, we design reliable, secure, and scalable IoT infrastructures. Data collected is then visualized via dashboards or linked with alerting systems for actionable insights.				We help businesses and organizations harness the Internet of Things (IoT) to connect devices, collect data, and automate operations. Our IoT solutions include integrating smart sensors, controllers, and communication networks that allow devices to work together intelligently. Whether it’s automating home lighting, managing supply chains in logistics, or monitoring utilities in real time, we design reliable, secure, and scalable IoT infrastructures. Data collected is then visualized via dashboards or linked with alerting systems for actionable insights.	iot-integration-02f91da4-4ab1-42d4-a459-1e3c0a9782	2025-07-31	5
 13	UI/UX Design	\N	\N	\N	UI/UX Design	Design is not just about aesthetics; it’s about usability, flow, and user satisfaction. Our UI/UX design team creates intuitive interfaces and seamless user journeys across mobile apps, websites, dashboards, and software platforms. We conduct in-depth user research, wireframing, prototyping, and user testing to ensure the final product meets both user needs and business goals. Whether you're redesigning a patient portal for a hospital or launching a mobile banking app, we make sure the user experience is smooth, efficient, and delightful.				Design is not just about aesthetics; it’s about usability, flow, and user satisfaction. Our UI/UX design team creates intuitive interfaces and seamless user journeys across mobile apps, websites, dashboards, and software platforms. We conduct in-depth user research, wireframing, prototyping, and user testing to ensure the final product meets both user needs and business goals. Whether you're redesigning a patient portal for a hospital or launching a mobile banking app, we make sure the user experience is smooth, efficient, and delightful.	uiux-design-5bf5cdeb-ffee-4f5d-af6b-78c1b1ca3738	2025-07-31	1
+25	Influencer & Affiliate Marketing	\N	\N	\N	Influencer & Affiliate Marketing	Tap into the power of digital word-of-mouth. We connect your brand with the right influencers and affiliate marketers who can authentically promote your products or services. Whether you're looking for micro-influencers for niche audiences or larger campaigns, we manage outreach, contracts, and performance tracking to ensure you get measurable returns.				Tap into the power of digital word-of-mouth. We connect your brand with the right influencers and affiliate marketers who can authentically promote your products or services. Whether you're looking for micro-influencers for niche audiences or larger campaigns, we manage outreach, contracts, and performance tracking to ensure you get measurable returns.	influencer-affiliate-marketing-74ccb215-74fd-45d8-	2025-07-31	2
 14	AI Solutions	\N	\N	\N	AI Solutions	Unlock the power of Artificial Intelligence to streamline operations, predict outcomes, and personalize user experiences. We design and deploy AI-powered solutions such as chatbots, recommendation engines, predictive analytics tools, and machine learning models tailored to your business. From automating customer support to detecting fraud in financial systems, our AI services empower organizations to make data-driven decisions, cut costs, and innovate at scale. We support end-to-end implementation — from model training to deployment and monitoring.				Unlock the power of Artificial Intelligence to streamline operations, predict outcomes, and personalize user experiences. We design and deploy AI-powered solutions such as chatbots, recommendation engines, predictive analytics tools, and machine learning models tailored to your business. From automating customer support to detecting fraud in financial systems, our AI services empower organizations to make data-driven decisions, cut costs, and innovate at scale. We support end-to-end implementation — from model training to deployment and monitoring.	ai-solutions-812d8f0a-d4c5-42bd-b151-8ac4cf331dab	2025-07-31	1
 16	Data Science & Analysis	\N	\N	\N	Data Science & Analysis	Transform your raw data into actionable insights. We offer advanced data analysis services including real-time dashboards, KPI tracking, and business intelligence (BI) tools tailored to your strategic goals. Our team helps you gather, clean, and visualize your data using tools like Power BI, Tableau, or custom-built dashboards. Whether you’re tracking sales performance, customer behavior, or operational efficiency, we ensure that your data tells a story you can act on — fast and accurately.				Transform your raw data into actionable insights. We offer advanced data analysis services including real-time dashboards, KPI tracking, and business intelligence (BI) tools tailored to your strategic goals. Our team helps you gather, clean, and visualize your data using tools like Power BI, Tableau, or custom-built dashboards. Whether you’re tracking sales performance, customer behavior, or operational efficiency, we ensure that your data tells a story you can act on — fast and accurately.	data-science-analysis-c9089465-bd2a-47af-b6f6-f0b5	2025-07-31	1
 17	Digital Strategy & Marketing Campaign	\N	\N	\N	Digital Strategy & Marketing Campaign	We help brands develop digital strategies that deliver results. From defining your online voice and target audience to running multi-channel marketing campaigns, we provide end-to-end support for digital growth. Our strategies combine market research, performance analytics, content planning, and ad optimization to ensure your business gets noticed and stays ahead of the competition. Whether you're launching a product or running a seasonal promotion, we craft campaigns that convert.				We help brands develop digital strategies that deliver results. From defining your online voice and target audience to running multi-channel marketing campaigns, we provide end-to-end support for digital growth. Our strategies combine market research, performance analytics, content planning, and ad optimization to ensure your business gets noticed and stays ahead of the competition. Whether you're launching a product or running a seasonal promotion, we craft campaigns that convert.	digital-strategy-marketing-campaign-6c67f55d-2a0c-	2025-07-31	2
-33	IT Maintenance & Support	\N	\N	\N	IT Maintenance & Support	Keep your tech running smoothly with our proactive IT maintenance and support services. From routine checkups to emergency repairs, we provide both remote and on-site assistance to resolve issues quickly. Our services include software updates, hardware diagnostics, backup solutions, and user training.				Keep your tech running smoothly with our proactive IT maintenance and support services. From routine checkups to emergency repairs, we provide both remote and on-site assistance to resolve issues quickly. Our services include software updates, hardware diagnostics, backup solutions, and user training.	it-maintenance-support-db504c45-d03b-444f-ba3c-4a3	2025-07-31	3
-18	Search Engine Optimization (SEO)	\N	\N	\N	Search Engine Optimization (SEO)	Get found where it matters. Our SEO services improve your website's ranking on Google and other search engines through keyword research, on-page optimization, technical audits, link-building, and content strategy. We also optimize for local SEO to help businesses appear in maps and regional searches. By making your site more visible and user-friendly, we help attract more organic traffic and generate long-term growth without the need for constant ad spending.				Get found where it matters. Our SEO services improve your website's ranking on Google and other search engines through keyword research, on-page optimization, technical audits, link-building, and content strategy. We also optimize for local SEO to help businesses appear in maps and regional searches. By making your site more visible and user-friendly, we help attract more organic traffic and generate long-term growth without the need for constant ad spending.	search-engine-optimization-seo-2fd2cc6e-66d4-4a64-	2025-07-31	2
 19	Search Engine Marketing (SEM)	\N	\N	\N	Search Engine Marketing (SEM)	Accelerate your online visibility and sales with our SEM services. We manage Pay-Per-Click (PPC) campaigns across Google Ads, Bing, and YouTube — including search, display, shopping, and remarketing ads. Our campaigns are data-driven, A/B tested, and performance-optimized to generate the best ROI for your ad spend. Whether your goal is lead generation, brand awareness, or e-commerce sales, we deliver campaigns that reach your audience at the right time.				Accelerate your online visibility and sales with our SEM services. We manage Pay-Per-Click (PPC) campaigns across Google Ads, Bing, and YouTube — including search, display, shopping, and remarketing ads. Our campaigns are data-driven, A/B tested, and performance-optimized to generate the best ROI for your ad spend. Whether your goal is lead generation, brand awareness, or e-commerce sales, we deliver campaigns that reach your audience at the right time.	search-engine-marketing-sem-4f51e735-f3eb-4ae8-a98	2025-07-31	2
 21	Content Creation	\N	\N	\N	Content Creation	Content is the heart of digital communication. We create high-quality, engaging content across multiple formats — blog posts, infographics, videos, animations, and podcasts. Whether you're explaining a complex product, launching a new brand, or educating your audience, we ensure your message is clear, compelling, and aligned with your goals. Our content is designed to educate, entertain, and convert.				Content is the heart of digital communication. We create high-quality, engaging content across multiple formats — blog posts, infographics, videos, animations, and podcasts. Whether you're explaining a complex product, launching a new brand, or educating your audience, we ensure your message is clear, compelling, and aligned with your goals. Our content is designed to educate, entertain, and convert.	content-creation-a5f91387-fb44-4228-b08c-1972e5abf	2025-07-31	2
 22	Promotional Items e.g. t-shirts, mugs, hoodies, biros	\N	\N	\N	Promotional Items e.g. t-shirts, mugs, hoodies, biros	Make your brand tangible with custom-designed promotional items. We produce and print branded merchandise including t-shirts, mugs, pens, hoodies, caps, bags, and more. Ideal for corporate giveaways, product launches, or brand awareness campaigns, our promotional items are designed to leave a lasting impression and increase your visibility — both online and offline.				Make your brand tangible with custom-designed promotional items. We produce and print branded merchandise including t-shirts, mugs, pens, hoodies, caps, bags, and more. Ideal for corporate giveaways, product launches, or brand awareness campaigns, our promotional items are designed to leave a lasting impression and increase your visibility — both online and offline.	promotional-items-eg-t-shirts-mugs-hoodies-biros-d	2025-07-31	2
 24	Bulk SMS Services	\N	\N	\N	Bulk SMS Services	Reach thousands of customers instantly with our bulk SMS platform. Ideal for promotions, alerts, reminders, and announcements, we provide a simple interface for sending customized messages to targeted lists. Our SMS gateway ensures high delivery rates, while tracking tools let you measure engagement and response in real time.				Reach thousands of customers instantly with our bulk SMS platform. Ideal for promotions, alerts, reminders, and announcements, we provide a simple interface for sending customized messages to targeted lists. Our SMS gateway ensures high delivery rates, while tracking tools let you measure engagement and response in real time.	bulk-sms-services-354ffc18-3398-4a70-84a6-26f4f552	2025-07-31	2
-25	Influencer & Affiliate Marketing	\N	\N	\N	Influencer & Affiliate Marketing	Tap into the power of digital word-of-mouth. We connect your brand with the right influencers and affiliate marketers who can authentically promote your products or services. Whether you're looking for micro-influencers for niche audiences or larger campaigns, we manage outreach, contracts, and performance tracking to ensure you get measurable returns.				Tap into the power of digital word-of-mouth. We connect your brand with the right influencers and affiliate marketers who can authentically promote your products or services. Whether you're looking for micro-influencers for niche audiences or larger campaigns, we manage outreach, contracts, and performance tracking to ensure you get measurable returns.	influencer-affiliate-marketing-74ccb215-74fd-45d8-	2025-07-31	2
-28	Cybersecurity Services	\N	\N	\N	Cybersecurity Services	Stay protected in an ever-evolving threat landscape. Our cybersecurity services include firewall setup, penetration testing, endpoint protection, vulnerability scanning, email security, and compliance consulting. We help you identify risks, secure data, and maintain business continuity in the face of potential cyber attacks.				Stay protected in an ever-evolving threat landscape. Our cybersecurity services include firewall setup, penetration testing, endpoint protection, vulnerability scanning, email security, and compliance consulting. We help you identify risks, secure data, and maintain business continuity in the face of potential cyber attacks.	cybersecurity-services-57d585b8-51d5-4564-a564-39d	2025-07-31	3
-29	Networking & IT Infrastructure Setup	\N	\N	\N	Networking & IT Infrastructure Setup	We plan, install, and configure complete IT networks for offices, schools, data centers, and commercial buildings. Our services cover wired and wireless networking, routers, switches, servers, cloud connectivity, and structured cabling. We ensure your infrastructure is reliable, secure, and scalable for future growth.				We plan, install, and configure complete IT networks for offices, schools, data centers, and commercial buildings. Our services cover wired and wireless networking, routers, switches, servers, cloud connectivity, and structured cabling. We ensure your infrastructure is reliable, secure, and scalable for future growth.	networking-it-infrastructure-setup-6e77117f-759e-4	2025-07-31	3
-31	Internet Service Provider	\N	\N	\N	Internet Service Provider	We deliver reliable, high-speed internet services for homes, SMEs, and corporate clients. With flexible packages for fiber, wireless, and satellite connections, we ensure consistent performance and support. Whether you're streaming, gaming, or running critical online operations, we keep you connected 24/7.				We deliver reliable, high-speed internet services for homes, SMEs, and corporate clients. With flexible packages for fiber, wireless, and satellite connections, we ensure consistent performance and support. Whether you're streaming, gaming, or running critical online operations, we keep you connected 24/7.	internet-service-provider-23cae367-f0de-4efa-a5ed-	2025-07-31	3
-32	IoT & Smart Office Solutions	\N	\N	\N	IoT & Smart Office Solutions	Bring intelligence into your workspace with smart office solutions. We install and integrate systems for energy-saving lighting, automated doors, smart meeting room scheduling, occupancy sensors, and more. These tools not only make offices more efficient but also enhance security and sustainability.				Bring intelligence into your workspace with smart office solutions. We install and integrate systems for energy-saving lighting, automated doors, smart meeting room scheduling, occupancy sensors, and more. These tools not only make offices more efficient but also enhance security and sustainability.	iot-smart-office-solutions-b3c78859-749a-4882-bcb7	2025-07-31	3
 34	Photography & Videography	\N	\N	\N	Photography & Videography	Capture the essence of your brand or event with professional photography and videography services. Whether it’s product shoots, corporate events, weddings, or promotional videos, we handle the entire process from planning and shooting to editing and delivery in high resolution.				Capture the essence of your brand or event with professional photography and videography services. Whether it’s product shoots, corporate events, weddings, or promotional videos, we handle the entire process from planning and shooting to editing and delivery in high resolution.	photography-videography-f8a29358-dd8f-4b4c-989d-47	2025-07-31	4
+31	Internet Service Provider	\N	\N	\N	Internet Service Provider	We deliver reliable, high-speed internet services for homes, SMEs, and corporate clients. With flexible packages for fiber, wireless, and satellite connections, we ensure consistent performance and support. Whether you're streaming, gaming, or running critical online operations, we keep you connected 24/7.				We deliver reliable, high-speed internet services for homes, SMEs, and corporate clients. With flexible packages for fiber, wireless, and satellite connections, we ensure consistent performance and support. Whether you're streaming, gaming, or running critical online operations, we keep you connected 24/7.	internet-service-provider-4eee6a5a-f7cf-4482-bff3-	2025-07-31	5
+29	Networking & IT Infrastructure Setup	\N	\N	\N	Networking & IT Infrastructure Setup	We plan, install, and configure complete IT networks for offices, schools, data centers, and commercial buildings. Our services cover wired and wireless networking, routers, switches, servers, cloud connectivity, and structured cabling. We ensure your infrastructure is reliable, secure, and scalable for future growth.				We plan, install, and configure complete IT networks for offices, schools, data centers, and commercial buildings. Our services cover wired and wireless networking, routers, switches, servers, cloud connectivity, and structured cabling. We ensure your infrastructure is reliable, secure, and scalable for future growth.	networking-it-infrastructure-setup-a185e08b-3b31-4	2025-07-31	5
+28	Cybersecurity Services	\N	\N	\N	Cybersecurity Services	Stay protected in an ever-evolving threat landscape. Our cybersecurity services include firewall setup, penetration testing, endpoint protection, vulnerability scanning, email security, and compliance consulting. We help you identify risks, secure data, and maintain business continuity in the face of potential cyber attacks.				Stay protected in an ever-evolving threat landscape. Our cybersecurity services include firewall setup, penetration testing, endpoint protection, vulnerability scanning, email security, and compliance consulting. We help you identify risks, secure data, and maintain business continuity in the face of potential cyber attacks.	cybersecurity-services-c9dfdcdd-ce4b-45f1-a741-e46	2025-07-31	5
 35	Multimedia: Video Production, Film Making, Podcasts& Voiceovers etc	\N	\N	\N	Multimedia: Video Production, Film Making, Podcasts& Voiceovers etc	We bring ideas to life through audio-visual storytelling. Our multimedia services cover video production, filmmaking, podcast creation, voiceovers, animation, and post-production editing. Whether you're launching a YouTube series, a documentary, or a brand commercial, we produce content that engages and inspires.				We bring ideas to life through audio-visual storytelling. Our multimedia services cover video production, filmmaking, podcast creation, voiceovers, animation, and post-production editing. Whether you're launching a YouTube series, a documentary, or a brand commercial, we produce content that engages and inspires.	multimedia-video-production-film-making-podcasts-v	2025-07-31	4
 36	All Tech categories	\N	\N	\N	All Tech categories	We provide a full suite of technology services designed to support businesses, institutions, and individuals at every stage of their digital journey. From custom ERP systems and mobile app development to cutting-edge AI solutions, IoT integration, and smart device automation, we engineer tools that help you operate smarter and scale faster. Our team specializes in building intelligent infrastructure — including industrial IoT systems, remote monitoring platforms, and full-stack IT setups — that improve efficiency, data visibility, and control across your organization.\r\n\r\nIn the digital experience space, we craft world-class UI/UX designs, power data-driven decisions through advanced data analytics and dashboards, and create seamless omnichannel marketing strategies — spanning SEO, SEM, social media, content creation, influencer marketing, and branded merchandise production. On the hardware front, we supply and maintain essential electronics including computers, phones, laptops, surveillance systems, and POS equipment, while ensuring robust cybersecurity, stable networking, and IT infrastructure that supports daily operations.\r\n\r\nOur multimedia division completes the offering with creative services like professional photography, videography, video production, podcasts, and voiceovers to help you tell your story with impact. Whether you need a smart office setup, digital transformation, or full-service tech support, we’re your one-stop partner for future-ready technology.				We provide a full suite of technology services designed to support businesses, institutions, and individuals at every stage of their digital journey. From custom ERP systems and mobile app development to cutting-edge AI solutions, IoT integration, and smart device automation, we engineer tools that help you operate smarter and scale faster. Our team specializes in building intelligent infrastructure — including industrial IoT systems, remote monitoring platforms, and full-stack IT setups — that improve efficiency, data visibility, and control across your organization.\r\n\r\nIn the digital experience space, we craft world-class UI/UX designs, power data-driven decisions through advanced data analytics and dashboards, and create seamless omnichannel marketing strategies — spanning SEO, SEM, social media, content creation, influencer marketing, and branded merchandise production. On the hardware front, we supply and maintain essential electronics including computers, phones, laptops, surveillance systems, and POS equipment, while ensuring robust cybersecurity, stable networking, and IT infrastructure that supports daily operations.\r\n\r\nOur multimedia division completes the offering with creative services like professional photography, videography, video production, podcasts, and voiceovers to help you tell your story with impact. Whether you need a smart office setup, digital transformation, or full-service tech support, we’re your one-stop partner for future-ready technology.	all-tech-categories-5550f16d-a7ca-4486-af38-f952db	2025-07-31	5
 26	Phones, Computers, Laptops, Cameras, Projectors, TV’s & Accessories etc.	\N	\N	\N	Phones, Computers, Laptops, Cameras, Projectors, TV’s & Accessories etc.	We supply a wide range of electronics and accessories — from smartphones and laptops to DSLR cameras, TVs, projectors, routers, and gaming accessories. Whether for home use, business, or education, we offer reliable tech from trusted brands, backed by warranty and after-sales support.				We supply a wide range of electronics and accessories — from smartphones and laptops to DSLR cameras, TVs, projectors, routers, and gaming accessories. Whether for home use, business, or education, we offer reliable tech from trusted brands, backed by warranty and after-sales support.	phones-computers-laptops-cameras-projectors-tvs-ac	2025-07-31	3
-27	CCTV & Surveillance Systems	\N	\N	\N	CCTV & Surveillance Systems	Protect your assets with modern CCTV surveillance systems. We offer installation and maintenance of high-resolution cameras with features like remote viewing, motion detection, night vision, and cloud storage. Whether it’s a home, office, shop, or industrial facility, our security setups are scalable and tailored to your safety needs.				Protect your assets with modern CCTV surveillance systems. We offer installation and maintenance of high-resolution cameras with features like remote viewing, motion detection, night vision, and cloud storage. Whether it’s a home, office, shop, or industrial facility, our security setups are scalable and tailored to your safety needs.	cctv-surveillance-systems-80a82b14-7962-49f7-9cdb-	2025-07-31	3
+33	IT Maintenance & Support	\N	\N	\N	IT Maintenance & Support	Keep your tech running smoothly with our proactive IT maintenance and support services. From routine checkups to emergency repairs, we provide both remote and on-site assistance to resolve issues quickly. Our services include software updates, hardware diagnostics, backup solutions, and user training.				Keep your tech running smoothly with our proactive IT maintenance and support services. From routine checkups to emergency repairs, we provide both remote and on-site assistance to resolve issues quickly. Our services include software updates, hardware diagnostics, backup solutions, and user training.	it-maintenance-support-ba13b96b-2450-4e56-a29f-4f0	2025-07-31	5
+30	POS Systems & Hardware	\N	\N	\N	POS Systems & Hardware	Our turnkey POS hardware packages include everything you need to start selling — touchscreen terminals, barcode scanners, cash drawers, thermal printers, and customer displays. All hardware is pre-configured to work with our POS software for a plug-and-play experience that gets your business up and running quickly.				Our turnkey POS hardware packages include everything you need to start selling — touchscreen terminals, barcode scanners, cash drawers, thermal printers, and customer displays. All hardware is pre-configured to work with our POS software for a plug-and-play experience that gets your business up and running quickly.	pos-systems-hardware-2e53d742-d7c0-4a26-8056-b3f39	2025-07-31	5
+18	Search Engine Optimization (SEO)	\N	\N	\N	Search Engine Optimization (SEO)	Get found where it matters. Our SEO services improve your website's ranking on Google and other search engines through keyword research, on-page optimization, technical audits, link-building, and content strategy. We also optimize for local SEO to help businesses appear in maps and regional searches. By making your site more visible and user-friendly, we help attract more organic traffic and generate long-term growth without the need for constant ad spending.				Get found where it matters. Our SEO services improve your website's ranking on Google and other search engines through keyword research, on-page optimization, technical audits, link-building, and content strategy. We also optimize for local SEO to help businesses appear in maps and regional searches. By making your site more visible and user-friendly, we help attract more organic traffic and generate long-term growth without the need for constant ad spending.	search-engine-optimization-seo-2eeb9d34-f929-48ee-	2025-07-31	1
+32	IoT & Smart Office Solutions	\N	\N	\N	IoT & Smart Office Solutions	Bring intelligence into your workspace with smart office solutions. We install and integrate systems for energy-saving lighting, automated doors, smart meeting room scheduling, occupancy sensors, and more. These tools not only make offices more efficient but also enhance security and sustainability.				Bring intelligence into your workspace with smart office solutions. We install and integrate systems for energy-saving lighting, automated doors, smart meeting room scheduling, occupancy sensors, and more. These tools not only make offices more efficient but also enhance security and sustainability.	iot-smart-office-solutions-53bc26ff-4171-4d6f-8380	2025-07-31	5
+27	CCTV & Surveillance Systems	\N	\N	\N	CCTV & Surveillance Systems	Protect your assets with modern CCTV surveillance systems. We offer installation and maintenance of high-resolution cameras with features like remote viewing, motion detection, night vision, and cloud storage. Whether it’s a home, office, shop, or industrial facility, our security setups are scalable and tailored to your safety needs.				Protect your assets with modern CCTV surveillance systems. We offer installation and maintenance of high-resolution cameras with features like remote viewing, motion detection, night vision, and cloud storage. Whether it’s a home, office, shop, or industrial facility, our security setups are scalable and tailored to your safety needs.	cctv-surveillance-systems-e672b3bd-f2c0-4fa3-88d8-	2025-07-31	5
+12	POS Systems	\N	\N	\N	POS Systems	Our advanced Point of Sale (POS) systems streamline transactions and enhance customer service in retail stores, supermarkets, restaurants, and service businesses. With modules for inventory tracking, staff management, customer loyalty programs, and real-time sales analytics, our POS solutions go far beyond basic billing. We also provide hardware like receipt printers, barcode scanners, and touch-screen terminals, all configured for quick deployment. Whether it's a single outlet or a multi-branch operation, our systems are built to scale and simplify day-to-day operations.				Our advanced Point of Sale (POS) systems streamline transactions and enhance customer service in retail stores, supermarkets, restaurants, and service businesses. With modules for inventory tracking, staff management, customer loyalty programs, and real-time sales analytics, our POS solutions go far beyond basic billing. We also provide hardware like receipt printers, barcode scanners, and touch-screen terminals, all configured for quick deployment. Whether it's a single outlet or a multi-branch operation, our systems are built to scale and simplify day-to-day operations.	pos-systems-af62605f-c45d-41a4-8c7e-29d5dea36770	2025-07-31	5
 \.
 
 
@@ -5458,32 +5480,32 @@ COPY public.manager_servicecategory (id, name, description, slug) FROM stdin;
 --
 
 COPY public.manager_serviceimage (id, image, slug, created_on, service_id) FROM stdin;
-11	ServiceImage/images/erp-systems-custom-built-210057c5-50db-43c9-a286-7-c9cad320-fac4-467_qaKIkJy.jpg	erp-systems-custom-built-210057c5-50db-43c9-a286-7	2025-07-31	10
-12	ServiceImage/images/web-mobile-app-development-android-ios-0b413656-f9-215ef169-c5e5-402_nKyMNWQ.png	web-mobile-app-development-android-ios-0b413656-f9	2025-07-31	11
-13	ServiceImage/images/pos-systems-8522be30-7d65-42b8-9191-fffb575ca229-ef1c6f15-76b5-4b8d-_SIjpjrh.png	pos-systems-8522be30-7d65-42b8-9191-fffb575ca229	2025-07-31	12
-14	ServiceImage/images/uiux-design-de82e790-c4f5-48ab-9019-6fa4c2e73d71-3541521a-40a0-4608-_YcqFXlq.png	uiux-design-de82e790-c4f5-48ab-9019-6fa4c2e73d71	2025-07-31	13
-15	ServiceImage/images/ai-solutions-c756256d-a57b-4a9b-9d92-7a8e68ff5832-9fcb2e46-6354-4733_GIW1uIN.png	ai-solutions-c756256d-a57b-4a9b-9d92-7a8e68ff5832	2025-07-31	14
-16	ServiceImage/images/iot-integration-0fdfad16-3ffc-4a40-8ddd-44c500a064-f6880f6a-cb41-438_hiEVaFd.png	iot-integration-0fdfad16-3ffc-4a40-8ddd-44c500a064	2025-07-31	15
-17	ServiceImage/images/data-science-analysis-05031375-1329-45a5-9b03-8991-8962c434-3d98-427_gzeLVG8.png	data-science-analysis-05031375-1329-45a5-9b03-8991	2025-07-31	16
-18	ServiceImage/images/digital-strategy-marketing-campaign-2e6a7724-09ae--c926717f-4102-464_iyCJScY.png	digital-strategy-marketing-campaign-2e6a7724-09ae-	2025-07-31	17
-19	ServiceImage/images/search-engine-optimization-seo-a4d0d295-ea8f-4251--cf300c23-ca39-426_4CxDzqa.png	search-engine-optimization-seo-a4d0d295-ea8f-4251-	2025-07-31	18
-20	ServiceImage/images/search-engine-marketing-sem-2f854dc4-7df7-4317-a83-09c43ad1-570f-40e_Dc9FnPl.png	search-engine-marketing-sem-2f854dc4-7df7-4317-a83	2025-07-31	19
-21	ServiceImage/images/social-media-marketing-management-bac59804-061b-49-bab2716e-f986-4ba_I8Wi9OM.png	social-media-marketing-management-bac59804-061b-49	2025-07-31	20
-22	ServiceImage/images/content-creation-1ed6240c-edc7-4600-8a95-445c0862a-39f06ae9-b190-400_uS40BFp.png	content-creation-1ed6240c-edc7-4600-8a95-445c0862a	2025-07-31	21
-23	ServiceImage/images/promotional-items-eg-t-shirts-mugs-hoodies-biros-c-f931394b-5dd9-4cf_xDx6BoF.png	promotional-items-eg-t-shirts-mugs-hoodies-biros-c	2025-07-31	22
-24	ServiceImage/images/branding-creative-graphic-design-62b316cc-af41-402-65490ab1-0e4d-4e3_Txpeb5U.png	branding-creative-graphic-design-62b316cc-af41-402	2025-07-31	23
-25	ServiceImage/images/bulk-sms-services-fe46f22f-db7d-4cfa-9b89-cd11a1d4-5fa43c43-acb5-477_VnT8zyA.png	bulk-sms-services-fe46f22f-db7d-4cfa-9b89-cd11a1d4	2025-07-31	24
-26	ServiceImage/images/influencer-affiliate-marketing-9d415550-8ffd-4a50--ffccf666-b985-43d_yBFDnFE.png	influencer-affiliate-marketing-9d415550-8ffd-4a50-	2025-07-31	25
-27	ServiceImage/images/phones-computers-laptops-cameras-projectors-tvs-ac-900972e1-2ff7-4bc_1oqkVeJ.png	phones-computers-laptops-cameras-projectors-tvs-ac	2025-07-31	26
-28	ServiceImage/images/cctv-surveillance-systems-48cf4891-7f04-4fe7-a268--a65ad482-5719-4b8_SOvGhYT.png	cctv-surveillance-systems-48cf4891-7f04-4fe7-a268-	2025-07-31	27
-29	ServiceImage/images/cybersecurity-services-4e13ed28-5afb-4525-bb8b-e2c-d15c2e1c-dc55-4a3_vrev23q.png	cybersecurity-services-4e13ed28-5afb-4525-bb8b-e2c	2025-07-31	28
-30	ServiceImage/images/networking-it-infrastructure-setup-bc8e489a-8b8f-4-a7251b58-87f9-4dc_wYCJHqV.png	networking-it-infrastructure-setup-bc8e489a-8b8f-4	2025-07-31	29
-31	ServiceImage/images/pos-systems-hardware-b25f1a38-9f72-4e7e-a1b1-9a09b-b95acb15-bd48-443_FE2vFcz.png	pos-systems-hardware-b25f1a38-9f72-4e7e-a1b1-9a09b	2025-07-31	30
-32	ServiceImage/images/internet-service-provider-c99eeb72-720d-415b-aa7f--0b87a2c6-8162-4eb_UHRiQ9p.png	internet-service-provider-c99eeb72-720d-415b-aa7f-	2025-07-31	31
-33	ServiceImage/images/iot-smart-office-solutions-f993366e-0a6b-484f-a5ff-eab36055-9b9d-405_uvayqOF.png	iot-smart-office-solutions-f993366e-0a6b-484f-a5ff	2025-07-31	32
-34	ServiceImage/images/it-maintenance-support-b154f73b-4ffd-4834-b847-b4b-b0cda17e-e37f-471_gb0dfnM.png	it-maintenance-support-b154f73b-4ffd-4834-b847-b4b	2025-07-31	33
-35	ServiceImage/images/photography-videography-dc4ba80c-df8d-402e-bb08-49-e1cf035c-cfaa-414_R5ydsZy.png	photography-videography-dc4ba80c-df8d-402e-bb08-49	2025-07-31	34
-36	ServiceImage/images/multimedia-video-production-film-making-podcasts-v-120f9900-9075-4e7_oCEFio4.png	multimedia-video-production-film-making-podcasts-v	2025-07-31	35
+11	ServiceImage/images/erp-systems-custom-built-210057c5-50db-43c9-a286-7-c9cad320-fac4-467_qaKIkJy.webp	erp-systems-custom-built-210057c5-50db-43c9-a286-7	2025-07-31	10
+12	ServiceImage/images/web-mobile-app-development-android-ios-0b413656-f9-215ef169-c5e5-402_nKyMNWQ.webp	web-mobile-app-development-android-ios-0b413656-f9	2025-07-31	11
+13	ServiceImage/images/pos-systems-8522be30-7d65-42b8-9191-fffb575ca229-ef1c6f15-76b5-4b8d-_SIjpjrh.webp	pos-systems-8522be30-7d65-42b8-9191-fffb575ca229	2025-07-31	12
+14	ServiceImage/images/uiux-design-de82e790-c4f5-48ab-9019-6fa4c2e73d71-3541521a-40a0-4608-_YcqFXlq.webp	uiux-design-de82e790-c4f5-48ab-9019-6fa4c2e73d71	2025-07-31	13
+15	ServiceImage/images/ai-solutions-c756256d-a57b-4a9b-9d92-7a8e68ff5832-9fcb2e46-6354-4733_GIW1uIN.webp	ai-solutions-c756256d-a57b-4a9b-9d92-7a8e68ff5832	2025-07-31	14
+16	ServiceImage/images/iot-integration-0fdfad16-3ffc-4a40-8ddd-44c500a064-f6880f6a-cb41-438_hiEVaFd.webp	iot-integration-0fdfad16-3ffc-4a40-8ddd-44c500a064	2025-07-31	15
+17	ServiceImage/images/data-science-analysis-05031375-1329-45a5-9b03-8991-8962c434-3d98-427_gzeLVG8.webp	data-science-analysis-05031375-1329-45a5-9b03-8991	2025-07-31	16
+18	ServiceImage/images/digital-strategy-marketing-campaign-2e6a7724-09ae--c926717f-4102-464_iyCJScY.webp	digital-strategy-marketing-campaign-2e6a7724-09ae-	2025-07-31	17
+19	ServiceImage/images/search-engine-optimization-seo-a4d0d295-ea8f-4251--cf300c23-ca39-426_4CxDzqa.webp	search-engine-optimization-seo-a4d0d295-ea8f-4251-	2025-07-31	18
+20	ServiceImage/images/search-engine-marketing-sem-2f854dc4-7df7-4317-a83-09c43ad1-570f-40e_Dc9FnPl.webp	search-engine-marketing-sem-2f854dc4-7df7-4317-a83	2025-07-31	19
+21	ServiceImage/images/social-media-marketing-management-bac59804-061b-49-bab2716e-f986-4ba_I8Wi9OM.webp	social-media-marketing-management-bac59804-061b-49	2025-07-31	20
+22	ServiceImage/images/content-creation-1ed6240c-edc7-4600-8a95-445c0862a-39f06ae9-b190-400_uS40BFp.webp	content-creation-1ed6240c-edc7-4600-8a95-445c0862a	2025-07-31	21
+23	ServiceImage/images/promotional-items-eg-t-shirts-mugs-hoodies-biros-c-f931394b-5dd9-4cf_xDx6BoF.webp	promotional-items-eg-t-shirts-mugs-hoodies-biros-c	2025-07-31	22
+24	ServiceImage/images/branding-creative-graphic-design-62b316cc-af41-402-65490ab1-0e4d-4e3_Txpeb5U.webp	branding-creative-graphic-design-62b316cc-af41-402	2025-07-31	23
+25	ServiceImage/images/bulk-sms-services-fe46f22f-db7d-4cfa-9b89-cd11a1d4-5fa43c43-acb5-477_VnT8zyA.webp	bulk-sms-services-fe46f22f-db7d-4cfa-9b89-cd11a1d4	2025-07-31	24
+26	ServiceImage/images/influencer-affiliate-marketing-9d415550-8ffd-4a50--ffccf666-b985-43d_yBFDnFE.webp	influencer-affiliate-marketing-9d415550-8ffd-4a50-	2025-07-31	25
+27	ServiceImage/images/phones-computers-laptops-cameras-projectors-tvs-ac-900972e1-2ff7-4bc_1oqkVeJ.webp	phones-computers-laptops-cameras-projectors-tvs-ac	2025-07-31	26
+28	ServiceImage/images/cctv-surveillance-systems-48cf4891-7f04-4fe7-a268--a65ad482-5719-4b8_SOvGhYT.webp	cctv-surveillance-systems-48cf4891-7f04-4fe7-a268-	2025-07-31	27
+29	ServiceImage/images/cybersecurity-services-4e13ed28-5afb-4525-bb8b-e2c-d15c2e1c-dc55-4a3_vrev23q.webp	cybersecurity-services-4e13ed28-5afb-4525-bb8b-e2c	2025-07-31	28
+30	ServiceImage/images/networking-it-infrastructure-setup-bc8e489a-8b8f-4-a7251b58-87f9-4dc_wYCJHqV.webp	networking-it-infrastructure-setup-bc8e489a-8b8f-4	2025-07-31	29
+31	ServiceImage/images/pos-systems-hardware-b25f1a38-9f72-4e7e-a1b1-9a09b-b95acb15-bd48-443_FE2vFcz.webp	pos-systems-hardware-b25f1a38-9f72-4e7e-a1b1-9a09b	2025-07-31	30
+32	ServiceImage/images/internet-service-provider-c99eeb72-720d-415b-aa7f--0b87a2c6-8162-4eb_UHRiQ9p.webp	internet-service-provider-c99eeb72-720d-415b-aa7f-	2025-07-31	31
+33	ServiceImage/images/iot-smart-office-solutions-f993366e-0a6b-484f-a5ff-eab36055-9b9d-405_uvayqOF.webp	iot-smart-office-solutions-f993366e-0a6b-484f-a5ff	2025-07-31	32
+34	ServiceImage/images/it-maintenance-support-b154f73b-4ffd-4834-b847-b4b-b0cda17e-e37f-471_gb0dfnM.webp	it-maintenance-support-b154f73b-4ffd-4834-b847-b4b	2025-07-31	33
+35	ServiceImage/images/photography-videography-dc4ba80c-df8d-402e-bb08-49-e1cf035c-cfaa-414_R5ydsZy.webp	photography-videography-dc4ba80c-df8d-402e-bb08-49	2025-07-31	34
+36	ServiceImage/images/multimedia-video-production-film-making-podcasts-v-120f9900-9075-4e7_oCEFio4.webp	multimedia-video-production-film-making-podcasts-v	2025-07-31	35
 \.
 
 
@@ -5492,7 +5514,7 @@ COPY public.manager_serviceimage (id, image, slug, created_on, service_id) FROM 
 --
 
 COPY public.manager_showroom (id, name, name_ar, name_fr, name_de, name_en, image, visits, slug, created_on, location_id) FROM stdin;
-2	Betwan ShowRoom	\N	\N	\N	Betwan ShowRoom	Showroom/images/betwan-showroom-b14a54ac-aabb-4032-8c4d-2e291026d3-7ef9de33-b662-4b0e-9_Cho6QHD.jpeg	0	betwan-showroom-b14a54ac-aabb-4032-8c4d-2e291026d3	2025-06-24	\N
+2	Betwan ShowRoom	\N	\N	\N	Betwan ShowRoom	Showroom/images/betwan-showroom-b14a54ac-aabb-4032-8c4d-2e291026d3-7ef9de33-b662-4b0e-9_Cho6QHD.webp	0	betwan-showroom-b14a54ac-aabb-4032-8c4d-2e291026d3	2025-06-24	\N
 \.
 
 
@@ -6093,12 +6115,12 @@ COPY public.supplier_product_store (id, product_id, store_id) FROM stdin;
 --
 
 COPY public.supplier_productcategory (id, name, name_ar, name_fr, name_de, name_en, product_count, image, slug, created_on) FROM stdin;
-3	Phones	\N	\N	\N	Phones	8	ProductCategory/images/phonesf1186290-9e6d-4306-8753-53df70b98bac-b147879.jpeg	phonesf1186290-9e6d-4306-8753-53df70b98bac	2025-06-24
 4	Laptop Bags	\N	\N	\N	Laptop Bags	3	ProductCategory/images/laptop-bagsfe77e747-1339-43a3-ae9c-ecaf2ff6039d-5d.webp	laptop-bagsfe77e747-1339-43a3-ae9c-ecaf2ff6039d	2025-06-24
-5	Designer Mugs	\N	\N	\N	Designer Mugs	3	ProductCategory/images/designer-mugs189e7237-d172-4341-8063-af50ec1dbddd-.jpeg	designer-mugs189e7237-d172-4341-8063-af50ec1dbddd	2025-06-24
-6	Mouse	\N	\N	\N	Mouse	3	ProductCategory/images/mouse300e2e15-cfea-44f7-bcfb-6284a8656e1a-1dce872e.jpeg	mouse300e2e15-cfea-44f7-bcfb-6284a8656e1a	2025-06-24
-2	Printers	\N	\N	\N	Printers	7	ProductCategory/images/printersee5af875-3f31-44b2-ae3e-54a43cc9b7a1-b598a.jpeg	printersee5af875-3f31-44b2-ae3e-54a43cc9b7a1	2025-06-24
-1	Laptops	\N	\N	\N	Laptops	176	ProductCategory/images/laptops509a457f-9c4f-4089-b83d-afd4d0b3d76f-2f54da.jpeg	laptops509a457f-9c4f-4089-b83d-afd4d0b3d76f	2025-06-24
+3	Phones	\N	\N	\N	Phones	8	ProductCategory/images/phonesf1186290-9e6d-4306-8753-53df70b98bac-b147879.webp	phonesf1186290-9e6d-4306-8753-53df70b98bac	2025-06-24
+2	Printers	\N	\N	\N	Printers	7	ProductCategory/images/printersee5af875-3f31-44b2-ae3e-54a43cc9b7a1-b598a.webp	printersee5af875-3f31-44b2-ae3e-54a43cc9b7a1	2025-06-24
+1	Laptops	\N	\N	\N	Laptops	176	ProductCategory/images/laptops509a457f-9c4f-4089-b83d-afd4d0b3d76f-2f54da.webp	laptops509a457f-9c4f-4089-b83d-afd4d0b3d76f	2025-06-24
+5	Designer Mugs	\N	\N	\N	Designer Mugs	3	ProductCategory/images/designer-mugs189e7237-d172-4341-8063-af50ec1dbddd-.webp	designer-mugs189e7237-d172-4341-8063-af50ec1dbddd	2025-06-24
+6	Mouse	\N	\N	\N	Mouse	3	ProductCategory/images/mouse300e2e15-cfea-44f7-bcfb-6284a8656e1a-1dce872e.webp	mouse300e2e15-cfea-44f7-bcfb-6284a8656e1a	2025-06-24
 \.
 
 
@@ -6117,71 +6139,71 @@ COPY public.supplier_productcolor (id, name, name_ar, name_fr, name_de, name_en)
 --
 
 COPY public.supplier_productimage (id, image, slug, created_on, product_id) FROM stdin;
-3	ProductImage/images/rechargabl-7aad0a9a-cb1a-4c00-8ed7-6f8854b3b2f7-im.jpg	rechargabl-7aad0a9a-cb1a-4c00-8ed7-6f8854b3b2f7-images	2025-06-24	10
-4	ProductImage/images/hp-victus-373a4510-b8f6-4bd5-9eee-5912721c0869-ima.jpg	hp-victus-373a4510-b8f6-4bd5-9eee-5912721c0869-images	2025-06-24	9
-5	ProductImage/images/hp-omen-16-c5626acf-e81f-4e20-98ff-9322d0969242-im.jpg	hp-omen-16-c5626acf-e81f-4e20-98ff-9322d0969242-images	2025-06-24	5
-6	ProductImage/images/i7-11th-3-38170127-8b09-41b1-9263-02bc3fe03ef2-ima.jpg	i7-11th-3-38170127-8b09-41b1-9263-02bc3fe03ef2-images	2025-06-24	6
-7	ProductImage/images/hp-omen-16-913f3aae-4ff8-4152-9104-61d3e6d957a8-im.jpg	hp-omen-16-913f3aae-4ff8-4152-9104-61d3e6d957a8-images	2025-06-24	5
-8	ProductImage/images/epison-l32-55dfa784-48e3-45cd-8a50-32a01a06c5b9-im.jpg	epison-l32-55dfa784-48e3-45cd-8a50-32a01a06c5b9-images	2025-06-24	4
-9	ProductImage/images/beauty-mug-93745dfa-a8f7-426e-85fa-70203be3487d-im.jpg	beauty-mug-93745dfa-a8f7-426e-85fa-70203be3487d-images	2025-06-24	11
-10	ProductImage/images/hp-g3-29a4a4a6-c0ee-415b-8d0c-8eada364b0f5-images-.jpg	hp-g3-29a4a4a6-c0ee-415b-8d0c-8eada364b0f5-images	2025-06-24	8
-11	ProductImage/images/hp-mini-91e6cbc4-e69f-471e-82ac-38440fedfd17-image.jpg	hp-mini-91e6cbc4-e69f-471e-82ac-38440fedfd17-images	2025-06-24	7
 12	ProductImage/images/laptop-bag-f8eab8a5-29da-4d74-841a-51d094dc4e79-im.webp	laptop-bag-f8eab8a5-29da-4d74-841a-51d094dc4e79-images	2025-06-24	12
-13	ProductImage/images/hp-z-book-29986f1e-401f-4d7a-9473-2e0696f891f8-ima.jpg	hp-z-book-29986f1e-401f-4d7a-9473-2e0696f891f8-images	2025-06-25	14
-14	ProductImage/images/hp-840g8-19e0cb37-fbd0-48e0-92e6-4d753e9cf170-imag.jpg	hp-840g8-19e0cb37-fbd0-48e0-92e6-4d753e9cf170-images	2025-06-25	15
-15	ProductImage/images/microsoft-a0a48fe2-c87b-465e-990d-883f6608d7b2-ima.jpg	microsoft-a0a48fe2-c87b-465e-990d-883f6608d7b2-images	2025-06-25	16
-16	ProductImage/images/dell-latit-03906a64-1194-4ffa-b184-603e028836b7-im.jpg	dell-latit-03906a64-1194-4ffa-b184-603e028836b7-images	2025-06-25	51
-17	ProductImage/images/dell-preci-83d54d32-7417-4877-ae29-fa18a2996532-im.jpg	dell-preci-83d54d32-7417-4877-ae29-fa18a2996532-images	2025-06-25	19
-18	ProductImage/images/samsung-ga-4f1cb8fd-129b-4a79-bb5e-9d4bb6e82cd5-im.jpg	samsung-ga-4f1cb8fd-129b-4a79-bb5e-9d4bb6e82cd5-images	2025-06-25	20
-19	ProductImage/images/macbook-pr-3e96dfe7-85ae-4043-8422-dc52463a3f88-im.jpg	macbook-pr-3e96dfe7-85ae-4043-8422-dc52463a3f88-images	2025-06-25	42
-20	ProductImage/images/macbook-pr-c190cd28-0e0a-4c7d-922d-37a6ab9af072-im.jpeg	macbook-pr-c190cd28-0e0a-4c7d-922d-37a6ab9af072-images	2025-06-25	22
-21	ProductImage/images/lenovo-x1-54be9467-5c1e-4eab-95d7-ed611b58ac26-ima.jpg	lenovo-x1-54be9467-5c1e-4eab-95d7-ed611b58ac26-images	2025-06-25	24
-22	ProductImage/images/lenovo-th-83b37ac5-2b79-4368-a2dd-b4095db34a4c-ima.jpg	lenovo-th-83b37ac5-2b79-4368-a2dd-b4095db34a4c-images	2025-06-25	39
-23	ProductImage/images/lenovo-d9ded111-6394-45f6-b677-8aaf430663f3-images.jpg	lenovo-d9ded111-6394-45f6-b677-8aaf430663f3-images	2025-06-25	26
-24	ProductImage/images/hp-1040-67e04f77-6acb-4546-89e1-ec71e8da081e-image.jpg	hp-1040-67e04f77-6acb-4546-89e1-ec71e8da081e-images	2025-06-25	27
-25	ProductImage/images/lenovo-460-be0b641e-2320-4af2-8347-fee5dfd5d963-im.jpg	lenovo-460-be0b641e-2320-4af2-8347-fee5dfd5d963-images	2025-06-25	29
-26	ProductImage/images/lenovo-x-84561c96-2711-420b-9329-deabedcbec77-imag.jpg	lenovo-x-84561c96-2711-420b-9329-deabedcbec77-images	2025-06-25	30
-27	ProductImage/images/dell-xps-1-c551e2e1-453e-4a81-9007-2284bdc07b2a-im.jpg	dell-xps-1-c551e2e1-453e-4a81-9007-2284bdc07b2a-images	2025-06-25	31
-28	ProductImage/images/dell-latit-d643f6a6-16f3-44d6-a97b-53d624a66835-im.jpg	dell-latit-d643f6a6-16f3-44d6-a97b-53d624a66835-images	2025-06-25	32
-29	ProductImage/images/hp-z-book-902a6b4c-a13c-403d-acef-f2590a55c87c-ima.jpg	hp-z-book-902a6b4c-a13c-403d-acef-f2590a55c87c-images	2025-06-25	14
-30	ProductImage/images/hp-z-book-b919b669-01da-4d67-a56f-483ffbb21815-ima.jpg	hp-z-book-b919b669-01da-4d67-a56f-483ffbb21815-images	2025-06-25	14
-31	ProductImage/images/hp-pavilio-dd5d12b2-bf9d-4e1f-adb9-b7531502bfee-im.jpg	hp-pavilio-dd5d12b2-bf9d-4e1f-adb9-b7531502bfee-images	2025-06-25	34
-32	ProductImage/images/hp-victus-65435ed0-f0a2-4b73-8b90-6665207ece49-ima.jpg	hp-victus-65435ed0-f0a2-4b73-8b90-6665207ece49-images	2025-06-25	35
-33	ProductImage/images/dell-pre-f6b13ae4-22c5-478f-9a06-574097f7204d-imag.jpg	dell-pre-f6b13ae4-22c5-478f-9a06-574097f7204d-images	2025-06-25	36
-34	ProductImage/images/lenovo-fead718e-f777-4334-b76f-5c97fc91cd50-images.jpg	lenovo-fead718e-f777-4334-b76f-5c97fc91cd50-images	2025-06-25	37
-35	ProductImage/images/lenovo-th-21e1b5c6-a11f-4f3e-8957-d241364244ba-ima.jpg	lenovo-th-21e1b5c6-a11f-4f3e-8957-d241364244ba-images	2025-06-25	39
-36	ProductImage/images/lenovo-x1-0835c4cb-0a9e-4769-b362-6038fb444e3c-ima.jpg	lenovo-x1-0835c4cb-0a9e-4769-b362-6038fb444e3c-images	2025-06-25	40
-37	ProductImage/images/dell-preci-a5448332-285e-46be-951e-a8a3301aa850-im.jpg	dell-preci-a5448332-285e-46be-951e-a8a3301aa850-images	2025-06-25	41
-38	ProductImage/images/macbook-pr-18c454eb-5d8f-474b-8f87-85c21701b9d6-im.jpg	macbook-pr-18c454eb-5d8f-474b-8f87-85c21701b9d6-images	2025-06-25	43
-39	ProductImage/images/dell-preci-36405384-6a1f-4971-bbf7-e3331e9658cc-im.jpg	dell-preci-36405384-6a1f-4971-bbf7-e3331e9658cc-images	2025-06-25	44
-40	ProductImage/images/hp-elitebo-3e0c3dde-4c00-4f7a-a721-10ced405aac9-im.jpg	hp-elitebo-3e0c3dde-4c00-4f7a-a721-10ced405aac9-images	2025-06-25	45
-41	ProductImage/images/laptop-bag-1690e383-824c-4584-936b-ee9c7965c90c-im.jpg	laptop-bag-1690e383-824c-4584-936b-ee9c7965c90c-images	2025-06-25	12
-42	ProductImage/images/hp-pavilio-4f089238-2bc6-4828-bc7e-b429f4b16368-im.jpg	hp-pavilio-4f089238-2bc6-4828-bc7e-b429f4b16368-images	2025-06-25	34
-43	ProductImage/images/hp-elitebo-fa86b7ec-c807-4170-9392-f1ff528f7e82-im.jpg	hp-elitebo-fa86b7ec-c807-4170-9392-f1ff528f7e82-images	2025-06-25	46
-44	ProductImage/images/dell-xps-4440c7a3-6a4a-4ea5-bad7-327d9d322834-imag.jpg	dell-xps-4440c7a3-6a4a-4ea5-bad7-327d9d322834-images	2025-06-25	47
-45	ProductImage/images/hp-elitebo-e6776538-ed68-4a8e-be02-7c7ba2d21e29-im.jpg	hp-elitebo-e6776538-ed68-4a8e-be02-7c7ba2d21e29-images	2025-06-25	49
-46	ProductImage/images/dell-latit-13dc09f0-8612-4f6c-9840-49efc230ef3b-im.jpg	dell-latit-13dc09f0-8612-4f6c-9840-49efc230ef3b-images	2025-06-25	51
-47	ProductImage/images/dell-3310-9b08319e-bd3e-4d48-aa4c-81d696b16939-ima.jpg	dell-3310-9b08319e-bd3e-4d48-aa4c-81d696b16939-images	2025-06-25	50
-48	ProductImage/images/hp-840-g5-8a19bcdf-e0a4-4128-8d03-d564c05a57d3-ima.jpg	hp-840-g5-8a19bcdf-e0a4-4128-8d03-d564c05a57d3-images	2025-06-25	52
-49	ProductImage/images/hp-elitebo-2693e5cb-e98e-4cf5-ac6b-946ee50bff68-im.jpg	hp-elitebo-2693e5cb-e98e-4cf5-ac6b-946ee50bff68-images	2025-06-25	48
-50	ProductImage/images/lenovo-x1-4b99be5c-8736-4aca-b014-0bf2f6a0abcc-ima.jpg	lenovo-x1-4b99be5c-8736-4aca-b014-0bf2f6a0abcc-images	2025-06-25	38
-51	ProductImage/images/hp-z-book-b8193f4d-ba7b-4d65-8e19-e7db3870d80e-ima.jpg	hp-z-book-b8193f4d-ba7b-4d65-8e19-e7db3870d80e-images	2025-06-25	33
-52	ProductImage/images/lenovo-thi-e7f432d5-925d-40cd-bf27-36b6d86f5cdf-im.jpg	lenovo-thi-e7f432d5-925d-40cd-bf27-36b6d86f5cdf-images	2025-06-25	28
-53	ProductImage/images/lenovo-th-76111447-3f50-4b2c-96d3-9edabcd95267-ima.jpg	lenovo-th-76111447-3f50-4b2c-96d3-9edabcd95267-images	2025-06-25	39
-54	ProductImage/images/lenovo-x1-d8d85466-596a-42bc-92af-160104111f50-ima.jpg	lenovo-x1-d8d85466-596a-42bc-92af-160104111f50-images	2025-06-25	23
-55	ProductImage/images/new-arriva-fa591566-15a4-4ebe-8307-4533fd3089bc-im.jpg	new-arriva-fa591566-15a4-4ebe-8307-4533fd3089bc-images	2025-06-25	21
-56	ProductImage/images/dell-latit-8884fc87-44d6-49d5-8017-0780cbfc3b3b-im.jpg	dell-latit-8884fc87-44d6-49d5-8017-0780cbfc3b3b-images	2025-06-25	18
-57	ProductImage/images/dell-latit-be84c7e1-8543-42e9-a625-b8f5dee20f9b-im.jpg	dell-latit-be84c7e1-8543-42e9-a625-b8f5dee20f9b-images	2025-06-25	51
-58	ProductImage/images/hp-elitebo-24b4b424-c3c7-47f6-9de0-6582f697b85d-im.jpg	hp-elitebo-24b4b424-c3c7-47f6-9de0-6582f697b85d-images	2025-06-25	13
-59	ProductImage/images/lenovo-th-bac47788-98f7-4695-978b-c85437608f66-ima.jpg	lenovo-th-bac47788-98f7-4695-978b-c85437608f66-images	2025-06-25	39
-60	ProductImage/images/lenovo-th-8a14a78b-6edc-4ddb-a353-9bdc9de10bfc-ima.jpg	lenovo-th-8a14a78b-6edc-4ddb-a353-9bdc9de10bfc-images	2025-06-25	25
-61	ProductImage/images/dell-latit-02407fc6-e7cc-493e-bb7a-4a21a13437f5-im.jpg	dell-latit-02407fc6-e7cc-493e-bb7a-4a21a13437f5-images	2025-06-25	17
-62	ProductImage/images/hp-razor-b-2dfe5c32-5a8c-4032-9ee9-be6463698ab7-im.jpeg	hp-razor-b-2dfe5c32-5a8c-4032-9ee9-be6463698ab7-images	2025-06-27	53
-63	ProductImage/images/hp-dragon-f4535d46-4a01-4463-8b96-44f8d1c1dc02-ima.jpeg	hp-dragon-f4535d46-4a01-4463-8b96-44f8d1c1dc02-images	2025-06-27	54
-64	ProductImage/images/hp-drag-8feddfa1-e604-413a-9e16-9cf090fe5c76-image.jpeg	hp-drag-8feddfa1-e604-413a-9e16-9cf090fe5c76-images	2025-06-27	55
-65	ProductImage/images/hp-eli-c439d7da-0311-46cb-8c01-4f852018d191-images.jpeg	hp-eli-c439d7da-0311-46cb-8c01-4f852018d191-images	2025-06-27	56
-66	ProductImage/images/hp-elite-b-2da43f5e-bf45-4628-a996-bda0a47f12dc-im.jpeg	hp-elite-b-2da43f5e-bf45-4628-a996-bda0a47f12dc-images	2025-06-27	57
-67	ProductImage/images/rechargabl-716acfdd-3095-426b-8cbb-920f675dc746-im.jpg	rechargabl-716acfdd-3095-426b-8cbb-920f675dc746-images	2025-06-27	10
+4	ProductImage/images/hp-victus-373a4510-b8f6-4bd5-9eee-5912721c0869-ima.webp	hp-victus-373a4510-b8f6-4bd5-9eee-5912721c0869-images	2025-06-24	9
+5	ProductImage/images/hp-omen-16-c5626acf-e81f-4e20-98ff-9322d0969242-im.webp	hp-omen-16-c5626acf-e81f-4e20-98ff-9322d0969242-images	2025-06-24	5
+6	ProductImage/images/i7-11th-3-38170127-8b09-41b1-9263-02bc3fe03ef2-ima.webp	i7-11th-3-38170127-8b09-41b1-9263-02bc3fe03ef2-images	2025-06-24	6
+7	ProductImage/images/hp-omen-16-913f3aae-4ff8-4152-9104-61d3e6d957a8-im.webp	hp-omen-16-913f3aae-4ff8-4152-9104-61d3e6d957a8-images	2025-06-24	5
+8	ProductImage/images/epison-l32-55dfa784-48e3-45cd-8a50-32a01a06c5b9-im.webp	epison-l32-55dfa784-48e3-45cd-8a50-32a01a06c5b9-images	2025-06-24	4
+9	ProductImage/images/beauty-mug-93745dfa-a8f7-426e-85fa-70203be3487d-im.webp	beauty-mug-93745dfa-a8f7-426e-85fa-70203be3487d-images	2025-06-24	11
+10	ProductImage/images/hp-g3-29a4a4a6-c0ee-415b-8d0c-8eada364b0f5-images-.webp	hp-g3-29a4a4a6-c0ee-415b-8d0c-8eada364b0f5-images	2025-06-24	8
+11	ProductImage/images/hp-mini-91e6cbc4-e69f-471e-82ac-38440fedfd17-image.webp	hp-mini-91e6cbc4-e69f-471e-82ac-38440fedfd17-images	2025-06-24	7
+13	ProductImage/images/hp-z-book-29986f1e-401f-4d7a-9473-2e0696f891f8-ima.webp	hp-z-book-29986f1e-401f-4d7a-9473-2e0696f891f8-images	2025-06-25	14
+14	ProductImage/images/hp-840g8-19e0cb37-fbd0-48e0-92e6-4d753e9cf170-imag.webp	hp-840g8-19e0cb37-fbd0-48e0-92e6-4d753e9cf170-images	2025-06-25	15
+15	ProductImage/images/microsoft-a0a48fe2-c87b-465e-990d-883f6608d7b2-ima.webp	microsoft-a0a48fe2-c87b-465e-990d-883f6608d7b2-images	2025-06-25	16
+16	ProductImage/images/dell-latit-03906a64-1194-4ffa-b184-603e028836b7-im.webp	dell-latit-03906a64-1194-4ffa-b184-603e028836b7-images	2025-06-25	51
+17	ProductImage/images/dell-preci-83d54d32-7417-4877-ae29-fa18a2996532-im.webp	dell-preci-83d54d32-7417-4877-ae29-fa18a2996532-images	2025-06-25	19
+18	ProductImage/images/samsung-ga-4f1cb8fd-129b-4a79-bb5e-9d4bb6e82cd5-im.webp	samsung-ga-4f1cb8fd-129b-4a79-bb5e-9d4bb6e82cd5-images	2025-06-25	20
+19	ProductImage/images/macbook-pr-3e96dfe7-85ae-4043-8422-dc52463a3f88-im.webp	macbook-pr-3e96dfe7-85ae-4043-8422-dc52463a3f88-images	2025-06-25	42
+20	ProductImage/images/macbook-pr-c190cd28-0e0a-4c7d-922d-37a6ab9af072-im.webp	macbook-pr-c190cd28-0e0a-4c7d-922d-37a6ab9af072-images	2025-06-25	22
+21	ProductImage/images/lenovo-x1-54be9467-5c1e-4eab-95d7-ed611b58ac26-ima.webp	lenovo-x1-54be9467-5c1e-4eab-95d7-ed611b58ac26-images	2025-06-25	24
+23	ProductImage/images/lenovo-d9ded111-6394-45f6-b677-8aaf430663f3-images.webp	lenovo-d9ded111-6394-45f6-b677-8aaf430663f3-images	2025-06-25	26
+24	ProductImage/images/hp-1040-67e04f77-6acb-4546-89e1-ec71e8da081e-image.webp	hp-1040-67e04f77-6acb-4546-89e1-ec71e8da081e-images	2025-06-25	27
+25	ProductImage/images/lenovo-460-be0b641e-2320-4af2-8347-fee5dfd5d963-im.webp	lenovo-460-be0b641e-2320-4af2-8347-fee5dfd5d963-images	2025-06-25	29
+26	ProductImage/images/lenovo-x-84561c96-2711-420b-9329-deabedcbec77-imag.webp	lenovo-x-84561c96-2711-420b-9329-deabedcbec77-images	2025-06-25	30
+27	ProductImage/images/dell-xps-1-c551e2e1-453e-4a81-9007-2284bdc07b2a-im.webp	dell-xps-1-c551e2e1-453e-4a81-9007-2284bdc07b2a-images	2025-06-25	31
+28	ProductImage/images/dell-latit-d643f6a6-16f3-44d6-a97b-53d624a66835-im.webp	dell-latit-d643f6a6-16f3-44d6-a97b-53d624a66835-images	2025-06-25	32
+29	ProductImage/images/hp-z-book-902a6b4c-a13c-403d-acef-f2590a55c87c-ima.webp	hp-z-book-902a6b4c-a13c-403d-acef-f2590a55c87c-images	2025-06-25	14
+30	ProductImage/images/hp-z-book-b919b669-01da-4d67-a56f-483ffbb21815-ima.webp	hp-z-book-b919b669-01da-4d67-a56f-483ffbb21815-images	2025-06-25	14
+31	ProductImage/images/hp-pavilio-dd5d12b2-bf9d-4e1f-adb9-b7531502bfee-im.webp	hp-pavilio-dd5d12b2-bf9d-4e1f-adb9-b7531502bfee-images	2025-06-25	34
+32	ProductImage/images/hp-victus-65435ed0-f0a2-4b73-8b90-6665207ece49-ima.webp	hp-victus-65435ed0-f0a2-4b73-8b90-6665207ece49-images	2025-06-25	35
+33	ProductImage/images/dell-pre-f6b13ae4-22c5-478f-9a06-574097f7204d-imag.webp	dell-pre-f6b13ae4-22c5-478f-9a06-574097f7204d-images	2025-06-25	36
+34	ProductImage/images/lenovo-fead718e-f777-4334-b76f-5c97fc91cd50-images.webp	lenovo-fead718e-f777-4334-b76f-5c97fc91cd50-images	2025-06-25	37
+35	ProductImage/images/lenovo-th-21e1b5c6-a11f-4f3e-8957-d241364244ba-ima.webp	lenovo-th-21e1b5c6-a11f-4f3e-8957-d241364244ba-images	2025-06-25	39
+36	ProductImage/images/lenovo-x1-0835c4cb-0a9e-4769-b362-6038fb444e3c-ima.webp	lenovo-x1-0835c4cb-0a9e-4769-b362-6038fb444e3c-images	2025-06-25	40
+37	ProductImage/images/dell-preci-a5448332-285e-46be-951e-a8a3301aa850-im.webp	dell-preci-a5448332-285e-46be-951e-a8a3301aa850-images	2025-06-25	41
+38	ProductImage/images/macbook-pr-18c454eb-5d8f-474b-8f87-85c21701b9d6-im.webp	macbook-pr-18c454eb-5d8f-474b-8f87-85c21701b9d6-images	2025-06-25	43
+39	ProductImage/images/dell-preci-36405384-6a1f-4971-bbf7-e3331e9658cc-im.webp	dell-preci-36405384-6a1f-4971-bbf7-e3331e9658cc-images	2025-06-25	44
+40	ProductImage/images/hp-elitebo-3e0c3dde-4c00-4f7a-a721-10ced405aac9-im.webp	hp-elitebo-3e0c3dde-4c00-4f7a-a721-10ced405aac9-images	2025-06-25	45
+41	ProductImage/images/laptop-bag-1690e383-824c-4584-936b-ee9c7965c90c-im.webp	laptop-bag-1690e383-824c-4584-936b-ee9c7965c90c-images	2025-06-25	12
+42	ProductImage/images/hp-pavilio-4f089238-2bc6-4828-bc7e-b429f4b16368-im.webp	hp-pavilio-4f089238-2bc6-4828-bc7e-b429f4b16368-images	2025-06-25	34
+43	ProductImage/images/hp-elitebo-fa86b7ec-c807-4170-9392-f1ff528f7e82-im.webp	hp-elitebo-fa86b7ec-c807-4170-9392-f1ff528f7e82-images	2025-06-25	46
+44	ProductImage/images/dell-xps-4440c7a3-6a4a-4ea5-bad7-327d9d322834-imag.webp	dell-xps-4440c7a3-6a4a-4ea5-bad7-327d9d322834-images	2025-06-25	47
+45	ProductImage/images/hp-elitebo-e6776538-ed68-4a8e-be02-7c7ba2d21e29-im.webp	hp-elitebo-e6776538-ed68-4a8e-be02-7c7ba2d21e29-images	2025-06-25	49
+46	ProductImage/images/dell-latit-13dc09f0-8612-4f6c-9840-49efc230ef3b-im.webp	dell-latit-13dc09f0-8612-4f6c-9840-49efc230ef3b-images	2025-06-25	51
+47	ProductImage/images/dell-3310-9b08319e-bd3e-4d48-aa4c-81d696b16939-ima.webp	dell-3310-9b08319e-bd3e-4d48-aa4c-81d696b16939-images	2025-06-25	50
+3	ProductImage/images/rechargabl-7aad0a9a-cb1a-4c00-8ed7-6f8854b3b2f7-im.webp	rechargabl-7aad0a9a-cb1a-4c00-8ed7-6f8854b3b2f7-images	2025-06-24	10
+22	ProductImage/images/lenovo-th-83b37ac5-2b79-4368-a2dd-b4095db34a4c-ima.webp	lenovo-th-83b37ac5-2b79-4368-a2dd-b4095db34a4c-images	2025-06-25	39
+48	ProductImage/images/hp-840-g5-8a19bcdf-e0a4-4128-8d03-d564c05a57d3-ima.webp	hp-840-g5-8a19bcdf-e0a4-4128-8d03-d564c05a57d3-images	2025-06-25	52
+49	ProductImage/images/hp-elitebo-2693e5cb-e98e-4cf5-ac6b-946ee50bff68-im.webp	hp-elitebo-2693e5cb-e98e-4cf5-ac6b-946ee50bff68-images	2025-06-25	48
+50	ProductImage/images/lenovo-x1-4b99be5c-8736-4aca-b014-0bf2f6a0abcc-ima.webp	lenovo-x1-4b99be5c-8736-4aca-b014-0bf2f6a0abcc-images	2025-06-25	38
+51	ProductImage/images/hp-z-book-b8193f4d-ba7b-4d65-8e19-e7db3870d80e-ima.webp	hp-z-book-b8193f4d-ba7b-4d65-8e19-e7db3870d80e-images	2025-06-25	33
+52	ProductImage/images/lenovo-thi-e7f432d5-925d-40cd-bf27-36b6d86f5cdf-im.webp	lenovo-thi-e7f432d5-925d-40cd-bf27-36b6d86f5cdf-images	2025-06-25	28
+53	ProductImage/images/lenovo-th-76111447-3f50-4b2c-96d3-9edabcd95267-ima.webp	lenovo-th-76111447-3f50-4b2c-96d3-9edabcd95267-images	2025-06-25	39
+54	ProductImage/images/lenovo-x1-d8d85466-596a-42bc-92af-160104111f50-ima.webp	lenovo-x1-d8d85466-596a-42bc-92af-160104111f50-images	2025-06-25	23
+55	ProductImage/images/new-arriva-fa591566-15a4-4ebe-8307-4533fd3089bc-im.webp	new-arriva-fa591566-15a4-4ebe-8307-4533fd3089bc-images	2025-06-25	21
+56	ProductImage/images/dell-latit-8884fc87-44d6-49d5-8017-0780cbfc3b3b-im.webp	dell-latit-8884fc87-44d6-49d5-8017-0780cbfc3b3b-images	2025-06-25	18
+57	ProductImage/images/dell-latit-be84c7e1-8543-42e9-a625-b8f5dee20f9b-im.webp	dell-latit-be84c7e1-8543-42e9-a625-b8f5dee20f9b-images	2025-06-25	51
+58	ProductImage/images/hp-elitebo-24b4b424-c3c7-47f6-9de0-6582f697b85d-im.webp	hp-elitebo-24b4b424-c3c7-47f6-9de0-6582f697b85d-images	2025-06-25	13
+59	ProductImage/images/lenovo-th-bac47788-98f7-4695-978b-c85437608f66-ima.webp	lenovo-th-bac47788-98f7-4695-978b-c85437608f66-images	2025-06-25	39
+60	ProductImage/images/lenovo-th-8a14a78b-6edc-4ddb-a353-9bdc9de10bfc-ima.webp	lenovo-th-8a14a78b-6edc-4ddb-a353-9bdc9de10bfc-images	2025-06-25	25
+61	ProductImage/images/dell-latit-02407fc6-e7cc-493e-bb7a-4a21a13437f5-im.webp	dell-latit-02407fc6-e7cc-493e-bb7a-4a21a13437f5-images	2025-06-25	17
+62	ProductImage/images/hp-razor-b-2dfe5c32-5a8c-4032-9ee9-be6463698ab7-im.webp	hp-razor-b-2dfe5c32-5a8c-4032-9ee9-be6463698ab7-images	2025-06-27	53
+63	ProductImage/images/hp-dragon-f4535d46-4a01-4463-8b96-44f8d1c1dc02-ima.webp	hp-dragon-f4535d46-4a01-4463-8b96-44f8d1c1dc02-images	2025-06-27	54
+64	ProductImage/images/hp-drag-8feddfa1-e604-413a-9e16-9cf090fe5c76-image.webp	hp-drag-8feddfa1-e604-413a-9e16-9cf090fe5c76-images	2025-06-27	55
+65	ProductImage/images/hp-eli-c439d7da-0311-46cb-8c01-4f852018d191-images.webp	hp-eli-c439d7da-0311-46cb-8c01-4f852018d191-images	2025-06-27	56
+66	ProductImage/images/hp-elite-b-2da43f5e-bf45-4628-a996-bda0a47f12dc-im.webp	hp-elite-b-2da43f5e-bf45-4628-a996-bda0a47f12dc-images	2025-06-27	57
+67	ProductImage/images/rechargabl-716acfdd-3095-426b-8cbb-920f675dc746-im.webp	rechargabl-716acfdd-3095-426b-8cbb-920f675dc746-images	2025-06-27	10
 \.
 
 
@@ -6270,24 +6292,24 @@ COPY public.supplier_productreview (id, content, business_id, product_id) FROM s
 --
 
 COPY public.supplier_productsubcategory (id, name, name_ar, name_fr, name_de, name_en, image, slug, created_on, category_id) FROM stdin;
-6	Inkjet	\N	\N	\N	Inkjet	ProductSubCategory/images/inkjetc2f92320-5e94-47ba-b69c-7d30110f2487-e549f6e.jpeg	inkjetc2f92320-5e94-47ba-b69c-7d30110f2487	2025-06-24	2
-3	Android	\N	\N	\N	Android	ProductSubCategory/images/android925aed98-3a54-47d3-b78b-7e13e3918279-d6121f.jpeg	android925aed98-3a54-47d3-b78b-7e13e3918279	2025-06-24	3
 2	Business	\N	\N	\N	Business	ProductSubCategory/images/businesscb8287cc-a067-4cbb-9d0b-6b08ff4231de-dc044.business-laptopjpeg	businesscb8287cc-a067-4cbb-9d0b-6b08ff4231de	2025-06-24	1
-1	Gaming	\N	\N	\N	Gaming	ProductSubCategory/images/gaming65ceb52a-977d-4b7f-91d0-4feb45b0ec55-0015a14.jpeg	gaming65ceb52a-977d-4b7f-91d0-4feb45b0ec55	2025-06-24	1
-5	Wireless	\N	\N	\N	Wireless	ProductSubCategory/images/wireless85f98399-7347-43dd-ae1a-2c1a7b12b44e-80fe3.jpeg	wireless85f98399-7347-43dd-ae1a-2c1a7b12b44e	2025-06-24	2
-7	Apple	\N	\N	\N	Apple	ProductSubCategory/images/apple8fd5ce40-9bcc-4730-915d-a79b80c8434d-91023cb3.jpeg	apple8fd5ce40-9bcc-4730-915d-a79b80c8434d	2025-06-24	1
-4	iOS	\N	\N	\N	iOS	ProductSubCategory/images/iosf6b177dd-4a2f-47a2-b182-d8d2b860b305-6cfcc47b-2.jpeg	iosf6b177dd-4a2f-47a2-b182-d8d2b860b305	2025-06-24	3
-8	Designer Mugs	\N	\N	\N	Designer Mugs	ProductSubCategory/images/designer-mugs422e9071-6d7c-4cb7-8099-c2c2118d4fb1-.jpg	designer-mugs422e9071-6d7c-4cb7-8099-c2c2118d4fb1	2025-06-24	5
 9	Normal Laptop Bag	\N	\N	\N	Normal Laptop Bag	ProductSubCategory/images/normal-laptop-bag547f6208-4577-4889-b39f-42eb74405.webp	normal-laptop-bag547f6208-4577-4889-b39f-42eb74405918	2025-06-24	4
-10	wired	\N	\N	\N	wired	ProductSubCategory/images/wired5d252309-6bf7-4b89-b806-905e4d30b7c0-e62cb14d.jpeg	wired5d252309-6bf7-4b89-b806-905e4d30b7c0	2025-06-24	6
-12	NOKIA	\N	\N	\N	NOKIA	ProductSubCategory/images/nokia8eebddfc-772f-4a3e-9b09-00e1840f4045-b16e23f3.jpeg	nokia8eebddfc-772f-4a3e-9b09-00e1840f4045	2025-06-25	3
-13	VIVO	\N	\N	\N	VIVO	ProductSubCategory/images/vivo03478c0e-58f8-4752-9ca3-f014670d4130-a2d132ed-.jpeg	vivo03478c0e-58f8-4752-9ca3-f014670d4130	2025-06-25	3
-15	OPPO	\N	\N	\N	OPPO	ProductSubCategory/images/oppo99c04728-a3b6-4f63-bd18-2305cbf68ac6-c3c0f1b3-.png	oppo99c04728-a3b6-4f63-bd18-2305cbf68ac6	2025-06-25	3
-16	ITEL	\N	\N	\N	ITEL	ProductSubCategory/images/itel78d75681-82e8-4ce1-b1e7-a7dc3ec96cad-b2a8a91a-.png	itel78d75681-82e8-4ce1-b1e7-a7dc3ec96cad	2025-06-25	3
 17	TECNO	\N	\N	\N	TECNO	ProductSubCategory/images/tecno964d457c-f14c-42bc-bd55-1144dfe0f4a7-7acd0197.tecnopng	tecno964d457c-f14c-42bc-bd55-1144dfe0f4a7	2025-06-25	3
-11	Samsung	\N	\N	\N	Samsung	ProductSubCategory/images/samsung8c46a23f-d5e3-4db7-a2de-019e1f9d0e3b-98c792.png	samsung8c46a23f-d5e3-4db7-a2de-019e1f9d0e3b	2025-06-25	3
-14	REDMI	\N	\N	\N	REDMI	ProductSubCategory/images/redmie54aa83e-5627-4677-ab85-19ec24ad7978-b903707b.png	redmie54aa83e-5627-4677-ab85-19ec24ad7978	2025-06-25	3
-18	Wireless Mouse	\N	\N	\N	Wireless Mouse	ProductSubCategory/images/wireless-mouse0ea30c68-973f-4958-9eb4-4b8672d1e7b3.jpg	wireless-mouse0ea30c68-973f-4958-9eb4-4b8672d1e7b3	2025-06-27	6
+6	Inkjet	\N	\N	\N	Inkjet	ProductSubCategory/images/inkjetc2f92320-5e94-47ba-b69c-7d30110f2487-e549f6e.webp	inkjetc2f92320-5e94-47ba-b69c-7d30110f2487	2025-06-24	2
+3	Android	\N	\N	\N	Android	ProductSubCategory/images/android925aed98-3a54-47d3-b78b-7e13e3918279-d6121f.webp	android925aed98-3a54-47d3-b78b-7e13e3918279	2025-06-24	3
+1	Gaming	\N	\N	\N	Gaming	ProductSubCategory/images/gaming65ceb52a-977d-4b7f-91d0-4feb45b0ec55-0015a14.webp	gaming65ceb52a-977d-4b7f-91d0-4feb45b0ec55	2025-06-24	1
+5	Wireless	\N	\N	\N	Wireless	ProductSubCategory/images/wireless85f98399-7347-43dd-ae1a-2c1a7b12b44e-80fe3.webp	wireless85f98399-7347-43dd-ae1a-2c1a7b12b44e	2025-06-24	2
+7	Apple	\N	\N	\N	Apple	ProductSubCategory/images/apple8fd5ce40-9bcc-4730-915d-a79b80c8434d-91023cb3.webp	apple8fd5ce40-9bcc-4730-915d-a79b80c8434d	2025-06-24	1
+4	iOS	\N	\N	\N	iOS	ProductSubCategory/images/iosf6b177dd-4a2f-47a2-b182-d8d2b860b305-6cfcc47b-2.webp	iosf6b177dd-4a2f-47a2-b182-d8d2b860b305	2025-06-24	3
+8	Designer Mugs	\N	\N	\N	Designer Mugs	ProductSubCategory/images/designer-mugs422e9071-6d7c-4cb7-8099-c2c2118d4fb1-.webp	designer-mugs422e9071-6d7c-4cb7-8099-c2c2118d4fb1	2025-06-24	5
+10	wired	\N	\N	\N	wired	ProductSubCategory/images/wired5d252309-6bf7-4b89-b806-905e4d30b7c0-e62cb14d.webp	wired5d252309-6bf7-4b89-b806-905e4d30b7c0	2025-06-24	6
+12	NOKIA	\N	\N	\N	NOKIA	ProductSubCategory/images/nokia8eebddfc-772f-4a3e-9b09-00e1840f4045-b16e23f3.webp	nokia8eebddfc-772f-4a3e-9b09-00e1840f4045	2025-06-25	3
+13	VIVO	\N	\N	\N	VIVO	ProductSubCategory/images/vivo03478c0e-58f8-4752-9ca3-f014670d4130-a2d132ed-.webp	vivo03478c0e-58f8-4752-9ca3-f014670d4130	2025-06-25	3
+15	OPPO	\N	\N	\N	OPPO	ProductSubCategory/images/oppo99c04728-a3b6-4f63-bd18-2305cbf68ac6-c3c0f1b3-.webp	oppo99c04728-a3b6-4f63-bd18-2305cbf68ac6	2025-06-25	3
+16	ITEL	\N	\N	\N	ITEL	ProductSubCategory/images/itel78d75681-82e8-4ce1-b1e7-a7dc3ec96cad-b2a8a91a-.webp	itel78d75681-82e8-4ce1-b1e7-a7dc3ec96cad	2025-06-25	3
+11	Samsung	\N	\N	\N	Samsung	ProductSubCategory/images/samsung8c46a23f-d5e3-4db7-a2de-019e1f9d0e3b-98c792.webp	samsung8c46a23f-d5e3-4db7-a2de-019e1f9d0e3b	2025-06-25	3
+14	REDMI	\N	\N	\N	REDMI	ProductSubCategory/images/redmie54aa83e-5627-4677-ab85-19ec24ad7978-b903707b.webp	redmie54aa83e-5627-4677-ab85-19ec24ad7978	2025-06-25	3
+18	Wireless Mouse	\N	\N	\N	Wireless Mouse	ProductSubCategory/images/wireless-mouse0ea30c68-973f-4958-9eb4-4b8672d1e7b3.webp	wireless-mouse0ea30c68-973f-4958-9eb4-4b8672d1e7b3	2025-06-27	6
 \.
 
 
@@ -6321,7 +6343,7 @@ COPY public.supplier_service (id, name, name_ar, name_fr, name_de, name_en, desc
 --
 
 COPY public.supplier_serviceimage (id, image, slug, created_on, service_id) FROM stdin;
-1	ServiceImage/images/imegeries-c4174154-1e2f-4b3e-89e7-9f94291edfb2-9b3.jpeg	imegeries-c4174154-1e2f-4b3e-89e7-9f94291edfb2	2025-06-24	1
+1	ServiceImage/images/imegeries-c4174154-1e2f-4b3e-89e7-9f94291edfb2-9b3.webp	imegeries-c4174154-1e2f-4b3e-89e7-9f94291edfb2	2025-06-24	1
 \.
 
 
@@ -6338,7 +6360,7 @@ COPY public.supplier_servicetag (id, name, name_ar, name_fr, name_de, name_en, s
 --
 
 COPY public.supplier_store (id, name, name_ar, name_fr, name_de, name_en, slug, image, is_verified, created_on, supplier_id) FROM stdin;
-4	Betwan Suppliers	\N	\N	\N	Betwan Suppliers	betwan-suppliersc3608791-a05a-4267-a1d3-20cc1b8df5d1	Store/images/betwan-suppliers3859400d-e3bb-47fa-82da-7a0ad33ff3.jpeg	t	2025-06-24	3
+4	Betwan Suppliers	\N	\N	\N	Betwan Suppliers	betwan-suppliersc3608791-a05a-4267-a1d3-20cc1b8df5d1	Store/images/betwan-suppliers3859400d-e3bb-47fa-82da-7a0ad33ff3.webp	t	2025-06-24	3
 \.
 
 
@@ -6495,7 +6517,7 @@ SELECT pg_catalog.setval('public.coms_supportclientchat_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 474, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 484, true);
 
 
 --
@@ -6509,7 +6531,7 @@ SELECT pg_catalog.setval('public.django_content_type_id_seq', 75, true);
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: b2b_user
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 55, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 63, true);
 
 
 --
