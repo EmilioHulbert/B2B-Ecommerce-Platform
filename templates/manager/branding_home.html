@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NashTech Solutions Website</title>
+    <title>NashTech Solutions KE</title>
     <link rel="stylesheet" href="{% static 'brand/css/style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -34,7 +34,7 @@
 </script>
 <body>
     <header class="header">
-        <a href="#" class="logo"><img src="{% static 'brand/images/image-logo.webp' %}" alt="NashTech Solutions"></a>
+        <a href="{% url 'manager:branding-home' %}" class="logo"><img src="{% static 'brand/images/image-logo.webp' %}" alt="NashTech Solutions"></a>
         <div class="fas fa-bars"></div>
         <nav class="navbar">
             <ul>
@@ -81,7 +81,7 @@
       <div class="about-popup-content">
         <span class="close-btn" onclick="toggleAboutPopup()">&times;</span>
         <p>
-          NashTech Solutions, founded in 2016, is a forward-thinking tech company focused on empowering clients through innovative technology and digital support. Starting as a small team offering software development, IT support, and hardware sales, NashTech quickly built a reputation for reliability and customer-centric solutions across SMEs, startups, and large businesses. By 2021, the company was incorporated, marking its evolution into a fully structured and scalable tech provider.
+          NashTech Solutions is a forward-thinking tech company focused on empowering clients through innovative technology and digital support. Starting as a small team offering software development, IT support, and hardware sales, NashTech quickly built a reputation for reliability and customer-centric solutions across SMEs, startups, and large businesses. By 2021, the company was incorporated, marking its evolution into a fully structured and scalable tech provider.
   
           Today, NashTech delivers a wide range of services, including app development for startups, ERP system deployment for industrial clients, and corporate tech training. The company is committed to providing tailored, scalable, and tech-driven solutions that automate systems, foster growth, and align with business goals, making them a trusted partner for digital transformation across industries.
         </p>
