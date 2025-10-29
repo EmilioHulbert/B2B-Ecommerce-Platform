@@ -811,7 +811,8 @@ body{
 
 .testimonials .testimonial-img {
     position: relative;
-    background: #000000;
+    /* background: #000000; */
+    background: #002e5f;
     overflow: hidden;
 }
 
