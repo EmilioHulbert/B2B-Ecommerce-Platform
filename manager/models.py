@@ -79,53 +79,46 @@ class Location(models.Model):
         return f"{self.name}"
 
 
-class Service(models.Model):
-    category = models.ForeignKey("ServiceCategory", on_delete=models.SET_NULL, null=True, related_name="services")
-    name = models.CharField(_("Name"), max_length=256)
-    description = models.TextField(
-        _("Description"),
-    )
-    slug = models.SlugField(
-        _("Safe Url"),
-        unique=True,
-        blank=True,
-        null=True,
-    )
-    created_on = models.DateField(_("Created on"), default=timezone.now)
+class ServiceBrand(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    icon = models.CharField(max_length=50, help_text="FontAwesome icon class")
+    order = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
-    def save(self, *args, **kwargs):
-        self.slug = f"{slugify(self.name)}-{uuid.uuid4()}"[:50]
+    class Meta:
+        ordering = ['order']
 
-        self.name = self.name
+    def __str__(self):
+        return self.title
 
-        super().save(*args, **kwargs)
+class Onboarding(models.Model):
+    CATEGORY_CHOICES = [
+        ('startup', 'Startup (New Idea)'),
+        ('existing', 'Existing Business'),
+        ('government', 'Government'),
+        ('ngo', 'NGO'),
+        ('other', 'Other'),
+    ]
 
-    def __str__(self) -> str:
-        return f"{self.name}"
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('contacted', 'Contacted'),
+        ('converted', 'Converted'),
+    ]
 
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
+    email = models.EmailField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
-class ServiceImage(models.Model):
-    service = models.ForeignKey(to=Service, on_delete=models.CASCADE)
-    image = models.ImageField(
-        verbose_name=_("Service Image"),
-        upload_to=get_file_path,
-        max_length=512,
-    )
-    slug = models.SlugField(
-        _("Safe Url"),
-        unique=True,
-        blank=True,
-        null=True,
-    )
-    created_on = models.DateField(_("Created on"), default=timezone.now)
+    class Meta:
+        ordering = ['-created_at']
 
-    def save(self, *args, **kwargs):
-        self.slug = f"{slugify(self.service.name)}-{uuid.uuid4()}"[:50]
-        super().save(*args, **kwargs)
-
-    def __str__(self) -> str:
-        return f"{self.service.name}"
-
+    def __str__(self):
+        return f"{self.email} - {self.get_category_display()}"
 
 class ServiceCategory(models.Model):
     name = models.CharField(max_length=512)
@@ -134,11 +127,78 @@ class ServiceCategory(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            self.slug = f"{slugify(self.name)}-{uuid.uuid4()}"[:50]
         super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
+
+
+
+class Service(models.Model):
+    category = models.ForeignKey(
+        ServiceCategory,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="services"
+    )
+    name = models.CharField(max_length=256)
+    subtitle = models.CharField(max_length=512, blank=True, null=True)
+    intro = models.TextField(blank=True, null=True)
+    description = models.TextField()
+    slug = models.SlugField(unique=True, blank=True, null=True)
+    created_on = models.DateField(default=timezone.now)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:  # ✅ stable slug
+            self.slug = f"{slugify(self.name)}-{uuid.uuid4()}"[:50]
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+
+
+"""REMAC ON 29TH OCT 25"""
+class ServiceFeature(models.Model):
+    service = models.ForeignKey(
+        Service,
+        on_delete=models.CASCADE,
+        related_name="features"
+    )
+    title = models.CharField(max_length=200)
+    icon = models.CharField(max_length=80, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    order = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ("order",)
+
+    def __str__(self):
+        return f"{self.service.name} — {self.title}"
+
+
+class ServiceImage(models.Model):
+    service = models.ForeignKey(
+        Service,
+        on_delete=models.CASCADE,
+        related_name="images"  # ✅ fixed
+    )
+    alt = models.CharField(max_length=255, blank=True, null=True)
+    image = models.ImageField(upload_to=get_file_path, max_length=512)
+    slug = models.SlugField(unique=True, blank=True, null=True)
+    created_on = models.DateField(default=timezone.now)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:  # ✅ stable slug
+            self.slug = f"{slugify(self.service.name)}-{uuid.uuid4()}"[:50]
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.service.name} image {self.pk}"
+
+
+
 
 class ContactMessage(models.Model):
     name = models.CharField(max_length=100)

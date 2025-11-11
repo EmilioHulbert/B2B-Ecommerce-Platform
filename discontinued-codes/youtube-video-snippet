@@ -1,0 +1,43 @@
+i<!-- Third column: YouTube video -->
+<div class="col-12 col-sm-12 col-md-12 col-lg-4">
+            <div class="card shadow h-100 d-flex flex-column justify-content-between">
+              <div id="youtube-container" style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; background: #f0f0f0;">
+                <div id="youtube-loader" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                  <div style="border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+                  <p style="margin-top: 10px; color: #666;">Loading video...</p>
+                </div>
+                <noscript>
+                  <p>To view this video, please enable JavaScript, or <a href="https://www.youtube.com/watch?v=zI2eCVrUTvU" target="_blank">watch it on YouTube</a>.</p>
+                </noscript>
+
+                <!-- <iframe
+                  id="youtube-iframe"
+                  src=""
+                  title="What is ERP?"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; display: none;">
+                </iframe> -->
+                <iframe
+  id="youtube-iframe"
+  src=""
+  referrerpolicy="strict-origin-when-cross-origin"
+  sandbox="allow-scripts allow-same-origin allow-fullscreen"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; display: none;">
+</iframe>
+
+              </div>
+                
+              <script src="{% static 'brand/js/youtube-script.js' %}"></script>
+               <link href="{% static 'brand/js/youtube-position.css' %}" rel="stylesheet">
+
+              <div class="p-3">
+                <h5 class="mb-2">How ERP Systems Work</h5>
+                <p class="small text-muted">
+                  Understand how ERP integrates operations, boosts efficiency, and streamlines business processes.
+                </p>
+              </div>
+            </div>
+          </div>

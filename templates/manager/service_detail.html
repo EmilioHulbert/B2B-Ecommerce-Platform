@@ -1,0 +1,98 @@
+{% extends '../utils/layout_brand.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<section id="home" class="home">
+    <h2>Home / Services</h2>
+</section>
+
+<!-- Hero Section -->
+<section class="py-5 bg-light" style="padding-top: 100px !important;">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-12 text-center" data-aos="fade-up">
+                <h1 class="display-4 fw-bold mb-3" style="color: #0d6938;">{{ service.name }}</h1>
+                {% if service.subtitle %}
+                  <p class="lead text-muted mb-4">{{ service.subtitle }}</p>
+                {% elif subtitle %}
+                  <p class="lead text-muted mb-4">{{ subtitle }}</p>
+                {% endif %}
+                <a href="{% url 'manager:onboarding' %}" class="btn btn-lg text-white rounded-pill px-4" style="background-color: #c9a040;">
+                    Get Started
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Description Section -->
+<section class="py-5 bg-white">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
+                {% if intro %}
+                    <h3 class="fw-bold mb-4" style="color: #0d6938;">{{ intro }}</h3>
+                {% endif %}
+                <p class="text-muted mb-3">{{ service.description }}</p>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                {% if service.images.all %}
+                    {% with img=service.images.all|first %}
+                        <img src="{{ img.image.url }}" alt="{{ img.alt|default:service.name }}" class="img-fluid rounded shadow-sm w-100" style="object-fit: cover; height: 400px;">
+                    {% endwith %}
+                {% else %}
+                    <div class="bg-light p-4 rounded h-100 d-flex align-items-center justify-content-center">
+                        <div class="text-center">
+                            <i class="fas fa-code fa-5x" style="color: #0d6938; opacity: 0.3;"></i>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5" style="background-color: #f8f9fa;">
+    <div class="container py-5">
+        <div class="row g-4">
+            {% for feature in service.features.all %}
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'0' }}00">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4 text-center">
+                        <div class="mb-3">
+                            {% if feature.icon %}
+                                <i class="fas fa-{{ feature.icon }} fa-3x" style="color: #c9a040;"></i>
+                            {% else %}
+                                <i class="fas fa-check fa-3x" style="color: #c9a040;"></i>
+                            {% endif %}
+                        </div>
+                        <h5 class="fw-bold mb-3">{{ feature.title }}</h5>
+                        <p class="text-muted mb-0">{{ feature.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+              <!-- Optional fallback if no features exist -->
+              <div class="col-12 text-center">
+                  <p class="text-muted">No detailed features listed for this service yet.</p>
+              </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-white">
+    <div class="container py-5">
+        <div class="text-center" data-aos="fade-up">
+            <h2 class="display-5 fw-bold mb-3" style="color: #0d6938;">Ready to Build Your Dream {% if 'web' in slug %}Website{% elif 'mobile' in slug %}App{% else %}Solution{% endif %}?</h2>
+            <p class="lead text-muted mb-4">Our team is ready to help you build the perfect {% if 'web' in slug %}website or web application{% elif 'mobile' in slug %}mobile application{% else %}solution{% endif %} to elevate your business.</p>
+            <a href="{% url 'manager:onboarding' %}" class="btn btn-lg text-white rounded-pill px-5" style="background-color: #c9a040;">
+                Get Started
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

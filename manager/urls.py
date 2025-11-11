@@ -21,6 +21,8 @@ urlpatterns = [
         name="showroom-detail",
     ),
     # services 
+    path('service/<slug:slug>/', views.service_detail, name='service_detail'),
+    path('onboarding/', views.onboarding, name='onboarding'),
     path("services/", views.ServiceListView.as_view(), name="services"),
     path("about/", views.AboutUsView.as_view(), name="about-us"),
     path("profile/", views.profile, name="profile"),

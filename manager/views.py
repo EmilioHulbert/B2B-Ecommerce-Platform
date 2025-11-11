@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views import View
 from django.views.generic import ListView, DetailView, TemplateView
@@ -20,6 +20,8 @@ from supplier.models import (
     ProductSubCategory,
 )
 from manager import models as ManagerModels
+from manager.models import  ServiceBrand as Service
+from manager.models import Onboarding
 from payment import models as PaymentModels
 
 from manager import tasks as ManagerTasks
@@ -104,17 +106,50 @@ import json
 #             'service_data': service_data,
 #         })
 
+# class BrandingView(View):
+#     def get(self, request):
+#         services = Service.objects.select_related('category').prefetch_related('serviceimage_set')
+
+#         service_data = json.dumps([
+#             {
+#                 'id': s.id,
+#                 'slug': s.slug,  # ✅ Add this
+#                 'name': s.name,
+#                 'description': s.description,
+#                 'category': s.category.name if s.category else None,
+#                 'images': [img.image.url for img in s.serviceimage_set.all()]
+#             }
+#             for s in services
+#         ])
+
+#         return render(request, 'manager/branding_home.html', {
+#             'service_data': service_data,
+#         })
+
+
+
 class BrandingView(View):
     def get(self, request):
-        services = Service.objects.select_related('category').prefetch_related('serviceimage_set')
+        services = (
+            Service.objects
+            .select_related('category')
+            .prefetch_related('images', 'features')
+        )
 
         service_data = json.dumps([
             {
                 'id': s.id,
+                'slug': s.slug,
                 'name': s.name,
+                'subtitle': s.subtitle,
+                'intro': s.intro,
                 'description': s.description,
                 'category': s.category.name if s.category else None,
-                'images': [img.image.url for img in s.serviceimage_set.all()]
+                'images': [img.image.url for img in s.images.all()],
+                'features': [
+                    {'title': f.title, 'icon': f.icon, 'description': f.description}
+                    for f in s.features.all()
+                ],
             }
             for s in services
         ])
@@ -122,6 +157,7 @@ class BrandingView(View):
         return render(request, 'manager/branding_home.html', {
             'service_data': service_data,
         })
+
 
 from django.core.mail import send_mail
 from .forms import ContactMessageForm
@@ -476,6 +512,260 @@ class ServiceListView(ListView):
 
         context["view_name"] = _("Services")
         return context
+
+
+# def service_detail(request, slug):
+#     """Service detail page"""
+#     # try:
+#     #     site_settings = SiteSettings.objects.first()
+#     # except SiteSettings.DoesNotExist:
+#     #     site_settings = None
+
+#     # Define service content based on slug
+#     services_data = {
+#         'web-development': {
+#             'title': 'Web Development',
+#             'subtitle': 'Transform your online presence with a comprehensive approach to both web design and development, including powerful web applications and backend integration',
+#             'description': 'Full-stack web development services creating responsive designs and building scalable web applications with frontend and backend development.',
+#             'intro': "What We Offer",
+#             'intro_detail': "At Remacode, we deliver comprehensive web development services with an integrated approach that includes both frontend and backend development. Whether you need a simple website, a complex web application, or custom backend solutions, we're here to help your business succeed online.",
+#             'image': 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80',
+#             'features': [
+#                 {
+#                     'title': 'Responsive Design',
+#                     'icon': 'desktop',
+#                     'description': 'Create responsive, modern websites that adapt seamlessly to any device, ensuring excellent user experience across platforms.'
+#                 },
+#                 {
+#                     'title': 'Full-Stack Development',
+#                     'icon': 'cogs',
+#                     'description': 'Specializes in creating robust web applications with dynamic functionalities, covering both frontend and backend development.'
+#                 },
+#                 {
+#                     'title': 'Backend Integration',
+#                     'icon': 'cloud',
+#                     'description': 'Build powerful, secure backend systems that enable features like user management and databases, integrating seamlessly with your website.'
+#                 }
+#             ]
+#         },
+#         'mobile-app-development': {
+#             'title': 'Mobile App Development',
+#             'subtitle': 'Elevate your business with our customized mobile app solutions designed for user engagement and high performance',
+#             'description': 'Our team specializes in crafting tailored mobile applications that drive engagement, streamline processes, and offer seamless user experiences on Android and iOS.',
+#             'intro': 'Our Mobile App Solutions',
+#             'intro_detail': 'We specialize in creating native and cross-platform mobile applications with user-centric design, focusing on intuitive navigation, appealing aesthetics, and seamless interaction.',
+#             'intro_detail2': 'Whether you need an e-commerce app, social networking platform, or custom enterprise solution, we balance performance and accessibility while ensuring security and optimization.',
+#             'image': 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80',
+#             'features': [
+#                 {
+#                     'title': 'Native & Cross-Platform Apps',
+#                     'icon': 'mobile-alt',
+#                     'description': 'Develop apps for Android and iOS that balance performance and accessibility across platforms.'
+#                 },
+#                 {
+#                     'title': 'User-Centric Design',
+#                     'icon': 'paint-brush',
+#                     'description': 'Focus on intuitive navigation, appealing aesthetics, and seamless interaction for optimal user experience.'
+#                 },
+#                 {
+#                     'title': 'Security & Performance',
+#                     'icon': 'shield-alt',
+#                     'description': 'Secure authentication, data encryption, and optimized load times ensure your app runs smoothly and safely.'
+#                 }
+#             ]
+#         },
+#         'management-information-systems': {
+#             'title': 'Management Information Systems',
+#             'subtitle': 'Strengthen your business with tailored management information systems',
+#             'description': 'Deliver efficient, user-friendly management information systems that streamline workflows, increase productivity, and provide actionable insights.',
+#             'intro': 'Our Management Solutions',
+#             'intro_detail': 'We provide comprehensive management information systems including ERP systems, healthcare management, and educational administration platforms tailored for SMEs and micro-businesses.',
+#             'intro_detail2': 'Our systems are built with focus on security, scalability, and adaptability to enable smooth technological evolution as your business grows.',
+#             'image': 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80',
+#             'features': [
+#                 {
+#                     'title': 'Real-Time Data Insights',
+#                     'icon': 'chart-line',
+#                     'description': 'Access real-time data to drive informed decision-making and monitor business performance effectively.'
+#                 },
+#                 {
+#                     'title': 'Enhanced Security',
+#                     'icon': 'lock',
+#                     'description': 'Advanced security protocols protect sensitive data and ensure compliance with industry standards.'
+#                 },
+#                 {
+#                     'title': 'Customizable Solutions',
+#                     'icon': 'cogs',
+#                     'description': 'Tailored to specific business requirements with flexible and scalable features adaptable to organizational growth.'
+#                 }
+#             ]
+#         },
+#         'ai-ml-development': {
+#             'title': 'AI & ML Development',
+#             'subtitle': 'Leverage cutting-edge artificial intelligence and machine learning solutions to drive automation, insights, and innovation',
+#             'description': 'Transform data into actionable insights with AI-powered solutions that help you make smarter decisions and drive sustainable growth.',
+#             'intro': 'What We Offer',
+#             'intro_detail': 'Our AI and machine learning solutions are designed to unlock new possibilities for your business through predictive analytics, intelligent automation, and natural language processing.',
+#             'intro_detail2': "With our team's expertise, we utilize data-driven insights to forecast trends, optimize operations, and enhance customer engagement with AI-driven solutions.",
+#             'image': 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80',
+#             'features': [
+#                 {
+#                     'title': 'Predictive Analytics',
+#                     'icon': 'chart-line',
+#                     'description': 'Utilize data-driven insights to forecast trends, optimize operations, and make informed business decisions.'
+#                 },
+#                 {
+#                     'title': 'Intelligent Automation',
+#                     'icon': 'robot',
+#                     'description': 'Streamline processes with AI-powered automation, reducing repetitive tasks and improving efficiency.'
+#                 },
+#                 {
+#                     'title': 'Natural Language Processing',
+#                     'icon': 'comments',
+#                     'description': 'Enhance customer engagement and streamline interactions with AI-driven language processing solutions.'
+#                 }
+#             ]
+#         },
+#         'erp-systems-custom-built-55e72d00-88b5-4e28-8059-6': {
+#             'title': 'IT Consultancy',
+#             'subtitle': 'Accelerate growth with expert IT consulting, delivering tailored solutions to meet your project goals efficiently and effectively',
+#             'description': 'Provide tailored IT consultancy to refine technology strategies, streamline operations, and enhance productivity aligned with business objectives.',
+#             'intro': 'Our IT Consulting Services',
+#             'intro_detail': 'We work alongside client teams to deliver solutions that improve efficiency, maximize resources, and meet long-term goals through expert guidance and support.',
+#             'image': 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80',
+#             'features': [
+#                 {
+#                     'title': 'Strategy Development',
+#                     'icon': 'lightbulb',
+#                     'description': 'Get a clear roadmap for your projects, designed to improve efficiency, maximize resources, and meet your long-term goals.'
+#                 },
+#                 {
+#                     'title': 'Technology Integration',
+#                     'icon': 'plug',
+#                     'description': 'Implement and integrate the best technologies to enhance functionality, security, and scalability.'
+#                 },
+#                 {
+#                     'title': 'Project Management',
+#                     'icon': 'tasks',
+#                     'description': 'Ensure projects are delivered on time and within budget, while adhering to high standards of quality.'
+#                 }
+#             ]
+#         },
+#         'search-engine-optimization': {
+#             'title': 'Search Engine Optimization',
+#             'subtitle': 'Increase your visibility and reach more customers with customized SEO strategies',
+#             'description': 'Data-driven SEO approach aimed at improving search rankings and converting website visits into leads.',
+#             'intro': 'Our SEO Services',
+#             'intro_detail': 'We employ customized SEO strategies including on-page optimization, content strategy, link building, and technical SEO to boost your online presence.',
+#             'image': 'https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=800&q=80',
+#             'features': [
+#                 {
+#                     'title': 'Increased Visibility',
+#                     'icon': 'eye',
+#                     'description': "Boost your brand's visibility on search engines to reach more potential customers."
+#                 },
+#                 {
+#                     'title': 'Organic Traffic Growth',
+#                     'icon': 'chart-line',
+#                     'description': 'Increase high-quality, organic traffic to your site through strategic optimization.'
+#                 },
+#                 {
+#                     'title': 'Targeted Audience Reach',
+#                     'icon': 'bullseye',
+#                     'description': 'Target your specific audience to ensure your message reaches the right people effectively.'
+#                 }
+#             ]
+#         }
+#     }
+
+#     service_data = services_data.get(slug)
+#     if not service_data:
+#         # Try to find in database
+#         service = get_object_or_404(ServiceBrand, title__iexact=slug.replace('-', ' '))
+#         context = {
+#             'service': service,
+#             # 'site_settings': site_settings,
+#         }
+#         return render(request, 'service_detail.html', context)
+
+#     context = {
+#         'service_data': service_data,
+#         # 'site_settings': site_settings,
+#         'slug': slug,
+#     }
+#     return render(request, 'manager/service_detail.html', context)
+
+
+def service_detail(request, slug):
+    service = get_object_or_404(Service, slug=slug)
+    # Ensure related objects prefetched
+    service = Service.objects.prefetch_related('images', 'features', 'category').get(pk=service.pk)
+
+    # If subtitle or intro are empty, derive them
+    subtitle = service.subtitle or ""
+    intro = service.intro or ""
+    if not intro:
+        # derive intro as first 1-2 sentences from description
+        desc = (service.description or "").strip()
+        if desc:
+            # naive sentence split by '.' — good enough for most data
+            parts = [p.strip() for p in desc.split('.') if p.strip()]
+            if parts:
+                intro = parts[0]
+                if len(parts) > 1:
+                    intro = intro + '. ' + parts[1] if len(parts[0]) < 100 else intro
+
+    context = {
+        'service': service,
+        'subtitle': subtitle,
+        'intro': intro,
+        'slug': service.slug,
+    }
+    return render(request, 'manager/service_detail.html', context)
+
+def onboarding(request):
+    """Multi-step onboarding flow"""
+    # try:
+    #     site_settings = SiteSettings.objects.first()
+    # except SiteSettings.DoesNotExist:
+    #     site_settings = None
+
+    # Get current step from session or default to 1
+    step = request.session.get('onboarding_step', 1)
+
+    if request.method == 'POST':
+        if step == 1:
+            # Step 1: Category selection
+            category = request.POST.get('category')
+            if category:
+                request.session['onboarding_category'] = category
+                request.session['onboarding_step'] = 2
+                return redirect('manager:onboarding')
+        elif step == 2:
+            # Step 2: Email input
+            email = request.POST.get('email')
+            category = request.session.get('onboarding_category')
+            if email and category:
+                # Save to database
+                Onboarding.objects.create(
+                    category=category,
+                    email=email
+                )
+                # Clear session
+                request.session['onboarding_step'] = 3
+                return redirect('manager:onboarding')
+        elif step == 3:
+            # Step 3: Completed - reset and redirect
+            request.session.pop('onboarding_step', None)
+            request.session.pop('onboarding_category', None)
+            return redirect('manager:branding-home')
+
+    context = {
+        # 'site_settings': site_settings,
+        'step': step,
+    }
+    return render(request, 'manager/onboarding.html', context)
+
 
 
 class AboutUsView(TemplateView):
